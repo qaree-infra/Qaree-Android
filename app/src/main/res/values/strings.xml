@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Qaree</string>
+    <string name="skip">Skip</string>
+    <string name="easy_search">Easy Search</string>
+    <string name="read_anytime_any_where"><![CDATA[Read Anytime & Any Where]]></string>
+    <string name="read_anytime_and_any_where_using_your_mobile_to_buy_the_books">Read anytime and any where using your mobile to buy the books</string>
+    <string name="search_on_easy_to_find_the_books_with_the_help_of_categories">Search on easy to find the books with the help of categories</string>
+    <string name="all_the_books_that_you_purchased_will_store_in_the_my_books_it_can_access_by_any_device">All the books that you purchased will store in the my books. it can access by any device</string>
+    <string name="personal_library">Personal Library</string>
+    <string name="get_started">Get Started</string>
+</resources>
