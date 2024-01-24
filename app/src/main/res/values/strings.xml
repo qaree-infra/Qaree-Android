@@ -8,4 +8,7 @@
     <string name="all_the_books_that_you_purchased_will_store_in_the_my_books_it_can_access_by_any_device">All the books that you purchased will store in the my books. it can access by any device</string>
     <string name="personal_library">Personal Library</string>
     <string name="get_started">Get Started</string>
+    <string name="next">next</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
