@@ -5,4 +5,6 @@
     <color name="blue">#0B3151</color>
     <color name="gray">#B1ACAC</color>
     <color name="gray_indicator">#D9D9D9</color>
+    <color name="text_layout_stroke_color">#B1ACAC</color>
+    <color name="checkbox_color">#837A7A</color>
 </resources>

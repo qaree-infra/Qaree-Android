@@ -6,6 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.MarginLayoutParams
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.muhmmad.qaree.databinding.FragmentOnBoardingBinding
@@ -13,6 +16,10 @@ import com.muhmmad.qaree.databinding.FragmentOnBoardingBinding
 class OnBoardingFragment : Fragment() {
     private val binding: FragmentOnBoardingBinding by lazy {
         FragmentOnBoardingBinding.inflate(layoutInflater)
+    }
+
+    private val nav: NavController by lazy {
+        findNavController()
     }
 
     override fun onCreateView(
@@ -31,10 +38,10 @@ class OnBoardingFragment : Fragment() {
                 viewPager.currentItem += 1
             }
             tvSkip.setOnClickListener {
-
+                nav.navigate(R.id.action_nav_on_boarding_to_loginFragment)
             }
             btnStart.setOnClickListener {
-
+                nav.navigate(R.id.action_nav_on_boarding_to_loginFragment)
             }
         }
     }
