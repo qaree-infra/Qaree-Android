@@ -12,9 +12,4 @@
         <item name="windowSplashScreenAnimationDuration">200</item>
         <item name="postSplashScreenTheme">@style/Theme.Qaree</item>
     </style>
-
-    <style name="Theme.Indicator" parent="Theme.AppCompat.DayNight">
-
-    </style>
-
 </resources>

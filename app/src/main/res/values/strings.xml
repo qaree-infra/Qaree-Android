@@ -9,16 +9,20 @@
     <string name="personal_library">Personal Library</string>
     <string name="get_started">Get Started</string>
     <string name="next">next</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="sign_in">Sign in</string>
     <string name="e_mail">E-mail</string>
     <string name="forgot_password">forgot password ?</string>
     <string name="password">Password</string>
-    <string name="remember_me">Remember me</string>
+    <string name="remember_me">Remember Me</string>
     <string name="or">or</string>
     <string name="don_t_have_an_account">Don\'t have an account ?</string>
     <string name="sign_up">Sign up</string>
     <string name="google">Google</string>
     <string name="facebook">Facebook</string>
+    <string name="email_hint">example@gmail.com</string>
+    <string name="password_hint">**********</string>
+    <string name="login_with_google">Login with Google</string>
+    <string name="login_with_facebook">Login with facebook</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
