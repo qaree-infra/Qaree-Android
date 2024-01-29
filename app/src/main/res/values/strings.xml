@@ -25,4 +25,7 @@
     <string name="login_with_facebook">Login with facebook</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="create_account">Create Account</string>
+    <string name="fill_your_information_below_or_register_with_your_social_account">Fill your information below or register with your social account</string>
+    <string name="name">name</string>
 </resources>
