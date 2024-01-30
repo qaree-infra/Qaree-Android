@@ -27,6 +27,18 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
+            tvForgotPassword.setOnClickListener {
+                nav.navigate(R.id.action_loginFragment_to_newPasswordFragment)
+            }
+            tvSignIn.setOnClickListener {
+
+            }
+            btnGoogle.setOnClickListener {
+
+            }
+            btnFacebook.setOnClickListener {
+
+            }
             tvSignUp.setOnClickListener {
                 nav.navigate(R.id.action_loginFragment_to_registerFragment)
             }
