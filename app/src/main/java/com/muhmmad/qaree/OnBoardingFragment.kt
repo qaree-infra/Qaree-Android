@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.view.ViewGroup.MarginLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
@@ -65,7 +64,7 @@ class OnBoardingFragment : Fragment() {
     }
 
     private fun initIndicator() {
-        TabLayoutMediator(binding.tabIndicator, binding.viewPager) { tab, position ->
+        TabLayoutMediator(binding.tabIndicator, binding.viewPager) { _, _ ->
         }.attach()
 
         for (i in 0 until binding.tabIndicator.tabCount) {
