@@ -27,4 +27,8 @@
     <string name="fill_your_information_below_or_register_with_your_social_account">Fill your information below or register with your social account</string>
     <string name="name">Name</string>
     <string name="have_an_account">Have an account ?</string>
+    <string name="please_enter_the_e_mail">Please enter the E-mail</string>
+    <string name="e_mail_address_is_not_valid">E-mail address is not valid</string>
+    <string name="please_enter_the_password">Please enter the password</string>
+    <string name="the_password_is_not_valid">The password is not valid</string>
 </resources>

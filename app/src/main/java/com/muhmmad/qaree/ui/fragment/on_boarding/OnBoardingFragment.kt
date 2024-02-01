@@ -1,4 +1,4 @@
-package com.muhmmad.qaree
+package com.muhmmad.qaree.ui.fragment.on_boarding
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,6 +10,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
+import com.muhmmad.qaree.R
 import com.muhmmad.qaree.databinding.FragmentOnBoardingBinding
 
 class OnBoardingFragment : Fragment() {

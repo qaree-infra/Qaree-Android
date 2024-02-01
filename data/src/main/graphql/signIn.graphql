@@ -1,4 +1,4 @@
-mutation signIn($email:String,$pass:String){
+mutation signIn($email:String!,$pass:String!){
     signin(password: $pass, email: $email) {
         message,
         access_token,

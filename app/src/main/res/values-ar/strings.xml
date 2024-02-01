@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="please_enter_the_e_mail">Please enter the E-mail</string>
+    <string name="e_mail_address_is_not_valid">E-mail address is not valid</string>
+    <string name="please_enter_the_password">Please enter the password</string>
+    <string name="the_password_is_not_valid">The password is not valid</string>
 </resources>
