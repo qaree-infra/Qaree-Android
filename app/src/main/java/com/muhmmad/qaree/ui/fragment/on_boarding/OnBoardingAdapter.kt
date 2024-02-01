@@ -1,8 +1,9 @@
-package com.muhmmad.qaree
+package com.muhmmad.qaree.ui.fragment.on_boarding
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.muhmmad.qaree.R
 import com.muhmmad.qaree.databinding.OnBoardingLayoutBinding
 
 class OnBoardingAdapter : RecyclerView.Adapter<OnBoardingAdapter.ViewHolder>() {

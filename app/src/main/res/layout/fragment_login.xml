@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".LoginFragment">
+    tools:context=".ui.fragment.login.LoginFragment">
 
     <TextView
         android:id="@+id/tv_sign_in"
@@ -49,6 +49,7 @@
         app:boxCornerRadiusTopStart="@dimen/_8sdp"
         app:boxStrokeColor="@color/text_layout_stroke_color"
         app:boxStrokeWidth="@dimen/_1sdp"
+        app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_email">
@@ -90,6 +91,7 @@
         app:boxCornerRadiusTopStart="@dimen/_8sdp"
         app:boxStrokeColor="@color/text_layout_stroke_color"
         app:boxStrokeWidth="1dp"
+        app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_password"
