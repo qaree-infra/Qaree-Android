@@ -19,7 +19,8 @@ object NetworkModule {
     @Singleton
     fun provideApolloClient(): ApolloClient {
         return ApolloClient.Builder()
-            .serverUrl("https://publishingcompany-backend.onrender.com/graphql").build()
+            .serverUrl("https://publishingcompany-backend.onrender.com/graphql")
+            .build()
     }
 
     @Provides

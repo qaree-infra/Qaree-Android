@@ -1,6 +1,7 @@
 package com.muhmmad.data.repo
 
 import com.muhmmad.domain.model.LoginResponse
+import com.muhmmad.domain.model.NetworkResponse
 import com.muhmmad.domain.remote.AuthClient
 import com.muhmmad.domain.repo.AuthRepo
 
@@ -9,5 +10,5 @@ class AuthRepoImpl(private val client: AuthClient) : AuthRepo {
         TODO("Not yet implemented")
     }
 
-    override suspend fun login(email: String, pass: String): LoginResponse = client.login(email, pass)
+    override suspend fun login(email: String, pass: String): NetworkResponse<LoginResponse> = client.login(email, pass)
 }

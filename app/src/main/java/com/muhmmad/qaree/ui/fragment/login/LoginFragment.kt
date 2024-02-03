@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import com.muhmmad.qaree.MainActivity
 import com.muhmmad.qaree.R
 import com.muhmmad.qaree.databinding.FragmentLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,6 +23,9 @@ private const val TAG = "LoginFragment"
 class LoginFragment : Fragment() {
     private val binding: FragmentLoginBinding by lazy {
         FragmentLoginBinding.inflate(layoutInflater)
+    }
+    private val activity: MainActivity by lazy {
+        getActivity() as MainActivity
     }
     private val nav: NavController by lazy {
         findNavController()
@@ -65,8 +69,13 @@ class LoginFragment : Fragment() {
     private fun checkStatus() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.state.collect {
-                Log.i(TAG, it.isLoading.toString())
-                Log.i(TAG, it.loginResponse.toString())
+                if (it.isLoading) activity.showLoading()
+                else activity.dismissLoading()
+
+                if (it.error?.isNotEmpty() == true) activity.showError(it.error.toString())
+                else if (it.loginResponse != null) {
+                    Log.i(TAG, it.loginResponse.toString())
+                }
             }
         }
     }
