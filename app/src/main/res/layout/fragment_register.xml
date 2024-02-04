@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".RegisterFragment">
+    tools:context=".ui.fragment.register.RegisterFragment">
 
     <TextView
         android:id="@+id/tv_create_account"
@@ -64,6 +64,7 @@
         app:boxCornerRadiusTopStart="@dimen/_8sdp"
         app:boxStrokeColor="@color/text_layout_stroke_color"
         app:boxStrokeWidth="@dimen/_1sdp"
+        app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_name">
@@ -105,6 +106,7 @@
         app:boxCornerRadiusTopStart="@dimen/_8sdp"
         app:boxStrokeColor="@color/text_layout_stroke_color"
         app:boxStrokeWidth="@dimen/_1sdp"
+        app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_email">
@@ -146,6 +148,7 @@
         app:boxCornerRadiusTopStart="@dimen/_8sdp"
         app:boxStrokeColor="@color/text_layout_stroke_color"
         app:boxStrokeWidth="1dp"
+        app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_password"

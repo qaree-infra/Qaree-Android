@@ -1,0 +1,5 @@
+mutation signUp($name:String!,$email:String!,$pass:String!) {
+    signup(userData: {email: $email, name: $name, password: $pass}) {
+        message
+    }
+}

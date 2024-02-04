@@ -1,8 +1,8 @@
-package com.muhmmad.qaree.ui.fragment.login
+package com.muhmmad.qaree.ui.fragment.register
 
 import android.os.Bundle
 import android.util.Log
-import android.util.Patterns.EMAIL_ADDRESS
+import android.util.Patterns
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,26 +11,26 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import com.muhmmad.qaree.ui.activity.main.MainActivity
 import com.muhmmad.qaree.R
-import com.muhmmad.qaree.databinding.FragmentLoginBinding
+import com.muhmmad.qaree.databinding.FragmentRegisterBinding
+import com.muhmmad.qaree.ui.activity.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
-private const val TAG = "LoginFragment"
+private const val TAG = "RegisterFragment"
 
 @AndroidEntryPoint
-class LoginFragment : Fragment() {
-    private val binding: FragmentLoginBinding by lazy {
-        FragmentLoginBinding.inflate(layoutInflater)
-    }
+class RegisterFragment : Fragment() {
     private val activity: MainActivity by lazy {
         getActivity() as MainActivity
+    }
+    private val binding: FragmentRegisterBinding by lazy {
+        FragmentRegisterBinding.inflate(layoutInflater)
     }
     private val nav: NavController by lazy {
         findNavController()
     }
-    private val viewModel: LoginViewModel by viewModels()
+    private val viewModel: RegisterViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,24 +44,22 @@ class LoginFragment : Fragment() {
         binding.apply {
             //checkStatus
             checkStatus()
-            tvForgotPassword.setOnClickListener {
-                nav.navigate(R.id.action_loginFragment_to_forgetPasswordFragment)
-            }
-            btnSignIn.setOnClickListener {
+            btnSignUp.setOnClickListener {
+                val name = layoutName.editText?.text.toString()
                 val email = layoutEmail.editText?.text.toString()
                 val pass = layoutPassword.editText?.text.toString()
-                if (checkValidation(email, pass)) {
-                    viewModel.login(email, pass)
+                if (checkValidation(name, email, pass)) {
+                    viewModel.register(name, email, pass)
                 }
-            }
-            btnGoogle.setOnClickListener {
-
             }
             btnFacebook.setOnClickListener {
 
             }
-            tvSignUp.setOnClickListener {
-                nav.navigate(R.id.action_loginFragment_to_registerFragment)
+            btnGoogle.setOnClickListener {
+
+            }
+            tvSignIn.setOnClickListener {
+                nav.navigate(R.id.action_registerFragment_to_loginFragment)
             }
         }
     }
@@ -73,18 +71,31 @@ class LoginFragment : Fragment() {
                 else activity.dismissLoading()
 
                 if (it.error?.isNotEmpty() == true) activity.showError(it.error.toString())
-                else if (it.loginResponse != null) {
-                    Log.i(TAG, it.loginResponse.toString())
+                else if (it.registerResponse != null) {
+                    Log.i(TAG, it.registerResponse.toString())
+                    val bundle = Bundle()
+                    bundle.putString("email", binding.layoutEmail.editText?.text.toString())
+                    nav.navigate(R.id.action_registerFragment_to_verificationFragment, bundle)
                 }
             }
         }
     }
 
-    private fun checkValidation(email: String, pass: String): Boolean {
+    private fun checkValidation(name: String, email: String, pass: String): Boolean {
+        if (name.isEmpty()) {
+            binding.layoutName.error = getString(R.string.please_enter_your_name)
+            return false
+        } else if (name.length < 8) {
+            binding.layoutName.error = getString(R.string.please_enter_your_full_name)
+            return false
+        } else {
+            binding.layoutName.error = null
+        }
+
         if (email.isEmpty()) {
             binding.layoutEmail.error = getString(R.string.please_enter_the_e_mail)
             return false
-        } else if (!EMAIL_ADDRESS.matcher(email).matches()) {
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             binding.layoutEmail.error = getString(R.string.e_mail_address_is_not_valid)
             return false
         } else {
@@ -101,5 +112,10 @@ class LoginFragment : Fragment() {
             binding.layoutPassword.error = null
         }
         return true
+    }
+
+    override fun onStop() {
+        viewModel.destroy()
+        super.onStop()
     }
 }

@@ -31,4 +31,14 @@
     <string name="e_mail_address_is_not_valid">E-mail address is not valid</string>
     <string name="please_enter_the_password">Please enter the password</string>
     <string name="the_password_is_not_valid">The password is not valid</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="please_enter_your_name">Please enter your name</string>
+    <string name="please_enter_your_full_name">Please enter your full-name</string>
+    <string name="verify_code">Verify Code</string>
+    <string name="please_enter_the_code_we_just_sent_to_email">Please enter the code we just sent to email</string>
+    <string name="didn_t_receive_otp">Didn’t receive OTP?</string>
+    <string name="resend_code"><u>Resend code</u></string>
+    <string name="verify">Verify</string>
+    <string name="the_otp_is_not_valid">The otp is not valid</string>
 </resources>

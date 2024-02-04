@@ -1,4 +1,4 @@
-package com.muhmmad.qaree
+package com.muhmmad.qaree.ui.activity.main
 
 import android.app.Dialog
 import android.content.Context
@@ -6,25 +6,20 @@ import android.content.res.Configuration
 import android.graphics.RenderEffect
 import android.graphics.Shader
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.muhmmad.qaree.databinding.ActivityMainBinding
 import com.muhmmad.qaree.databinding.ErrorLayoutBinding
 import com.muhmmad.qaree.databinding.LoadingLayoutBinding
 import com.muhmmad.qaree.databinding.ToastLayoutBinding
-import com.muhmmad.qaree.ui.fragment.login.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
-
-private const val TAG = "MainActivity"
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -63,10 +58,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun showLoading() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            Log.i(TAG, "DONE")
-            addBlurEffect()
-        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) addBlurEffect()
         loading.show()
     }
 
@@ -89,7 +81,7 @@ class MainActivity : AppCompatActivity() {
         val toastBinding = ToastLayoutBinding.inflate(LayoutInflater.from(context))
         toastBinding.message.text = message
         val toast = Toast(context)
-        toast.duration = Toast.LENGTH_SHORT
+        toast.duration = Toast.LENGTH_LONG
         toast.view = toastBinding.root
         toast.show()
     }

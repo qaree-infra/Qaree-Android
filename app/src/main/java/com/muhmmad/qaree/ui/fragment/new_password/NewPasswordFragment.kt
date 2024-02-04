@@ -1,15 +1,15 @@
-package com.muhmmad.qaree
+package com.muhmmad.qaree.ui.fragment.new_password
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.muhmmad.qaree.databinding.FragmentVerificationBinding
+import com.muhmmad.qaree.databinding.FragmentNewPasswordBinding
 
-class VerificationFragment : Fragment() {
-    private val binding: FragmentVerificationBinding by lazy {
-        FragmentVerificationBinding.inflate(layoutInflater)
+class NewPasswordFragment : Fragment() {
+    private val binding: FragmentNewPasswordBinding by lazy {
+        FragmentNewPasswordBinding.inflate(layoutInflater)
     }
 
     override fun onCreateView(
