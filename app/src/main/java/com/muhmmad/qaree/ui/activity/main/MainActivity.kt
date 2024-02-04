@@ -14,6 +14,12 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
+import com.muhmmad.qaree.R
 import com.muhmmad.qaree.databinding.ActivityMainBinding
 import com.muhmmad.qaree.databinding.ErrorLayoutBinding
 import com.muhmmad.qaree.databinding.LoadingLayoutBinding
@@ -29,6 +35,9 @@ class MainActivity : AppCompatActivity() {
     private val context: Context by lazy {
         binding.root.context
     }
+    private val nav: NavController by lazy {
+        (supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment).navController
+    }
     private lateinit var loading: Dialog
 
     init {
@@ -40,6 +49,11 @@ class MainActivity : AppCompatActivity() {
         installSplashScreen()
         setContentView(binding.root)
         binding.apply {
+            //Handle action bar
+            handleActionBar()
+
+
+
             loading = getLoading()
         }
     }
@@ -55,6 +69,23 @@ class MainActivity : AppCompatActivity() {
         )
         dialog.setCancelable(false)
         return dialog
+    }
+
+    private fun handleActionBar() {
+        setSupportActionBar(binding.toolBar)
+        //Show navigation button
+        supportActionBar?.apply {
+            setDisplayShowTitleEnabled(false)
+            setDisplayHomeAsUpEnabled(true)
+            setDisplayShowHomeEnabled(true)
+        }
+
+        // Set up the AppBarConfiguration with your navigation graph
+        val appBarConfiguration = AppBarConfiguration(nav.graph, null)
+        setupActionBarWithNavController(nav, appBarConfiguration)
+        binding.toolBar.setNavigationOnClickListener {
+            nav.navigateUp()
+        }
     }
 
     fun showLoading() {
