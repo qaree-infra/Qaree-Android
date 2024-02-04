@@ -69,11 +69,12 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.4.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
-
     //Domain Module
     implementation(project(":domain"))
     //Data Module
     implementation(project(":data"))
+    //OTP view
+    implementation("com.github.aabhasr1:OtpView:v1.1.2-ktx")
 }
 
 kapt {

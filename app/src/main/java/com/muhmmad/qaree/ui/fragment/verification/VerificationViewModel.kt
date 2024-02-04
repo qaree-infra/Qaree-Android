@@ -1,10 +1,9 @@
-package com.muhmmad.qaree.ui.fragment.login
+package com.muhmmad.qaree.ui.fragment.verification
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.muhmmad.domain.model.LoginResponse
-import com.muhmmad.domain.model.NetworkResponse
-import com.muhmmad.domain.usecase.LoginUseCase
+import com.muhmmad.domain.model.VerificationResponse
+import com.muhmmad.domain.usecase.VerificationUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -13,35 +12,36 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase) : ViewModel() {
-    private val _state = MutableStateFlow(LoginState())
+class VerificationViewModel @Inject constructor(private val useCase: VerificationUseCase) :
+    ViewModel() {
+
+    private val _state = MutableStateFlow(VerificationState())
     val state = _state.asStateFlow()
 
-    fun login(email: String, pass: String) {
+    fun verifyAccount(email: String, otp: String) {
         viewModelScope.launch {
             _state.update {
                 it.copy(
-                    loginResponse = null,
+                    verificationResponse = null,
                     isLoading = true,
                     error = null
                 )
             }
 
-            loginUseCase(email, pass).apply {
+            useCase(email, otp).apply {
                 _state.update {
                     it.copy(
-                        loginResponse = this.data,
+                        verificationResponse = data,
                         isLoading = false,
-                        error = this.message
+                        error = message
                     )
                 }
             }
         }
     }
 
-
-    data class LoginState(
-        val loginResponse: LoginResponse? = null,
+    data class VerificationState(
+        val verificationResponse: VerificationResponse? = null,
         val isLoading: Boolean = false,
         val error: String? = null
     )

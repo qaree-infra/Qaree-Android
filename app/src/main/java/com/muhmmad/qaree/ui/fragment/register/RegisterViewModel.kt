@@ -1,10 +1,8 @@
-package com.muhmmad.qaree.ui.fragment.login
+package com.muhmmad.qaree.ui.fragment.register
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.muhmmad.domain.model.LoginResponse
-import com.muhmmad.domain.model.NetworkResponse
-import com.muhmmad.domain.usecase.LoginUseCase
+import com.muhmmad.domain.usecase.RegisterUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -13,35 +11,44 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase) : ViewModel() {
-    private val _state = MutableStateFlow(LoginState())
+class RegisterViewModel @Inject constructor(private val useCase: RegisterUseCase) : ViewModel() {
+    private val _state = MutableStateFlow(RegisterState())
     val state = _state.asStateFlow()
 
-    fun login(email: String, pass: String) {
+    fun register(name: String, email: String, pass: String) {
         viewModelScope.launch {
             _state.update {
                 it.copy(
-                    loginResponse = null,
+                    registerResponse = null,
                     isLoading = true,
                     error = null
                 )
             }
 
-            loginUseCase(email, pass).apply {
+            useCase(name, email, pass).apply {
                 _state.update {
                     it.copy(
-                        loginResponse = this.data,
+                        registerResponse = data,
                         isLoading = false,
-                        error = this.message
+                        error = message
                     )
                 }
             }
         }
     }
 
+    fun destroy() {
+        _state.update {
+            it.copy(
+                registerResponse = null,
+                isLoading = false,
+                error = null
+            )
+        }
+    }
 
-    data class LoginState(
-        val loginResponse: LoginResponse? = null,
+    data class RegisterState(
+        val registerResponse: String? = null,
         val isLoading: Boolean = false,
         val error: String? = null
     )

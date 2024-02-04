@@ -1,0 +1,6 @@
+mutation verifyAccount($otp:String!,$email:String!) {
+    verifyAccount(otp: $otp, email: $email) {
+        message,
+        success
+    }
+}

@@ -16,7 +16,7 @@
         android:theme="@style/Theme.Qaree"
         tools:targetApi="33">
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.activity.main.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.Qaree.Splash">
             <intent-filter>
