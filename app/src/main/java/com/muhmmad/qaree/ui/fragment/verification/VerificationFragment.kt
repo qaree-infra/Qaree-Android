@@ -1,7 +1,6 @@
 package com.muhmmad.qaree.ui.fragment.verification
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -62,6 +61,10 @@ class VerificationFragment : Fragment() {
                     viewModel.verifyAccount(email, otpView.otp.toString())
                 }
             }
+
+            tvResendCode.setOnClickListener {
+                viewModel.resendVerifyOTP(email)
+            }
         }
     }
 
@@ -75,6 +78,8 @@ class VerificationFragment : Fragment() {
                 else if (it.verificationResponse != null) {
                     activity.showMessage(it.verificationResponse.message.toString())
                     nav.navigate(R.id.action_verificationFragment_to_loginFragment)
+                } else if (it.resendVerifyResponse != null) {
+                    activity.showMessage(it.resendVerifyResponse.message.toString())
                 }
             }
         }

@@ -24,4 +24,7 @@ class AuthRepoImpl(private val client: AuthClient) : AuthRepo {
         email: String,
         otp: String
     ): NetworkResponse<VerificationResponse> = client.verifyAccount(email, otp)
+
+    override suspend fun resendVerifyOTP(email: String): NetworkResponse<VerificationResponse> =
+        client.resendVerifyOTP(email)
 }
