@@ -23,12 +23,13 @@ class VerificationViewModel @Inject constructor(private val useCase: Verificatio
             _state.update {
                 it.copy(
                     verificationResponse = null,
+                    resendVerifyResponse = null,
                     isLoading = true,
                     error = null
                 )
             }
 
-            useCase(email, otp).apply {
+            useCase.verifyAccount(email, otp).apply {
                 _state.update {
                     it.copy(
                         verificationResponse = data,
@@ -40,8 +41,32 @@ class VerificationViewModel @Inject constructor(private val useCase: Verificatio
         }
     }
 
+    fun resendVerifyOTP(email: String) {
+        viewModelScope.launch {
+            _state.update {
+                it.copy(
+                    resendVerifyResponse = null,
+                    verificationResponse = null,
+                    isLoading = true,
+                    error = null
+                )
+            }
+
+            useCase.resendVerifyOTP(email).apply {
+                _state.update {
+                    it.copy(
+                        resendVerifyResponse = data,
+                        isLoading = false,
+                        error = message
+                    )
+                }
+            }
+        }
+    }
+
     data class VerificationState(
         val verificationResponse: VerificationResponse? = null,
+        val resendVerifyResponse: VerificationResponse? = null,
         val isLoading: Boolean = false,
         val error: String? = null
     )

@@ -10,6 +10,7 @@ import com.muhmmad.domain.model.NetworkResponse.Error
 import com.muhmmad.domain.model.NetworkResponse.Success
 import com.muhmmad.domain.model.VerificationResponse
 import com.muhmmad.domain.remote.AuthClient
+import com.muhmmad.qaree.ResendVerificationOTPMutation
 import com.muhmmad.qaree.SignInMutation
 import com.muhmmad.qaree.SignUpMutation
 import com.muhmmad.qaree.VerifyAccountMutation
@@ -94,6 +95,28 @@ class ApolloAuthClient(
                 }
             }
 
+        } catch (ex: Exception) {
+            return Error(ex.localizedMessage?.toString()!!)
+        }
+    }
+
+    override suspend fun resendVerifyOTP(email: String): NetworkResponse<VerificationResponse> {
+        try {
+            val response = checkResponse(
+                apolloClient.mutation(ResendVerificationOTPMutation(email = email)).execute()
+            )
+
+            return when (response) {
+                is Success -> {
+                    Success(response.data?.resendValidatingOTP?.toVerificationResponse()!!)
+                }
+
+                else -> {
+                    Error(
+                        response.message.toString()
+                    )
+                }
+            }
         } catch (ex: Exception) {
             return Error(ex.localizedMessage?.toString()!!)
         }

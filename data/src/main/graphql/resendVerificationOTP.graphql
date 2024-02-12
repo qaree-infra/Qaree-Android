@@ -1,0 +1,6 @@
+mutation resendVerificationOTP($email:String!) {
+    resendValidatingOTP(email: $email) {
+        message,
+        success
+    }
+}

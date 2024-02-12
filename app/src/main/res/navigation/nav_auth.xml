@@ -10,6 +10,9 @@
         android:name="com.muhmmad.qaree.ui.fragment.on_boarding.OnBoardingFragment"
         android:label="fragment_on_boarding"
         tools:layout="@layout/fragment_on_boarding">
+        <argument
+            android:name="ShowAppBar"
+            android:defaultValue="false" />
         <action
             android:id="@+id/action_nav_on_boarding_to_loginFragment"
             app:destination="@id/loginFragment"
@@ -22,6 +25,9 @@
         android:name="com.muhmmad.qaree.ui.fragment.login.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login">
+        <argument
+            android:name="ShowAppBar"
+            android:defaultValue="false" />
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
@@ -34,6 +40,9 @@
         android:name="com.muhmmad.qaree.ui.fragment.register.RegisterFragment"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register">
+        <argument
+            android:name="ShowAppBar"
+            android:defaultValue="true" />
         <action
             android:id="@+id/action_registerFragment_to_verificationFragment"
             app:destination="@id/verificationFragment" />
@@ -46,6 +55,9 @@
         android:name="com.muhmmad.qaree.ui.fragment.verification.VerificationFragment"
         android:label="fragment_verification"
         tools:layout="@layout/fragment_verification">
+        <argument
+            android:name="ShowAppBar"
+            android:defaultValue="true" />
         <action
             android:id="@+id/action_verificationFragment_to_loginFragment"
             app:destination="@id/loginFragment"
@@ -57,5 +69,9 @@
         android:id="@+id/forgetPasswordFragment"
         android:name="com.muhmmad.qaree.ui.fragment.forget_password.ForgetPasswordFragment"
         android:label="fragment_forget_password"
-        tools:layout="@layout/fragment_forget_password" />
+        tools:layout="@layout/fragment_forget_password">
+        <argument
+            android:name="ShowAppBar"
+            android:defaultValue="true" />
+    </fragment>
 </navigation>

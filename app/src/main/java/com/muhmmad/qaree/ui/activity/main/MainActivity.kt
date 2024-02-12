@@ -14,11 +14,11 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
 import com.muhmmad.qaree.R
 import com.muhmmad.qaree.databinding.ActivityMainBinding
 import com.muhmmad.qaree.databinding.ErrorLayoutBinding
@@ -52,8 +52,6 @@ class MainActivity : AppCompatActivity() {
             //Handle action bar
             handleActionBar()
 
-
-
             loading = getLoading()
         }
     }
@@ -86,6 +84,15 @@ class MainActivity : AppCompatActivity() {
         binding.toolBar.setNavigationOnClickListener {
             nav.navigateUp()
         }
+
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(binding.navHostFragment.id) as NavHostFragment
+
+        navHostFragment.navController.addOnDestinationChangedListener { controller, destination, arguments ->
+            run {
+                binding.toolBar.isVisible = arguments?.getBoolean("ShowAppBar", true) == true
+            }
+        }
     }
 
     fun showLoading() {
@@ -104,6 +111,7 @@ class MainActivity : AppCompatActivity() {
         errorBinding.message.text = error
         val toast = Toast(context)
         toast.duration = Toast.LENGTH_SHORT
+
         toast.view = errorBinding.root
         toast.show()
     }
