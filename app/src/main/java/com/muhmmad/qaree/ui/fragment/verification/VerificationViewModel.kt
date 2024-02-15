@@ -14,7 +14,6 @@ import javax.inject.Inject
 @HiltViewModel
 class VerificationViewModel @Inject constructor(private val useCase: VerificationUseCase) :
     ViewModel() {
-
     private val _state = MutableStateFlow(VerificationState())
     val state = _state.asStateFlow()
 

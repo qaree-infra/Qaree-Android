@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
@@ -49,7 +50,7 @@ class RegisterFragment : Fragment() {
                 val email = layoutEmail.editText?.text.toString()
                 val pass = layoutPassword.editText?.text.toString()
                 if (checkValidation(name, email, pass)) {
-                    viewModel.register(name, email, pass)
+                    viewModel.register()
                 }
             }
             btnFacebook.setOnClickListener {
@@ -60,6 +61,15 @@ class RegisterFragment : Fragment() {
             }
             tvSignIn.setOnClickListener {
                 nav.navigate(R.id.action_registerFragment_to_loginFragment)
+            }
+            layoutName.editText?.addTextChangedListener {
+                viewModel.updateName(it.toString())
+            }
+            layoutEmail.editText?.addTextChangedListener {
+                viewModel.updateEmail(it.toString())
+            }
+            layoutPassword.editText?.addTextChangedListener {
+                viewModel.updatePassword(it.toString())
             }
         }
     }
@@ -112,6 +122,13 @@ class RegisterFragment : Fragment() {
             binding.layoutPassword.error = null
         }
         return true
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.layoutName.editText?.setText(viewModel.name.value)
+        binding.layoutEmail.editText?.setText(viewModel.email.value)
+        binding.layoutPassword.editText?.setText(viewModel.password.value)
     }
 
     override fun onStop() {

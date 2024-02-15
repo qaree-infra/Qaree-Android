@@ -16,8 +16,20 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase) : ViewModel() {
     private val _state = MutableStateFlow(LoginState())
     val state = _state.asStateFlow()
+    private val _email = MutableStateFlow("")
+    val email = _email.asStateFlow()
+    private val _password = MutableStateFlow("")
+    val password = _password.asStateFlow()
 
-    fun login(email: String, pass: String) {
+    fun updateEmail(newEmail: String) {
+        _email.update { newEmail }
+    }
+
+    fun updatePassword(pass: String) {
+        _password.update { pass }
+    }
+
+    fun login() {
         viewModelScope.launch {
             _state.update {
                 it.copy(
@@ -27,7 +39,7 @@ class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase)
                 )
             }
 
-            loginUseCase(email, pass).apply {
+            loginUseCase(_email.value, _password.value).apply {
                 _state.update {
                     it.copy(
                         loginResponse = this.data,
