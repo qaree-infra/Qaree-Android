@@ -49,4 +49,7 @@
     <string name="your_new_password_must_be_different_from_previously_used_password">your_new_password_must_be_different_from_previously_used_password</string>
     <string name="Your_new_password_must_be_different_from_previously_used_password">your new password must be different from previously used password</string>
     <string name="create_new_password">Create new password</string>
+    <string name="forget_password">Forget Password</string>
+    <string name="request_changing_password">Request changing password</string>
+    <string name="submit">Submit</string>
 </resources>
