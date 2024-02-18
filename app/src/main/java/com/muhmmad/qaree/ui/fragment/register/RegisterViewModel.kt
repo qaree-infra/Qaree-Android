@@ -14,8 +14,26 @@ import javax.inject.Inject
 class RegisterViewModel @Inject constructor(private val useCase: RegisterUseCase) : ViewModel() {
     private val _state = MutableStateFlow(RegisterState())
     val state = _state.asStateFlow()
+    private val _name = MutableStateFlow("")
+    private val _email = MutableStateFlow("")
+    private val _password = MutableStateFlow("")
+    val name = _name.asStateFlow()
+    val email = _email.asStateFlow()
+    val password = _password.asStateFlow()
+    fun updateName(newName: String) {
+        _name.update { newName }
+    }
 
-    fun register(name: String, email: String, pass: String) {
+    fun updateEmail(newEmail: String) {
+        _email.update { newEmail }
+    }
+
+    fun updatePassword(pass: String) {
+        _password.update { pass }
+    }
+
+
+    fun register() {
         viewModelScope.launch {
             _state.update {
                 it.copy(
@@ -25,7 +43,7 @@ class RegisterViewModel @Inject constructor(private val useCase: RegisterUseCase
                 )
             }
 
-            useCase(name, email, pass).apply {
+            useCase(_name.value, _email.value, _password.value).apply {
                 _state.update {
                     it.copy(
                         registerResponse = data,

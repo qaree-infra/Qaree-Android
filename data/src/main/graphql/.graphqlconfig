@@ -5,7 +5,6 @@
     "endpoints": {
       "Default GraphQL Endpoint": {
         "url": "https://publishingcompany-backend.onrender.com/graphql",
-
         "introspect": true
       }
     }
