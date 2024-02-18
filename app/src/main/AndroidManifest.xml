@@ -16,6 +16,9 @@
         android:theme="@style/Theme.Qaree"
         tools:targetApi="33">
         <activity
+            android:name=".fragment_home"
+            android:exported="false" />
+        <activity
             android:name=".fram_forgit_password"
             android:exported="false" />
         <activity
