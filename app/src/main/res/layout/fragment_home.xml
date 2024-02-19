@@ -5,5 +5,79 @@
     android:layout_height="match_parent"
     tools:context=".ui.fragment.home.HomeFragment">
 
+    <TextView
+        android:id="@+id/tv_special_offers"
+        android:layout_width="154dp"
+        android:layout_height="42dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="@string/special_offers"
+        android:textColor="@color/blue"
+        android:textSize="@dimen/_15ssp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="16dp"
+        tools:ignore="MissingConstraints" />
+
+
+
+    <TextView
+        android:id="@+id/tv_activities"
+
+        android:layout_width="154dp"
+        android:layout_height="42dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="@string/activities"
+        android:textColor="@color/blue"
+        android:textSize="@dimen/_15ssp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="189dp"
+        tools:ignore="MissingConstraints" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="238dp"
+        android:layout_height="33dp"
+        tools:layout_editor_absoluteX="137dp"
+        tools:layout_editor_absoluteY="280dp"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/tv_top_authors"
+
+        android:layout_width="154dp"
+        android:layout_height="42dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="@string/top_authors"
+        android:textColor="@color/blue"
+        android:textSize="@dimen/_15ssp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="354dp"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/tv_new_releases"
+
+        android:layout_width="154dp"
+        android:layout_height="42dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="@string/new_releases"
+        android:textColor="@color/blue"
+        android:textSize="@dimen/_15ssp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="537dp"
+        tools:ignore="MissingConstraints" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="372dp"
+        android:layout_height="140dp"
+        tools:layout_editor_absoluteX="19dp"
+        tools:layout_editor_absoluteY="397dp"
+        android:orientation="horizontal"
+        tools:ignore=",MissingConstraints"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
