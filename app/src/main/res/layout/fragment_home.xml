@@ -60,6 +60,7 @@
         android:layout_width="372dp"
         android:layout_height="140dp"
         android:orientation="horizontal"
+        android:stateListAnimator="@layout/list_items"
         tools:ignore=",MissingConstraints"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="396dp" />
@@ -83,6 +84,7 @@
         android:layout_width="372dp"
         android:layout_height="140dp"
         android:orientation="horizontal"
+        android:stateListAnimator="@layout/list_items"
         tools:ignore=",MissingConstraints"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="579dp" />

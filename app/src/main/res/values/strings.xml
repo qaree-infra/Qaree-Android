@@ -56,4 +56,5 @@
     <string name="top_authors">Top Authors</string>
     <string name="new_releases">New Releases</string>
     <string name="activities">Activities</string>
+    <string name="item_name">item name</string>
 </resources>
