@@ -52,4 +52,9 @@
     <string name="forget_password">Forget Password</string>
     <string name="request_changing_password">Request changing password</string>
     <string name="submit">Submit</string>
+    <string name="special_offers">Special Offers</string>
+    <string name="top_authors">Top Authors</string>
+    <string name="new_releases">New Releases</string>
+    <string name="activities">Activities</string>
+    <string name="item_name">item name</string>
 </resources>
