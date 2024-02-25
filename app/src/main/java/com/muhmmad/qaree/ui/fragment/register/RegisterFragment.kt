@@ -53,10 +53,10 @@ class RegisterFragment : Fragment() {
                     viewModel.register()
                 }
             }
-            btnFacebook.setOnClickListener {
+            rlFacebook.setOnClickListener {
 
             }
-            btnGoogle.setOnClickListener {
+            rlGoogle.setOnClickListener {
 
             }
             tvSignIn.setOnClickListener {
