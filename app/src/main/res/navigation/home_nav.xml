@@ -73,5 +73,17 @@
         <argument
             android:name="ShowAppBar"
             android:defaultValue="true" />
+        <action
+            android:id="@+id/action_forgetPasswordFragment_to_newPasswordFragment"
+            app:destination="@id/newPasswordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newPasswordFragment"
+        android:name="com.muhmmad.qaree.ui.fragment.new_password.NewPasswordFragment"
+        android:label="fragment_new_password"
+        tools:layout="@layout/fragment_new_password">
+        <argument
+            android:name="ShowAppBar"
+            android:defaultValue="true" />
     </fragment>
 </navigation>

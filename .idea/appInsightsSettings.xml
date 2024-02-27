@@ -27,10 +27,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.muhmmad.qaree" />
+                  <option name="mobileSdkAppId" value="1:175117706905:android:34be3fbea282fedead3a08" />
+                  <option name="projectId" value="qaree-12837" />
+                  <option name="projectNumber" value="175117706905" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

@@ -1,11 +1,8 @@
 package com.muhmmad.qaree.di
 
 import com.apollographql.apollo3.ApolloClient
-import com.muhmmad.data.remote.ApolloAuthClient
-import com.muhmmad.data.repo.AuthRepoImpl
-import com.muhmmad.domain.remote.AuthClient
-import com.muhmmad.domain.repo.AuthRepo
-import com.muhmmad.domain.usecase.LoginUseCase
+import com.muhmmad.data.remote.RemoteDataSourceImpl
+import com.muhmmad.domain.remote.RemoteDataSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,7 +22,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideAuthClient(apolloClient: ApolloClient): AuthClient {
-        return ApolloAuthClient(apolloClient)
+    fun provideAuthClient(apolloClient: ApolloClient): RemoteDataSource {
+        return RemoteDataSourceImpl(apolloClient)
     }
 }

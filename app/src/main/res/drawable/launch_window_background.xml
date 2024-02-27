@@ -3,8 +3,8 @@
     <item android:drawable="@color/white" />
 
     <item
-        android:width="@dimen/_100sdp"
-        android:height="@dimen/_100sdp"
+        android:width="@dimen/_70sdp"
+        android:height="@dimen/_70sdp"
         android:drawable="@drawable/ic_logo"
         android:gravity="center" />
 </layer-list>
