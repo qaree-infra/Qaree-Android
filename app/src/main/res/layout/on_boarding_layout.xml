@@ -19,7 +19,7 @@
         android:fontFamily="@font/poppins"
         android:gravity="center"
         android:text="@string/easy_search"
-        android:textColor="@color/blue"
+        android:textColor="@color/primary_color"
         android:textSize="@dimen/_18ssp"
         android:textStyle="bold" />
 

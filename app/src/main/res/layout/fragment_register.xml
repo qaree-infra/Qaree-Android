@@ -11,10 +11,9 @@
         android:id="@+id/tv_create_account"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_40sdp"
         android:fontFamily="@font/poppins_bold"
         android:text="@string/create_account"
-        android:textColor="@color/blue"
+        android:textColor="@color/primary_color"
         android:textSize="@dimen/_20ssp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -214,70 +213,80 @@
             android:background="@color/black" />
     </LinearLayout>
 
-    <ImageButton
-        android:id="@+id/btn_google"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_45sdp"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:background="@drawable/auth0_bg"
-        android:contentDescription="@string/login_with_google"
-        android:paddingHorizontal="@dimen/_8sdp"
-        android:paddingVertical="@dimen/_6sdp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ll_divider"
-        app:srcCompat="@drawable/ic_google" />
-
-    <TextView
-        android:id="@+id/tv_google"
+    <RelativeLayout
+        android:id="@+id/rl_google"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_50sdp"
-        android:layout_marginTop="@dimen/_3sdp"
-        android:fontFamily="@font/poppins"
-        android:text="@string/google"
-        android:textColor="@color/black"
-        android:textSize="@dimen/_10ssp"
+        app:layout_constraintBottom_toBottomOf="@id/rl_facebook"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_google" />
+        app:layout_constraintTop_toTopOf="@id/rl_facebook">
 
-    <ImageButton
-        android:id="@+id/btn_facebook"
+        <ImageButton
+            android:id="@+id/iv_google"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/auth0_bg"
+            android:contentDescription="@string/login_with_google"
+            android:paddingHorizontal="@dimen/_8sdp"
+            android:paddingVertical="@dimen/_6sdp"
+            app:srcCompat="@drawable/ic_google" />
+
+        <TextView
+            android:id="@+id/tv_google"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/iv_google"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/poppins"
+            android:text="@string/google"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_10ssp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_facebook"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:layout_marginEnd="@dimen/_50sdp"
-        android:background="@drawable/auth0_bg"
-        android:contentDescription="@string/login_with_facebook"
-        android:paddingHorizontal="@dimen/_8sdp"
-        android:paddingVertical="@dimen/_6sdp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ll_divider"
-        app:srcCompat="@drawable/ic_facebook" />
-
-    <TextView
-        android:id="@+id/tv_facebook"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_3sdp"
         android:layout_marginEnd="@dimen/_45sdp"
-        android:fontFamily="@font/poppins"
-        android:text="@string/facebook"
-        android:textColor="@color/black"
-        android:textSize="@dimen/_10ssp"
+        android:gravity="center"
+        app:layout_constraintBottom_toTopOf="@id/ll_signin"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_facebook" />
+        app:layout_constraintTop_toBottomOf="@id/ll_divider">
 
+        <ImageButton
+            android:id="@+id/iv_facebook"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/auth0_bg"
+            android:contentDescription="@string/login_with_facebook"
+            android:paddingHorizontal="@dimen/_8sdp"
+            android:paddingVertical="@dimen/_6sdp"
+            app:srcCompat="@drawable/ic_facebook" />
+
+        <TextView
+            android:id="@+id/tv_facebook"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/iv_facebook"
+            android:fontFamily="@font/poppins"
+            android:text="@string/facebook"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_10ssp" />
+    </RelativeLayout>
 
     <LinearLayout
+        android:id="@+id/ll_signin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/_15sdp"
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rl_facebook">
 
         <TextView
             android:id="@+id/tv_do_not_have_account"
@@ -295,7 +304,7 @@
             android:layout_marginStart="@dimen/_6sdp"
             android:fontFamily="@font/poppins_bold"
             android:text="@string/sign_in"
-            android:textColor="@color/blue"
+            android:textColor="@color/primary_color"
             android:textSize="@dimen/_12ssp"
             android:textStyle="bold" />
     </LinearLayout>
