@@ -10,19 +10,12 @@
 
     <style name="Theme.Splash" parent="Base.Theme.Qaree">
         <item name="android:windowBackground">@drawable/launch_window_background</item>
-
         <!-- System UI Configurations-->
-        <item name="android:statusBarColor">@color/primary_color</item>
-        <item name="android:windowLightStatusBar">false
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar">true
         </item> <!-- For making status bar content color dark -->
-        <item name="android:navigationBarColor">@color/primary_color</item>
-        <item name="android:windowLightNavigationBar">false
+        <item name="android:navigationBarColor">@color/white</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">false
         </item>  <!-- For making Navigation bar content color dark -->
     </style>
-    <!--    <style name="Theme.Qaree.Splash" parent="Theme.SplashScreen">-->
-    <!--        <item name="windowSplashScreenBackground">@color/white</item>-->
-    <!--        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_splash</item>-->
-    <!--        <item name="windowSplashScreenAnimationDuration">200</item>-->
-    <!--        <item name="postSplashScreenTheme">@style/Theme.Qaree</item>-->
-    <!--    </style>-->
 </resources>

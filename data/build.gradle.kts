@@ -50,4 +50,7 @@ dependencies {
     implementation("com.apollographql.apollo:apollo-android-support:1.0.0")
     //Domain Module
     implementation(project(":domain"))
+    //DataStore
+    implementation("androidx.datastore:datastore:1.0.0")
+
 }

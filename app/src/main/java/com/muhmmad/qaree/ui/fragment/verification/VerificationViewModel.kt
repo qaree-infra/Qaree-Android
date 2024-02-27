@@ -3,7 +3,7 @@ package com.muhmmad.qaree.ui.fragment.verification
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.muhmmad.domain.model.VerificationResponse
-import com.muhmmad.domain.usecase.VerificationUseCase
+import com.muhmmad.domain.usecase.AuthUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class VerificationViewModel @Inject constructor(private val useCase: VerificationUseCase) :
+class VerificationViewModel @Inject constructor(private val useCase: AuthUseCase) :
     ViewModel() {
     private val _state = MutableStateFlow(VerificationState())
     val state = _state.asStateFlow()

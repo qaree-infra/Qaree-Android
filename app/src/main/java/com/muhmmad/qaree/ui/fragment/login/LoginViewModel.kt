@@ -3,8 +3,7 @@ package com.muhmmad.qaree.ui.fragment.login
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.muhmmad.domain.model.LoginResponse
-import com.muhmmad.domain.model.NetworkResponse
-import com.muhmmad.domain.usecase.LoginUseCase
+import com.muhmmad.domain.usecase.AuthUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -13,7 +12,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase) : ViewModel() {
+class LoginViewModel @Inject constructor(private val authUseCase: AuthUseCase) : ViewModel() {
     private val _state = MutableStateFlow(LoginState())
     val state = _state.asStateFlow()
     private val _email = MutableStateFlow("")
@@ -39,7 +38,7 @@ class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase)
                 )
             }
 
-            loginUseCase(_email.value, _password.value).apply {
+            authUseCase.login(_email.value, _password.value).apply {
                 _state.update {
                     it.copy(
                         loginResponse = this.data,
