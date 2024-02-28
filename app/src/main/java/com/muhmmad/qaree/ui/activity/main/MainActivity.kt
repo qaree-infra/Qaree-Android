@@ -156,6 +156,14 @@ class MainActivity : AppCompatActivity() {
         wrapper.applyOverrideConfiguration(configuration)
     }
 
+    fun authProcess() {
+
+    }
+
+    fun goToHome() {
+
+    }
+
     companion object {
         val currentLocale: Locale = Locale("en")
     }

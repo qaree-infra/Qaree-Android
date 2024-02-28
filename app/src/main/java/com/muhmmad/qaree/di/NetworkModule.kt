@@ -1,7 +1,11 @@
 package com.muhmmad.qaree.di
 
+import androidx.datastore.core.DataStore
 import com.apollographql.apollo3.ApolloClient
+import com.muhmmad.data.local.LocalDataSourceImpl
 import com.muhmmad.data.remote.RemoteDataSourceImpl
+import com.muhmmad.domain.local.LocalDataSource
+import com.muhmmad.domain.model.UserData
 import com.muhmmad.domain.remote.RemoteDataSource
 import dagger.Module
 import dagger.Provides
@@ -22,7 +26,12 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideAuthClient(apolloClient: ApolloClient): RemoteDataSource {
+    fun provideRemoteDataSource(apolloClient: ApolloClient): RemoteDataSource {
         return RemoteDataSourceImpl(apolloClient)
     }
+
+    @Provides
+    @Singleton
+    fun provideLocalDataSource(dataStore: DataStore<UserData>): LocalDataSource =
+        LocalDataSourceImpl(dataStore)
 }

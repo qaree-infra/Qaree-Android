@@ -28,6 +28,7 @@ class VerificationFragment : Fragment() {
         findNavController()
     }
     private val viewModel: VerificationViewModel by viewModels()
+    private var isForgetPassword: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,6 +43,7 @@ class VerificationFragment : Fragment() {
             //checkStatus
             checkStatus()
             val email: String = arguments?.getString("email", "").toString()
+            isForgetPassword = arguments?.getBoolean("forgetPassword", false) == true
             tvEmail.text = email
 
 
@@ -50,7 +52,11 @@ class VerificationFragment : Fragment() {
                 }
 
                 override fun onOTPComplete(otp: String) {
-                    viewModel.verifyAccount(email, otp)
+                    if (isForgetPassword) viewModel.validateOTPPassword(
+                        email,
+                        otpView.otp.toString()
+                    )
+                    else viewModel.verifyAccount(email, otpView.otp.toString())
                 }
             }
 
@@ -58,12 +64,17 @@ class VerificationFragment : Fragment() {
                 if (otpView.otp?.length!! < 6) {
                     activity.showError(getString(R.string.the_otp_is_not_valid))
                 } else {
-                    viewModel.verifyAccount(email, otpView.otp.toString())
+                    if (isForgetPassword) viewModel.validateOTPPassword(
+                        email,
+                        otpView.otp.toString()
+                    )
+                    else viewModel.verifyAccount(email, otpView.otp.toString())
                 }
             }
 
             tvResendCode.setOnClickListener {
-                viewModel.resendVerifyOTP(email)
+                if (isForgetPassword) viewModel.resendOTPPassword(email)
+                else viewModel.resendVerifyOTP(email)
             }
         }
     }
@@ -77,7 +88,14 @@ class VerificationFragment : Fragment() {
                 if (it.error?.isNotEmpty() == true) activity.showError(it.error.toString())
                 else if (it.verificationResponse != null) {
                     activity.showMessage(it.verificationResponse.message.toString())
-                    nav.navigate(R.id.action_verificationFragment_to_loginFragment)
+                    if (isForgetPassword) {
+                        val bundle = Bundle()
+                        bundle.putString("token", "Bearer ${it.verificationResponse.reset_token}")
+                        nav.navigate(
+                            R.id.action_verificationFragment_to_newPasswordFragment,
+                            bundle
+                        )
+                    } else nav.navigate(R.id.action_verificationFragment_to_loginFragment)
                 } else if (it.resendVerifyResponse != null) {
                     activity.showMessage(it.resendVerifyResponse.message.toString())
                 }

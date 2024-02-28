@@ -2,7 +2,8 @@ package com.muhmmad.qaree.ui.fragment.verification
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.muhmmad.domain.model.VerificationResponse
+import com.muhmmad.domain.model.BaseResponse
+import com.muhmmad.domain.model.ValidatePasswordOTPResponse
 import com.muhmmad.domain.usecase.AuthUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -31,7 +32,7 @@ class VerificationViewModel @Inject constructor(private val useCase: AuthUseCase
             useCase.verifyAccount(email, otp).apply {
                 _state.update {
                     it.copy(
-                        verificationResponse = data,
+                        verificationResponse = data?.toValidatePasswordOTPResponse(),
                         isLoading = false,
                         error = message
                     )
@@ -63,9 +64,62 @@ class VerificationViewModel @Inject constructor(private val useCase: AuthUseCase
         }
     }
 
+    fun validateOTPPassword(email: String, otp: String) {
+        viewModelScope.launch {
+            _state.update {
+                it.copy(
+                    resendVerifyResponse = null,
+                    verificationResponse = null,
+                    isLoading = true,
+                    error = null
+                )
+            }
+
+            useCase.validatePasswordOTP(email = email, otp = otp).apply {
+                _state.update {
+                    it.copy(
+                        verificationResponse = data,
+                        isLoading = false,
+                        error = message
+                    )
+                }
+            }
+        }
+    }
+
+    fun resendOTPPassword(email: String) {
+        viewModelScope.launch {
+            _state.update {
+                it.copy(
+                    resendVerifyResponse = null,
+                    verificationResponse = null,
+                    isLoading = true,
+                    error = null
+                )
+            }
+
+            useCase.resendPasswordOTP(email).apply {
+                _state.update {
+                    it.copy(
+                        resendVerifyResponse = data,
+                        isLoading = false,
+                        error = message
+                    )
+                }
+            }
+        }
+    }
+
+    private fun BaseResponse.toValidatePasswordOTPResponse(): ValidatePasswordOTPResponse =
+        ValidatePasswordOTPResponse(
+            message = message,
+            success = success,
+            reset_token = "",
+        )
+
     data class VerificationState(
-        val verificationResponse: VerificationResponse? = null,
-        val resendVerifyResponse: VerificationResponse? = null,
+        val verificationResponse: ValidatePasswordOTPResponse? = null,
+        val resendVerifyResponse: BaseResponse? = null,
         val isLoading: Boolean = false,
         val error: String? = null
     )
