@@ -45,14 +45,22 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        initSplashScreen()
         super.onCreate(savedInstanceState)
-        installSplashScreen()
         setContentView(binding.root)
         binding.apply {
             //Handle action bar
             handleActionBar()
 
             loading = getLoading()
+        }
+    }
+
+    private fun initSplashScreen() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            installSplashScreen()
+        } else {
+            setTheme(R.style.Theme_Qaree)
         }
     }
 

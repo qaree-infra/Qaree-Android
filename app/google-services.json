@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "175117706905",
+    "project_id": "qaree-12837",
+    "storage_bucket": "qaree-12837.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:175117706905:android:34be3fbea282fedead3a08",
+        "android_client_info": {
+          "package_name": "com.muhmmad.qaree"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCWHtHHgN1tCDPZvZfAIGo35_nu6Vu5res"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

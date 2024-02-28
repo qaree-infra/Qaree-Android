@@ -2,6 +2,7 @@ package com.muhmmad.data
 
 import com.muhmmad.domain.model.LoginResponse
 import com.muhmmad.domain.model.VerificationResponse
+import com.muhmmad.qaree.ForgetPasswordMutation
 import com.muhmmad.qaree.ResendVerificationOTPMutation
 import com.muhmmad.qaree.SignInMutation
 import com.muhmmad.qaree.VerifyAccountMutation
@@ -19,6 +20,12 @@ fun VerifyAccountMutation.VerifyAccount.toVerificationResponse(): VerificationRe
     )
 
 fun ResendVerificationOTPMutation.ResendValidatingOTP.toVerificationResponse(): VerificationResponse =
+    VerificationResponse(
+        message = message ?: "",
+        success = success ?: false
+    )
+
+fun ForgetPasswordMutation.ForgetPassword.toVerificationResponse(): VerificationResponse =
     VerificationResponse(
         message = message ?: "",
         success = success ?: false

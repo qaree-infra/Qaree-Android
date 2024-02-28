@@ -9,15 +9,16 @@ import com.muhmmad.domain.model.NetworkResponse
 import com.muhmmad.domain.model.NetworkResponse.Error
 import com.muhmmad.domain.model.NetworkResponse.Success
 import com.muhmmad.domain.model.VerificationResponse
-import com.muhmmad.domain.remote.AuthClient
+import com.muhmmad.domain.remote.RemoteDataSource
+import com.muhmmad.qaree.ForgetPasswordMutation
 import com.muhmmad.qaree.ResendVerificationOTPMutation
 import com.muhmmad.qaree.SignInMutation
 import com.muhmmad.qaree.SignUpMutation
 import com.muhmmad.qaree.VerifyAccountMutation
 
-class ApolloAuthClient(
+class RemoteDataSourceImpl(
     private val apolloClient: ApolloClient
-) : AuthClient {
+) : RemoteDataSource {
     override suspend fun login(email: String, pass: String): NetworkResponse<LoginResponse> {
         try {
             val response = checkResponse(
@@ -115,6 +116,26 @@ class ApolloAuthClient(
                     Error(
                         response.message.toString()
                     )
+                }
+            }
+        } catch (ex: Exception) {
+            return Error(ex.localizedMessage?.toString()!!)
+        }
+    }
+
+    override suspend fun forgotPassword(email: String): NetworkResponse<VerificationResponse> {
+        try {
+            val response = checkResponse(
+                apolloClient.mutation(ForgetPasswordMutation(email = email)).execute()
+            )
+
+            return when (response) {
+                is Success -> {
+                    Success(response.data?.forgetPassword?.toVerificationResponse()!!)
+                }
+
+                else -> {
+                    Error(response.message.toString())
                 }
             }
         } catch (ex: Exception) {

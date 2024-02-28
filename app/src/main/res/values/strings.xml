@@ -57,8 +57,19 @@
     <string name="new_releases">New Releases</string>
     <string name="activities">Activities</string>
     <string name="item_name">item name</string>
+    <
+    <
+    <
+    <
+    <
+    <
+    < HEAD
     <string name="current_reading">Current Reading</string>
     <string name="want_to_read">Want to read</string>
     <string name="adding">+</string>
     <string name="finished_reading">Finished Reading</string>
+    =======
+    <string name="the_password_is_not_matches_the_confirmation_password">The password is not matches the confirmation password</string>
+    <string name="current_Reading">Current reading</string>
+    >>>>>>> d9a6a30d8cbdee0a0251803f3b7a6b072df85eb7
 </resources>

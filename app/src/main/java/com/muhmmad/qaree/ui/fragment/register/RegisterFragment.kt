@@ -18,8 +18,6 @@ import com.muhmmad.qaree.ui.activity.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
-private const val TAG = "RegisterFragment"
-
 @AndroidEntryPoint
 class RegisterFragment : Fragment() {
     private val activity: MainActivity by lazy {
@@ -53,10 +51,10 @@ class RegisterFragment : Fragment() {
                     viewModel.register()
                 }
             }
-            btnFacebook.setOnClickListener {
+            rlFacebook.setOnClickListener {
 
             }
-            btnGoogle.setOnClickListener {
+            rlGoogle.setOnClickListener {
 
             }
             tvSignIn.setOnClickListener {
@@ -82,7 +80,6 @@ class RegisterFragment : Fragment() {
 
                 if (it.error?.isNotEmpty() == true) activity.showError(it.error.toString())
                 else if (it.registerResponse != null) {
-                    Log.i(TAG, it.registerResponse.toString())
                     val bundle = Bundle()
                     bundle.putString("email", binding.layoutEmail.editText?.text.toString())
                     nav.navigate(R.id.action_registerFragment_to_verificationFragment, bundle)

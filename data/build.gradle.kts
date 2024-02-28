@@ -9,8 +9,7 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        minSdk = 28
-
+        minSdk = 26
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
@@ -51,4 +50,7 @@ dependencies {
     implementation("com.apollographql.apollo:apollo-android-support:1.0.0")
     //Domain Module
     implementation(project(":domain"))
+    //DataStore
+    implementation("androidx.datastore:datastore:1.0.0")
+
 }
