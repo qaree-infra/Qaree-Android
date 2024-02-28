@@ -2,18 +2,24 @@ package com.muhmmad.data.remote
 
 import com.apollographql.apollo3.ApolloClient
 import com.muhmmad.data.NetworkOperations.checkResponse
+import com.muhmmad.data.toBaseResponse
 import com.muhmmad.data.toLoginResponse
+import com.muhmmad.data.toValidateOTPResponse
 import com.muhmmad.data.toVerificationResponse
 import com.muhmmad.domain.model.LoginResponse
 import com.muhmmad.domain.model.NetworkResponse
 import com.muhmmad.domain.model.NetworkResponse.Error
 import com.muhmmad.domain.model.NetworkResponse.Success
-import com.muhmmad.domain.model.VerificationResponse
+import com.muhmmad.domain.model.ValidatePasswordOTPResponse
+import com.muhmmad.domain.model.BaseResponse
 import com.muhmmad.domain.remote.RemoteDataSource
 import com.muhmmad.qaree.ForgetPasswordMutation
+import com.muhmmad.qaree.ResendPasswordOTPMutation
 import com.muhmmad.qaree.ResendVerificationOTPMutation
+import com.muhmmad.qaree.ResetPasswordMutation
 import com.muhmmad.qaree.SignInMutation
 import com.muhmmad.qaree.SignUpMutation
+import com.muhmmad.qaree.ValidatePasswordOTPMutation
 import com.muhmmad.qaree.VerifyAccountMutation
 
 class RemoteDataSourceImpl(
@@ -78,7 +84,7 @@ class RemoteDataSourceImpl(
     override suspend fun verifyAccount(
         email: String,
         otp: String
-    ): NetworkResponse<VerificationResponse> {
+    ): NetworkResponse<BaseResponse> {
         try {
             val response = checkResponse(
                 apolloClient.mutation(VerifyAccountMutation(otp = otp, email = email)).execute()
@@ -101,7 +107,7 @@ class RemoteDataSourceImpl(
         }
     }
 
-    override suspend fun resendVerifyOTP(email: String): NetworkResponse<VerificationResponse> {
+    override suspend fun resendVerifyOTP(email: String): NetworkResponse<BaseResponse> {
         try {
             val response = checkResponse(
                 apolloClient.mutation(ResendVerificationOTPMutation(email = email)).execute()
@@ -123,7 +129,7 @@ class RemoteDataSourceImpl(
         }
     }
 
-    override suspend fun forgotPassword(email: String): NetworkResponse<VerificationResponse> {
+    override suspend fun forgotPassword(email: String): NetworkResponse<BaseResponse> {
         try {
             val response = checkResponse(
                 apolloClient.mutation(ForgetPasswordMutation(email = email)).execute()
@@ -138,6 +144,76 @@ class RemoteDataSourceImpl(
                     Error(response.message.toString())
                 }
             }
+        } catch (ex: Exception) {
+            return Error(ex.localizedMessage?.toString()!!)
+        }
+    }
+
+    override suspend fun validatePasswordOTP(
+        email: String,
+        otp: String
+    ): NetworkResponse<ValidatePasswordOTPResponse> {
+        try {
+            val response = checkResponse(
+                apolloClient.mutation(
+                    ValidatePasswordOTPMutation(
+                        email = email,
+                        otp = otp
+                    )
+                ).execute()
+            )
+
+            return when (response) {
+                is Success -> {
+                    Success(response.data?.validateResetPasswordOTP?.toValidateOTPResponse()!!)
+                }
+
+                else -> {
+                    Error(response.message.toString())
+                }
+            }
+        } catch (ex: Exception) {
+            return Error(ex.localizedMessage?.toString()!!)
+        }
+    }
+
+    override suspend fun resendPasswordOTP(email: String): NetworkResponse<BaseResponse> {
+        try {
+            val response = checkResponse(
+                apolloClient.mutation(ResendPasswordOTPMutation(email)).execute()
+            )
+
+            return when (response) {
+                is Success -> {
+                    Success(response.data?.resendResetPasswordOTP?.toBaseResponse()!!)
+                }
+
+                else -> {
+                    Error(response.message.toString())
+                }
+            }
+        } catch (ex: Exception) {
+            return Error(ex.localizedMessage?.toString()!!)
+        }
+    }
+
+    override suspend fun resetPassword(pass: String, token: String): NetworkResponse<BaseResponse> {
+        try {
+            val response = checkResponse(
+                apolloClient.mutation(ResetPasswordMutation(pass))
+                    .addHttpHeader("Authorization", token).execute()
+            )
+
+            return when (response) {
+                is Success -> {
+                    Success(response.data?.resetPassword?.toBaseResponse()!!)
+                }
+
+                else -> {
+                    Error(response.message.toString())
+                }
+            }
+
         } catch (ex: Exception) {
             return Error(ex.localizedMessage?.toString()!!)
         }

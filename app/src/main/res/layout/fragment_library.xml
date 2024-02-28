@@ -14,7 +14,6 @@
         android:layout_marginBottom="36dp"
         android:fontFamily="@font/poppins"
         android:paddingVertical="@dimen/_8sdp"
-        android:text="@string/adding"
         android:textColor="@color/white"
         android:textSize="@dimen/_14ssp"
         app:cornerRadius="@dimen/_7sdp"

@@ -72,8 +72,11 @@ class ForgetPasswordFragment : Fragment() {
 
                 if (it.error?.isNotEmpty() == true) activity.showError(it.error.toString())
                 else if (it.forgotPasswordResponse != null) {
+                    val bundle = Bundle()
+                    bundle.putBoolean("forgetPassword", true)
+                    bundle.putString("email", binding.layoutEmail.editText?.text.toString())
                     activity.showMessage(it.forgotPasswordResponse.message.toString())
-                    nav.navigate(R.id.action_forgetPasswordFragment_to_newPasswordFragment)
+                    nav.navigate(R.id.action_forgetPasswordFragment_to_verificationFragment, bundle)
                 }
             }
         }
