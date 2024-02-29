@@ -85,7 +85,7 @@ class LoginFragment : Fragment() {
                 else if (it.loginResponse != null) {
                     if (it.loginResponse.token.isNotEmpty()) {
                         viewModel.saveToken(it.loginResponse.token)
-
+                        activity.goToHome()
                     }
                 }
             }

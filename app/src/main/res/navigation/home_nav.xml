@@ -10,4 +10,14 @@
         android:name="com.muhmmad.qaree.ui.fragment.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/libraryFragment"
+        android:name="com.muhmmad.qaree.ui.fragment.library.LibraryFragment"
+        android:label="fragment_library"
+        tools:layout="@layout/fragment_library" />
+    <fragment
+        android:id="@+id/inboxFragment"
+        android:name="com.muhmmad.qaree.ui.fragment.inbox.InboxFragment"
+        android:label="fragment_inbox"
+        tools:layout="@layout/fragment_inbox" />
 </navigation>
