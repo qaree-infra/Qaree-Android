@@ -7,14 +7,19 @@ import android.graphics.RenderEffect
 import android.graphics.Shader
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -25,7 +30,11 @@ import com.muhmmad.qaree.databinding.ErrorLayoutBinding
 import com.muhmmad.qaree.databinding.LoadingLayoutBinding
 import com.muhmmad.qaree.databinding.ToastLayoutBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import java.util.Locale
+
+private const val TAG = "MainActivity"
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -39,6 +48,7 @@ class MainActivity : AppCompatActivity() {
         (supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment).navController
     }
     private lateinit var loading: Dialog
+    private val viewModel: MainViewModel by viewModels()
 
     init {
         updateConfig(this)
@@ -51,8 +61,23 @@ class MainActivity : AppCompatActivity() {
         binding.apply {
             //Handle action bar
             handleActionBar()
+            viewModel.isLogged()
+            checkStatus()
+            handleClicks()
 
             loading = getLoading()
+
+            val navHostFragment =
+                supportFragmentManager.findFragmentById(binding.navHostFragment.id) as NavHostFragment
+
+            navHostFragment.navController.addOnDestinationChangedListener { controller, destination, arguments ->
+                handleBottomNavigation(destination.id)
+                handleAppBar(destination.id)
+                run {
+                    binding.authAppbar.root.isVisible =
+                        arguments?.getBoolean("ShowAppBar", true) == true
+                }
+            }
         }
     }
 
@@ -78,7 +103,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun handleActionBar() {
-        setSupportActionBar(binding.toolBar)
+        setSupportActionBar(binding.authAppbar.toolBar)
         //Show navigation button
         supportActionBar?.apply {
             setDisplayShowTitleEnabled(false)
@@ -89,17 +114,8 @@ class MainActivity : AppCompatActivity() {
         // Set up the AppBarConfiguration with your navigation graph
         val appBarConfiguration = AppBarConfiguration(nav.graph, null)
         setupActionBarWithNavController(nav, appBarConfiguration)
-        binding.toolBar.setNavigationOnClickListener {
+        binding.authAppbar.toolBar.setNavigationOnClickListener {
             nav.navigateUp()
-        }
-
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(binding.navHostFragment.id) as NavHostFragment
-
-        navHostFragment.navController.addOnDestinationChangedListener { controller, destination, arguments ->
-            run {
-                binding.toolBar.isVisible = arguments?.getBoolean("ShowAppBar", true) == true
-            }
         }
     }
 
@@ -133,6 +149,91 @@ class MainActivity : AppCompatActivity() {
         toast.show()
     }
 
+    private fun checkStatus() {
+        lifecycleScope.launch {
+            viewModel.state.collect {
+                if (it.isLogged != null) {
+                    if (it.isLogged) goToHome() else authProcess()
+                }
+            }
+        }
+    }
+
+    private fun handleClicks() {
+        binding.apply {
+            llHome.setOnClickListener {
+                nav.navigate(R.id.homeFragment)
+            }
+            llChat.setOnClickListener {
+                nav.navigate(R.id.inboxFragment)
+            }
+            llLibrary.setOnClickListener {
+                nav.navigate(R.id.libraryFragment)
+            }
+        }
+    }
+
+    private fun handleAppBar(id: Int) {
+        when (id) {
+            R.id.homeFragment, R.id.libraryFragment, R.id.inboxFragment -> {
+                binding.authAppbar.root.visibility = View.GONE
+                binding.homeAppbar.root.visibility = View.VISIBLE
+            }
+
+            else -> {
+                binding.authAppbar.root.visibility = View.VISIBLE
+                binding.homeAppbar.root.visibility = View.GONE
+            }
+        }
+    }
+
+    private fun handleBottomNavigation(id: Int) {
+        clearBottomNavigation()
+        when (id) {
+            R.id.homeFragment -> {
+                binding.llHome.background =
+                    AppCompatResources.getDrawable(context, R.drawable.nav_item_bg)
+                binding.ivHome.visibility = View.VISIBLE
+                binding.tvHome.visibility = View.VISIBLE
+                binding.ivDisabledHome.visibility = View.GONE
+            }
+
+            R.id.libraryFragment -> {
+                binding.llLibrary.background =
+                    AppCompatResources.getDrawable(context, R.drawable.nav_item_bg)
+                binding.ivLibrary.visibility = View.VISIBLE
+                binding.tvLibrary.visibility = View.VISIBLE
+                binding.ivDisabledLibrary.visibility = View.GONE
+            }
+
+            R.id.inboxFragment -> {
+                binding.llChat.background =
+                    AppCompatResources.getDrawable(context, R.drawable.nav_item_bg)
+                binding.ivChat.visibility = View.VISIBLE
+                binding.tvChat.visibility = View.VISIBLE
+                binding.ivDisabledChat.visibility = View.GONE
+            }
+        }
+    }
+
+    private fun clearBottomNavigation() {
+        binding.apply {
+            llHome.setBackgroundColor(resources.getColor(R.color.white, theme))
+            llLibrary.setBackgroundColor(resources.getColor(R.color.white, theme))
+            llChat.setBackgroundColor(resources.getColor(R.color.white, theme))
+            ivHome.visibility = View.GONE
+            tvHome.visibility = View.GONE
+            ivLibrary.visibility = View.GONE
+            tvLibrary.visibility = View.GONE
+            ivChat.visibility = View.GONE
+            tvChat.visibility = View.GONE
+            ivDisabledHome.visibility = View.VISIBLE
+            ivDisabledLibrary.visibility = View.VISIBLE
+            ivDisabledChat.visibility = View.VISIBLE
+
+        }
+    }
+
     @RequiresApi(Build.VERSION_CODES.S)
     private fun addBlurEffect() {
         binding.root.setRenderEffect(
@@ -157,11 +258,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun authProcess() {
-
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(binding.navHostFragment.id) as NavHostFragment
+        val inflater = navHostFragment.navController.navInflater
+        val authGraph = inflater.inflate(R.navigation.auth_nav)
+        navHostFragment.navController.graph = authGraph
     }
 
     fun goToHome() {
-
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(binding.navHostFragment.id) as NavHostFragment
+        val inflater = navHostFragment.navController.navInflater
+        val homeGraph = inflater.inflate(R.navigation.home_nav)
+        navHostFragment.navController.graph = homeGraph
     }
 
     companion object {

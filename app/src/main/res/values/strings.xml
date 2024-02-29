@@ -58,4 +58,13 @@
     <string name="activities">Activities</string>
     <string name="item_name">item name</string>
     <string name="the_password_is_not_matches_the_confirmation_password">The password is not matches the confirmation password</string>
+    <string name="home">Home</string>
+    <string name="library">Library</string>
+    <string name="chat">Chat</string>
+    <string name="offer_image">offer image</string>
+    <string name="book_image">Book image</string>
+    <string name="author_image">author image</string>
+    <string name="categories">Categories</string>
+    <string name="category_image">Category image</string>
+    <string name="best_sellers">Best Sellers</string>
 </resources>

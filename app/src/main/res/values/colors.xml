@@ -8,4 +8,5 @@
     <color name="text_layout_stroke_color">#B1ACAC</color>
     <color name="checkbox_color">#837A7A</color>
     <color name="red">#ED2225</color>
+    <color name="rating_stars">#FDCC0D</color>
 </resources>
