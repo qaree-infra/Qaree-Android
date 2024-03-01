@@ -10,9 +10,7 @@
     <com.facebook.shimmer.ShimmerFrameLayout
         android:id="@+id/shimmer_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:duration="3000"
-        app:intensity="0.1">
+        android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -76,7 +74,7 @@
                         android:layout_width="@dimen/_80sdp"
                         android:layout_height="0dp"
                         android:contentDescription="@string/book_image"
-                        android:src="@color/primary_color"
+                        android:src="@color/shimmer_color"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />

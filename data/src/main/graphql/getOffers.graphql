@@ -1,0 +1,20 @@
+query getOffers{
+    getAllOffers {
+        offers {
+            percent
+            expireAt
+            book {
+                price
+                _id
+                name
+                author {
+                    name
+                }
+                cover {
+                    path
+                    size
+                }
+            }
+        }
+    }
+}
