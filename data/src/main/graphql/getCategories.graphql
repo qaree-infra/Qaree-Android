@@ -1,0 +1,17 @@
+query getCategories{
+    getAllCategories (limit: 10, page: 1){
+        categories {
+            _id
+            name_ar,
+            name_en,
+            icon {
+                _id,
+                size,
+                path
+            }
+        }
+        total,
+        currentPage,
+        numberOfPages
+    }
+}

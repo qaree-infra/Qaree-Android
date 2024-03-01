@@ -15,7 +15,7 @@
         android:layout_height="@dimen/_50sdp"
         android:contentDescription="@string/author_image"
         app:shapeAppearanceOverlay="@style/roundedImageView"
-        tools:src="@color/gray" />
+        tools:src="@color/shimmer_color" />
 
     <TextView
         android:id="@+id/tv_author"
