@@ -10,5 +10,6 @@ Features :
     GraphQl
     Shimmer animation
     DataStore
+    Dagger Hilt
     Coil
     Palette
