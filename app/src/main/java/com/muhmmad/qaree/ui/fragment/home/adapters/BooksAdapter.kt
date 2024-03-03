@@ -27,10 +27,10 @@ class BooksAdapter : RecyclerView.Adapter<BooksAdapter.ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.apply {
             val item = data[position]
-            ivBook.load(item.image)
-            tvBookName.text = item.bookName
-            tvAuthor.text = item.authorName
-            ratingBar.rating = item.rate
+            ivBook.load(item.cover.path)
+            tvBookName.text = item.name
+            tvAuthor.text = item.author.name
+//            ratingBar.rating = item
         }
     }
 

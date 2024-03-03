@@ -1,9 +1,9 @@
 package com.muhmmad.domain.model
 
 data class Book(
-    val id: Int,
-    val image: String,
-    val rate: Float,
-    val authorName: String,
-    val bookName: String,
+    val price: Double,
+    val name: String,
+    val author: Author,
+    val cover: Cover,
+    val id: String
 )

@@ -9,37 +9,32 @@ import com.muhmmad.domain.model.Book
 import com.muhmmad.domain.model.BooksResponse
 import com.muhmmad.domain.model.CategoriesResponse
 import com.muhmmad.domain.model.Category
+import com.muhmmad.domain.model.Cover
 import com.muhmmad.domain.model.Offer
 import com.muhmmad.domain.model.OffersResponse
+import com.muhmmad.domain.usecase.HomeUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.actor
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class HomeViewModel : ViewModel() {
+@HiltViewModel
+class HomeViewModel @Inject constructor(private val useCase: HomeUseCase) : ViewModel() {
     private val _state = MutableStateFlow(HomeState())
     val state = _state.asStateFlow()
 
     init {
         viewModelScope.launch {
-            val offer = Offer(
-                id = 0,
-                image = "",
-                bookName = "Book Name",
-                authorName = "Author Name",
-                price = "500",
-                percentage = "30%"
-            )
-            val author = Author(image = "", name = "Author", id = 0)
-            val category = Category(id = 0, name = "Category", image = "")
+            val author = Author(id = "", name = "author name", avatar = "")
             val book = Book(
-                id = 0,
-                image = "",
-                rate = 6f,
-                authorName = "Author name",
-                bookName = "book name"
+                price = 50.0, name = "Book name", author = author, cover = Cover(), id = ""
             )
+            val offer = Offer(percent = 20, expireAt = "", book = book)
+
+            val category = Category(id = 0, name = "Category", image = "")
             _state.update {
                 it.copy(
                     isLoading = true,
@@ -67,9 +62,43 @@ class HomeViewModel : ViewModel() {
                             category, category, category, category, category, category,
                         )
                     ),
-                    newReleasesResponse = BooksResponse(listOf(book,book,book,book,book,book,book)),
-                    bestSellerResponse = BooksResponse(listOf(book,book,book,book,book,book,book)),
+                    newReleasesResponse = BooksResponse(
+                        listOf(
+                            book,
+                            book,
+                            book,
+                            book,
+                            book,
+                            book,
+                            book
+                        )
+                    ),
+                    bestSellerResponse = BooksResponse(
+                        listOf(
+                            book,
+                            book,
+                            book,
+                            book,
+                            book,
+                            book,
+                            book
+                        )
+                    ),
                 )
+            }
+        }
+    }
+
+    fun getOffers() {
+        viewModelScope.launch {
+            useCase.getOffers().apply {
+                _state.update {
+                    it.copy(
+                        offersResponse = data,
+                        error = message,
+                        isLoading = false
+                    )
+                }
             }
         }
     }

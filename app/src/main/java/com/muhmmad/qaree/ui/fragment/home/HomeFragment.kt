@@ -56,7 +56,7 @@ class HomeFragment : Fragment() {
             checkState()
             initViews()
             initAnimation()
-
+            getData()
         }
     }
 
@@ -68,6 +68,10 @@ class HomeFragment : Fragment() {
             rvNewReleases.adapter = newReleaseAdapter
             rvBestSellers.adapter = bestSellerAdapter
         }
+    }
+
+    private fun getData() {
+        viewModel.getOffers()
     }
 
     private fun checkState() {

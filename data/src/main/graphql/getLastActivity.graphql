@@ -1,0 +1,17 @@
+#query getLastActivity{
+#    getLastActivity {
+#        book {
+#            _id
+#            name
+#            isbn
+#            cover {
+#                _id
+#                path
+#            }
+#        }
+#        readingProgress
+#        status
+#        updatedAt
+#        createdAt
+#    }
+#}
