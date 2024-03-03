@@ -1,9 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.fragment.search.SearchFragment">
+
+    <TextView
+        android:id="@+id/tv_search"
+        android:layout_width="154dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="search"
+        android:textColor="#2F3E93"
+        android:textSize="@dimen/_18ssp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.012"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <EditText
+        android:id="@+id/editText_search_toolbar"
+        android:layout_width="310dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/rounded_corner_edittext"
+        android:ems="10"
+        android:hint="Enter book name"
+        android:imeOptions="actionSearch"
+        android:inputType="textPersonName"
+        android:maxLines="1"
+        android:paddingStart="16dp"
+        android:textColorHint="@color/white"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_ch_any_category"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_search"
+        app:layout_constraintVertical_bias="0.23" />
+
+    <TextView
+        android:id="@+id/tv_ch_any_category"
+        android:layout_width="295dp"
+        android:layout_height="42dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="Browse any category"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_14ssp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.137"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="160dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycle_current_reading"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_ch_any_category"
+        android:layout_width="406dp"
+        android:layout_height="1150dp"
+        android:layout_marginTop="4dp"
+        android:orientation="vertical"
+         tools:listitem="@layout/search_item"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

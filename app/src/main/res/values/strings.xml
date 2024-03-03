@@ -87,5 +87,8 @@
     <string name="book_info">Book info</string>
     <string name="to_delete_this_book">to delete this book</string>
     <string name="book_name">Book Name</string>
+    <string name="enter_book_name">Enter book name</string>
+    <string name="science">science</string>
+    <string name="history">history</string>
     >>>>>>> 4ddf7fe7d36fe5c255b9de704746c86a8dbe58ec
 </resources>
