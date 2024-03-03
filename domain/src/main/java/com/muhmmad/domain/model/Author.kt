@@ -1,7 +1,7 @@
 package com.muhmmad.domain.model
 
 data class Author(
-    val image: String,
+    val id: String,
     val name: String,
-    val id: Int
+    val avatar: String,
 )

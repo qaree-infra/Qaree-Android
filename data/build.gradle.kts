@@ -49,7 +49,7 @@ dependencies {
     implementation("com.apollographql.apollo3:apollo-runtime:3.8.2")
     implementation("com.apollographql.apollo:apollo-android-support:1.0.0")
     //Domain Module
-    implementation(project(":domain"))
+    api(project(":domain"))
     //DataStore
     implementation("androidx.datastore:datastore:1.0.0")
     //Serialization

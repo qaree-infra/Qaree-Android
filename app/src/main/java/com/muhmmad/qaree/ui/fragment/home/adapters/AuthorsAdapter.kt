@@ -27,7 +27,7 @@ class AuthorsAdapter : RecyclerView.Adapter<AuthorsAdapter.ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.apply {
             val item = data[position]
-            ivAuthor.load(item.image)
+            ivAuthor.load(item.avatar)
             tvAuthor.text = item.name
         }
     }

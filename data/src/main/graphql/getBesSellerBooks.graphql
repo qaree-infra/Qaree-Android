@@ -1,0 +1,15 @@
+#query getBestSellerBooks{
+#    getBestSellerBooks {
+#        books {
+#            _id
+#            name,
+#            cover,
+#            author{
+#                _id,
+#                name_ar,name_en
+#            },
+#            isbn,
+#            avgRate
+#        }
+#    }
+#}

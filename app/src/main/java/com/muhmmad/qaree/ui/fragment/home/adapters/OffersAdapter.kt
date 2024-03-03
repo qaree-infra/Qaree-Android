@@ -27,12 +27,12 @@ class OffersAdapter : RecyclerView.Adapter<OffersAdapter.ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.apply {
             val item = data[position]
-            ivOffer.load(item.image)
+            ivOffer.load(item.book.cover.path)
             tvBookCategory.text = "Noval"
-            tvBookName.text = item.bookName
-            tvWriterName.text = item.authorName
-            tvPrice.text = "${item.price} LE"
-            btnOffer.text = "${item.percentage}$ off"
+            tvBookName.text = item.book.name
+            tvWriterName.text = item.book.author.name
+            tvPrice.text = "${item.book.price} LE"
+            btnOffer.text = "${item.percent}$ off"
         }
     }
 

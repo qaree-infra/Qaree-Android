@@ -4,6 +4,7 @@ import com.muhmmad.domain.model.LoginResponse
 import com.muhmmad.domain.model.NetworkResponse
 import com.muhmmad.domain.model.ValidatePasswordOTPResponse
 import com.muhmmad.domain.model.BaseResponse
+import com.muhmmad.domain.model.OffersResponse
 
 interface RemoteDataSource {
     suspend fun login(email: String, pass: String): NetworkResponse<LoginResponse>
@@ -18,4 +19,5 @@ interface RemoteDataSource {
 
     suspend fun resendPasswordOTP(email: String): NetworkResponse<BaseResponse>
     suspend fun resetPassword(pass: String, token: String): NetworkResponse<BaseResponse>
+    suspend fun getOffers(): NetworkResponse<OffersResponse>
 }
