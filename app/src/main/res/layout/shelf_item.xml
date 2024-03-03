@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+             android:layout_height="match_parent">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/book_name"
+        android:layout_width="100sp"
+        android:layout_height="186sp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_book_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="120dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="@string/book_name"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_15ssp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/ratingBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="48dp"
+        android:numStars="5"
+        app:layout_constraintBottom_toTopOf="@+id/progressBar_c"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/progressBar_c"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="253dp"
+        android:layout_height="21dp"
+        android:layout_marginEnd="44dp"
+        android:layout_marginBottom="56dp"
+        app:layout_constraintBottom_toTopOf="@+id/view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/book_name" />
+
+    <TextView
+        android:id="@+id/tv_progress_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_13ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/progressBar_c"
+        tools:layout_editor_absoluteY="117dp"
+        tools:text="50%"
+        tools:ignore="MissingConstraints" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_read"
+        android:layout_width="99dp"
+        android:layout_height="48dp"
+        android:layout_marginHorizontal="@dimen/_30sdp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/poppins"
+        android:gravity="center"
+        android:paddingVertical="@dimen/_7sdp"
+        android:text="@string/read"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_8ssp"
+        android:textStyle="bold"
+        app:cornerRadius="@dimen/_7sdp"
+        app:layout_constraintTop_toBottomOf="@+id/progressBar_c"
+        tools:layout_editor_absoluteX="123dp"
+        tools:ignore="MissingConstraints" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_book_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_30sdp"
+        android:fontFamily="@font/poppins"
+        android:gravity="center"
+        android:paddingVertical="@dimen/_7sdp"
+        android:text="@string/book_info"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_8ssp"
+        android:textStyle="bold"
+        app:cornerRadius="@dimen/_7sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.593"
+        app:layout_constraintStart_toEndOf="@+id/btn_read"
+        tools:layout_editor_absoluteY="147dp"
+        tools:ignore="MissingConstraints" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="8dp"
+        android:layout_marginTop="26dp"
+        android:background="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/book_name" />
+
+    <ImageButton
+        android:id="@+id/btn_Wastebasket"
+        android:layout_width="37dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:background="@color/transparent"
+        android:contentDescription="@string/to_delete_this_book"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_bin" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

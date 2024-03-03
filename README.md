@@ -11,4 +11,5 @@ Features :
     Shimmer animation
     DataStore
     Dagger Hilt
-    
+    Coil
+    Palette

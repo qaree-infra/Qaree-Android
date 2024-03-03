@@ -4,6 +4,7 @@
         <!-- Customize your light theme here. -->
         <item name="colorPrimary">@color/primary_color</item>
         <item name="android:statusBarColor">@color/white</item>
+        <item name="fontFamily">@font/main_fonts</item>
     </style>
 
     <style name="Theme.Qaree" parent="Base.Theme.Qaree" />
@@ -18,6 +19,7 @@
         <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">false
         </item>  <!-- For making Navigation bar content color dark -->
     </style>
+<<<<<<< HEAD
     
     
     <style name="RoundCorner"parent="">
@@ -27,4 +29,16 @@
     </style>
 
 
+=======
+
+    <style name="roundedImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="roundedCornerImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+    </style>
+>>>>>>> 4ddf7fe7d36fe5c255b9de704746c86a8dbe58ec
 </resources>

@@ -85,6 +85,12 @@ dependencies {
     implementation("com.google.firebase:firebase-crashlytics")
     //Firebase-Performance
     implementation("com.google.firebase:firebase-perf")
+    //Shimmer effect
+    implementation("com.facebook.shimmer:shimmer:0.1.0@aar")
+    //Coil
+    implementation("io.coil-kt:coil:2.6.0")
+    //Palette
+    implementation("androidx.palette:palette-ktx:1.0.0")
 }
 
 kapt {

@@ -83,7 +83,10 @@ class LoginFragment : Fragment() {
 
                 if (it.error?.isNotEmpty() == true) activity.showError(it.error.toString())
                 else if (it.loginResponse != null) {
-                    Log.i(TAG, it.loginResponse.toString())
+                    if (it.loginResponse.token.isNotEmpty()) {
+                        viewModel.saveToken(it.loginResponse.token)
+                        activity.goToHome()
+                    }
                 }
             }
         }

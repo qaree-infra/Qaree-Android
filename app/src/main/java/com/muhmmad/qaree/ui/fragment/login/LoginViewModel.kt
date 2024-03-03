@@ -12,7 +12,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(private val authUseCase: AuthUseCase) : ViewModel() {
+class LoginViewModel @Inject constructor(
+    private val authUseCase: AuthUseCase,
+) : ViewModel() {
     private val _state = MutableStateFlow(LoginState())
     val state = _state.asStateFlow()
     private val _email = MutableStateFlow("")
@@ -47,6 +49,12 @@ class LoginViewModel @Inject constructor(private val authUseCase: AuthUseCase) :
                     )
                 }
             }
+        }
+    }
+
+    fun saveToken(token: String) {
+        viewModelScope.launch {
+            authUseCase.setToken(token)
         }
     }
 

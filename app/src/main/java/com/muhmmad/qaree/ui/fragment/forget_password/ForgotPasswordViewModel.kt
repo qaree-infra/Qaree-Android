@@ -2,7 +2,7 @@ package com.muhmmad.qaree.ui.fragment.forget_password
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.muhmmad.domain.model.VerificationResponse
+import com.muhmmad.domain.model.BaseResponse
 import com.muhmmad.domain.usecase.AuthUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -39,7 +39,7 @@ class ForgotPasswordViewModel @Inject constructor(private val useCase: AuthUseCa
     }
 
     data class ForgotPasswordState(
-        val forgotPasswordResponse: VerificationResponse? = null,
+        val forgotPasswordResponse: BaseResponse? = null,
         val isLoading: Boolean = false,
         val error: String? = null
     )

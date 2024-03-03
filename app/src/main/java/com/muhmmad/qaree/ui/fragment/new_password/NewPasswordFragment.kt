@@ -6,15 +6,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import com.muhmmad.qaree.R
 import com.muhmmad.qaree.databinding.FragmentNewPasswordBinding
-import com.muhmmad.qaree.ui.fragment.forget_password.ForgotPasswordViewModel
+import com.muhmmad.qaree.ui.activity.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class NewPasswordFragment : Fragment() {
     private val binding: FragmentNewPasswordBinding by lazy {
         FragmentNewPasswordBinding.inflate(layoutInflater)
+    }
+    private val activity: MainActivity by lazy {
+        getActivity() as MainActivity
+    }
+    private val nav: NavController by lazy {
+        findNavController()
     }
     private val viewModel: NewPasswordViewModel by viewModels()
 
@@ -28,11 +38,14 @@ class NewPasswordFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
+            //checkStatus
+            checkState()
+            val token: String = arguments?.getString("token").toString()
             btnCreateNewPass.setOnClickListener {
                 val pass = layoutPassword.editText?.text.toString()
                 val repeatPass = layoutConPassword.editText?.text.toString()
                 if (checkValidation(pass, repeatPass)) {
-
+                    viewModel.newPassword(pass, token)
                 }
             }
         }
@@ -63,5 +76,20 @@ class NewPasswordFragment : Fragment() {
             binding.layoutConPassword.error = null
         }
         return true
+    }
+
+    private fun checkState() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.state.collect {
+                if (it.isLoading) activity.showLoading()
+                else activity.dismissLoading()
+
+                if (it.error?.isNotEmpty() == true) activity.showError(it.error.toString())
+                else if (it.newPasswordResponse != null) {
+                    activity.showMessage(it.newPasswordResponse.message.toString())
+                    nav.navigate(R.id.action_newPasswordFragment_to_loginFragment)
+                }
+            }
+        }
     }
 }
