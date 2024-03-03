@@ -15,10 +15,13 @@ import com.muhmmad.qaree.ui.fragment.home.adapters.AuthorsAdapter
 import com.muhmmad.qaree.ui.fragment.home.adapters.BooksAdapter
 import com.muhmmad.qaree.ui.fragment.home.adapters.CategoriesAdapter
 import com.muhmmad.qaree.ui.fragment.home.adapters.OffersAdapter
+import dagger.hilt.EntryPoint
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 private const val TAG = "HomeFragment"
 
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
     private val binding: FragmentHomeBinding by lazy {
         FragmentHomeBinding.inflate(layoutInflater)
@@ -123,6 +126,8 @@ class HomeFragment : Fragment() {
     }
 
     private fun dismissAnimation() {
-
+binding.apply {
+    shimmerLayout.stopShimmerAnimation()
+}
     }
 }

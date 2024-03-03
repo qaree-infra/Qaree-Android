@@ -2,10 +2,13 @@ package com.muhmmad.qaree.ui.fragment.home.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.muhmmad.domain.model.Offer
+import com.muhmmad.qaree.R
 import com.muhmmad.qaree.databinding.OfferLayoutBinding
+import com.muhmmad.qaree.utils.DiffUtilCallback
 
 class OffersAdapter : RecyclerView.Adapter<OffersAdapter.ViewHolder>() {
     private val data = ArrayList<Offer>()
@@ -27,18 +30,26 @@ class OffersAdapter : RecyclerView.Adapter<OffersAdapter.ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.apply {
             val item = data[position]
+            val ctx = root.context
             ivOffer.load(item.book.cover.path)
             tvBookCategory.text = "Noval"
             tvBookName.text = item.book.name
             tvWriterName.text = item.book.author.name
-            tvPrice.text = "${item.book.price} LE"
-            btnOffer.text = "${item.percent}$ off"
+            tvPrice.text = ctx.getString(R.string.offer_price, item.book.price.toString())
+            try{
+                btnOffer.text = ctx.getString(R.string.offer_percent,item.percent.toString())
+            }catch (ex:Exception){
+                ex.printStackTrace()
+            }
+
         }
     }
 
-    fun setData(data: List<Offer>) {
-        this.data.clear()
-        this.data.addAll(data)
-        notifyDataSetChanged()
+    fun setData(newData: List<Offer>) {
+        val diffCallback = DiffUtilCallback(data, newData)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+        data.clear()
+        data.addAll(newData)
+        diffResult.dispatchUpdatesTo(this)
     }
 }

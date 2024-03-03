@@ -5,7 +5,9 @@ import androidx.datastore.core.DataStore
 import com.muhmmad.data.local.UserDataSerializer
 import com.muhmmad.domain.model.UserData
 import com.muhmmad.domain.repo.AuthRepo
+import com.muhmmad.domain.repo.HomeRepo
 import com.muhmmad.domain.usecase.AuthUseCase
+import com.muhmmad.domain.usecase.HomeUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,4 +18,7 @@ import dagger.hilt.components.SingletonComponent
 object UseCaseModule {
     @Provides
     fun provideAuthUseCase(authRepo: AuthRepo): AuthUseCase = AuthUseCase(authRepo)
+
+    @Provides
+    fun provideHomeUseCase(homeRepo: HomeRepo): HomeUseCase = HomeUseCase(homeRepo)
 }
