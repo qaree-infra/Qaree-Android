@@ -19,6 +19,17 @@
         <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">false
         </item>  <!-- For making Navigation bar content color dark -->
     </style>
+<<<<<<< HEAD
+    
+    
+    <style name="RoundCorner"parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">10dp</item>
+        <item name="color">@color/white</item>
+    </style>
+
+
+=======
 
     <style name="roundedImageView" parent="">
         <item name="cornerFamily">rounded</item>
@@ -29,4 +40,5 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">8dp</item>
     </style>
+>>>>>>> 4ddf7fe7d36fe5c255b9de704746c86a8dbe58ec
 </resources>
