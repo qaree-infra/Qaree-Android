@@ -31,8 +31,6 @@
     <string name="e_mail_address_is_not_valid">E-mail address is not valid</string>
     <string name="please_enter_the_password">Please enter the password</string>
     <string name="the_password_is_not_valid">The password is not valid</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="please_enter_your_name">Please enter your name</string>
     <string name="please_enter_your_full_name">Please enter your full-name</string>
     <string name="verify_code">Verify Code</string>
@@ -57,23 +55,12 @@
     <string name="new_releases">New Releases</string>
     <string name="activities">Activities</string>
     <string name="item_name">item name</string>
-    <
-    <
-    <
-    <
-    <
-    <
-    < HEAD
     <string name="current_reading">Current Reading</string>
     <string name="want_to_read">Want to read</string>
     <string name="adding">+</string>
     <string name="finished_reading">Finished Reading</string>
-    =======
     <string name="the_password_is_not_matches_the_confirmation_password">The password is not matches the confirmation password</string>
-<<<<<<< HEAD
     <string name="current_Reading">Current reading</string>
-    >>>>>>> d9a6a30d8cbdee0a0251803f3b7a6b072df85eb7
-=======
     <string name="home">Home</string>
     <string name="library">Library</string>
     <string name="chat">Chat</string>
@@ -90,5 +77,6 @@
     <string name="enter_book_name">Enter book name</string>
     <string name="science">science</string>
     <string name="history">history</string>
-    >>>>>>> 4ddf7fe7d36fe5c255b9de704746c86a8dbe58ec
+    <string name="offer_price">%s LE</string>
+    <string name="offer_percent">%s\% off</string>
 </resources>
