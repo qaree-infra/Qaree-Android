@@ -5,6 +5,7 @@ import com.muhmmad.domain.model.LoginResponse
 import com.muhmmad.domain.model.ValidatePasswordOTPResponse
 import com.muhmmad.domain.model.BaseResponse
 import com.muhmmad.domain.model.Book
+import com.muhmmad.domain.model.Category
 import com.muhmmad.domain.model.Cover
 import com.muhmmad.domain.model.Offer
 import com.muhmmad.domain.model.OffersResponse
@@ -75,6 +76,14 @@ fun GetOffersQuery.GetAllOffers.toOffersResponse(): OffersResponse {
                         cover = Cover(
                             path = it.book?.cover?.path ?: "",
                             size = it.book?.cover?.size ?: 0.0
+                        ),
+                        categories = listOf(
+                            Category(
+                                id = "",
+                                nameAr = "",
+                                nameEn = "",
+                                image = ""
+                            )
                         ),
                         id = it.book?._id ?: ""
                     )

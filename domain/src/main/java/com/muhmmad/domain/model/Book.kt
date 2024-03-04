@@ -5,5 +5,6 @@ data class Book(
     val name: String,
     val author: Author,
     val cover: Cover,
+    val categories: List<Category>,
     val id: String
 )

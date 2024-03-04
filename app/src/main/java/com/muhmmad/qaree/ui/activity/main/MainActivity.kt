@@ -59,9 +59,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         binding.apply {
+            viewModel.isLogged()
             //Handle action bar
             handleActionBar()
-            viewModel.isLogged()
             checkStatus()
             handleClicks()
 
@@ -230,7 +230,6 @@ class MainActivity : AppCompatActivity() {
             ivDisabledHome.visibility = View.VISIBLE
             ivDisabledLibrary.visibility = View.VISIBLE
             ivDisabledChat.visibility = View.VISIBLE
-
         }
     }
 
@@ -263,6 +262,8 @@ class MainActivity : AppCompatActivity() {
         val inflater = navHostFragment.navController.navInflater
         val authGraph = inflater.inflate(R.navigation.auth_nav)
         navHostFragment.navController.graph = authGraph
+
+        binding.bottomNavigation.visibility = View.GONE
     }
 
     fun goToHome() {
@@ -271,6 +272,9 @@ class MainActivity : AppCompatActivity() {
         val inflater = navHostFragment.navController.navInflater
         val homeGraph = inflater.inflate(R.navigation.home_nav)
         navHostFragment.navController.graph = homeGraph
+
+        binding.bottomNavigation.visibility = View.VISIBLE
+
     }
 
     companion object {
