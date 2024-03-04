@@ -30,11 +30,16 @@ class HomeViewModel @Inject constructor(private val useCase: HomeUseCase) : View
         viewModelScope.launch {
             val author = Author(id = "", name = "author name", avatar = "")
             val book = Book(
-                price = 50.0, name = "Book name", author = author, cover = Cover(), id = ""
+                price = 50.0,
+                name = "Book name",
+                author = author,
+                cover = Cover(),
+                id = "",
+                categories = listOf(Category("", "", "", ""))
             )
             val offer = Offer(percent = 20, expireAt = "", book = book)
 
-            val category = Category(id = 0, name = "Category", image = "")
+            val category = Category(id = "", nameEn = "Category", image = "", nameAr = "")
             _state.update {
                 it.copy(
                     isLoading = true,

@@ -1,7 +1,8 @@
 package com.muhmmad.domain.model
 
 data class Category(
-    val id: Int,
-    val name: String,
-    val image:String,
+    val id: String,
+    val nameAr: String,
+    val nameEn: String,
+    val image: String,
 )

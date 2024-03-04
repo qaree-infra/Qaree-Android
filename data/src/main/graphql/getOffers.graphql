@@ -5,16 +5,24 @@ query getOffers{
             expireAt
             book {
                 price
-                _id
                 name
                 author {
+                    _id
                     name
                 }
+                categories{
+                    name_ar,
+                    name_en
+                },
                 cover {
                     path
                     size
                 }
+                _id
             }
         }
+        currentPage
+        numberOfPages
+        total
     }
 }

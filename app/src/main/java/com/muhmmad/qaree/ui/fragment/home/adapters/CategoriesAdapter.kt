@@ -41,7 +41,7 @@ class CategoriesAdapter : RecyclerView.Adapter<CategoriesAdapter.ViewHolder>() {
                 }
             }
             ivCategory.load(item.image)
-            tvCategory.text = item.name
+            tvCategory.text = item.nameEn
         }
     }
 
