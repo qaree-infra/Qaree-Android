@@ -52,6 +52,7 @@ dependencies {
     api(project(":domain"))
     //DataStore
     implementation("androidx.datastore:datastore:1.0.0")
+    implementation("androidx.datastore:datastore-core:1.0.0")
     //Serialization
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2")
 

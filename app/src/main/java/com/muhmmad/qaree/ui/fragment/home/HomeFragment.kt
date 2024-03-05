@@ -89,7 +89,7 @@ class HomeFragment : Fragment() {
                         binding.tvActivitiesName.text = bookName
                         binding.tvReadingPages.text = "$userPages/$bookPages"
                         binding.progressBar.progress = percentage
-                        binding.tvProgressPresent.text = "$percentage$"
+                        binding.tvProgressPresent.text = "$percentage%"
                         binding.ivActivitiesBook.load(image) {
                             transformations(CircleCropTransformation())
                         }
@@ -126,8 +126,8 @@ class HomeFragment : Fragment() {
     }
 
     private fun dismissAnimation() {
-binding.apply {
-    shimmerLayout.stopShimmerAnimation()
-}
+        binding.apply {
+            shimmerLayout.stopShimmerAnimation()
+        }
     }
 }

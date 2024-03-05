@@ -78,5 +78,5 @@
     <string name="science">science</string>
     <string name="history">history</string>
     <string name="offer_price">%s LE</string>
-    <string name="offer_percent">%s\% off</string>
+    <string name="offer_percent">%s off</string>
 </resources>
