@@ -80,8 +80,8 @@ fun GetOffersQuery.GetAllOffers.toOffersResponse(): OffersResponse {
                         categories = listOf(
                             Category(
                                 id = "",
-                                nameAr = "",
-                                nameEn = "",
+                                nameEn = it.book?.categories?.get(0)?.name_en ?: "",
+                                nameAr = it.book?.categories?.get(0)?.name_ar ?: "",
                                 image = ""
                             )
                         ),
