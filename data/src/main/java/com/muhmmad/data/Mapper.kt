@@ -1,5 +1,6 @@
 package com.muhmmad.data
 
+import com.muhmmad.domain.model.ActivityResponse
 import com.muhmmad.domain.model.Author
 import com.muhmmad.domain.model.LoginResponse
 import com.muhmmad.domain.model.ValidatePasswordOTPResponse
@@ -10,6 +11,7 @@ import com.muhmmad.domain.model.Cover
 import com.muhmmad.domain.model.Offer
 import com.muhmmad.domain.model.OffersResponse
 import com.muhmmad.qaree.ForgetPasswordMutation
+import com.muhmmad.qaree.GetLastActivityQuery
 import com.muhmmad.qaree.GetOffersQuery
 import com.muhmmad.qaree.ResendPasswordOTPMutation
 import com.muhmmad.qaree.ResendVerificationOTPMutation
@@ -80,12 +82,13 @@ fun GetOffersQuery.GetAllOffers.toOffersResponse(): OffersResponse {
                         categories = listOf(
                             Category(
                                 id = "",
-                                nameAr = "",
-                                nameEn = "",
+                                nameAr = it.book?.categories?.get(0)?.name_ar ?: "",
+                                nameEn = it.book?.categories?.get(0)?.name_en ?: "",
                                 image = ""
                             )
                         ),
-                        id = it.book?._id ?: ""
+                        id = it.book?._id ?: "",
+                        isbn = ""
                     )
                 )
             )
@@ -93,3 +96,19 @@ fun GetOffersQuery.GetAllOffers.toOffersResponse(): OffersResponse {
     }
     return OffersResponse(list)
 }
+
+fun GetLastActivityQuery.GetLastActivity.toActivityResponse(): ActivityResponse = ActivityResponse(
+    book = Book(
+        id = book?._id ?: "",
+        isbn = book?.isbn ?: "",
+        price = 0.0,
+        name = book?.name ?: "",
+        author = null,
+        cover = Cover(id = book?.cover?._id ?: "", path = book?.cover?.path ?: "", size = 0.0),
+        categories = null,
+    ),
+    createdAt = createdAt ?: "",
+    status = status ?: "",
+    updatedAt = updatedAt ?: "",
+    readingProgress = readingProgress ?: 0
+)

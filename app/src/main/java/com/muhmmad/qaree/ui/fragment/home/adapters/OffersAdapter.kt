@@ -32,24 +32,20 @@ class OffersAdapter : RecyclerView.Adapter<OffersAdapter.ViewHolder>() {
             val item = data[position]
             val ctx = root.context
             ivOffer.load(item.book.cover.path)
-            tvBookCategory.text = "Noval"
+            tvBookCategory.text = item.book.categories?.get(0)?.nameEn
             tvBookName.text = item.book.name
-            tvWriterName.text = item.book.author.name
+            tvWriterName.text = item.book.author?.name
             tvPrice.text = ctx.getString(R.string.offer_price, item.book.price.toString())
-            try{
-                btnOffer.text = ctx.getString(R.string.offer_percent,item.percent.toString())
-            }catch (ex:Exception){
-                ex.printStackTrace()
-            }
-
+            btnOffer.text = ctx.getString(R.string.offer_percent, item.percent.toString() + "%")
         }
     }
 
     fun setData(newData: List<Offer>) {
-        val diffCallback = DiffUtilCallback(data, newData)
+        val list = newData.filter { it.book.cover.path.isNotEmpty() }
+        val diffCallback = DiffUtilCallback(data, list)
         val diffResult = DiffUtil.calculateDiff(diffCallback)
         data.clear()
-        data.addAll(newData)
+        data.addAll(list)
         diffResult.dispatchUpdatesTo(this)
     }
 }

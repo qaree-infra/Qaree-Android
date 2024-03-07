@@ -26,6 +26,10 @@ type Query {
 
   getBookContent("" bookId: String): BookContent
 
+  getLastActivity: Activity
+
+  getBestSellerBooks("" limit: Int): BestSeller
+
   getShelf("" shelf: String, "" user: String, "" booksLimit: Int, "" booksPage: Int): ShelfType
 
   getLibrary("" user: String, "" limit: Int, "" page: Int): Library
@@ -48,6 +52,8 @@ type User {
   email: String
 
   avatar: File
+
+  bio: String
 
   updatedAt: String
 
@@ -266,6 +272,25 @@ type ContentRaw {
 }
 
 """
+this is read activity
+"""
+type Activity {
+  book: BookInfo
+
+  status: String
+
+  readingProgress: Int
+
+  updatedAt: String
+
+  createdAt: String
+}
+
+type BestSeller {
+  books: [BookInfo]
+}
+
+"""
 This liberary shelf data
 """
 type ShelfType {
@@ -359,7 +384,7 @@ type Mutation {
 
   resetPassword("" newPassword: String): ResetPassword
 
-  updateUser("" name: String, "" oldPassword: String, "" newPassword: String): User
+  updateUser("" name: String, "" bio: String, "" oldPassword: String, "" newPassword: String): User
 
   deleteAccount: DeleteAccountType
 

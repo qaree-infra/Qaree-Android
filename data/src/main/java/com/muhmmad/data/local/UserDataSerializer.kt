@@ -7,6 +7,7 @@ import kotlinx.serialization.json.Json
 import java.io.InputStream
 import java.io.OutputStream
 
+@Suppress("BlockingMethodInNonBlockingContext")
 object UserDataSerializer : Serializer<UserData> {
     override val defaultValue: UserData
         get() = UserData()
@@ -14,7 +15,7 @@ object UserDataSerializer : Serializer<UserData> {
     override suspend fun readFrom(input: InputStream): UserData {
         return try {
             Json.decodeFromString(
-                UserData.serializer(),
+                deserializer = UserData.serializer(),
                 string = input.readBytes().decodeToString()
             )
         } catch (ex: SerializationException) {

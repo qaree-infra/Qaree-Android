@@ -34,7 +34,24 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    fun setFirstTime() {
+        viewModelScope.launch {
+            authUseCase.setFirstTime(false)
+        }
+    }
+
+    fun isFirstTime() {
+        viewModelScope.launch {
+            _state.update {
+                it.copy(
+                    isFirstTime = authUseCase.isFirstTime()
+                )
+            }
+        }
+    }
+
     data class MainState(
+        val isFirstTime: Boolean? = null,
         val isLogged: Boolean? = null,
         val error: String? = null
     )

@@ -19,11 +19,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.isVisible
+import androidx.datastore.core.DataStore
+import androidx.datastore.dataStore
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
+import com.muhmmad.data.local.UserDataSerializer
+import com.muhmmad.domain.model.UserData
 import com.muhmmad.qaree.R
 import com.muhmmad.qaree.databinding.ActivityMainBinding
 import com.muhmmad.qaree.databinding.ErrorLayoutBinding
@@ -49,6 +53,7 @@ class MainActivity : AppCompatActivity() {
     }
     private lateinit var loading: Dialog
     private val viewModel: MainViewModel by viewModels()
+    private var isFirstTime: Boolean = true
 
     init {
         updateConfig(this)
@@ -59,6 +64,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         binding.apply {
+            viewModel.isFirstTime()
             viewModel.isLogged()
             //Handle action bar
             handleActionBar()
@@ -112,11 +118,16 @@ class MainActivity : AppCompatActivity() {
         }
 
         // Set up the AppBarConfiguration with your navigation graph
-        val appBarConfiguration = AppBarConfiguration(nav.graph, null)
-        setupActionBarWithNavController(nav, appBarConfiguration)
-        binding.authAppbar.toolBar.setNavigationOnClickListener {
-            nav.navigateUp()
+        try {
+            val appBarConfiguration = AppBarConfiguration(nav.graph, null)
+            setupActionBarWithNavController(nav, appBarConfiguration)
+            binding.authAppbar.toolBar.setNavigationOnClickListener {
+                nav.navigateUp()
+            }
+        } catch (ex: Exception) {
+            ex.printStackTrace()
         }
+
     }
 
     fun showLoading() {
@@ -152,6 +163,12 @@ class MainActivity : AppCompatActivity() {
     private fun checkStatus() {
         lifecycleScope.launch {
             viewModel.state.collect {
+                if (it.isFirstTime != null) {
+                    isFirstTime = it.isFirstTime
+                    if (it.isFirstTime) {
+                        viewModel.setFirstTime()
+                    }
+                }
                 if (it.isLogged != null) {
                     if (it.isLogged) goToHome() else authProcess()
                 }
@@ -262,6 +279,8 @@ class MainActivity : AppCompatActivity() {
         val inflater = navHostFragment.navController.navInflater
         val authGraph = inflater.inflate(R.navigation.auth_nav)
         navHostFragment.navController.graph = authGraph
+
+        if (!isFirstTime) nav.navigate(R.id.loginFragment)
 
         binding.bottomNavigation.visibility = View.GONE
     }

@@ -1,5 +1,6 @@
 package com.muhmmad.qaree.ui.fragment.login
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.muhmmad.domain.model.LoginResponse
@@ -10,6 +11,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
+private const val TAG = "LoginViewModel"
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
@@ -54,7 +57,11 @@ class LoginViewModel @Inject constructor(
 
     fun saveToken(token: String) {
         viewModelScope.launch {
-            authUseCase.setToken(token)
+            authUseCase.setToken(token).apply {
+                _state.update {
+                    it.copy(goHome = true)
+                }
+            }
         }
     }
 
@@ -62,6 +69,7 @@ class LoginViewModel @Inject constructor(
     data class LoginState(
         val loginResponse: LoginResponse? = null,
         val isLoading: Boolean = false,
-        val error: String? = null
+        val error: String? = null,
+        val goHome: Boolean = false
     )
 }

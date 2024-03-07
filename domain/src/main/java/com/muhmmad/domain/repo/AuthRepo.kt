@@ -6,6 +6,8 @@ import com.muhmmad.domain.model.ValidatePasswordOTPResponse
 import com.muhmmad.domain.model.BaseResponse
 
 interface AuthRepo {
+    suspend fun setFirstTime(isFirstTime: Boolean)
+    suspend fun isFirstTime(): Boolean
     suspend fun login(email: String, pass: String): NetworkResponse<LoginResponse>
     suspend fun register(name: String, email: String, pass: String): NetworkResponse<String>
     suspend fun verifyAccount(email: String, otp: String): NetworkResponse<BaseResponse>
