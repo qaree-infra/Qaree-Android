@@ -97,7 +97,6 @@ class HomeFragment : Fragment() {
                             binding.ivActivitiesBook.load(book.cover.path) {
                                 transformations(CircleCropTransformation())
                             }
-                        }
                     } else {
                         binding.tvActivities.visibility = View.GONE
                         binding.activities.visibility = View.GONE

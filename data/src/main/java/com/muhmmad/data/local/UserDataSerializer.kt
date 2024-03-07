@@ -2,6 +2,8 @@ package com.muhmmad.data.local
 
 import androidx.datastore.core.Serializer
 import com.muhmmad.domain.model.UserData
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
 import java.io.InputStream
@@ -25,12 +27,13 @@ object UserDataSerializer : Serializer<UserData> {
     }
 
     override suspend fun writeTo(t: UserData, output: OutputStream) {
-        output.write(
-            Json.encodeToString(
-                serializer = UserData.serializer(),
-                value = t
-            ).encodeToByteArray()
-        )
+        withContext(Dispatchers.IO) {
+            output.write(
+                Json.encodeToString(
+                    serializer = UserData.serializer(),
+                    value = t
+                ).encodeToByteArray()
+            )
+        }
     }
-
 }

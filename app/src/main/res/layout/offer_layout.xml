@@ -16,6 +16,7 @@
             android:id="@+id/iv_offer"
             android:layout_width="@dimen/_110sdp"
             android:layout_height="0dp"
+            android:scaleType="fitXY"
             android:contentDescription="@string/offer_image"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -40,17 +41,19 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_5sdp"
+            android:maxWidth="@dimen/_230sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
             android:gravity="start"
             android:lines="2"
-            android:maxWidth="@dimen/_230sdp"
             android:maxLines="2"
             android:textColor="@color/white"
-            android:textSize="@dimen/_15ssp"
+            android:textSize="@dimen/_14ssp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/iv_offer"
             app:layout_constraintTop_toBottomOf="@id/tv_book_category"
             tools:text="Hello welcome this is test" />
+            />
 
         <TextView
             android:id="@+id/tv_writer_name"
@@ -59,7 +62,7 @@
             android:layout_marginTop="@dimen/_5sdp"
             android:gravity="start"
             android:textColor="@color/white"
-            app:layout_constraintStart_toStartOf="@id/tv_book_name"
+            app:layout_constraintStart_toStartOf="@id/tv_book_category"
             app:layout_constraintTop_toBottomOf="@id/tv_book_name"
             tools:text="Julia Fine" />
 
