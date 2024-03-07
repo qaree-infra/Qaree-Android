@@ -1,6 +1,7 @@
 package com.muhmmad.domain.model
 
 data class Cover(
-    val path: String="",
-    val size: Double=0.0
+    val id: String = "",
+    val path: String = "",
+    val size: Double = 0.0
 )

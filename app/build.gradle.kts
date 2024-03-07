@@ -14,7 +14,7 @@ android {
 
     defaultConfig {
         applicationId = "com.muhmmad.qaree"
-        minSdk = 26
+        minSdk = 29
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -41,6 +41,7 @@ android {
 
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 }
 
@@ -77,7 +78,7 @@ dependencies {
     //OTP view
     implementation("com.github.aabhasr1:OtpView:v1.1.2-ktx")
     //Firebase
-    implementation(platform("com.google.firebase:firebase-bom:32.7.2"))
+    implementation(platform("com.google.firebase:firebase-bom:32.7.3"))
     implementation("com.google.firebase:firebase-analytics")
     //Firebase-crashlytics
     implementation("com.google.firebase:firebase-crashlytics")

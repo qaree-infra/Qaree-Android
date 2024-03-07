@@ -2,11 +2,13 @@ package com.muhmmad.data.remote
 
 import com.apollographql.apollo3.ApolloClient
 import com.muhmmad.data.NetworkOperations.checkResponse
+import com.muhmmad.data.toActivityResponse
 import com.muhmmad.data.toBaseResponse
 import com.muhmmad.data.toLoginResponse
 import com.muhmmad.data.toOffersResponse
 import com.muhmmad.data.toValidateOTPResponse
 import com.muhmmad.data.toVerificationResponse
+import com.muhmmad.domain.model.ActivityResponse
 import com.muhmmad.domain.model.LoginResponse
 import com.muhmmad.domain.model.NetworkResponse
 import com.muhmmad.domain.model.NetworkResponse.Error
@@ -16,6 +18,7 @@ import com.muhmmad.domain.model.BaseResponse
 import com.muhmmad.domain.model.OffersResponse
 import com.muhmmad.domain.remote.RemoteDataSource
 import com.muhmmad.qaree.ForgetPasswordMutation
+import com.muhmmad.qaree.GetLastActivityQuery
 import com.muhmmad.qaree.GetOffersQuery
 import com.muhmmad.qaree.ResendPasswordOTPMutation
 import com.muhmmad.qaree.ResendVerificationOTPMutation
@@ -235,6 +238,30 @@ class RemoteDataSourceImpl(
             }
         } catch (ex: Exception) {
             Error(ex.localizedMessage?.toString()!!)
+        }
+    }
+
+    override suspend fun getLastActivity(token: String): NetworkResponse<ActivityResponse> {
+        return try {
+            val response = checkResponse(
+                apolloClient.query(GetLastActivityQuery()).addHttpHeader("Authorization", token)
+                    .execute()
+            )
+
+            when (response) {
+                is Success -> {
+                    Success(response.data?.getLastActivity?.toActivityResponse()!!)
+                }
+
+                else -> {
+                    Error(response.message.toString())
+                }
+            }
+        } catch (ex: NullPointerException) {
+            ex.printStackTrace()
+            Error("")
+        } catch (ex: Exception) {
+            Error(ex.message.toString())
         }
     }
 }

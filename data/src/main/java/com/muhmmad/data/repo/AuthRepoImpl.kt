@@ -12,6 +12,11 @@ class AuthRepoImpl(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource
 ) : AuthRepo {
+    override suspend fun setFirstTime(isFirstTime: Boolean) =
+        localDataSource.setFirstTime(isFirstTime)
+
+    override suspend fun isFirstTime(): Boolean = localDataSource.isFirstTime()
+
     override suspend fun login(email: String, pass: String): NetworkResponse<LoginResponse> =
         remoteDataSource.login(email, pass)
 
@@ -42,7 +47,7 @@ class AuthRepoImpl(
         remoteDataSource.resendPasswordOTP(email)
 
     override suspend fun resetPassword(pass: String, token: String): NetworkResponse<BaseResponse> =
-        remoteDataSource.resetPassword(pass,token)
+        remoteDataSource.resetPassword(pass, token)
 
     override suspend fun getToken(): String = localDataSource.getToken()
     override suspend fun setToken(token: String) {

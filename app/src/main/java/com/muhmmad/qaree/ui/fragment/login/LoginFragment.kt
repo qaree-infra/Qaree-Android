@@ -1,5 +1,6 @@
 package com.muhmmad.qaree.ui.fragment.login
 
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.util.Patterns.EMAIL_ADDRESS
@@ -14,9 +15,14 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.muhmmad.qaree.ui.activity.main.MainActivity
 import com.muhmmad.qaree.R
+import com.muhmmad.qaree.BuildConfig
 import com.muhmmad.qaree.databinding.FragmentLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import okhttp3.internal.wait
 
 private const val TAG = "LoginFragment"
 
@@ -78,14 +84,14 @@ class LoginFragment : Fragment() {
     private fun checkStatus() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.state.collect {
+                if (it.goHome) activity.goToHome()
                 if (it.isLoading) activity.showLoading()
                 else activity.dismissLoading()
 
                 if (it.error?.isNotEmpty() == true) activity.showError(it.error.toString())
                 else if (it.loginResponse != null) {
                     if (it.loginResponse.token.isNotEmpty()) {
-                        viewModel.saveToken(it.loginResponse.token)
-                        activity.goToHome()
+                        viewModel.saveToken("Bearer ${it.loginResponse.token}")
                     }
                 }
             }

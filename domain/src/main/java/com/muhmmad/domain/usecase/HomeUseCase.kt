@@ -4,4 +4,6 @@ import com.muhmmad.domain.repo.HomeRepo
 
 class HomeUseCase(private val repo: HomeRepo) {
     suspend fun getOffers() = repo.getOffers()
+    suspend fun getLastActivity(token: String) = repo.getLastActivity(token)
+    suspend fun getTopAuthors() = repo.getTopAuthors()
 }

@@ -9,13 +9,13 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import coil.load
 import coil.transform.CircleCropTransformation
+import com.muhmmad.qaree.R
 import com.muhmmad.qaree.databinding.FragmentHomeBinding
 import com.muhmmad.qaree.ui.activity.main.MainActivity
 import com.muhmmad.qaree.ui.fragment.home.adapters.AuthorsAdapter
 import com.muhmmad.qaree.ui.fragment.home.adapters.BooksAdapter
 import com.muhmmad.qaree.ui.fragment.home.adapters.CategoriesAdapter
 import com.muhmmad.qaree.ui.fragment.home.adapters.OffersAdapter
-import dagger.hilt.EntryPoint
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -75,6 +75,7 @@ class HomeFragment : Fragment() {
 
     private fun getData() {
         viewModel.getOffers()
+        viewModel.getLastActivity()
     }
 
     private fun checkState() {
@@ -85,15 +86,22 @@ class HomeFragment : Fragment() {
 
                 if (it.error?.isNotEmpty() == true) activity.showError(it.error.toString())
                 else {
-                    it.activitiesResponse?.apply {
-                        binding.tvActivitiesName.text = bookName
-                        binding.tvReadingPages.text = "$userPages/$bookPages"
-                        binding.progressBar.progress = percentage
-                        binding.tvProgressPresent.text = "$percentage%"
-                        binding.ivActivitiesBook.load(image) {
-                            transformations(CircleCropTransformation())
-                        }
+                    if (it.activitiesResponse != null) {
+                        binding.tvActivities.visibility = View.VISIBLE
+                        binding.activities.visibility = View.VISIBLE
+                        it.activitiesResponse.apply {
+                            binding.tvActivitiesName.text = book.name
+//                            binding.tvReadingPages.text = "$readingProgress/100"
+                            binding.progressBar.progress = readingProgress
+                            binding.tvProgressPresent.text = getString(R.string.reading_percent, readingProgress.toString())
+                            binding.ivActivitiesBook.load(book.cover.path) {
+                                transformations(CircleCropTransformation())
+                            }
+                    } else {
+                        binding.tvActivities.visibility = View.GONE
+                        binding.activities.visibility = View.GONE
                     }
+
 
                     it.offersResponse?.apply {
                         offersAdapter.setData(data)

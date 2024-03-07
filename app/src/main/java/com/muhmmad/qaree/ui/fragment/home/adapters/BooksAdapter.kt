@@ -29,7 +29,7 @@ class BooksAdapter : RecyclerView.Adapter<BooksAdapter.ViewHolder>() {
             val item = data[position]
             ivBook.load(item.cover.path)
             tvBookName.text = item.name
-            tvAuthor.text = item.author.name
+            tvAuthor.text = item.author?.name
 //            ratingBar.rating = item
         }
     }

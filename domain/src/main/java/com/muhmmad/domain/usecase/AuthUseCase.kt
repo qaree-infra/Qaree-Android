@@ -3,6 +3,8 @@ package com.muhmmad.domain.usecase
 import com.muhmmad.domain.repo.AuthRepo
 
 class AuthUseCase(private val repo: AuthRepo) {
+    suspend fun setFirstTime(isFirstTime: Boolean) = repo.setFirstTime(isFirstTime)
+    suspend fun isFirstTime() = repo.isFirstTime()
     suspend fun login(email: String, pass: String) = repo.login(email, pass)
     suspend fun register(name: String, email: String, pass: String) =
         repo.register(name, email, pass)

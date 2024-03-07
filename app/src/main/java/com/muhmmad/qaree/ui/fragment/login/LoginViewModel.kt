@@ -57,7 +57,11 @@ class LoginViewModel @Inject constructor(
     fun saveToken(token: String) {
         Log.i(TAG, token.toString())
         viewModelScope.launch {
-            authUseCase.setToken(token)
+            authUseCase.setToken(token).apply {
+                _state.update {
+                    it.copy(goHome = true)
+                }
+            }
         }
     }
 
@@ -65,6 +69,7 @@ class LoginViewModel @Inject constructor(
     data class LoginState(
         val loginResponse: LoginResponse? = null,
         val isLoading: Boolean = false,
-        val error: String? = null
+        val error: String? = null,
+        val goHome: Boolean = false
     )
 }
