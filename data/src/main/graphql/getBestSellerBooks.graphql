@@ -1,0 +1,17 @@
+query getBestSellerBooks{
+    getBestSellerBooks {
+        books {
+            _id
+            name,
+            cover{
+                path
+            },
+            author{
+                _id,
+                name
+            },
+            isbn,
+            avgRate
+        }
+    }
+}

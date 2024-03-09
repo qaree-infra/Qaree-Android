@@ -2,10 +2,12 @@ package com.muhmmad.qaree.ui.fragment.home.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.muhmmad.domain.model.Book
 import com.muhmmad.qaree.databinding.NewReleaseItemBinding
+import com.muhmmad.qaree.utils.DiffUtilCallback
 
 class BooksAdapter : RecyclerView.Adapter<BooksAdapter.ViewHolder>() {
     private val data = ArrayList<Book>()
@@ -30,13 +32,16 @@ class BooksAdapter : RecyclerView.Adapter<BooksAdapter.ViewHolder>() {
             ivBook.load(item.cover.path)
             tvBookName.text = item.name
             tvAuthor.text = item.author?.name
-//            ratingBar.rating = item
+            ratingBar.numStars = 5
+            ratingBar.rating = item.avgRating.toFloat()
         }
     }
 
-    fun setData(data: List<Book>) {
-        this.data.clear()
-        this.data.addAll(data)
-        notifyDataSetChanged()
+    fun setData(newData: List<Book>) {
+        val diffCallback = DiffUtilCallback(data, newData)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+        data.clear()
+        data.addAll(newData)
+        diffResult.dispatchUpdatesTo(this)
     }
 }

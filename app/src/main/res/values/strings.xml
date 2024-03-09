@@ -80,4 +80,6 @@
     <string name="offer_price">%s LE</string>
     <string name="offer_percent">%s off</string>
     <string name="reading_percent">%s %%</string>
+    <string name="add_shelf">Add shelf</string>
+    <string name="more">More</string>
 </resources>

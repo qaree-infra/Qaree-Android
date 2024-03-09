@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginEnd="@dimen/_5sdp"
+    android:layout_margin="@dimen/_5sdp"
     app:cardCornerRadius="@dimen/_15sdp">
 
     <LinearLayout
@@ -25,7 +25,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_5sdp"
-            android:textColor="@color/white"
+            android:gravity="center"
+            android:textColor="@color/primary_color"
+            android:textStyle="bold"
             tools:text="arts" />
 
     </LinearLayout>

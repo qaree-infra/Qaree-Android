@@ -6,6 +6,8 @@ import com.muhmmad.domain.model.LoginResponse
 import com.muhmmad.domain.model.NetworkResponse
 import com.muhmmad.domain.model.ValidatePasswordOTPResponse
 import com.muhmmad.domain.model.BaseResponse
+import com.muhmmad.domain.model.BooksResponse
+import com.muhmmad.domain.model.CategoriesResponse
 import com.muhmmad.domain.model.OffersResponse
 
 interface RemoteDataSource {
@@ -25,4 +27,7 @@ interface RemoteDataSource {
 
     suspend fun getLastActivity(token: String): NetworkResponse<ActivityResponse>
     suspend fun getTopAuthors(): NetworkResponse<AuthorsResponse>
+    suspend fun getNewReleaseBooks(): NetworkResponse<BooksResponse>
+    suspend fun getBestSellerBooks(): NetworkResponse<BooksResponse>
+    suspend fun getCategories():NetworkResponse<CategoriesResponse>
 }

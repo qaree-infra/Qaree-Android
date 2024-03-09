@@ -2,10 +2,12 @@ package com.muhmmad.qaree.ui.fragment.home.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.muhmmad.domain.model.Author
 import com.muhmmad.qaree.databinding.AuthorItemBinding
+import com.muhmmad.qaree.utils.DiffUtilCallback
 
 class AuthorsAdapter : RecyclerView.Adapter<AuthorsAdapter.ViewHolder>() {
     private val data = ArrayList<Author>()
@@ -27,14 +29,16 @@ class AuthorsAdapter : RecyclerView.Adapter<AuthorsAdapter.ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.apply {
             val item = data[position]
-            ivAuthor.load(item.avatar)
+            ivAuthor.load(item.avatar?.path)
             tvAuthor.text = item.name
         }
     }
 
-    fun setData(data: List<Author>) {
-        this.data.clear()
-        this.data.addAll(data)
-        notifyDataSetChanged()
+    fun setData(newData: List<Author>) {
+        val diffCallback = DiffUtilCallback(data, newData)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+        data.clear()
+        data.addAll(newData)
+        diffResult.dispatchUpdatesTo(this)
     }
 }

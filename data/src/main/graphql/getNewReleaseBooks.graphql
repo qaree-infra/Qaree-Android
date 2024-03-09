@@ -1,0 +1,17 @@
+query getNewReleaseBooks{
+    getBooks {
+        numberOfPages
+        books {
+            name
+            _id,
+            cover{
+                path
+            },
+            author{
+                _id,
+                name
+            },
+            avgRate
+        }
+    }
+}
