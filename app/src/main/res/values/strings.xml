@@ -82,4 +82,7 @@
     <string name="reading_percent">%s %%</string>
     <string name="add_shelf">Add shelf</string>
     <string name="more">More</string>
+    <string name="search">search</string>
+    <string name="Enter_book_name">Enter book name</string>
+    <string name="browse_any_category">Browse any category</string>
 </resources>
