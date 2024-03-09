@@ -29,7 +29,7 @@
         android:layout_height="52sp"
         android:layout_marginTop="12dp"
         android:background="@drawable/rounded_corner_edittext"
-        android:drawableStart="@drawable/ic_search"
+        android:drawableStart="@drawable/w_search"
         android:ems="10"
         android:hint="@string/Enter_book_name"
         android:imeOptions="actionSearch"

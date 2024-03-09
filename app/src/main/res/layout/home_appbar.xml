@@ -21,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_20sdp"
-        android:src="@drawable/ic_search"
+        android:src="@drawable/icc_search"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/iv_notification"
         app:layout_constraintTop_toTopOf="parent" />
