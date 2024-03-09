@@ -85,4 +85,5 @@
     <string name="search">search</string>
     <string name="Enter_book_name">Enter book name</string>
     <string name="browse_any_category">Browse any category</string>
+    <string name="shelf_books">Shelf books</string>
 </resources>
