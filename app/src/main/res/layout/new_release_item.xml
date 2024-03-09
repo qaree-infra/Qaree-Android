@@ -11,9 +11,10 @@
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/iv_book"
-        android:layout_width="@dimen/_60sdp"
-        android:layout_height="@dimen/_80sdp"
+        android:layout_width="@dimen/_65sdp"
+        android:layout_height="@dimen/_85sdp"
         android:contentDescription="@string/book_image"
+        android:scaleType="fitXY"
         app:shapeAppearanceOverlay="@style/roundedCornerImageView"
         tools:src="@color/shimmer_color" />
 
@@ -21,20 +22,26 @@
         android:id="@+id/tv_book_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_2sdp"
         android:gravity="center"
+        android:lines="2"
+        android:maxLines="3"
         android:textColor="@color/primary_color"
-        android:textStyle="bold"
-        tools:text="Leaving time" />
+        android:textSize="@dimen/_9ssp"
+        tools:text="Leaving time test" />
 
     <TextView
         android:id="@+id/tv_author"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginHorizontal="@dimen/_2sdp"
+        android:layout_marginTop="@dimen/_2sdp"
         android:gravity="center"
+        android:textSize="@dimen/_8ssp"
         tools:text="jodi pocilit" />
 
-    <androidx.appcompat.widget.AppCompatRatingBar
+    <RatingBar
         android:id="@+id/rating_bar"
         style="?android:attr/ratingBarStyleSmall"
         android:layout_width="match_parent"

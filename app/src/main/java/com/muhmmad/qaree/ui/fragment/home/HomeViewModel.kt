@@ -1,5 +1,6 @@
 package com.muhmmad.qaree.ui.fragment.home
 
+import androidx.collection.intSetOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.muhmmad.domain.model.ActivitiesResponse
@@ -32,7 +33,7 @@ class HomeViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            val author = Author(id = "", name = "author name", avatar = "")
+            val author = Author(id = "", name = "author name", avatar = Cover())
             val book = Book(
                 price = 50.0,
                 name = "Book name",
@@ -121,6 +122,60 @@ class HomeViewModel @Inject constructor(
                         error = message,
                         activitiesResponse = data,
                         isLoading = false
+                    )
+                }
+            }
+        }
+    }
+
+    fun getTopAuthors() {
+        viewModelScope.launch {
+            useCase.getTopAuthors().apply {
+                _state.update {
+                    it.copy(
+                        error = message,
+                        isLoading = false,
+                        authorsResponse = data
+                    )
+                }
+            }
+        }
+    }
+
+    fun getNewReleaseBooks() {
+        viewModelScope.launch {
+            useCase.getNewReleaseBooks().apply {
+                _state.update {
+                    it.copy(
+                        error = message,
+                        isLoading = false,
+                        newReleasesResponse = data
+                    )
+                }
+            }
+        }
+    }
+
+    fun getBestSellerBooks() {
+        viewModelScope.launch {
+            useCase.getBestSellerBooks().apply {
+                _state.update {
+                    it.copy(
+                        error = message,
+                        isLoading = false,
+                        bestSellerResponse = data
+                    )
+                }
+            }
+        }
+    }
+
+    fun getCategories() {
+        viewModelScope.launch {
+            useCase.getCategories().apply {
+                _state.update {
+                    it.copy(
+                        error = message, isLoading = false, categoriesResponse = data
                     )
                 }
             }

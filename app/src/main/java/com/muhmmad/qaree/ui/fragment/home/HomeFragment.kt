@@ -19,8 +19,6 @@ import com.muhmmad.qaree.ui.fragment.home.adapters.OffersAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
-private const val TAG = "HomeFragment"
-
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
     private val binding: FragmentHomeBinding by lazy {
@@ -74,8 +72,14 @@ class HomeFragment : Fragment() {
     }
 
     private fun getData() {
-        viewModel.getOffers()
-        viewModel.getLastActivity()
+        viewModel.apply {
+            getOffers()
+            getLastActivity()
+            getTopAuthors()
+            getNewReleaseBooks()
+            getCategories()
+            getBestSellerBooks()
+        }
     }
 
     private fun checkState() {
@@ -93,15 +97,16 @@ class HomeFragment : Fragment() {
                             binding.tvActivitiesName.text = book.name
 //                            binding.tvReadingPages.text = "$readingProgress/100"
                             binding.progressBar.progress = readingProgress
-                            binding.tvProgressPresent.text = getString(R.string.reading_percent, readingProgress.toString())
+                            binding.tvProgressPresent.text =
+                                getString(R.string.reading_percent, readingProgress.toString())
                             binding.ivActivitiesBook.load(book.cover.path) {
                                 transformations(CircleCropTransformation())
                             }
+                        }
                     } else {
                         binding.tvActivities.visibility = View.GONE
                         binding.activities.visibility = View.GONE
                     }
-
 
                     it.offersResponse?.apply {
                         offersAdapter.setData(data)

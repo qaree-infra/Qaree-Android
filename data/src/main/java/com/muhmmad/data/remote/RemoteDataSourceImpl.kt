@@ -3,23 +3,34 @@ package com.muhmmad.data.remote
 import com.apollographql.apollo3.ApolloClient
 import com.muhmmad.data.NetworkOperations.checkResponse
 import com.muhmmad.data.toActivityResponse
+import com.muhmmad.data.toAuthorsResponse
 import com.muhmmad.data.toBaseResponse
+import com.muhmmad.data.toBookResponse
+import com.muhmmad.data.toBooksResponse
+import com.muhmmad.data.toCategoriesResponse
 import com.muhmmad.data.toLoginResponse
 import com.muhmmad.data.toOffersResponse
 import com.muhmmad.data.toValidateOTPResponse
 import com.muhmmad.data.toVerificationResponse
 import com.muhmmad.domain.model.ActivityResponse
+import com.muhmmad.domain.model.AuthorsResponse
 import com.muhmmad.domain.model.LoginResponse
 import com.muhmmad.domain.model.NetworkResponse
 import com.muhmmad.domain.model.NetworkResponse.Error
 import com.muhmmad.domain.model.NetworkResponse.Success
 import com.muhmmad.domain.model.ValidatePasswordOTPResponse
 import com.muhmmad.domain.model.BaseResponse
+import com.muhmmad.domain.model.BooksResponse
+import com.muhmmad.domain.model.CategoriesResponse
 import com.muhmmad.domain.model.OffersResponse
 import com.muhmmad.domain.remote.RemoteDataSource
 import com.muhmmad.qaree.ForgetPasswordMutation
+import com.muhmmad.qaree.GetBestSellerBooksQuery
+import com.muhmmad.qaree.GetCategoriesQuery
 import com.muhmmad.qaree.GetLastActivityQuery
+import com.muhmmad.qaree.GetNewReleaseBooksQuery
 import com.muhmmad.qaree.GetOffersQuery
+import com.muhmmad.qaree.GetTopAuthorsQuery
 import com.muhmmad.qaree.ResendPasswordOTPMutation
 import com.muhmmad.qaree.ResendVerificationOTPMutation
 import com.muhmmad.qaree.ResetPasswordMutation
@@ -260,6 +271,78 @@ class RemoteDataSourceImpl(
         } catch (ex: NullPointerException) {
             ex.printStackTrace()
             Error("")
+        } catch (ex: Exception) {
+            Error(ex.message.toString())
+        }
+    }
+
+    override suspend fun getTopAuthors(): NetworkResponse<AuthorsResponse> {
+        return try {
+            val response = checkResponse(apolloClient.query(GetTopAuthorsQuery()).execute())
+
+            when (response) {
+                is Success -> {
+                    Success(response.data?.getTopAuthors?.toAuthorsResponse()!!)
+                }
+
+                else -> {
+                    Error(response.message.toString())
+                }
+            }
+        } catch (ex: Exception) {
+            Error(ex.message.toString())
+        }
+    }
+
+    override suspend fun getNewReleaseBooks(): NetworkResponse<BooksResponse> {
+        return try {
+            val response = checkResponse(apolloClient.query(GetNewReleaseBooksQuery()).execute())
+
+            when (response) {
+                is Success -> {
+                    Success(response.data?.toBooksResponse()!!)
+                }
+
+                else -> {
+                    Error(response.message.toString())
+                }
+            }
+        } catch (ex: Exception) {
+            Error(ex.message.toString())
+        }
+    }
+
+    override suspend fun getBestSellerBooks(): NetworkResponse<BooksResponse> {
+        return try {
+            val response = checkResponse(apolloClient.query(GetBestSellerBooksQuery()).execute())
+
+            when (response) {
+                is Success -> {
+                    Success(response.data?.toBookResponse()!!)
+                }
+
+                else -> {
+                    Error(response.message.toString())
+                }
+            }
+        } catch (ex: Exception) {
+            Error(ex.message.toString())
+        }
+    }
+
+    override suspend fun getCategories(): NetworkResponse<CategoriesResponse> {
+        return try {
+            val response = checkResponse(apolloClient.query(GetCategoriesQuery()).execute())
+
+            when (response) {
+                is Success -> {
+                    Success(response.data?.getAllCategories?.toCategoriesResponse()!!)
+                }
+
+                else -> {
+                    Error(response.message.toString())
+                }
+            }
         } catch (ex: Exception) {
             Error(ex.message.toString())
         }

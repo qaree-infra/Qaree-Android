@@ -4,25 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/_3sdp"
     android:layout_gravity="center"
+    android:layout_margin="@dimen/_4sdp"
     android:gravity="center"
     android:orientation="vertical">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/iv_author"
-        android:layout_width="@dimen/_50sdp"
-        android:layout_height="@dimen/_50sdp"
+        android:layout_width="@dimen/_55sdp"
+        android:layout_height="@dimen/_55sdp"
         android:contentDescription="@string/author_image"
-        app:shapeAppearanceOverlay="@style/roundedImageView"
-        tools:src="@color/shimmer_color" />
+        android:src="@color/shimmer_color"
+        app:shapeAppearanceOverlay="@style/roundedImageView" />
 
     <TextView
         android:id="@+id/tv_author"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_5sdp"
+        android:gravity="center"
+        android:maxWidth="@dimen/_60sdp"
+        android:maxLines="2"
         android:textColor="@color/primary_color"
-        android:textStyle="bold"
-        tools:text="Muhmmad Nabil" />
+        tools:text="Mohamed Ali fawzy" />
 </LinearLayout>
