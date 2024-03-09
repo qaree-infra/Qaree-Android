@@ -27,11 +27,10 @@
         app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_current_reading"
-        android:layout_width="406dp"
-        android:layout_height="1150dp"
-        android:layout_marginTop="4dp"
+        android:layout_width="406sp"
+        android:layout_height="1150sp"
+        android:layout_marginTop="4sp"
         android:orientation="vertical"
-        tools:listitem="@layout/shelf_item"
-        tools:ignore=",MissingConstraints" />
+        tools:listitem="@layout/shelf_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
