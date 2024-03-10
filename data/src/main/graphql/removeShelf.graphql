@@ -1,0 +1,6 @@
+mutation removeShelf($id:String!){
+    removeShelf (shelf: $id) {
+        message
+        success
+    }
+}
