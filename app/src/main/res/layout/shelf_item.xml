@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-             android:layout_height="match_parent">
+    android:layout_height="match_parent">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/book_name"
@@ -36,21 +36,19 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="48dp"
         android:numStars="5"
-        android:stepSize="0.5"
         android:rating="2.5"
+        android:stepSize="0.5"
         app:layout_constraintBottom_toTopOf="@+id/progressBar_c"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srb_starSize="10sp"
-        />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <ProgressBar
         android:id="@+id/progressBar_c"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="239dp"
         android:layout_height="22dp"
+        android:layout_centerHorizontal="true"
         android:layout_marginEnd="44dp"
         android:layout_marginBottom="52dp"
-        android:layout_centerHorizontal="true"
         android:indeterminate="true"
         android:max="100"
         android:progress="50"
@@ -68,9 +66,9 @@
         android:textSize="@dimen/_13ssp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/progressBar_c"
+        tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteY="117dp"
-        tools:text="50%"
-        tools:ignore="MissingConstraints" />
+        tools:text="50%" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_read"
@@ -106,8 +104,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.593"
         app:layout_constraintStart_toEndOf="@+id/btn_read"
-        tools:layout_editor_absoluteY="147dp"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="147dp" />
 
     <View
         android:id="@+id/view"
