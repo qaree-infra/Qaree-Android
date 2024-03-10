@@ -21,8 +21,10 @@ class LibraryFragment : Fragment() {
     private val activity: MainActivity by lazy {
         getActivity() as MainActivity
     }
-
     private val viewModel: LibraryViewModel by viewModels()
+    private val adapter: LibraryAdapter by lazy {
+        LibraryAdapter()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,6 +39,7 @@ class LibraryFragment : Fragment() {
             //checkStatus
             checkStatus()
             viewModel.getLibrary()
+            rvLibrary.adapter = adapter
             btnAdd.setOnClickListener {
 
             }
@@ -51,7 +54,7 @@ class LibraryFragment : Fragment() {
 
                 if (it.error?.isNotEmpty() == true) activity.showError(it.error.toString())
                 if (it.libraryResponse != null) {
-
+                    adapter.setData(it.libraryResponse.data)
                 }
 
                 if (it.createShelfResponse != null) activity.showMessage(it.createShelfResponse.message)

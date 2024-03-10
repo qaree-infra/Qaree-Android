@@ -1,135 +1,160 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/book_name"
-        android:layout_width="100dp"
-        android:layout_height="186dp"
-        android:adjustViewBounds="true"
-        android:scaleType="centerCrop"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/tv_book_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="120dp"
-        android:layout_marginBottom="8dp"
-        android:fontFamily="@font/poppins_bold"
-        android:text="@string/book_name"
-        android:textColor="@color/black"
-        android:textSize="@dimen/_15ssp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/ratingBar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_book"
+            android:layout_width="@dimen/_90sdp"
+            android:layout_height="@dimen/_130sdp"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <RatingBar
-        android:id="@+id/ratingBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="48dp"
-        android:numStars="5"
-        android:rating="2.5"
-        android:stepSize="0.5"
-        app:layout_constraintBottom_toTopOf="@+id/progressBar_c"
-        app:layout_constraintEnd_toEndOf="parent" />
+        <LinearLayout
+            android:id="@+id/ll_details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@id/ll_btns"
+            app:layout_constraintEnd_toStartOf="@id/btn_remove"
+            app:layout_constraintStart_toEndOf="@id/iv_book"
+            app:layout_constraintTop_toTopOf="parent">
 
-    <ProgressBar
-        android:id="@+id/progressBar_c"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="239dp"
-        android:layout_height="22dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginEnd="44dp"
-        android:layout_marginBottom="52dp"
-        android:indeterminate="true"
-        android:max="100"
-        android:progress="50"
-        app:layout_constraintBottom_toTopOf="@+id/view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.857"
-        app:layout_constraintStart_toEndOf="@+id/book_name" />
+            <TextView
+                android:id="@+id/tv_book"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:lines="2"
+                android:maxWidth="@dimen/_150sdp"
+                android:maxLines="2"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_13ssp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/iv_book"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Learn program" />
 
-    <TextView
-        android:id="@+id/tv_progress_number"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textColor="@color/black"
-        android:textSize="@dimen/_13ssp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/progressBar_c"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="117dp"
-        tools:text="50%" />
+            <TextView
+                android:id="@+id/tv_author"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_9ssp"
+                tools:text="paul Deitel" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_read"
-        android:layout_width="99dp"
-        android:layout_height="48dp"
-        android:layout_marginHorizontal="@dimen/_30sdp"
-        android:layout_marginTop="4dp"
-        android:fontFamily="@font/poppins"
-        android:gravity="center"
-        android:paddingVertical="@dimen/_7sdp"
-        android:text="@string/read"
-        android:textColor="@color/white"
-        android:textSize="@dimen/_8ssp"
-        android:textStyle="bold"
-        app:cornerRadius="@dimen/_7sdp"
-        app:layout_constraintTop_toBottomOf="@+id/progressBar_c"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="124dp" />
+            <RatingBar
+                android:id="@+id/rating_bar"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:numStars="5"
+                android:progressTint="@color/rating_stars" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_book_info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_30sdp"
-        android:fontFamily="@font/poppins"
-        android:gravity="center"
-        android:paddingVertical="@dimen/_7sdp"
-        android:text="@string/book_info"
-        android:textColor="@color/white"
-        android:textSize="@dimen/_8ssp"
-        android:textStyle="bold"
-        app:cornerRadius="@dimen/_7sdp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.593"
-        app:layout_constraintStart_toEndOf="@+id/btn_read"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="147dp" />
+        </LinearLayout>
+
+
+        <!--    <ProgressBar-->
+        <!--        android:id="@+id/progressBar_c"-->
+        <!--        style="?android:attr/progressBarStyleHorizontal"-->
+        <!--        android:layout_width="239dp"-->
+        <!--        android:layout_height="22dp"-->
+        <!--        android:layout_centerHorizontal="true"-->
+        <!--        android:layout_marginEnd="44dp"-->
+        <!--        android:layout_marginBottom="52dp"-->
+        <!--        android:indeterminate="true"-->
+        <!--        android:max="100"-->
+        <!--        android:progress="50"-->
+        <!--        app:layout_constraintBottom_toTopOf="@+id/view"-->
+        <!--        app:layout_constraintEnd_toEndOf="parent"-->
+        <!--        app:layout_constraintHorizontal_bias="0.857"-->
+        <!--        app:layout_constraintStart_toEndOf="@+id/book_name" />-->
+
+        <!--    <TextView-->
+        <!--        android:id="@+id/tv_progress_number"-->
+        <!--        android:layout_width="wrap_content"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        android:gravity="center"-->
+        <!--        android:textColor="@color/black"-->
+        <!--        android:textSize="@dimen/_13ssp"-->
+        <!--        app:layout_constraintEnd_toEndOf="parent"-->
+        <!--        app:layout_constraintStart_toEndOf="@+id/progressBar_c"-->
+        <!--        tools:ignore="MissingConstraints"-->
+        <!--        tools:layout_editor_absoluteY="117dp"-->
+        <!--        tools:text="50%" />-->
+
+        <ImageButton
+            android:id="@+id/btn_remove"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_20sdp"
+            android:background="@color/transparent"
+            android:contentDescription="@string/to_delete_this_book"
+            app:layout_constraintBottom_toTopOf="@id/ll_btns"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_bin" />
+
+        <LinearLayout
+            android:id="@+id/ll_btns"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_book">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_read"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:paddingHorizontal="@dimen/_15sdp"
+                android:text="@string/read"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_8ssp"
+                app:cornerRadius="@dimen/_7sdp" />
+
+            <Space
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="wrap_content" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_book_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:paddingHorizontal="@dimen/_15sdp"
+                android:text="@string/book_info"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_8ssp"
+                app:cornerRadius="@dimen/_7sdp" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View
-        android:id="@+id/view"
+        android:id="@+id/divider"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_margin="8dp"
-        android:layout_marginTop="26dp"
-        android:background="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/book_name" />
-
-    <ImageButton
-        android:id="@+id/btn_Wastebasket"
-        android:layout_width="37dp"
-        android:layout_height="43dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="8dp"
-        android:background="@color/transparent"
-        android:contentDescription="@string/to_delete_this_book"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_bin" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="2dp"
+        android:layout_marginHorizontal="@dimen/_50sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:background="@color/black" />
+</LinearLayout>
