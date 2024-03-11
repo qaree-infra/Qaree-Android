@@ -86,4 +86,7 @@
     <string name="Enter_book_name">Enter book name</string>
     <string name="browse_any_category">Browse any category</string>
     <string name="shelf_books">Shelf books</string>
+    <string name="enter_the_shelf_name">Enter the shelf name</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
 </resources>
