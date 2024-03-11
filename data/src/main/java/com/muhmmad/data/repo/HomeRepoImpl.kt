@@ -43,4 +43,7 @@ class HomeRepoImpl(private val remoteDataSource: RemoteDataSource) : HomeRepo {
 
     override suspend fun removeShelf(id: String, token: String): NetworkResponse<BaseResponse> =
         remoteDataSource.removeShelf(id, token)
+
+    override suspend fun search(name: String): NetworkResponse<BooksResponse> =
+        remoteDataSource.search(name)
 }

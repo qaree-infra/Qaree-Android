@@ -22,4 +22,5 @@ interface HomeRepo {
     suspend fun getShelfDetails(name: String, token: String): NetworkResponse<ShelfResponse>
     suspend fun createShelf(name: String, token: String): NetworkResponse<BaseResponse>
     suspend fun removeShelf(id: String, token: String): NetworkResponse<BaseResponse>
+    suspend fun search(name: String): NetworkResponse<BooksResponse>
 }

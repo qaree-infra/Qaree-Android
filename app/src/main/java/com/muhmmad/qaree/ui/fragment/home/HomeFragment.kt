@@ -137,7 +137,10 @@ class HomeFragment : Fragment() {
 
     private fun initAnimation() {
         binding.apply {
-            shimmerLayout.startShimmerAnimation()
+            if (!isFirstTime) {
+                isFirstTime = true
+                shimmerLayout.startShimmerAnimation()
+            }
         }
     }
 
@@ -145,5 +148,9 @@ class HomeFragment : Fragment() {
         binding.apply {
             shimmerLayout.stopShimmerAnimation()
         }
+    }
+
+    companion object {
+        var isFirstTime: Boolean = false
     }
 }

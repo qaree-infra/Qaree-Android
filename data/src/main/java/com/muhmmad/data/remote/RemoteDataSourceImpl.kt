@@ -42,6 +42,7 @@ import com.muhmmad.qaree.RemoveShelfMutation
 import com.muhmmad.qaree.ResendPasswordOTPMutation
 import com.muhmmad.qaree.ResendVerificationOTPMutation
 import com.muhmmad.qaree.ResetPasswordMutation
+import com.muhmmad.qaree.SearchQuery
 import com.muhmmad.qaree.SignInMutation
 import com.muhmmad.qaree.SignUpMutation
 import com.muhmmad.qaree.ValidatePasswordOTPMutation
@@ -434,6 +435,22 @@ class RemoteDataSourceImpl(
             when (response) {
                 is Success -> {
                     Success(response.data?.removeShelf?.toBaseResponse()!!)
+                }
+
+                else -> {
+                    Error(response.message.toString())
+                }
+            }
+        } catch (ex: Exception) {
+            Error(ex.message.toString())
+        }
+    }
+
+    override suspend fun search(name: String): NetworkResponse<BooksResponse> {
+        return try {
+            when (val response = checkResponse(apolloClient.query(SearchQuery(name)).execute())) {
+                is Success -> {
+                    Success(response.data?.search?.toBooksResponse()!!)
                 }
 
                 else -> {

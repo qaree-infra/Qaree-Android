@@ -36,8 +36,8 @@ class HomeActivity : BaseActivity() {
             navHostFragment.navController.addOnDestinationChangedListener { controller, destination, arguments ->
                 handleBottomNavigation(destination.id)
                 run {
-//                    binding.appBar.root.isVisible =
-//                        arguments?.getBoolean("ShowAppBar", true) == true
+                    binding.appBar.root.isVisible =
+                        arguments?.getBoolean("ShowAppBar", true) == true
                 }
             }
         }

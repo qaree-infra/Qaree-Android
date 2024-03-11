@@ -48,7 +48,7 @@ class HomeViewModel @Inject constructor(
             val category = Category(id = "", nameEn = "Category", image = "", nameAr = "")
             _state.update {
                 it.copy(
-                    isLoading = true,
+                    isLoading = false,
                     offersResponse = OffersResponse(listOf(offer, offer)),
                     activitiesResponse = ActivityResponse(
                         book = book,
