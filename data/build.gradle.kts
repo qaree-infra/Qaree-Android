@@ -55,5 +55,4 @@ dependencies {
     implementation("androidx.datastore:datastore-core:1.0.0")
     //Serialization
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2")
-
 }

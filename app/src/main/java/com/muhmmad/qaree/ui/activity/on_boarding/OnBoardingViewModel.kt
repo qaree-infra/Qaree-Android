@@ -1,6 +1,5 @@
-package com.muhmmad.qaree.ui.activity.main
+package com.muhmmad.qaree.ui.activity.on_boarding
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.muhmmad.domain.usecase.AuthUseCase
@@ -11,17 +10,14 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-private const val TAG = "MainViewModel"
-
 @HiltViewModel
-class MainViewModel @Inject constructor(
+class OnBoardingViewModel @Inject constructor(
     private val authUseCase: AuthUseCase,
 ) : ViewModel() {
     private val _state = MutableStateFlow(MainState())
     val state = _state.asStateFlow()
     fun isLogged() {
         viewModelScope.launch {
-            Log.i(TAG, authUseCase.getToken().toString())
             if (authUseCase.getToken().isNotEmpty()) {
                 _state.update {
                     it.copy(

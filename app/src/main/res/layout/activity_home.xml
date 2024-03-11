@@ -5,25 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".ui.activity.main.MainActivity">
+    tools:context=".ui.activity.home.HomeActivity">
 
-    <LinearLayout
-        android:id="@+id/ll_appbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
+    <include
+        android:id="@+id/app_bar"
+        layout="@layout/home_appbar"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <include
-            android:id="@+id/auth_appbar"
-            layout="@layout/auth_appbar" />
-
-        <include
-            android:id="@+id/home_appbar"
-            layout="@layout/home_appbar" />
-    </LinearLayout>
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <androidx.fragment.app.FragmentContainerView
@@ -35,7 +25,8 @@
         app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ll_appbar" />
+        app:layout_constraintTop_toBottomOf="@id/app_bar"
+        app:navGraph="@navigation/home_nav" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/bottom_navigation"
@@ -43,10 +34,10 @@
         android:layout_height="wrap_content"
         android:background="@drawable/bottom_navigation_bg"
         android:paddingVertical="@dimen/_8sdp"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/nav_host_fragment">
 
         <LinearLayout
             android:id="@+id/ll_home"

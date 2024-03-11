@@ -8,9 +8,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.muhmmad.qaree.databinding.FragmentLibraryBinding
-import com.muhmmad.qaree.ui.activity.main.MainActivity
+import com.muhmmad.qaree.ui.activity.home.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -18,8 +17,8 @@ class LibraryFragment : Fragment() {
     private val binding: FragmentLibraryBinding by lazy {
         FragmentLibraryBinding.inflate(layoutInflater)
     }
-    private val activity: MainActivity by lazy {
-        getActivity() as MainActivity
+    private val activity: HomeActivity by lazy {
+        getActivity() as HomeActivity
     }
     private val viewModel: LibraryViewModel by viewModels()
     private val adapter: LibraryAdapter by lazy {
@@ -49,10 +48,13 @@ class LibraryFragment : Fragment() {
     private fun checkStatus() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.state.collect {
-                if (it.isLoading) activity.showLoading()
-                else activity.dismissLoading()
+                if (it.isLoading) activity.showLoading(binding.root)
+                else activity.dismissLoading(binding.root)
 
-                if (it.error?.isNotEmpty() == true) activity.showError(it.error.toString())
+                if (it.error?.isNotEmpty() == true) activity.showError(
+                    binding.root,
+                    it.error.toString()
+                )
                 if (it.libraryResponse != null) {
                     adapter.setData(it.libraryResponse.data)
                 }

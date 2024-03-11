@@ -4,78 +4,83 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".ui.fragment.search.SearchFragment">
 
     <TextView
         android:id="@+id/tv_search"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_10sdp"
-        android:layout_marginTop="20dp"
-        android:fontFamily="@font/poppins_bold"
+        android:layout_margin="@dimen/_20sdp"
         android:text="@string/search"
-        android:textColor="#2F3E93"
+        android:textColor="@color/primary_color"
         android:textSize="@dimen/_18ssp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/editText_search_toolbar"
-        android:layout_width="336sp"
-        android:layout_height="52sp"
-        android:layout_marginTop="12dp"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layout_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_10sdp"
         android:background="@drawable/rounded_corner_edittext"
-        android:drawableStart="@drawable/ic_search_white"
-        android:ems="10"
-        android:hint="@string/Enter_book_name"
-        android:imeOptions="actionSearch"
-        android:importantForAutofill="no"
-        android:inputType="textPersonName"
-        android:maxLines="1"
-        android:paddingStart="16sp"
-        android:paddingEnd="16sp"
-        android:textColorHint="@color/white"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toTopOf="@+id/tv_ch_any_category"
+        android:gravity="center"
+        app:hintEnabled="false"
+        app:hintTextColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_search"
-        app:layout_constraintVertical_bias="0.23" />
+        app:layout_constraintTop_toBottomOf="@id/tv_search">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:drawableStart="@drawable/ic_search_white"
+            android:gravity="center"
+            android:hint="@string/enter_book_name"
+
+            android:textColorHint="@color/white" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
-        android:id="@+id/tv_ch_any_category"
-        android:layout_width="295dp"
-        android:layout_height="42dp"
-        android:fontFamily="@font/poppins_bold"
+        android:id="@+id/tv_browse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_15sdp"
         android:text="@string/browse_any_category"
         android:textColor="@color/black"
-        android:textSize="@dimen/_14ssp"
-        android:textStyle="normal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.137"
+        android:textSize="@dimen/_15ssp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.224" />
+        app:layout_constraintTop_toBottomOf="@id/layout_search" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycle_current_reading"
+        android:id="@+id/rv_categories"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="4dp"
-        android:orientation="vertical"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:visibility="visible"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_ch_any_category"
+        app:layout_constraintTop_toBottomOf="@id/tv_browse"
         app:spanCount="2"
+        tools:itemCount="14"
+        tools:listitem="@layout/categories_search_item" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_result"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:visibility="gone"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_browse"
         tools:listitem="@layout/search_item" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

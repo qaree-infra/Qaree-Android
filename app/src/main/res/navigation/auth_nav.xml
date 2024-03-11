@@ -3,23 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_auth"
-    app:startDestination="@id/nav_on_boarding">
-
-    <fragment
-        android:id="@+id/nav_on_boarding"
-        android:name="com.muhmmad.qaree.ui.fragment.on_boarding.OnBoardingFragment"
-        android:label="fragment_on_boarding"
-        tools:layout="@layout/fragment_on_boarding">
-        <argument
-            android:name="ShowAppBar"
-            android:defaultValue="false" />
-        <action
-            android:id="@+id/action_nav_on_boarding_to_loginFragment"
-            app:destination="@id/loginFragment"
-            app:launchSingleTop="true"
-            app:popUpTo="@+id/nav_auth"
-            app:popUpToInclusive="true" />
-    </fragment>
+    app:startDestination="@id/loginFragment">
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.muhmmad.qaree.ui.fragment.login.LoginFragment"
