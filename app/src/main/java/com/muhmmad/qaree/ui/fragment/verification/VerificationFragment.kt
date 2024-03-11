@@ -11,7 +11,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.muhmmad.qaree.R
 import com.muhmmad.qaree.databinding.FragmentVerificationBinding
-import com.muhmmad.qaree.ui.activity.main.MainActivity
+import com.muhmmad.qaree.ui.activity.auth.AuthActivity
 import dagger.hilt.android.AndroidEntryPoint
 import `in`.aabhasjindal.otptextview.OTPListener
 import kotlinx.coroutines.launch
@@ -21,8 +21,8 @@ class VerificationFragment : Fragment() {
     private val binding: FragmentVerificationBinding by lazy {
         FragmentVerificationBinding.inflate(layoutInflater)
     }
-    private val activity: MainActivity by lazy {
-        getActivity() as MainActivity
+    private val activity: AuthActivity by lazy {
+        getActivity() as AuthActivity
     }
     private val nav: NavController by lazy {
         findNavController()
@@ -62,7 +62,7 @@ class VerificationFragment : Fragment() {
 
             btnVerify.setOnClickListener {
                 if (otpView.otp?.length!! < 6) {
-                    activity.showError(getString(R.string.the_otp_is_not_valid))
+                    activity.showError(binding.root, getString(R.string.the_otp_is_not_valid))
                 } else {
                     if (isForgetPassword) viewModel.validateOTPPassword(
                         email,
@@ -82,10 +82,13 @@ class VerificationFragment : Fragment() {
     private fun checkStatus() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.state.collect {
-                if (it.isLoading) activity.showLoading()
-                else activity.dismissLoading()
+                if (it.isLoading) activity.showLoading(binding.root)
+                else activity.dismissLoading(binding.root)
 
-                if (it.error?.isNotEmpty() == true) activity.showError(it.error.toString())
+                if (it.error?.isNotEmpty() == true) activity.showError(
+                    binding.root,
+                    it.error.toString()
+                )
                 else if (it.verificationResponse != null) {
                     activity.showMessage(it.verificationResponse.message.toString())
                     if (isForgetPassword) {

@@ -68,7 +68,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textColor="@color/primary_color"
-            android:textSize="@dimen/_12ssp"
+            android:textSize="@dimen/_11ssp"
             android:textStyle="bold"
             tools:text="Current Reading" />
 
@@ -79,7 +79,7 @@
             android:layout_marginTop="@dimen/_5sdp"
             android:gravity="center"
             android:textColor="@color/primary_color"
-            android:textSize="@dimen/_12ssp"
+            android:textSize="@dimen/_11ssp"
             android:textStyle="bold"
             tools:text="5 books" />
     </LinearLayout>
@@ -92,7 +92,7 @@
         android:layout_marginStart="@dimen/_10sdp"
         android:text="@string/more"
         android:textColor="@color/primary_color"
-        android:textSize="@dimen/_12ssp"
+        android:textSize="@dimen/_11ssp"
         android:textStyle="bold"
         app:drawableEndCompat="@drawable/ic_more"
         app:layout_constraintBottom_toTopOf="@id/divider"

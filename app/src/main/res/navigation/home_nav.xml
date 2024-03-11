@@ -9,15 +9,45 @@
         android:id="@+id/homeFragment"
         android:name="com.muhmmad.qaree.ui.fragment.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+        <argument
+            android:name="ShowAppBar"
+            android:defaultValue="true" />
+    </fragment>
     <fragment
         android:id="@+id/libraryFragment"
         android:name="com.muhmmad.qaree.ui.fragment.library.LibraryFragment"
         android:label="fragment_library"
-        tools:layout="@layout/fragment_library" />
+        tools:layout="@layout/fragment_library">
+        <argument
+            android:name="ShowAppBar"
+            android:defaultValue="true" />
+    </fragment>
     <fragment
         android:id="@+id/inboxFragment"
         android:name="com.muhmmad.qaree.ui.fragment.inbox.InboxFragment"
         android:label="fragment_inbox"
-        tools:layout="@layout/fragment_inbox" />
+        tools:layout="@layout/fragment_inbox">
+        <argument
+            android:name="ShowAppBar"
+            android:defaultValue="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.muhmmad.qaree.ui.fragment.search.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search">
+        <argument
+            android:name="ShowAppBar"
+            android:defaultValue="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/notificationFragment"
+        android:name="com.muhmmad.qaree.ui.fragment.notification.NotificationFragment"
+        android:label="fragment_notification"
+        tools:layout="@layout/fragment_notification">
+        <argument
+            android:name="ShowAppBar"
+            android:defaultValue="false" />
+    </fragment>
 </navigation>

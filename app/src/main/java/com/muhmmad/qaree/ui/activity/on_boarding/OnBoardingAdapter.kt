@@ -1,4 +1,4 @@
-package com.muhmmad.qaree.ui.fragment.on_boarding
+package com.muhmmad.qaree.ui.activity.on_boarding
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

@@ -11,7 +11,7 @@ import coil.load
 import coil.transform.CircleCropTransformation
 import com.muhmmad.qaree.R
 import com.muhmmad.qaree.databinding.FragmentHomeBinding
-import com.muhmmad.qaree.ui.activity.main.MainActivity
+import com.muhmmad.qaree.ui.activity.home.HomeActivity
 import com.muhmmad.qaree.ui.fragment.home.adapters.AuthorsAdapter
 import com.muhmmad.qaree.ui.fragment.home.adapters.BooksAdapter
 import com.muhmmad.qaree.ui.fragment.home.adapters.CategoriesAdapter
@@ -24,8 +24,8 @@ class HomeFragment : Fragment() {
     private val binding: FragmentHomeBinding by lazy {
         FragmentHomeBinding.inflate(layoutInflater)
     }
-    private val activity: MainActivity by lazy {
-        getActivity() as MainActivity
+    private val activity: HomeActivity by lazy {
+        getActivity() as HomeActivity
     }
     private val offersAdapter: OffersAdapter by lazy {
         OffersAdapter()
@@ -88,7 +88,10 @@ class HomeFragment : Fragment() {
                 if (it.isLoading) initAnimation()
                 else dismissAnimation()
 
-                if (it.error?.isNotEmpty() == true) activity.showError(it.error.toString())
+                if (it.error?.isNotEmpty() == true) activity.showError(
+                    binding.root,
+                    it.error.toString()
+                )
                 else {
                     if (it.activitiesResponse != null) {
                         binding.tvActivities.visibility = View.VISIBLE
@@ -134,7 +137,10 @@ class HomeFragment : Fragment() {
 
     private fun initAnimation() {
         binding.apply {
-            shimmerLayout.startShimmerAnimation()
+            if (!isFirstTime) {
+                isFirstTime = true
+                shimmerLayout.startShimmerAnimation()
+            }
         }
     }
 
@@ -142,5 +148,9 @@ class HomeFragment : Fragment() {
         binding.apply {
             shimmerLayout.stopShimmerAnimation()
         }
+    }
+
+    companion object {
+        var isFirstTime: Boolean = false
     }
 }

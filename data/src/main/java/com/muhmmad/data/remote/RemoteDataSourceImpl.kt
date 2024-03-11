@@ -8,8 +8,10 @@ import com.muhmmad.data.toBaseResponse
 import com.muhmmad.data.toBookResponse
 import com.muhmmad.data.toBooksResponse
 import com.muhmmad.data.toCategoriesResponse
+import com.muhmmad.data.toLibraryResponse
 import com.muhmmad.data.toLoginResponse
 import com.muhmmad.data.toOffersResponse
+import com.muhmmad.data.toShelfResponse
 import com.muhmmad.data.toValidateOTPResponse
 import com.muhmmad.data.toVerificationResponse
 import com.muhmmad.domain.model.ActivityResponse
@@ -22,18 +24,25 @@ import com.muhmmad.domain.model.ValidatePasswordOTPResponse
 import com.muhmmad.domain.model.BaseResponse
 import com.muhmmad.domain.model.BooksResponse
 import com.muhmmad.domain.model.CategoriesResponse
+import com.muhmmad.domain.model.LibraryResponse
 import com.muhmmad.domain.model.OffersResponse
+import com.muhmmad.domain.model.ShelfResponse
 import com.muhmmad.domain.remote.RemoteDataSource
+import com.muhmmad.qaree.CreateShelfMutation
 import com.muhmmad.qaree.ForgetPasswordMutation
 import com.muhmmad.qaree.GetBestSellerBooksQuery
 import com.muhmmad.qaree.GetCategoriesQuery
 import com.muhmmad.qaree.GetLastActivityQuery
+import com.muhmmad.qaree.GetLibraryQuery
 import com.muhmmad.qaree.GetNewReleaseBooksQuery
 import com.muhmmad.qaree.GetOffersQuery
+import com.muhmmad.qaree.GetShelfDetailsQuery
 import com.muhmmad.qaree.GetTopAuthorsQuery
+import com.muhmmad.qaree.RemoveShelfMutation
 import com.muhmmad.qaree.ResendPasswordOTPMutation
 import com.muhmmad.qaree.ResendVerificationOTPMutation
 import com.muhmmad.qaree.ResetPasswordMutation
+import com.muhmmad.qaree.SearchQuery
 import com.muhmmad.qaree.SignInMutation
 import com.muhmmad.qaree.SignUpMutation
 import com.muhmmad.qaree.ValidatePasswordOTPMutation
@@ -337,6 +346,111 @@ class RemoteDataSourceImpl(
             when (response) {
                 is Success -> {
                     Success(response.data?.getAllCategories?.toCategoriesResponse()!!)
+                }
+
+                else -> {
+                    Error(response.message.toString())
+                }
+            }
+        } catch (ex: Exception) {
+            Error(ex.message.toString())
+        }
+    }
+
+    override suspend fun getLibrary(token: String): NetworkResponse<LibraryResponse> {
+        return try {
+            val response = checkResponse(
+                apolloClient.query(GetLibraryQuery(1)).addHttpHeader("Authorization", token)
+                    .execute()
+            )
+
+            when (response) {
+                is Success -> {
+                    Success(response.data?.getLibrary?.toLibraryResponse()!!)
+                }
+
+                else -> {
+                    Error(response.message.toString())
+                }
+            }
+
+        } catch (ex: Exception) {
+            Error(ex.message.toString())
+        }
+    }
+
+    override suspend fun getShelfDetails(
+        name: String,
+        token: String
+    ): NetworkResponse<ShelfResponse> {
+        return try {
+            val response = checkResponse(
+                apolloClient.query(GetShelfDetailsQuery(name)).addHttpHeader("Authorization", token)
+                    .execute()
+            )
+
+            when (response) {
+                is Success -> {
+                    Success(response.data?.getShelf?.toShelfResponse()!!)
+                }
+
+                else -> {
+                    Error(response.message.toString())
+                }
+            }
+        } catch (ex: Exception) {
+            Error(ex.message.toString())
+        }
+    }
+
+    override suspend fun createShelf(name: String, token: String): NetworkResponse<BaseResponse> {
+        return try {
+            val response = checkResponse(
+                apolloClient.mutation(CreateShelfMutation(name))
+                    .addHttpHeader("Authorization", token).execute()
+            )
+
+            when (response) {
+                is Success -> {
+                    Success(response.data?.createShelf?.toBaseResponse()!!)
+                }
+
+                else -> {
+                    Error(response.message.toString())
+                }
+            }
+
+        } catch (ex: Exception) {
+            Error(ex.message.toString())
+        }
+    }
+
+    override suspend fun removeShelf(id: String, token: String): NetworkResponse<BaseResponse> {
+        return try {
+            val response = checkResponse(
+                apolloClient.mutation(RemoveShelfMutation(id)).addHttpHeader("Authorization", token)
+                    .execute()
+            )
+
+            when (response) {
+                is Success -> {
+                    Success(response.data?.removeShelf?.toBaseResponse()!!)
+                }
+
+                else -> {
+                    Error(response.message.toString())
+                }
+            }
+        } catch (ex: Exception) {
+            Error(ex.message.toString())
+        }
+    }
+
+    override suspend fun search(name: String): NetworkResponse<BooksResponse> {
+        return try {
+            when (val response = checkResponse(apolloClient.query(SearchQuery(name)).execute())) {
+                is Success -> {
+                    Success(response.data?.search?.toBooksResponse()!!)
                 }
 
                 else -> {

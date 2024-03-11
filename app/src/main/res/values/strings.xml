@@ -70,8 +70,8 @@
     <string name="categories">Categories</string>
     <string name="category_image">Category image</string>
     <string name="best_sellers">Best Sellers</string>
-    <string name="read">read</string>
-    <string name="book_info">Book info</string>
+    <string name="read">Read</string>
+    <string name="book_info">Book info.</string>
     <string name="to_delete_this_book">to delete this book</string>
     <string name="book_name">Book Name</string>
     <string name="enter_book_name">Enter book name</string>
@@ -83,10 +83,12 @@
     <string name="add_shelf">Add shelf</string>
     <string name="more">More</string>
     <string name="search">search</string>
-    <string name="Enter_book_name">Enter book name</string>
     <string name="browse_any_category">Browse any category</string>
     <string name="shelf_books">Shelf books</string>
     <string name="enter_the_shelf_name">Enter the shelf name</string>
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
+    <string name="books_number">%s Books</string>
+    <string name="back_button">Back button</string>
+    <string name="category">Category</string>
 </resources>

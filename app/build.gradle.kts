@@ -78,7 +78,7 @@ dependencies {
     //OTP view
     implementation("com.github.aabhasr1:OtpView:v1.1.2-ktx")
     //Firebase
-    implementation(platform("com.google.firebase:firebase-bom:32.7.3"))
+    implementation(platform("com.google.firebase:firebase-bom:32.7.4"))
     implementation("com.google.firebase:firebase-analytics")
     //Firebase-crashlytics
     implementation("com.google.firebase:firebase-crashlytics")

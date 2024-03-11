@@ -11,18 +11,26 @@ import com.muhmmad.domain.model.BooksResponse
 import com.muhmmad.domain.model.CategoriesResponse
 import com.muhmmad.domain.model.Category
 import com.muhmmad.domain.model.Cover
+import com.muhmmad.domain.model.LibraryResponse
 import com.muhmmad.domain.model.Offer
 import com.muhmmad.domain.model.OffersResponse
+import com.muhmmad.domain.model.Shelf
+import com.muhmmad.domain.model.ShelfResponse
+import com.muhmmad.qaree.CreateShelfMutation
 import com.muhmmad.qaree.ForgetPasswordMutation
 import com.muhmmad.qaree.GetBestSellerBooksQuery
 import com.muhmmad.qaree.GetCategoriesQuery
 import com.muhmmad.qaree.GetLastActivityQuery
+import com.muhmmad.qaree.GetLibraryQuery
 import com.muhmmad.qaree.GetNewReleaseBooksQuery
 import com.muhmmad.qaree.GetOffersQuery
+import com.muhmmad.qaree.GetShelfDetailsQuery
 import com.muhmmad.qaree.GetTopAuthorsQuery
+import com.muhmmad.qaree.RemoveShelfMutation
 import com.muhmmad.qaree.ResendPasswordOTPMutation
 import com.muhmmad.qaree.ResendVerificationOTPMutation
 import com.muhmmad.qaree.ResetPasswordMutation
+import com.muhmmad.qaree.SearchQuery
 import com.muhmmad.qaree.SignInMutation
 import com.muhmmad.qaree.ValidatePasswordOTPMutation
 import com.muhmmad.qaree.VerifyAccountMutation
@@ -165,3 +173,60 @@ fun GetCategoriesQuery.GetAllCategories.toCategoriesResponse(): CategoriesRespon
             image = it?.icon?.path ?: ""
         )
     }!!)
+
+fun GetLibraryQuery.GetLibrary.toLibraryResponse(): LibraryResponse = LibraryResponse(
+    data = shelves?.map {
+        Shelf(
+            id = it?._id ?: "",
+            name = it?.name ?: "",
+            books = it?.books?.map {
+                Book(
+                    id = it?._id ?: "",
+                    name = it?.name ?: "",
+                    author = Author(id = it?.author?._id ?: "", name = it?.author?.name ?: ""),
+                    cover = Cover(path = it?.cover?.path ?: ""),
+                )
+            }!!
+        )
+    }!!, total = total ?: 0, currentPage = currentPage ?: 0, numberOfPages = numberOfPages ?: 0
+)
+
+fun GetShelfDetailsQuery.GetShelf.toShelfResponse(): ShelfResponse = ShelfResponse(
+    id = _id ?: "",
+    name = name ?: "",
+    books = books?.map {
+        Book(
+            id = it?._id ?: "",
+            cover = Cover(path = it?.cover?.path ?: ""),
+            name = it?.name ?: "",
+            avgRating = it?.avgRate ?: 0,
+            author = Author(id = it?.author?._id ?: "", name = it?.author?.name ?: "")
+        )
+    }!!,
+    total = totalBooks ?: 0,
+    currentPage = currentBooksPage ?: 0,
+    numberOfPages = numberOfBooksPages ?: 0
+)
+
+fun CreateShelfMutation.CreateShelf.toBaseResponse(): BaseResponse = BaseResponse(
+    message = message ?: "",
+    success = success ?: false
+)
+
+fun RemoveShelfMutation.RemoveShelf.toBaseResponse(): BaseResponse = BaseResponse(
+    message = message ?: "",
+    success = false
+)
+
+fun SearchQuery.Search.toBooksResponse(): BooksResponse = BooksResponse(
+    total = total ?: 0,
+    data = books?.map {
+        Book(
+            id = it?._id ?: "",
+            cover = Cover(path = it?.cover?.path ?: ""),
+            name = it?.name ?: "",
+            avgRating = it?.avgRate ?: 0,
+            author = Author(id = it?.author?._id ?: "", name = it?.author?.name ?: "")
+        )
+    }!!
+)

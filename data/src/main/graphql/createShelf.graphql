@@ -1,0 +1,10 @@
+mutation createShelf($name:String!){
+    createShelf(name: $name) {
+        shelf {
+            _id,
+            name
+        }
+        success,
+        message
+    }
+}
