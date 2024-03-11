@@ -1,0 +1,17 @@
+query search($name:String!){
+    search(keyword: $name) {
+        books {
+            _id,
+            name,
+            avgRate,
+            author{
+                _id,name
+            }
+            cover{
+                path
+            },
+
+        }
+        total
+    }
+}

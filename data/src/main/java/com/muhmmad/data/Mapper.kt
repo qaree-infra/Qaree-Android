@@ -30,6 +30,7 @@ import com.muhmmad.qaree.RemoveShelfMutation
 import com.muhmmad.qaree.ResendPasswordOTPMutation
 import com.muhmmad.qaree.ResendVerificationOTPMutation
 import com.muhmmad.qaree.ResetPasswordMutation
+import com.muhmmad.qaree.SearchQuery
 import com.muhmmad.qaree.SignInMutation
 import com.muhmmad.qaree.ValidatePasswordOTPMutation
 import com.muhmmad.qaree.VerifyAccountMutation
@@ -215,4 +216,17 @@ fun CreateShelfMutation.CreateShelf.toBaseResponse(): BaseResponse = BaseRespons
 fun RemoveShelfMutation.RemoveShelf.toBaseResponse(): BaseResponse = BaseResponse(
     message = message ?: "",
     success = false
+)
+
+fun SearchQuery.Search.toBooksResponse(): BooksResponse = BooksResponse(
+    total = total ?: 0,
+    data = books?.map {
+        Book(
+            id = it?._id ?: "",
+            cover = Cover(path = it?.cover?.path ?: ""),
+            name = it?.name ?: "",
+            avgRating = it?.avgRate ?: 0,
+            author = Author(id = it?.author?._id ?: "", name = it?.author?.name ?: "")
+        )
+    }!!
 )
