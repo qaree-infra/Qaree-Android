@@ -11,7 +11,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.muhmmad.qaree.R
 import com.muhmmad.qaree.databinding.FragmentNewPasswordBinding
-import com.muhmmad.qaree.ui.activity.main.MainActivity
+import com.muhmmad.qaree.ui.activity.auth.AuthActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -20,8 +20,8 @@ class NewPasswordFragment : Fragment() {
     private val binding: FragmentNewPasswordBinding by lazy {
         FragmentNewPasswordBinding.inflate(layoutInflater)
     }
-    private val activity: MainActivity by lazy {
-        getActivity() as MainActivity
+    private val activity: AuthActivity by lazy {
+        getActivity() as AuthActivity
     }
     private val nav: NavController by lazy {
         findNavController()
@@ -81,10 +81,13 @@ class NewPasswordFragment : Fragment() {
     private fun checkState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.state.collect {
-                if (it.isLoading) activity.showLoading()
-                else activity.dismissLoading()
+                if (it.isLoading) activity.showLoading(binding.root)
+                else activity.dismissLoading(binding.root)
 
-                if (it.error?.isNotEmpty() == true) activity.showError(it.error.toString())
+                if (it.error?.isNotEmpty() == true) activity.showError(
+                    binding.root,
+                    it.error.toString()
+                )
                 else if (it.newPasswordResponse != null) {
                     activity.showMessage(it.newPasswordResponse.message.toString())
                     nav.navigate(R.id.action_newPasswordFragment_to_loginFragment)
