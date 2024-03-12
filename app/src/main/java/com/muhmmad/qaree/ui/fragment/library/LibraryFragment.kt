@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.muhmmad.qaree.databinding.FragmentLibraryBinding
@@ -20,7 +21,7 @@ class LibraryFragment : Fragment() {
     private val activity: HomeActivity by lazy {
         getActivity() as HomeActivity
     }
-    private val viewModel: LibraryViewModel by viewModels()
+    private val viewModel: LibraryViewModel by activityViewModels()
     private val adapter: LibraryAdapter by lazy {
         LibraryAdapter()
     }
@@ -40,7 +41,7 @@ class LibraryFragment : Fragment() {
             viewModel.getLibrary()
             rvLibrary.adapter = adapter
             btnAdd.setOnClickListener {
-
+                AddShelfDialog().show(parentFragmentManager, "Add Shelf Dialog")
             }
         }
     }

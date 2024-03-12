@@ -1,5 +1,6 @@
 package com.muhmmad.qaree.ui.fragment.library
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.muhmmad.domain.model.BaseResponse
@@ -48,7 +49,6 @@ class LibraryViewModel @Inject constructor(
                 it.copy(
                     isLoading = true,
                     error = null,
-                    libraryResponse = null
                 )
             }
             useCase.createShelf(name, authUseCase.getToken()).apply {
