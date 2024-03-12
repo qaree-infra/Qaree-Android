@@ -91,4 +91,7 @@
     <string name="books_number">%s Books</string>
     <string name="back_button">Back button</string>
     <string name="category">Category</string>
+    <string name="to_return_to_the_previous_page">To return to the previous page</string>
+    <string name="notifications">Notifications</string>
+    <string name="to_open_more_options">to open more options</string>
 </resources>
