@@ -1,22 +1,17 @@
 query getLibrary($page:Int!){
-    getLibrary (page: $page) {
-        shelves {
+    getLibrary(page:$page){
+        shelves{
             _id,
             name,
-            books {
-                _id
-                name
-                cover {
-                    path
-                }
-                author {
-                    _id
-                    name
-                }
-            }
-        }
-        total,
-        currentPage,
-        numberOfPages
+            books{
+                book{
+                    _id,name,avgRate,author{name,_id},cover{
+                        path
+                    }
+                },
+                readingProgress
+                status
+            },totalBooks,numberOfBooksPages,currentBooksPage,createdAt,updatedAt
+        },total,currentPage,numberOfPages
     }
 }

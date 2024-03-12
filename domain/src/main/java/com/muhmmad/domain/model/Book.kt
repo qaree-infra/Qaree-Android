@@ -8,5 +8,7 @@ data class Book(
     val categories: List<Category>? = null,
     val id: String,
     val isbn: String = "",
-    val avgRating: Int = 0
+    val avgRating: Int = 0,
+    val status: String = "",
+    val readingProgress: Int = 0
 )
