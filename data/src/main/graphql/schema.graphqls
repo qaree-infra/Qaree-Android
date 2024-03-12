@@ -30,6 +30,8 @@ type Query {
 
   getBestSellerBooks("" limit: Int): BestSeller
 
+  getPaymentClientData("" bookId: String): GetClientData
+
   getShelf("" shelf: String, "" user: String, "" booksLimit: Int, "" booksPage: Int): ShelfType
 
   getLibrary("" user: String, "" limit: Int, "" page: Int): Library
@@ -291,6 +293,15 @@ type BestSeller {
 }
 
 """
+This is get client data
+"""
+type GetClientData {
+  clientId: String
+
+  clientToken: String
+}
+
+"""
 This liberary shelf data
 """
 type ShelfType {
@@ -298,7 +309,7 @@ type ShelfType {
 
   name: String
 
-  books: [BookInfo]
+  books: [BookShelf]
 
   totalBooks: Int
 
@@ -309,6 +320,14 @@ type ShelfType {
   createdAt: String
 
   updatedAt: String
+}
+
+type BookShelf {
+  book: BookInfo
+
+  status: String
+
+  readingProgress: Int
 }
 
 """
@@ -393,6 +412,10 @@ type Mutation {
   reviewBook("" bookId: ID, "" content: String, "" rate: Float): ReviewBookResponseType
 
   likeReview("" reviewId: String): LikeReview
+
+  createPaymentOrder("" bookId: String): CreatePaymentOrder
+
+  completePaymentOrder("" bookId: String, "" orderId: String): CompletePaymentOrder
 
   createShelf("" name: String): CreateShelfType
 
@@ -517,6 +540,33 @@ type LikeReview {
 }
 
 """
+This is create buy book order payment
+"""
+type CreatePaymentOrder {
+  id: String
+
+  status: String
+}
+
+"""
+This is captured order type
+"""
+type CompletePaymentOrder {
+  capturedOrder: CapaturedPaymentOrder
+
+  purchasedBook: Activity
+}
+
+"""
+This is create buy book order payment
+"""
+type CapaturedPaymentOrder {
+  id: String
+
+  status: String
+}
+
+"""
 this is create shelf type
 """
 type CreateShelfType {
@@ -531,8 +581,6 @@ type CreateShelfType {
 this add book shelf type
 """
 type AddBookShelf {
-  shelf: ShelfType
-
   message: String
 
   success: Boolean
@@ -542,8 +590,6 @@ type AddBookShelf {
 This is remove book from shelf type
 """
 type RemoveBookFromShelf {
-  shelf: ShelfType
-
   message: String
 
   success: Boolean

@@ -1,19 +1,19 @@
-query getShelfDetails($name:String!){
-    getShelf(shelf: $name) {
-        _id,
-        name,
-        books {
-            _id
-            name,author{
-                _id,name
-            },
-            cover{
-                path
-            },
-            avgRate,
-        }
-        totalBooks
-        numberOfBooksPages
-        currentBooksPage
-    }
-}
+#query getShelfDetails($name:String!){
+#    getShelf(shelf: $name) {
+#        _id,
+#        name,
+#        books {
+#            _id
+#            name,author{
+#                _id,name
+#            },
+#            cover{
+#                path
+#            },
+#            avgRate,
+#        }
+#        totalBooks
+#        numberOfBooksPages
+#        currentBooksPage
+#    }
+#}
