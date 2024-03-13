@@ -74,7 +74,7 @@ class HomeActivity : BaseActivity() {
                 binding.ivDisabledHome.visibility = View.GONE
             }
 
-            R.id.libraryFragment -> {
+            R.id.libraryFragment, R.id.shelfFragment -> {
                 binding.llLibrary.background =
                     AppCompatResources.getDrawable(context, R.drawable.nav_item_bg)
                 binding.ivLibrary.visibility = View.VISIBLE

@@ -9,8 +9,12 @@ class HomeUseCase(private val repo: HomeRepo) {
     suspend fun getNewReleaseBooks() = repo.getNewReleaseBooks()
     suspend fun getBestSellerBooks() = repo.getBestSellerBooks()
     suspend fun getCategories() = repo.getCategories()
+    suspend fun getBooksByCategory(categoryId: String) = repo.getBooksByCategory(categoryId)
     suspend fun getLibrary(token: String) = repo.getLibrary(token)
     suspend fun getShelfDetails(name: String, token: String) = repo.getShelfDetails(name, token)
+    suspend fun removeBookFromShelf(bookId: String, shelfId: String, token: String) =
+        repo.removeBookFromShelf(bookId, shelfId, token)
+
     suspend fun createShelf(name: String, token: String) = repo.createShelf(name, token)
     suspend fun removeShelf(id: String, token: String) = repo.removeShelf(id, token)
     suspend fun search(name: String) = repo.search(name)

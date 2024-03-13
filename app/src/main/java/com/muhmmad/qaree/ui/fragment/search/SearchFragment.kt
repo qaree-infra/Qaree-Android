@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import com.muhmmad.qaree.R
 import com.muhmmad.qaree.databinding.FragmentSearchBinding
 import com.muhmmad.qaree.ui.activity.home.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,8 +24,15 @@ class SearchFragment : Fragment() {
     private val activity: HomeActivity by lazy {
         getActivity() as HomeActivity
     }
+    private val nav: NavController by lazy {
+        findNavController()
+    }
     private val categoriesAdapter: CategoriesAdapter by lazy {
-        CategoriesAdapter()
+        CategoriesAdapter {
+            val bundle = Bundle()
+            bundle.putString("id", it)
+            nav.navigate(R.id.action_searchFragment_to_categoryFragment, bundle)
+        }
     }
     private val searchAdapter: SearchAdapter by lazy {
         SearchAdapter()

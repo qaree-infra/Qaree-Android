@@ -1,5 +1,5 @@
-query getNewReleaseBooks{
-    getBooks {
+query getBooks($categoryId:String!){
+    getBooks(category:$categoryId) {
         numberOfPages
         books {
             name

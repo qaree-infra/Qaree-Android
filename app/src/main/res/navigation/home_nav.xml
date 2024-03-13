@@ -22,6 +22,9 @@
         <argument
             android:name="ShowAppBar"
             android:defaultValue="true" />
+        <action
+            android:id="@+id/action_libraryFragment_to_shelfFragment"
+            app:destination="@id/shelfFragment" />
     </fragment>
     <fragment
         android:id="@+id/inboxFragment"
@@ -40,12 +43,38 @@
         <argument
             android:name="ShowAppBar"
             android:defaultValue="false" />
+        <action
+            android:id="@+id/action_searchFragment_to_categoryFragment"
+            app:destination="@id/categoryFragment" />
     </fragment>
     <fragment
         android:id="@+id/notificationFragment"
         android:name="com.muhmmad.qaree.ui.fragment.notification.NotificationFragment"
         android:label="fragment_notification"
         tools:layout="@layout/fragment_notification">
+        <argument
+            android:name="ShowAppBar"
+            android:defaultValue="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/shelfFragment"
+        android:name="com.muhmmad.qaree.ui.fragment.shelf.ShelfFragment"
+        android:label="fragment_shelf"
+        tools:layout="@layout/fragment_shelf" >
+        <action
+            android:id="@+id/action_shelfFragment_to_bookInfoFragment"
+            app:destination="@id/bookInfoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/bookInfoFragment"
+        android:name="com.muhmmad.qaree.ui.fragment.book_info.BookInfoFragment"
+        android:label="fragment_book_info"
+        tools:layout="@layout/fragment_book_info" />
+    <fragment
+        android:id="@+id/categoryFragment"
+        android:name="com.muhmmad.qaree.ui.fragment.category.CategoryFragment"
+        android:label="fragment_category"
+        tools:layout="@layout/fragment_category" >
         <argument
             android:name="ShowAppBar"
             android:defaultValue="false" />

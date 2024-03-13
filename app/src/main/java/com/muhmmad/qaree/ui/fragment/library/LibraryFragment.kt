@@ -6,8 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
+import com.muhmmad.qaree.R
 import com.muhmmad.qaree.databinding.FragmentLibraryBinding
 import com.muhmmad.qaree.ui.activity.home.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,9 +23,16 @@ class LibraryFragment : Fragment() {
     private val activity: HomeActivity by lazy {
         getActivity() as HomeActivity
     }
+    private val nav: NavController by lazy {
+        findNavController()
+    }
     private val viewModel: LibraryViewModel by activityViewModels()
     private val adapter: LibraryAdapter by lazy {
-        LibraryAdapter()
+        LibraryAdapter {
+            val bundle = Bundle()
+            bundle.putString("id", it)
+            nav.navigate(R.id.action_libraryFragment_to_shelfFragment, bundle)
+        }
     }
 
     override fun onCreateView(

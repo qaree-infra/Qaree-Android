@@ -55,16 +55,15 @@ class OnBoardingActivity : BaseActivity() {
     private fun checkStatus() {
         lifecycleScope.launch {
             viewModel.state.collect {
-                if (it.isFirstTime != null) {
-                    setTheme(R.style.Theme_Qaree)
-                    if (it.isFirstTime) {
-                        viewModel.setFirstTime()
-                        super.setContentView(binding.root)
-                    } else goToAuth(context)
-                }
-
                 if (it.isLogged != null) {
+                    setTheme(R.style.Theme_Qaree)
                     if (it.isLogged) goToHome(context)
+                    else {
+                        if (it.isFirstTime == true) {
+                            viewModel.setFirstTime()
+                            super.setContentView(binding.root)
+                        } else goToAuth(context)
+                    }
                 }
             }
         }

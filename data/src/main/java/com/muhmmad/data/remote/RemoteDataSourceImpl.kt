@@ -11,6 +11,7 @@ import com.muhmmad.data.toCategoriesResponse
 import com.muhmmad.data.toLibraryResponse
 import com.muhmmad.data.toLoginResponse
 import com.muhmmad.data.toOffersResponse
+import com.muhmmad.data.toShelfResponse
 import com.muhmmad.data.toValidateOTPResponse
 import com.muhmmad.data.toVerificationResponse
 import com.muhmmad.domain.model.ActivityResponse
@@ -30,12 +31,14 @@ import com.muhmmad.domain.remote.RemoteDataSource
 import com.muhmmad.qaree.CreateShelfMutation
 import com.muhmmad.qaree.ForgetPasswordMutation
 import com.muhmmad.qaree.GetBestSellerBooksQuery
+import com.muhmmad.qaree.GetBooksQuery
 import com.muhmmad.qaree.GetCategoriesQuery
 import com.muhmmad.qaree.GetLastActivityQuery
 import com.muhmmad.qaree.GetLibraryQuery
-import com.muhmmad.qaree.GetNewReleaseBooksQuery
 import com.muhmmad.qaree.GetOffersQuery
+import com.muhmmad.qaree.GetShelfDetailsQuery
 import com.muhmmad.qaree.GetTopAuthorsQuery
+import com.muhmmad.qaree.RemoveBookFromShelfMutation
 import com.muhmmad.qaree.RemoveShelfMutation
 import com.muhmmad.qaree.ResendPasswordOTPMutation
 import com.muhmmad.qaree.ResendVerificationOTPMutation
@@ -303,9 +306,7 @@ class RemoteDataSourceImpl(
 
     override suspend fun getNewReleaseBooks(): NetworkResponse<BooksResponse> {
         return try {
-            val response = checkResponse(apolloClient.query(GetNewReleaseBooksQuery()).execute())
-
-            when (response) {
+            when (val response = checkResponse(apolloClient.query(GetBooksQuery("")).execute())) {
                 is Success -> {
                     Success(response.data?.toBooksResponse()!!)
                 }
@@ -326,6 +327,23 @@ class RemoteDataSourceImpl(
             when (response) {
                 is Success -> {
                     Success(response.data?.toBookResponse()!!)
+                }
+
+                else -> {
+                    Error(response.message.toString())
+                }
+            }
+        } catch (ex: Exception) {
+            Error(ex.message.toString())
+        }
+    }
+
+    override suspend fun getBooksByCategory(categoryId: String): NetworkResponse<BooksResponse> {
+        return try {
+            when (val response =
+                checkResponse(apolloClient.query(GetBooksQuery(categoryId)).execute())) {
+                is Success -> {
+                    Success(response.data?.toBooksResponse()!!)
                 }
 
                 else -> {
@@ -382,21 +400,49 @@ class RemoteDataSourceImpl(
         token: String
     ): NetworkResponse<ShelfResponse> {
         return try {
-            Error("")
-//            val response = checkResponse(
-//                apolloClient.query(GetShelfDetailsQuery(name)).addHttpHeader("Authorization", token)
-//                    .execute()
-//            )
-//
-//            when (response) {
-//                is Success -> {
-//                    Success(response.data?.getShelf?.toShelfResponse()!!)
-//                }
-//
-//                else -> {
-//                    Error(response.message.toString())
-//                }
-//            }
+            val response = checkResponse(
+                apolloClient.query(GetShelfDetailsQuery(name)).addHttpHeader("Authorization", token)
+                    .execute()
+            )
+
+            when (response) {
+                is Success -> {
+                    Success(response.data?.getShelf?.toShelfResponse()!!)
+                }
+
+                else -> {
+                    Error(response.message.toString())
+                }
+            }
+        } catch (ex: Exception) {
+            Error(ex.message.toString())
+        }
+    }
+
+    override suspend fun removeBookFromShelf(
+        bookId: String,
+        shelfId: String,
+        token: String
+    ): NetworkResponse<BaseResponse> {
+        return try {
+            val response = checkResponse(
+                apolloClient.mutation(
+                    RemoveBookFromShelfMutation(
+                        bookId = bookId,
+                        shelfId = shelfId
+                    )
+                ).addHttpHeader("Authorization", token).execute()
+            )
+
+            when (response) {
+                is Success -> {
+                    Success(response.data?.removeBookFromShelf?.toBaseResponse()!!)
+                }
+
+                else -> {
+                    Error(response.message.toString())
+                }
+            }
         } catch (ex: Exception) {
             Error(ex.message.toString())
         }

@@ -29,6 +29,9 @@ class HomeRepoImpl(private val remoteDataSource: RemoteDataSource) : HomeRepo {
     override suspend fun getCategories(): NetworkResponse<CategoriesResponse> =
         remoteDataSource.getCategories()
 
+    override suspend fun getBooksByCategory(categoryId: String): NetworkResponse<BooksResponse> =
+        remoteDataSource.getBooksByCategory(categoryId)
+
     override suspend fun getLibrary(token: String): NetworkResponse<LibraryResponse> =
         remoteDataSource.getLibrary(token)
 
@@ -37,6 +40,12 @@ class HomeRepoImpl(private val remoteDataSource: RemoteDataSource) : HomeRepo {
         token: String
     ): NetworkResponse<ShelfResponse> =
         remoteDataSource.getShelfDetails(name, token)
+
+    override suspend fun removeBookFromShelf(
+        bookId: String,
+        shelfId: String,
+        token: String
+    ): NetworkResponse<BaseResponse> = remoteDataSource.removeBookFromShelf(bookId, shelfId, token)
 
     override suspend fun createShelf(name: String, token: String): NetworkResponse<BaseResponse> =
         remoteDataSource.createShelf(name, token)
