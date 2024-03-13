@@ -96,4 +96,8 @@
     <string name="to_open_more_options">to open more options</string>
     <string name="please_enter_shelf_name">Please enter shelf name</string>
     <string name="shelf_name_should_be_more_than_5_chars">Shelf name should be more than 5 chars</string>
+    <string name="Book_info">Book info</string>
+    <string name="the_book_cover">the book cover</string>
+    <string name="buy">Buy</string>
+    <string name="to_go_to_book_community">to go to book community</string>
 </resources>
