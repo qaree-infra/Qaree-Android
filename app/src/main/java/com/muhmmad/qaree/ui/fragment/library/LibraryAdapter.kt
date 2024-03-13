@@ -10,7 +10,8 @@ import com.muhmmad.qaree.R
 import com.muhmmad.qaree.databinding.LibraryItemBinding
 import com.muhmmad.qaree.utils.DiffUtilCallback
 
-class LibraryAdapter : RecyclerView.Adapter<LibraryAdapter.ViewHolder>() {
+class LibraryAdapter(private val onClick: (id: String) -> Unit) :
+    RecyclerView.Adapter<LibraryAdapter.ViewHolder>() {
     private val data = ArrayList<Shelf>()
 
     class ViewHolder(val binding: LibraryItemBinding) : RecyclerView.ViewHolder(binding.root)
@@ -37,6 +38,9 @@ class LibraryAdapter : RecyclerView.Adapter<LibraryAdapter.ViewHolder>() {
                 if (item.books.size >= 3) {
                     ivThird.load(item.books[2].cover.path)
                 }
+            }
+            root.setOnClickListener {
+                onClick(item.id)
             }
         }
     }

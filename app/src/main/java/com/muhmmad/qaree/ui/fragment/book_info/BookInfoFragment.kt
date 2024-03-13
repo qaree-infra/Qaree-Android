@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.muhmmad.qaree.databinding.FragmentBookInfoBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class BookInfoFragment : Fragment() {
     private val binding: FragmentBookInfoBinding by lazy {
         FragmentBookInfoBinding.inflate(layoutInflater)
@@ -22,7 +24,7 @@ class BookInfoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
-
+            val bookId = arguments?.getString("id").toString()
         }
     }
 }

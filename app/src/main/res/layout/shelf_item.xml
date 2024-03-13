@@ -8,18 +8,21 @@
     android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_marginHorizontal="@dimen/_10sdp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_10sdp">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/iv_book"
-            android:layout_width="@dimen/_90sdp"
-            android:layout_height="@dimen/_130sdp"
+            android:layout_width="@dimen/_95sdp"
+            android:layout_height="0dp"
+            android:layout_marginVertical="@dimen/_15sdp"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/ll_btns"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_logo" />
 
         <LinearLayout
             android:id="@+id/ll_details"
@@ -67,35 +70,33 @@
 
         </LinearLayout>
 
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/progress_bar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10sdp"
+            android:max="100"
+            android:min="0"
+            android:progress="50"
+            app:layout_constraintBottom_toTopOf="@id/ll_btns"
+            app:layout_constraintEnd_toStartOf="@id/tv_progress"
+            app:layout_constraintStart_toEndOf="@id/iv_book"
+            app:layout_constraintTop_toBottomOf="@id/ll_details"
+            app:trackCornerRadius="@dimen/_12sdp"
+            app:trackThickness="@dimen/_7sdp" />
 
-        <!--    <ProgressBar-->
-        <!--        android:id="@+id/progressBar_c"-->
-        <!--        style="?android:attr/progressBarStyleHorizontal"-->
-        <!--        android:layout_width="239dp"-->
-        <!--        android:layout_height="22dp"-->
-        <!--        android:layout_centerHorizontal="true"-->
-        <!--        android:layout_marginEnd="44dp"-->
-        <!--        android:layout_marginBottom="52dp"-->
-        <!--        android:indeterminate="true"-->
-        <!--        android:max="100"-->
-        <!--        android:progress="50"-->
-        <!--        app:layout_constraintBottom_toTopOf="@+id/view"-->
-        <!--        app:layout_constraintEnd_toEndOf="parent"-->
-        <!--        app:layout_constraintHorizontal_bias="0.857"-->
-        <!--        app:layout_constraintStart_toEndOf="@+id/book_name" />-->
-
-        <!--    <TextView-->
-        <!--        android:id="@+id/tv_progress_number"-->
-        <!--        android:layout_width="wrap_content"-->
-        <!--        android:layout_height="wrap_content"-->
-        <!--        android:gravity="center"-->
-        <!--        android:textColor="@color/black"-->
-        <!--        android:textSize="@dimen/_13ssp"-->
-        <!--        app:layout_constraintEnd_toEndOf="parent"-->
-        <!--        app:layout_constraintStart_toEndOf="@+id/progressBar_c"-->
-        <!--        tools:ignore="MissingConstraints"-->
-        <!--        tools:layout_editor_absoluteY="117dp"-->
-        <!--        tools:text="50%" />-->
+        <TextView
+            android:id="@+id/tv_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_5sdp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/ll_btns"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/progress_bar"
+            app:layout_constraintTop_toBottomOf="@id/ll_details"
+            tools:text="80%" />
 
         <ImageButton
             android:id="@+id/btn_remove"
@@ -118,7 +119,8 @@
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/iv_book">
+            app:layout_constraintStart_toEndOf="@id/iv_book"
+            app:layout_constraintTop_toBottomOf="@id/progress_bar">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_read"
@@ -133,7 +135,7 @@
                 app:cornerRadius="@dimen/_7sdp" />
 
             <Space
-                android:layout_width="@dimen/_50sdp"
+                android:layout_width="@dimen/_30sdp"
                 android:layout_height="wrap_content" />
 
             <com.google.android.material.button.MaterialButton

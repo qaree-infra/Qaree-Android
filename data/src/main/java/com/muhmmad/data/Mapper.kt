@@ -15,15 +15,18 @@ import com.muhmmad.domain.model.LibraryResponse
 import com.muhmmad.domain.model.Offer
 import com.muhmmad.domain.model.OffersResponse
 import com.muhmmad.domain.model.Shelf
+import com.muhmmad.domain.model.ShelfResponse
 import com.muhmmad.qaree.CreateShelfMutation
 import com.muhmmad.qaree.ForgetPasswordMutation
 import com.muhmmad.qaree.GetBestSellerBooksQuery
+import com.muhmmad.qaree.GetBooksQuery
 import com.muhmmad.qaree.GetCategoriesQuery
 import com.muhmmad.qaree.GetLastActivityQuery
 import com.muhmmad.qaree.GetLibraryQuery
-import com.muhmmad.qaree.GetNewReleaseBooksQuery
 import com.muhmmad.qaree.GetOffersQuery
+import com.muhmmad.qaree.GetShelfDetailsQuery
 import com.muhmmad.qaree.GetTopAuthorsQuery
+import com.muhmmad.qaree.RemoveBookFromShelfMutation
 import com.muhmmad.qaree.RemoveShelfMutation
 import com.muhmmad.qaree.ResendPasswordOTPMutation
 import com.muhmmad.qaree.ResendVerificationOTPMutation
@@ -135,7 +138,7 @@ fun GetTopAuthorsQuery.GetTopAuthors.toAuthorsResponse(): AuthorsResponse =
         )
     }!!)
 
-fun GetNewReleaseBooksQuery.Data.toBooksResponse(): BooksResponse =
+fun GetBooksQuery.Data.toBooksResponse(): BooksResponse =
     BooksResponse(
         getBooks?.books?.map {
             Book(
@@ -194,22 +197,23 @@ fun GetLibraryQuery.GetLibrary.toLibraryResponse(): LibraryResponse = LibraryRes
     }!!, total = total ?: 0, currentPage = currentPage ?: 0, numberOfPages = numberOfPages ?: 0
 )
 
-//fun GetShelfDetailsQuery.GetShelf.toShelfResponse(): ShelfResponse = ShelfResponse(
-//    id = _id ?: "",
-//    name = name ?: "",
-//    books = books?.map {
-//        Book(
-//            id = it?._id ?: "",
-//            cover = Cover(path = it?.cover?.path ?: ""),
-//            name = it?.name ?: "",
-//            avgRating = it?.avgRate ?: 0,
-//            author = Author(id = it?.author?._id ?: "", name = it?.author?.name ?: "")
-//        )
-//    }!!,
-//    total = totalBooks ?: 0,
-//    currentPage = currentBooksPage ?: 0,
-//    numberOfPages = numberOfBooksPages ?: 0
-//)
+fun GetShelfDetailsQuery.GetShelf.toShelfResponse(): ShelfResponse = ShelfResponse(
+    id = _id ?: "",
+    name = name ?: "",
+    books = books?.map {
+        Book(
+            id = it?.book?._id ?: "",
+            cover = Cover(path = it?.book?.cover?.path ?: ""),
+            name = it?.book?.name ?: "",
+            avgRating = it?.book?.avgRate ?: 0,
+            author = Author(
+                id = it?.book?.author?._id ?: "", name = it?.book?.author?.name ?: ""
+            ), readingProgress = it?.readingProgress ?: 0, status = it?.status ?: ""
+        )
+    }!!,
+    total = totalBooks ?: 0,
+    currentPage = 0, numberOfPages = numberOfBooksPages ?: 0
+)
 
 fun CreateShelfMutation.CreateShelf.toBaseResponse(): BaseResponse = BaseResponse(
     message = message ?: "",
@@ -232,4 +236,9 @@ fun SearchQuery.Search.toBooksResponse(): BooksResponse = BooksResponse(
             author = Author(id = it?.author?._id ?: "", name = it?.author?.name ?: "")
         )
     }!!
+)
+
+fun RemoveBookFromShelfMutation.RemoveBookFromShelf.toBaseResponse(): BaseResponse = BaseResponse(
+    success = success ?: false,
+    message = message ?: ""
 )

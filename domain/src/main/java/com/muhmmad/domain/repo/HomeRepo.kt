@@ -18,8 +18,15 @@ interface HomeRepo {
     suspend fun getNewReleaseBooks(): NetworkResponse<BooksResponse>
     suspend fun getBestSellerBooks(): NetworkResponse<BooksResponse>
     suspend fun getCategories(): NetworkResponse<CategoriesResponse>
+    suspend fun getBooksByCategory(categoryId: String): NetworkResponse<BooksResponse>
     suspend fun getLibrary(token: String): NetworkResponse<LibraryResponse>
     suspend fun getShelfDetails(name: String, token: String): NetworkResponse<ShelfResponse>
+    suspend fun removeBookFromShelf(
+        bookId: String,
+        shelfId: String,
+        token: String
+    ): NetworkResponse<BaseResponse>
+
     suspend fun createShelf(name: String, token: String): NetworkResponse<BaseResponse>
     suspend fun removeShelf(id: String, token: String): NetworkResponse<BaseResponse>
     suspend fun search(name: String): NetworkResponse<BooksResponse>
