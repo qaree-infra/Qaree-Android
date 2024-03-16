@@ -1,12 +1,15 @@
 package com.muhmmad.qaree.ui.fragment.book_info
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.muhmmad.qaree.databinding.FragmentBookInfoBinding
 import dagger.hilt.android.AndroidEntryPoint
+
+private const val TAG = "BookInfoFragment"
 
 @AndroidEntryPoint
 class BookInfoFragment : Fragment() {
@@ -25,6 +28,10 @@ class BookInfoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
             val bookId = arguments?.getString("id").toString()
+
+            userRate.setOnRatingBarChangeListener { ratingBar, rating, fromUser ->
+                Log.i(TAG, "Changing")
+            }
         }
     }
 }

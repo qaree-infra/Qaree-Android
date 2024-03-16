@@ -9,7 +9,8 @@ import com.muhmmad.domain.model.Category
 import com.muhmmad.qaree.databinding.CategoriesItemBinding
 import com.muhmmad.qaree.utils.DiffUtilCallback
 
-class CategoriesAdapter : RecyclerView.Adapter<CategoriesAdapter.ViewHolder>() {
+class CategoriesAdapter(private val onClick: (id: String) -> Unit) :
+    RecyclerView.Adapter<CategoriesAdapter.ViewHolder>() {
     private val data = ArrayList<Category>()
 
     class ViewHolder(val binding: CategoriesItemBinding) : RecyclerView.ViewHolder(binding.root)
@@ -32,6 +33,10 @@ class CategoriesAdapter : RecyclerView.Adapter<CategoriesAdapter.ViewHolder>() {
             val ctx = root.context
             ivCategory.load(item.image)
             tvCategory.text = item.nameEn
+
+            root.setOnClickListener {
+                onClick(item.id)
+            }
         }
     }
 

@@ -9,7 +9,8 @@ import com.muhmmad.domain.model.Book
 import com.muhmmad.qaree.databinding.NewReleaseItemBinding
 import com.muhmmad.qaree.utils.DiffUtilCallback
 
-class BooksAdapter : RecyclerView.Adapter<BooksAdapter.ViewHolder>() {
+class BooksAdapter(private val onClick: () -> Unit) :
+    RecyclerView.Adapter<BooksAdapter.ViewHolder>() {
     private val data = ArrayList<Book>()
 
     class ViewHolder(val binding: NewReleaseItemBinding) : RecyclerView.ViewHolder(binding.root)
@@ -34,6 +35,7 @@ class BooksAdapter : RecyclerView.Adapter<BooksAdapter.ViewHolder>() {
             tvAuthor.text = item.author?.name
             ratingBar.numStars = 5
             ratingBar.rating = item.avgRating.toFloat()
+            root.setOnClickListener { onClick() }
         }
     }
 

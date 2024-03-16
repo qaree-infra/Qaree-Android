@@ -100,4 +100,7 @@
     <string name="the_book_cover">the book cover</string>
     <string name="buy">Buy</string>
     <string name="to_go_to_book_community">to go to book community</string>
+    <string name="leave_a_comment">Leave a comment</string>
+    <string name="post">Post</string>
+    <string name="reviews">Reviews</string>
 </resources>

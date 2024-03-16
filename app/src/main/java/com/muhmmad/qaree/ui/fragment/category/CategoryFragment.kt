@@ -27,7 +27,9 @@ class CategoryFragment : Fragment() {
         findNavController()
     }
     private val adapter: BooksAdapter by lazy {
-        BooksAdapter()
+        BooksAdapter{
+
+        }
     }
     private val viewModel: CategoryViewModel by viewModels()
 
