@@ -13,6 +13,12 @@
         <argument
             android:name="ShowAppBar"
             android:defaultValue="true" />
+        <action
+            android:id="@+id/action_homeFragment_to_categoryFragment"
+            app:destination="@id/categoryFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_bookInfoFragment"
+            app:destination="@id/bookInfoFragment" />
     </fragment>
     <fragment
         android:id="@+id/libraryFragment"

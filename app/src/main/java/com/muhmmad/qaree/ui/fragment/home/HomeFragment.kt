@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.muhmmad.qaree.R
@@ -27,6 +29,9 @@ class HomeFragment : Fragment() {
     private val activity: HomeActivity by lazy {
         getActivity() as HomeActivity
     }
+    private val nav: NavController by lazy {
+        findNavController()
+    }
     private val offersAdapter: OffersAdapter by lazy {
         OffersAdapter()
     }
@@ -34,13 +39,21 @@ class HomeFragment : Fragment() {
         AuthorsAdapter()
     }
     private val categoriesAdapter: CategoriesAdapter by lazy {
-        CategoriesAdapter()
+        CategoriesAdapter {
+            val bundle = Bundle()
+            bundle.putString("id", it)
+            nav.navigate(R.id.action_homeFragment_to_categoryFragment, bundle)
+        }
     }
     private val newReleaseAdapter: BooksAdapter by lazy {
-        BooksAdapter()
+        BooksAdapter {
+            nav.navigate(R.id.action_homeFragment_to_bookInfoFragment)
+        }
     }
     private val bestSellerAdapter: BooksAdapter by lazy {
-        BooksAdapter()
+        BooksAdapter {
+            nav.navigate(R.id.action_homeFragment_to_bookInfoFragment)
+        }
     }
     private val viewModel: HomeViewModel by viewModels()
 
