@@ -8,6 +8,7 @@ import com.muhmmad.domain.model.CategoriesResponse
 import com.muhmmad.domain.model.LibraryResponse
 import com.muhmmad.domain.model.NetworkResponse
 import com.muhmmad.domain.model.OffersResponse
+import com.muhmmad.domain.model.ReviewsResponse
 import com.muhmmad.domain.model.ShelfResponse
 import com.muhmmad.domain.remote.RemoteDataSource
 import com.muhmmad.domain.repo.HomeRepo
@@ -55,4 +56,14 @@ class HomeRepoImpl(private val remoteDataSource: RemoteDataSource) : HomeRepo {
 
     override suspend fun search(name: String): NetworkResponse<BooksResponse> =
         remoteDataSource.search(name)
+
+    override suspend fun getBookReviews(id: String): NetworkResponse<ReviewsResponse> =
+        remoteDataSource.getBookReviews(id)
+
+    override suspend fun makeReview(
+        token: String,
+        bookId: String,
+        rate: Float,
+        content: String
+    ): NetworkResponse<BaseResponse> =remoteDataSource.makeReview(token, bookId, rate, content)
 }
