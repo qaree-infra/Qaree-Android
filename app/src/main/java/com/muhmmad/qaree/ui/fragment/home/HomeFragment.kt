@@ -8,9 +8,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
+import androidx.navigation.NavType
 import androidx.navigation.fragment.findNavController
 import coil.load
 import coil.transform.CircleCropTransformation
+import com.muhmmad.domain.model.Book
 import com.muhmmad.qaree.R
 import com.muhmmad.qaree.databinding.FragmentHomeBinding
 import com.muhmmad.qaree.ui.activity.home.HomeActivity
@@ -20,6 +22,7 @@ import com.muhmmad.qaree.ui.fragment.home.adapters.CategoriesAdapter
 import com.muhmmad.qaree.ui.fragment.home.adapters.OffersAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import java.io.Serializable
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -47,12 +50,16 @@ class HomeFragment : Fragment() {
     }
     private val newReleaseAdapter: BooksAdapter by lazy {
         BooksAdapter {
-            nav.navigate(R.id.action_homeFragment_to_bookInfoFragment)
+            val bundle = Bundle()
+            bundle.putSerializable("book", it)
+            nav.navigate(R.id.action_homeFragment_to_bookInfoFragment, bundle)
         }
     }
     private val bestSellerAdapter: BooksAdapter by lazy {
         BooksAdapter {
-            nav.navigate(R.id.action_homeFragment_to_bookInfoFragment)
+            val bundle = Bundle()
+            bundle.putSerializable("book", it)
+            nav.navigate(R.id.action_homeFragment_to_bookInfoFragment, bundle)
         }
     }
     private val viewModel: HomeViewModel by viewModels()

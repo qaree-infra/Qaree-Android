@@ -8,6 +8,7 @@ import com.muhmmad.domain.model.LibraryResponse
 import com.muhmmad.domain.usecase.AuthUseCase
 import com.muhmmad.domain.usecase.HomeUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -23,7 +24,7 @@ class LibraryViewModel @Inject constructor(
     val state = _state.asStateFlow()
 
     fun getLibrary() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             _state.update {
                 it.copy(
                     isLoading = true,
@@ -44,7 +45,7 @@ class LibraryViewModel @Inject constructor(
     }
 
     fun createShelf(name: String) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             _state.update {
                 it.copy(
                     isLoading = true,

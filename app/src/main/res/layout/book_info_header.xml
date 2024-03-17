@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/iv_cover"
         android:layout_width="@dimen/_82sdp"
         android:layout_height="0dp"
@@ -13,6 +13,7 @@
         app:layout_constraintBottom_toBottomOf="@id/tv_price"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/roundedCornerImageView"
         tools:src="@drawable/placeholder" />
 
     <TextView
@@ -65,11 +66,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_5sdp"
+        android:text="@string/year"
         android:textSize="@dimen/_10ssp"
         app:layout_constraintEnd_toEndOf="@id/rating_bar"
         app:layout_constraintStart_toStartOf="@id/rating_bar"
-        app:layout_constraintTop_toBottomOf="@id/rating_bar"
-        tools:text="year" />
+        app:layout_constraintTop_toBottomOf="@id/rating_bar" />
 
     <TextView
         android:id="@+id/tv_book_year"
@@ -89,11 +90,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_5sdp"
+        android:text="@string/language"
         android:textSize="@dimen/_10ssp"
         app:layout_constraintEnd_toEndOf="@id/tv_year"
         app:layout_constraintStart_toStartOf="@id/tv_year"
-        app:layout_constraintTop_toBottomOf="@id/tv_year"
-        tools:text="Language" />
+        app:layout_constraintTop_toBottomOf="@id/tv_year" />
 
     <TextView
         android:id="@+id/tv_book_language"
@@ -113,11 +114,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_5sdp"
+        android:text="@string/price"
         android:textSize="@dimen/_10ssp"
         app:layout_constraintEnd_toEndOf="@id/tv_language"
         app:layout_constraintStart_toStartOf="@id/tv_language"
-        app:layout_constraintTop_toBottomOf="@id/tv_language"
-        tools:text="Price" />
+        app:layout_constraintTop_toBottomOf="@id/tv_language" />
 
     <TextView
         android:id="@+id/tv_book_price"

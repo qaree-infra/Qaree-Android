@@ -10,6 +10,7 @@ import com.muhmmad.domain.model.BooksResponse
 import com.muhmmad.domain.model.CategoriesResponse
 import com.muhmmad.domain.model.LibraryResponse
 import com.muhmmad.domain.model.OffersResponse
+import com.muhmmad.domain.model.ReviewsResponse
 import com.muhmmad.domain.model.ShelfResponse
 
 interface RemoteDataSource {
@@ -44,4 +45,11 @@ interface RemoteDataSource {
     suspend fun createShelf(name: String, token: String): NetworkResponse<BaseResponse>
     suspend fun removeShelf(id: String, token: String): NetworkResponse<BaseResponse>
     suspend fun search(name: String): NetworkResponse<BooksResponse>
+    suspend fun getBookReviews(id: String): NetworkResponse<ReviewsResponse>
+    suspend fun makeReview(
+        token: String,
+        bookId: String,
+        rate: Float,
+        content: String
+    ): NetworkResponse<BaseResponse>
 }

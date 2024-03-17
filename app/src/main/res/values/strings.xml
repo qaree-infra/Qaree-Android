@@ -107,6 +107,13 @@
     <string name="to_go_to_setting">to go to setting</string>
     <string name="my_name">my name</string>
     <string name="reading_is_amazing_hobby">reading is amazing hobby</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="author_name">By %1$s</string>
+    <string name="year">year</string>
+    <string name="language">Language</string>
+    <string name="price">Price</string>
+    <string name="description">Description</string>
+    <string name="ratings">(%1$s Ratings)</string>
+    <string name="please_enter_your_comment">Please Enter your comment</string>
+    <string name="please_enter_valid_comment">Please enter valid comment</string>
+    <string name="please_enter_your_rate">Please Enter your rate</string>
 </resources>
