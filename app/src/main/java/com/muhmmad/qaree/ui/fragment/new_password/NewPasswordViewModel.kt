@@ -7,6 +7,7 @@ import com.muhmmad.domain.model.ValidatePasswordOTPResponse
 import com.muhmmad.domain.usecase.AuthUseCase
 import com.muhmmad.qaree.ui.fragment.verification.VerificationViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -18,7 +19,7 @@ class NewPasswordViewModel @Inject constructor(private val useCase: AuthUseCase)
     private val _state = MutableStateFlow(NewPasswordState())
     val state = _state.asStateFlow()
     fun newPassword(pass: String, token: String) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             _state.update {
                 it.copy(
                     isLoading = true,

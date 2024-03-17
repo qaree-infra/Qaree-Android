@@ -1,0 +1,5 @@
+mutation reviewBook($bookId:ID!,$rate:Float!,$content:String!){
+    reviewBook (bookId: $bookId, rate: $rate, content: $content) {
+        message,
+    }
+}

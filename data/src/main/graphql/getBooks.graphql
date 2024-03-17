@@ -1,17 +1,26 @@
-query getBooks($categoryId:String!){
-    getBooks(category:$categoryId) {
+query getBooks($id:String!){
+    getBooks(category:$id) {
         numberOfPages
         books {
             name
             _id,
+            isbn,
+            author{
+                _id,name
+            },
+            avgRate,
+            language,
+            price,
+            description,
             cover{
                 path
             },
-            author{
-                _id,
-                name
+            categories{
+                _id
+                name_ar,
+                name_en
             },
-            avgRate
+            createdAt
         }
     }
 }

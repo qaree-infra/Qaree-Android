@@ -38,6 +38,8 @@ class HomeActivity : BaseActivity() {
                 run {
                     binding.appBar.root.isVisible =
                         arguments?.getBoolean("ShowAppBar", true) == true
+                    binding.bottomNavigation.isVisible =
+                        arguments?.getBoolean("showBottomNavigation", true) == true
                 }
             }
         }

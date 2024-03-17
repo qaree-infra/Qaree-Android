@@ -6,6 +6,7 @@ import com.muhmmad.domain.model.BaseResponse
 import com.muhmmad.domain.model.ValidatePasswordOTPResponse
 import com.muhmmad.domain.usecase.AuthUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -19,7 +20,7 @@ class VerificationViewModel @Inject constructor(private val useCase: AuthUseCase
     val state = _state.asStateFlow()
 
     fun verifyAccount(email: String, otp: String) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             _state.update {
                 it.copy(
                     verificationResponse = null,
@@ -42,7 +43,7 @@ class VerificationViewModel @Inject constructor(private val useCase: AuthUseCase
     }
 
     fun resendVerifyOTP(email: String) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             _state.update {
                 it.copy(
                     resendVerifyResponse = null,
@@ -65,7 +66,7 @@ class VerificationViewModel @Inject constructor(private val useCase: AuthUseCase
     }
 
     fun validateOTPPassword(email: String, otp: String) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             _state.update {
                 it.copy(
                     resendVerifyResponse = null,
@@ -88,7 +89,7 @@ class VerificationViewModel @Inject constructor(private val useCase: AuthUseCase
     }
 
     fun resendOTPPassword(email: String) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             _state.update {
                 it.copy(
                     resendVerifyResponse = null,

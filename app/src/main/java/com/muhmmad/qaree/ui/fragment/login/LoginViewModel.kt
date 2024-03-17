@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.muhmmad.domain.model.LoginResponse
 import com.muhmmad.domain.usecase.AuthUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -31,7 +32,7 @@ class LoginViewModel @Inject constructor(
     }
 
     fun login() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             _state.update {
                 it.copy(
                     loginResponse = null,
@@ -53,7 +54,7 @@ class LoginViewModel @Inject constructor(
     }
 
     fun saveToken(token: String) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             authUseCase.setToken(token).apply {
                 _state.update {
                     it.copy(goHome = true)

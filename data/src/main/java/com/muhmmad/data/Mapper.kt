@@ -1,7 +1,6 @@
 package com.muhmmad.data
 
 import com.muhmmad.domain.model.ActivityResponse
-import com.muhmmad.domain.model.Author
 import com.muhmmad.domain.model.AuthorsResponse
 import com.muhmmad.domain.model.LoginResponse
 import com.muhmmad.domain.model.ValidatePasswordOTPResponse
@@ -14,11 +13,15 @@ import com.muhmmad.domain.model.Cover
 import com.muhmmad.domain.model.LibraryResponse
 import com.muhmmad.domain.model.Offer
 import com.muhmmad.domain.model.OffersResponse
+import com.muhmmad.domain.model.Review
+import com.muhmmad.domain.model.ReviewsResponse
 import com.muhmmad.domain.model.Shelf
 import com.muhmmad.domain.model.ShelfResponse
+import com.muhmmad.domain.model.User
 import com.muhmmad.qaree.CreateShelfMutation
 import com.muhmmad.qaree.ForgetPasswordMutation
 import com.muhmmad.qaree.GetBestSellerBooksQuery
+import com.muhmmad.qaree.GetBookReviewsQuery
 import com.muhmmad.qaree.GetBooksQuery
 import com.muhmmad.qaree.GetCategoriesQuery
 import com.muhmmad.qaree.GetLastActivityQuery
@@ -31,6 +34,7 @@ import com.muhmmad.qaree.RemoveShelfMutation
 import com.muhmmad.qaree.ResendPasswordOTPMutation
 import com.muhmmad.qaree.ResendVerificationOTPMutation
 import com.muhmmad.qaree.ResetPasswordMutation
+import com.muhmmad.qaree.ReviewBookMutation
 import com.muhmmad.qaree.SearchQuery
 import com.muhmmad.qaree.SignInMutation
 import com.muhmmad.qaree.ValidatePasswordOTPMutation
@@ -88,7 +92,7 @@ fun GetOffersQuery.GetAllOffers.toOffersResponse(): OffersResponse {
                     book = Book(
                         price = it.book?.price ?: 0.0,
                         name = it.book?.name ?: "",
-                        author = Author(
+                        author = User(
                             id = "", name = it.book?.author?.name ?: "", avatar = Cover()
                         ),
                         cover = Cover(
@@ -131,7 +135,7 @@ fun GetLastActivityQuery.GetLastActivity.toActivityResponse(): ActivityResponse 
 
 fun GetTopAuthorsQuery.GetTopAuthors.toAuthorsResponse(): AuthorsResponse =
     AuthorsResponse(authors?.map {
-        Author(
+        User(
             id = it?._id ?: "",
             name = it?.name ?: "",
             avatar = Cover(path = it?.avatar?.path ?: "")
@@ -146,7 +150,18 @@ fun GetBooksQuery.Data.toBooksResponse(): BooksResponse =
                 id = it?._id ?: "",
                 name = it?.name ?: "",
                 cover = Cover(path = it?.cover?.path ?: ""),
-                author = Author(id = it?.author?._id ?: "", name = it?.author?.name ?: "")
+                author = User(id = it?.author?._id ?: "", name = it?.author?.name ?: ""),
+                categories = it?.categories?.map {
+                    Category(
+                        id = it?._id ?: "",
+                        nameAr = it?.name_ar ?: "",
+                        nameEn = it?.name_en ?: "",
+                        image = ""
+                    )
+                },
+                language = it?.language ?: "",
+                description = it?.description ?: "",
+                createdAt = it?.createdAt ?: ""
             )
         }!!
     )
@@ -158,7 +173,7 @@ fun GetBestSellerBooksQuery.Data.toBookResponse(): BooksResponse = BooksResponse
             id = it?._id ?: "",
             name = it?.name ?: "",
             cover = Cover(path = it?.cover?.path ?: ""),
-            author = Author(
+            author = User(
                 id = it?.author?._id ?: "", name = it?.author?.name ?: ""
             )
         )
@@ -184,7 +199,7 @@ fun GetLibraryQuery.GetLibrary.toLibraryResponse(): LibraryResponse = LibraryRes
                 Book(
                     id = it?.book?._id ?: "",
                     name = it?.book?.name ?: "",
-                    author = Author(
+                    author = User(
                         id = it?.book?.author?._id ?: "",
                         name = it?.book?.author?.name ?: ""
                     ),
@@ -206,7 +221,7 @@ fun GetShelfDetailsQuery.GetShelf.toShelfResponse(): ShelfResponse = ShelfRespon
             cover = Cover(path = it?.book?.cover?.path ?: ""),
             name = it?.book?.name ?: "",
             avgRating = it?.book?.avgRate ?: 0,
-            author = Author(
+            author = User(
                 id = it?.book?.author?._id ?: "", name = it?.book?.author?.name ?: ""
             ), readingProgress = it?.readingProgress ?: 0, status = it?.status ?: ""
         )
@@ -233,7 +248,7 @@ fun SearchQuery.Search.toBooksResponse(): BooksResponse = BooksResponse(
             cover = Cover(path = it?.cover?.path ?: ""),
             name = it?.name ?: "",
             avgRating = it?.avgRate ?: 0,
-            author = Author(id = it?.author?._id ?: "", name = it?.author?.name ?: "")
+            author = User(id = it?.author?._id ?: "", name = it?.author?.name ?: "")
         )
     }!!
 )
@@ -241,4 +256,21 @@ fun SearchQuery.Search.toBooksResponse(): BooksResponse = BooksResponse(
 fun RemoveBookFromShelfMutation.RemoveBookFromShelf.toBaseResponse(): BaseResponse = BaseResponse(
     success = success ?: false,
     message = message ?: ""
+)
+
+fun GetBookReviewsQuery.GetBookReviews.toReviewsResponse(): ReviewsResponse = ReviewsResponse(
+    data = reviews?.map {
+        Review(
+            id = it?._id ?: "",
+            content = it?.content ?: "",
+            user = User(id = it?.user?._id ?: "", name = it?.user?.name ?: "", avatar = null),
+            rate = it?.rate?.toFloat() ?: 0.0F, createdAt = it?.createdAt ?: "",
+            updatedAt = it?.updatedAt ?: ""
+        )
+    }!!, total = total ?: 0, currentPage = currentPage ?: 0, numberOfPages = numberOfPages ?: 0
+)
+
+fun ReviewBookMutation.ReviewBook.toBaseResponse(): BaseResponse = BaseResponse(
+    message = message ?: "",
+    success = true
 )
