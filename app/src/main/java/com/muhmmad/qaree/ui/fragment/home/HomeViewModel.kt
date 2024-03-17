@@ -1,11 +1,8 @@
 package com.muhmmad.qaree.ui.fragment.home
 
-import androidx.collection.intSetOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.muhmmad.domain.model.ActivitiesResponse
 import com.muhmmad.domain.model.ActivityResponse
-import com.muhmmad.domain.model.Author
 import com.muhmmad.domain.model.AuthorsResponse
 import com.muhmmad.domain.model.Book
 import com.muhmmad.domain.model.BooksResponse
@@ -14,9 +11,11 @@ import com.muhmmad.domain.model.Category
 import com.muhmmad.domain.model.Cover
 import com.muhmmad.domain.model.Offer
 import com.muhmmad.domain.model.OffersResponse
+import com.muhmmad.domain.model.User
 import com.muhmmad.domain.usecase.AuthUseCase
 import com.muhmmad.domain.usecase.HomeUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -33,7 +32,7 @@ class HomeViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            val author = Author(id = "", name = "author name", avatar = Cover())
+            val author = User(id = "", name = "author name", avatar = Cover())
             val book = Book(
                 price = 50.0,
                 name = "Book name",
@@ -115,7 +114,7 @@ class HomeViewModel @Inject constructor(
     }
 
     fun getLastActivity() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             useCase.getLastActivity(authUseCase.getToken()).apply {
                 _state.update {
                     it.copy(
@@ -129,7 +128,7 @@ class HomeViewModel @Inject constructor(
     }
 
     fun getTopAuthors() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             useCase.getTopAuthors().apply {
                 _state.update {
                     it.copy(
@@ -143,7 +142,7 @@ class HomeViewModel @Inject constructor(
     }
 
     fun getNewReleaseBooks() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             useCase.getNewReleaseBooks().apply {
                 _state.update {
                     it.copy(
@@ -157,7 +156,7 @@ class HomeViewModel @Inject constructor(
     }
 
     fun getBestSellerBooks() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             useCase.getBestSellerBooks().apply {
                 _state.update {
                     it.copy(
@@ -171,7 +170,7 @@ class HomeViewModel @Inject constructor(
     }
 
     fun getCategories() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             useCase.getCategories().apply {
                 _state.update {
                     it.copy(

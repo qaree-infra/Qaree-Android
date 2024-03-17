@@ -1,0 +1,19 @@
+query getBookReviews($bookId:String!){
+    getBookReviews(bookId: $bookId) {
+        reviews {
+            _id,
+            user {
+                _id,
+                name,
+                avatar
+            },
+            rate,
+            content,
+            createdAt,
+            updatedAt
+        }
+        total,
+        currentPage,
+        numberOfPages
+    },
+}

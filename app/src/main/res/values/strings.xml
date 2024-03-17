@@ -103,4 +103,13 @@
     <string name="leave_a_comment">Leave a comment</string>
     <string name="post">Post</string>
     <string name="reviews">Reviews</string>
+    <string name="author_name">By %1$s</string>
+    <string name="year">year</string>
+    <string name="language">Language</string>
+    <string name="price">Price</string>
+    <string name="description">Description</string>
+    <string name="ratings">(%1$s Ratings)</string>
+    <string name="please_enter_your_comment">Please Enter your comment</string>
+    <string name="please_enter_valid_comment">Please enter valid comment</string>
+    <string name="please_enter_your_rate">Please Enter your rate</string>
 </resources>
