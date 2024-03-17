@@ -103,6 +103,10 @@
     <string name="leave_a_comment">Leave a comment</string>
     <string name="post">Post</string>
     <string name="reviews">Reviews</string>
+    <string name="My_profile">My Profile</string>
+    <string name="to_go_to_setting">to go to setting</string>
+    <string name="my_name">my name</string>
+    <string name="reading_is_amazing_hobby">reading is amazing hobby</string>
     <string name="author_name">By %1$s</string>
     <string name="year">year</string>
     <string name="language">Language</string>
