@@ -1,9 +1,363 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
+    android:padding="@dimen/_8sdp"
     tools:context=".ui.fragment.settings.SettingsFragment">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-</FrameLayout>
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_20sdp"
+            android:contentDescription="@string/to_return_to_the_previous_page"
+            android:src="@drawable/ic_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_settings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_15sdp"
+            android:text="@string/settings"
+            android:textColor="@color/primary_color"
+            android:textSize="@dimen/_20ssp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/iv_back"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <LinearLayout
+            android:id="@+id/ll_account_setting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/_15sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_settings">
+
+            <TextView
+                android:id="@+id/tv_acc_settings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_1sdp"
+                android:text="@string/account_settings"
+                android:textColor="@color/shimmer_color"
+                android:textSize="@dimen/_17ssp"
+                android:textStyle="normal"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="87dp" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_8sdp" />
+
+            <TextView
+                android:id="@+id/tv_edit_profile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_1sdp"
+                android:layout_weight="1"
+                android:text="@string/edit_profile"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_17ssp"
+                android:textStyle="normal"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="87dp"
+                app:drawableEndCompat="@drawable/ic_forward" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_8sdp" />
+
+            <TextView
+                android:id="@+id/tv_change_pass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_1sdp"
+                android:layout_weight="1"
+                android:text="@string/change_password"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_17ssp"
+                android:textStyle="normal"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="87dp"
+                app:drawableEndCompat="@drawable/ic_forward" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_8sdp" />
+
+            <TextView
+                android:id="@+id/tv_payment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_1sdp"
+                android:layout_weight="1"
+                android:text="@string/payment"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_17ssp"
+                android:textStyle="normal"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="87dp"
+                app:drawableEndCompat="@drawable/ic_forward" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_8sdp" />
+
+            <TextView
+                android:id="@+id/tv_delete_account"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_1sdp"
+                android:layout_weight="1"
+                android:text="@string/delete_account"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_17ssp"
+                android:textStyle="normal"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="87dp"
+                app:drawableEndCompat="@drawable/ic_forward" />
+
+        </LinearLayout>
+
+
+        <View
+            android:id="@+id/account_settings_divider"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_2sdp"
+            android:layout_marginHorizontal="@dimen/_30sdp"
+            android:background="@color/gray_indicator"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.493"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ll_account_setting" />
+
+
+        <LinearLayout
+            android:id="@+id/ll_personalization"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:orientation="vertical"
+            android:padding="@dimen/_15sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/account_settings_divider">
+
+            <TextView
+                android:id="@+id/tv_personalization"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_1sdp"
+                android:text="@string/personalization"
+                android:textColor="@color/shimmer_color"
+                android:textSize="@dimen/_17ssp"
+                android:textStyle="normal"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="87dp" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_8sdp" />
+
+            <TextView
+                android:id="@+id/tv_language"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_margin="@dimen/_1sdp"
+                android:layout_weight="1"
+                android:text="@string/language"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_17ssp"
+                android:textStyle="normal"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="87dp"
+                app:drawableEndCompat="@drawable/ic_forward" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_8sdp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_dark_mode"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_1sdp"
+                    android:layout_weight="1"
+                    android:text="@string/dark_mode"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_17ssp"
+                    android:textStyle="normal"
+                    tools:layout_editor_absoluteX="16dp"
+                    tools:layout_editor_absoluteY="87dp" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/sw_dark_mode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_8sdp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_notifications"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_1sdp"
+                    android:layout_weight="1"
+                    android:text="@string/Notifications"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_17ssp"
+                    android:textStyle="normal"
+                    tools:layout_editor_absoluteX="16dp"
+                    tools:layout_editor_absoluteY="87dp" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/sw_notification"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <View
+            android:id="@+id/personalization_divider"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_2sdp"
+            android:layout_marginHorizontal="@dimen/_30sdp"
+            android:background="@color/gray_indicator"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.493"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ll_personalization" />
+
+
+        <LinearLayout
+            android:id="@+id/ll_more"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/_15sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/personalization_divider">
+
+            <TextView
+                android:id="@+id/tv_more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_1sdp"
+                android:text="@string/More"
+                android:textColor="@color/shimmer_color"
+                android:textSize="@dimen/_17ssp"
+                android:textStyle="normal"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="87dp" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_8sdp" />
+
+            <TextView
+                android:id="@+id/tv_privacy_policy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_1sdp"
+                android:layout_weight="1"
+                android:text="@string/privacy_policy"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_17ssp"
+                android:textStyle="normal"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="87dp"
+                app:drawableEndCompat="@drawable/ic_forward" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_8sdp" />
+
+            <TextView
+                android:id="@+id/tv_about_us"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_1sdp"
+                android:layout_weight="1"
+                android:text="@string/about_us"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_17ssp"
+                android:textStyle="normal"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="87dp"
+                app:drawableEndCompat="@drawable/ic_forward" />
+
+        </LinearLayout>
+
+
+        <View
+            android:id="@+id/more_divider"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_2sdp"
+            android:layout_marginHorizontal="@dimen/_30sdp"
+            android:background="@color/gray_indicator"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.493"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ll_more" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/more_divider">
+
+            <TextView
+                android:id="@+id/tv_log_out"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_15sdp"
+                android:text="@string/log_out"
+                android:drawableEnd="@drawable/ic_log_out"
+                android:textColor="@color/primary_color"
+                android:textSize="@dimen/_20ssp"
+                android:textStyle="bold"
+                tools:ignore="UseCompatTextViewDrawableXml" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
