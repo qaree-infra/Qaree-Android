@@ -124,6 +124,14 @@
     <string name="log_out">Log out</string>
     <string name="to_log_out">to log out</string>
     <string name="dark_mode">Dark mode</string>
+    <string name="edit_my_photo">edit my photo</string>
+    <string name="Name">Name</string>
+    <string name="Edit_profile">Edit profile</string>
+    <string name="enter_your_name">Enter your name</string>
+    <string name="bio">Bio</string>
+    <string name="what_do_you_want_to_write">what do you want to write</string>
+    <string name="E_mail">E-mail</string>
+    <string name="example_gmail_com">example@gmail.com</string>
     <string name="author_name">By %1$s</string>
     <string name="year">year</string>
     <string name="price">Price</string>
