@@ -1,26 +1,22 @@
-package com.muhmmad.qaree.ui.fragment.home.adapters
+package com.muhmmad.qaree.ui.fragment.book_info
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
-import com.muhmmad.domain.model.User
-import com.muhmmad.qaree.databinding.AuthorItemBinding
+import com.muhmmad.domain.model.Review
+import com.muhmmad.qaree.R
+import com.muhmmad.qaree.databinding.ReviewItemBinding
 import com.muhmmad.qaree.utils.DiffUtilCallback
 
-class AuthorsAdapter : RecyclerView.Adapter<AuthorsAdapter.ViewHolder>() {
-    private val data = ArrayList<User>()
+class ReviewsAdapter : RecyclerView.Adapter<ReviewsAdapter.ViewHolder>() {
+    private val data = ArrayList<Review>()
 
-    class ViewHolder(val binding: AuthorItemBinding) : RecyclerView.ViewHolder(binding.root)
+    class ViewHolder(val binding: ReviewItemBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            AuthorItemBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
+            ReviewItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
     }
 
@@ -29,12 +25,14 @@ class AuthorsAdapter : RecyclerView.Adapter<AuthorsAdapter.ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.apply {
             val item = data[position]
-            ivAuthor.load(item.avatar?.path)
-            tvAuthor.text = item.name
+            val ctx = root.context
+            ratingBar.rating = item.rate
+            tvUser.text = ctx.getString(R.string.author_name, item.user.name)
+            tvReview.text = item.content
         }
     }
 
-    fun setData(newData: List<User>) {
+    fun setData(newData: List<Review>) {
         val diffCallback = DiffUtilCallback(data, newData)
         val diffResult = DiffUtil.calculateDiff(diffCallback)
         data.clear()

@@ -9,7 +9,9 @@ import com.muhmmad.domain.model.LibraryResponse
 import com.muhmmad.domain.model.LoginResponse
 import com.muhmmad.domain.model.NetworkResponse
 import com.muhmmad.domain.model.OffersResponse
+import com.muhmmad.domain.model.ReviewsResponse
 import com.muhmmad.domain.model.ShelfResponse
+import com.muhmmad.domain.model.User
 
 interface HomeRepo {
     suspend fun getOffers(): NetworkResponse<OffersResponse>
@@ -30,4 +32,12 @@ interface HomeRepo {
     suspend fun createShelf(name: String, token: String): NetworkResponse<BaseResponse>
     suspend fun removeShelf(id: String, token: String): NetworkResponse<BaseResponse>
     suspend fun search(name: String): NetworkResponse<BooksResponse>
+    suspend fun getBookReviews(id: String): NetworkResponse<ReviewsResponse>
+    suspend fun makeReview(
+        token: String,
+        bookId: String,
+        rate: Float,
+        content: String
+    ): NetworkResponse<BaseResponse>
+    suspend fun getUserInfo(token: String): NetworkResponse<User>
 }

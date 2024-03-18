@@ -1,10 +1,9 @@
-package com.muhmmad.qaree.ui.fragment.library
+package com.muhmmad.qaree.ui.fragment.profile
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.muhmmad.domain.model.BaseResponse
 import com.muhmmad.domain.model.LibraryResponse
+import com.muhmmad.domain.model.User
 import com.muhmmad.domain.usecase.AuthUseCase
 import com.muhmmad.domain.usecase.HomeUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,22 +15,30 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class LibraryViewModel @Inject constructor(
-    private val authUseCase: AuthUseCase,
+class ProfileViewModel @Inject constructor(
     private val useCase: HomeUseCase,
+    private val authUseCase: AuthUseCase
 ) : ViewModel() {
-    private val _state = MutableStateFlow(LibraryState())
+    private val _state = MutableStateFlow(ProfileState())
     val state = _state.asStateFlow()
+    fun getProfileInfo() {
+        viewModelScope.launch(Dispatchers.IO) {
+            _state.update { it.copy(isLoading = true) }
+            useCase.getUserInfo(authUseCase.getToken()).apply {
+                _state.update {
+                    it.copy(
+                        isLoading = false,
+                        error = message,
+                        userDataResponse = data
+                    )
+                }
+            }
+        }
+    }
 
     fun getLibrary() {
         viewModelScope.launch(Dispatchers.IO) {
-            _state.update {
-                it.copy(
-                    isLoading = true,
-                    error = null,
-                    libraryResponse = null
-                )
-            }
+            _state.update { it.copy(isLoading = true) }
             useCase.getLibrary(authUseCase.getToken()).apply {
                 _state.update {
                     it.copy(
@@ -44,32 +51,10 @@ class LibraryViewModel @Inject constructor(
         }
     }
 
-    fun createShelf(name: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            _state.update {
-                it.copy(
-                    isLoading = true,
-                    error = null,
-                )
-            }
-            useCase.createShelf(name, authUseCase.getToken()).apply {
-                _state.update {
-                    it.copy(
-                        isLoading = false,
-                        error = message,
-                        createShelfResponse = data
-                    )
-                }
-            }
-        }
-    }
-
-
-    data class LibraryState(
-        val error: String? = null,
-        val isLoading: Boolean = false,
+    data class ProfileState(
         val libraryResponse: LibraryResponse? = null,
-        val createShelfResponse: BaseResponse? = null
+        val userDataResponse: User? = null,
+        val isLoading: Boolean = false,
+        val error: String? = null,
     )
-
 }

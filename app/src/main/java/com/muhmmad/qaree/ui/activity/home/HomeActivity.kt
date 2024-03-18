@@ -38,6 +38,8 @@ class HomeActivity : BaseActivity() {
                 run {
                     binding.appBar.root.isVisible =
                         arguments?.getBoolean("ShowAppBar", true) == true
+                    binding.bottomNavigation.isVisible =
+                        arguments?.getBoolean("showBottomNavigation", true) == true
                 }
             }
         }
@@ -59,6 +61,9 @@ class HomeActivity : BaseActivity() {
             }
             appBar.ivNotification.setOnClickListener {
                 nav.navigate(R.id.notificationFragment)
+            }
+            appBar.ivProfile.setOnClickListener {
+                nav.navigate(R.id.profileFragment)
             }
         }
     }

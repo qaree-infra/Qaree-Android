@@ -18,4 +18,9 @@ class HomeUseCase(private val repo: HomeRepo) {
     suspend fun createShelf(name: String, token: String) = repo.createShelf(name, token)
     suspend fun removeShelf(id: String, token: String) = repo.removeShelf(id, token)
     suspend fun search(name: String) = repo.search(name)
+    suspend fun getBookReviews(id: String) = repo.getBookReviews(id)
+    suspend fun makeReview(token: String, bookId: String, rate: Float, content: String) =
+        repo.makeReview(token, bookId, rate, content)
+
+    suspend fun getUserInfo(token: String) = repo.getUserInfo(token)
 }

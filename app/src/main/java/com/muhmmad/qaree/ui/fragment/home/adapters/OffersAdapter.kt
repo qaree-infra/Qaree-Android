@@ -5,12 +5,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.muhmmad.domain.model.Book
 import com.muhmmad.domain.model.Offer
 import com.muhmmad.qaree.R
 import com.muhmmad.qaree.databinding.OfferLayoutBinding
 import com.muhmmad.qaree.utils.DiffUtilCallback
 
-class OffersAdapter : RecyclerView.Adapter<OffersAdapter.ViewHolder>() {
+class OffersAdapter(private val onClick: (item: Book) -> Unit) :
+    RecyclerView.Adapter<OffersAdapter.ViewHolder>() {
     private val data = ArrayList<Offer>()
 
     class ViewHolder(val binding: OfferLayoutBinding) : RecyclerView.ViewHolder(binding.root)
@@ -37,6 +39,9 @@ class OffersAdapter : RecyclerView.Adapter<OffersAdapter.ViewHolder>() {
             tvWriterName.text = item.book.author?.name
             tvPrice.text = ctx.getString(R.string.offer_price, item.book.price.toString())
             btnOffer.text = ctx.getString(R.string.offer_percent, item.percent.toString() + "%")
+            root.setOnClickListener {
+                onClick(item.book)
+            }
         }
     }
 
