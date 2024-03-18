@@ -18,6 +18,7 @@
             android:layout_height="0dp"
             android:layout_marginVertical="@dimen/_15sdp"
             android:scaleType="fitXY"
+            app:shapeAppearanceOverlay="@style/roundedCornerImageView"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/ll_btns"
             app:layout_constraintStart_toStartOf="parent"
