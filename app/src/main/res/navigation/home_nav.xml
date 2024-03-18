@@ -92,4 +92,18 @@
             android:name="ShowAppBar"
             android:defaultValue="false" />
     </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.muhmmad.qaree.ui.fragment.profile.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.muhmmad.qaree.ui.fragment.settings.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
 </navigation>

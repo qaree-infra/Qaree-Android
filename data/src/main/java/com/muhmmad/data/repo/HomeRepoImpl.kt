@@ -10,6 +10,7 @@ import com.muhmmad.domain.model.NetworkResponse
 import com.muhmmad.domain.model.OffersResponse
 import com.muhmmad.domain.model.ReviewsResponse
 import com.muhmmad.domain.model.ShelfResponse
+import com.muhmmad.domain.model.User
 import com.muhmmad.domain.remote.RemoteDataSource
 import com.muhmmad.domain.repo.HomeRepo
 
@@ -65,5 +66,8 @@ class HomeRepoImpl(private val remoteDataSource: RemoteDataSource) : HomeRepo {
         bookId: String,
         rate: Float,
         content: String
-    ): NetworkResponse<BaseResponse> =remoteDataSource.makeReview(token, bookId, rate, content)
+    ): NetworkResponse<BaseResponse> = remoteDataSource.makeReview(token, bookId, rate, content)
+
+    override suspend fun getUserInfo(token: String): NetworkResponse<User> =
+        remoteDataSource.getUserInfo(token)
 }

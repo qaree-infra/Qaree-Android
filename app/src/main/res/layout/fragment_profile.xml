@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
     tools:context=".ui.fragment.profile.ProfileFragment">
 
     <ImageView
@@ -17,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tv_my_profile"
+        android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_15sdp"
@@ -29,7 +30,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/iv_setting"
+        android:id="@+id/iv_settings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_15sdp"
@@ -38,55 +39,57 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/iv_my_profile"
-        android:layout_width="122sp"
-        android:layout_height="122sp"
-        android:layout_marginTop="48dp"
-        android:scaleType="fitCenter"
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/iv_user"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="@dimen/_100sdp"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:contentDescription="@string/user_image"
+        android:scaleType="fitXY"
         android:src="@drawable/ic_my_profile"
+        app:layout_constraintBottom_toTopOf="@id/tv_user_name"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_my_profile" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_title"
+        app:shapeAppearanceOverlay="@style/roundedImageView" />
 
     <TextView
-        android:id="@+id/tv_my_name"
+        android:id="@+id/tv_user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_15sdp"
         android:text="@string/my_name"
         android:textColor="@color/black"
         android:textSize="@dimen/_15ssp"
-        android:textStyle="normal"
+        app:layout_constraintBottom_toTopOf="@id/tv_bio"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_my_profile" />
+        app:layout_constraintTop_toBottomOf="@+id/iv_user" />
 
     <TextView
         android:id="@+id/tv_bio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_15sdp"
-        android:layout_marginTop="16dp"
         android:text="@string/reading_is_amazing_hobby"
         android:textColor="@color/gray_indicator"
         android:textSize="@dimen/_10ssp"
-        android:textStyle="normal"
+        app:layout_constraintBottom_toTopOf="@id/rv_library"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_my_name" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_user_name" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/tv_want_my_books"
+        android:id="@+id/rv_library"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="22dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/_15sdp"
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_bio"
-        tools:listitem="@layout/my_profile_item"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:listitem="@layout/profile_library_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

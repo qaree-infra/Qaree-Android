@@ -13,6 +13,7 @@ import com.muhmmad.data.toLoginResponse
 import com.muhmmad.data.toOffersResponse
 import com.muhmmad.data.toReviewsResponse
 import com.muhmmad.data.toShelfResponse
+import com.muhmmad.data.toUser
 import com.muhmmad.data.toValidateOTPResponse
 import com.muhmmad.data.toVerificationResponse
 import com.muhmmad.domain.model.ActivityResponse
@@ -29,6 +30,7 @@ import com.muhmmad.domain.model.LibraryResponse
 import com.muhmmad.domain.model.OffersResponse
 import com.muhmmad.domain.model.ReviewsResponse
 import com.muhmmad.domain.model.ShelfResponse
+import com.muhmmad.domain.model.User
 import com.muhmmad.domain.remote.RemoteDataSource
 import com.muhmmad.qaree.CreateShelfMutation
 import com.muhmmad.qaree.ForgetPasswordMutation
@@ -41,6 +43,7 @@ import com.muhmmad.qaree.GetLibraryQuery
 import com.muhmmad.qaree.GetOffersQuery
 import com.muhmmad.qaree.GetShelfDetailsQuery
 import com.muhmmad.qaree.GetTopAuthorsQuery
+import com.muhmmad.qaree.GetUserInfoQuery
 import com.muhmmad.qaree.RemoveBookFromShelfMutation
 import com.muhmmad.qaree.RemoveShelfMutation
 import com.muhmmad.qaree.ResendPasswordOTPMutation
@@ -544,6 +547,21 @@ class RemoteDataSourceImpl(
                 }
             }
         }catch(ex:Exception){
+            Error(ex.message.toString())
+        }
+    }
+
+    override suspend fun getUserInfo(token: String): NetworkResponse<User> {
+        return try{
+            val response= checkResponse(apolloClient.query(GetUserInfoQuery()).addHttpHeader("Authorization", token).execute())
+            when(response){
+                is Success->{
+                    Success(response.data?.userInfo?.toUser()!!)
+                }else->{
+                Error(response.message.toString())
+                }
+            }
+        }catch (ex:Exception){
             Error(ex.message.toString())
         }
     }
