@@ -29,6 +29,7 @@ import com.muhmmad.qaree.GetLibraryQuery
 import com.muhmmad.qaree.GetOffersQuery
 import com.muhmmad.qaree.GetShelfDetailsQuery
 import com.muhmmad.qaree.GetTopAuthorsQuery
+import com.muhmmad.qaree.GetUserInfoQuery
 import com.muhmmad.qaree.RemoveBookFromShelfMutation
 import com.muhmmad.qaree.RemoveShelfMutation
 import com.muhmmad.qaree.ResendPasswordOTPMutation
@@ -273,4 +274,12 @@ fun GetBookReviewsQuery.GetBookReviews.toReviewsResponse(): ReviewsResponse = Re
 fun ReviewBookMutation.ReviewBook.toBaseResponse(): BaseResponse = BaseResponse(
     message = message ?: "",
     success = true
+)
+
+fun GetUserInfoQuery.UserInfo.toUser(): User = User(
+    id = _id ?: "",
+    name = name ?: "",
+    avatar = Cover(path = avatar?.path ?: ""),
+    email = email ?: "",
+    bio = bio ?: ""
 )

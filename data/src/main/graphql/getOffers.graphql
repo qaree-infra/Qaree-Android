@@ -18,7 +18,11 @@ query getOffers{
                     path
                     size
                 }
-                _id
+                _id,
+                avgRate,
+                language,
+                description,
+                createdAt
             }
         }
         currentPage

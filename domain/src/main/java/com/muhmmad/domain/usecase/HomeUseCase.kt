@@ -21,4 +21,6 @@ class HomeUseCase(private val repo: HomeRepo) {
     suspend fun getBookReviews(id: String) = repo.getBookReviews(id)
     suspend fun makeReview(token: String, bookId: String, rate: Float, content: String) =
         repo.makeReview(token, bookId, rate, content)
+
+    suspend fun getUserInfo(token: String) = repo.getUserInfo(token)
 }

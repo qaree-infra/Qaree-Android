@@ -62,6 +62,9 @@ class HomeActivity : BaseActivity() {
             appBar.ivNotification.setOnClickListener {
                 nav.navigate(R.id.notificationFragment)
             }
+            appBar.ivProfile.setOnClickListener {
+                nav.navigate(R.id.profileFragment)
+            }
         }
     }
 

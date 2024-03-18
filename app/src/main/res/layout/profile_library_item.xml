@@ -1,35 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/tv_want_to_read"
+        android:id="@+id/tv_shelf_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_15sdp"
-        android:text="Want to Read"
         android:textColor="@color/primary_color"
         android:textSize="@dimen/_12ssp"
-        android:textStyle="normal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.049"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Want to Read" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/tv_want_read"
+        android:id="@+id/rv_shelf"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="4dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_5sdp"
         android:orientation="horizontal"
-        tools:listitem="@layout/new_release_item"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_want_to_read" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_shelf_name"
+        tools:listitem="@layout/new_release_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

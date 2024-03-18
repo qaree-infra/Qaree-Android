@@ -6,7 +6,11 @@ import java.util.Locale
 
 object DateUtils {
     fun getBookYear(timeStamp: String): String {
-        val date = Date(timeStamp.toLong())
-        return SimpleDateFormat("yyyy", Locale.getDefault()).format(date)
+        return try {
+            val date = Date(timeStamp.toLong())
+            SimpleDateFormat("yyyy", Locale.getDefault()).format(date)
+        } catch (ex: Exception) {
+            ""
+        }
     }
 }

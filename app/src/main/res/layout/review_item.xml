@@ -20,6 +20,7 @@
         tools:text="by Lara Trina ." />
 
     <RatingBar
+        android:layout_margin="@dimen/_5sdp"
         android:id="@+id/rating_bar"
         style="?android:attr/ratingBarStyleSmall"
         android:layout_width="wrap_content"
@@ -28,6 +29,7 @@
         android:numStars="5"
         android:progressTint="@color/rating_stars"
         app:layout_constraintBottom_toBottomOf="@id/tv_user"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/tv_user"
         app:layout_constraintTop_toTopOf="@id/tv_user" />
 

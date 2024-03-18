@@ -11,6 +11,7 @@ import com.muhmmad.domain.model.NetworkResponse
 import com.muhmmad.domain.model.OffersResponse
 import com.muhmmad.domain.model.ReviewsResponse
 import com.muhmmad.domain.model.ShelfResponse
+import com.muhmmad.domain.model.User
 
 interface HomeRepo {
     suspend fun getOffers(): NetworkResponse<OffersResponse>
@@ -38,4 +39,5 @@ interface HomeRepo {
         rate: Float,
         content: String
     ): NetworkResponse<BaseResponse>
+    suspend fun getUserInfo(token: String): NetworkResponse<User>
 }

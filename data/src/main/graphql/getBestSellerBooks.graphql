@@ -10,8 +10,17 @@ query getBestSellerBooks{
                 _id,
                 name
             },
+            categories{
+                _id
+                name_ar,
+                name_en
+            },
+            price,
+            description,
             isbn,
-            avgRate
+            avgRate,
+            language,
+            createdAt
         }
     }
 }

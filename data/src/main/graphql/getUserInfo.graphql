@@ -1,0 +1,13 @@
+query getUserInfo{
+    userInfo {
+        _id,
+        name,
+        email,
+        avatar{
+            path
+        },
+        updatedAt,
+        createdAt,
+        bio
+    }
+}
