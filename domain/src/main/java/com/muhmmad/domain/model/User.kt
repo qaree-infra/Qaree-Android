@@ -9,4 +9,4 @@ data class User(
     val avatar: Cover? = null,
     val email: String = "",
     val bio: String = ""
-)
+):java.io.Serializable

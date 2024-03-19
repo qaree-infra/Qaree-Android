@@ -1,5 +1,6 @@
 package com.muhmmad.qaree.ui.fragment.settings
 
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,15 +8,25 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import com.muhmmad.domain.model.Book
+import com.muhmmad.domain.model.User
 import com.muhmmad.qaree.R
 import com.muhmmad.qaree.databinding.FragmentSettingsBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SettingsFragment : Fragment() {
     private val binding: FragmentSettingsBinding by lazy {
         FragmentSettingsBinding.inflate(layoutInflater)
     }
     private val nav: NavController by lazy {
         findNavController()
+    }
+    private val user: User by lazy {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) arguments?.getSerializable(
+            "user",
+            User::class.java
+        ) ?: User(id = "", name = "") else arguments?.getSerializable("user") as User
     }
 
     override fun onCreateView(
@@ -28,40 +39,41 @@ class SettingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
-            handleViews
+            handleViews()
         }
     }
 
-    private val handleViews: () -> Unit
-        get() = {
-            binding.apply {
-                ivBack.setOnClickListener {
-                    nav.navigateUp()
-                }
-                tvEditProfile.setOnClickListener {
-                    nav.navigate(R.id.action_settingsFragment_to_editProfileFragment)
-                }
-                tvChangePass.setOnClickListener {
+    private fun handleViews() {
+        binding.apply {
+            ivBack.setOnClickListener {
+                nav.navigateUp()
+            }
+            tvEditProfile.setOnClickListener {
+                val bundle = Bundle()
+                bundle.putSerializable("user", user)
+                nav.navigate(R.id.action_settingsFragment_to_editProfileFragment,bundle)
+            }
+            tvChangePass.setOnClickListener {
 
-                }
-                tvPayment.setOnClickListener {
+            }
+            tvPayment.setOnClickListener {
 
-                }
-                tvDeleteAccount.setOnClickListener {
+            }
+            tvDeleteAccount.setOnClickListener {
 
-                }
-                tvLanguage.setOnClickListener {
+            }
+            tvLanguage.setOnClickListener {
 
-                }
-                tvPrivacyPolicy.setOnClickListener {
+            }
+            tvPrivacyPolicy.setOnClickListener {
 
-                }
-                tvAboutUs.setOnClickListener {
+            }
+            tvAboutUs.setOnClickListener {
 
-                }
-                tvLogout.setOnClickListener {
+            }
+            tvLogout.setOnClickListener {
 
-                }
             }
         }
+    }
 }

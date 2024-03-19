@@ -40,7 +40,7 @@ class OffersAdapter(private val onClick: (item: Book) -> Unit) :
             tvPrice.text = ctx.getString(R.string.offer_price, item.book.price.toString())
             btnOffer.text = ctx.getString(R.string.offer_percent, item.percent.toString() + "%")
             root.setOnClickListener {
-                onClick(item.book)
+               onClick(item.book)
             }
         }
     }
