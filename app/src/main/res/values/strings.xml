@@ -141,4 +141,9 @@
     <string name="please_enter_valid_comment">Please enter valid comment</string>
     <string name="please_enter_your_rate">Please Enter your rate</string>
     <string name="user_image">User Image</string>
+    <string name="to_follow_me">to follow me</string>
+    <string name="follow">Follow</string>
+    <string name="to_message_me">to message me</string>
+    <string name="message">Message</string>
+    <string name="to_edit">to edit</string>
 </resources>
