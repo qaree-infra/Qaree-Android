@@ -127,5 +127,12 @@
         <argument
             android:name="showBottomNavigation"
             android:defaultValue="false" />
+        <action
+            android:id="@+id/action_editProfileFragment_to_editAvatarDialog"
+            app:destination="@id/editAvatarDialog" />
     </fragment>
+    <dialog
+        android:id="@+id/editAvatarDialog"
+        android:name="com.muhmmad.qaree.ui.fragment.edit_profile.EditAvatarDialog"
+        android:label="EditAvatarDialog" />
 </navigation>

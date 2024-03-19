@@ -146,4 +146,7 @@
     <string name="to_message_me">to message me</string>
     <string name="message">Message</string>
     <string name="to_edit">to edit</string>
+    <string name="profile_photo">Profile photo</string>
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
 </resources>
