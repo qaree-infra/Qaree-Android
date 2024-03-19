@@ -20,7 +20,7 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/iv_third"
-            style="@style/roundedCornerImageView"
+            app:shapeAppearanceOverlay="@style/roundedCornerImageView"
             android:layout_width="@dimen/_50sdp"
             android:layout_height="@dimen/_80sdp"
             android:layout_gravity="end|bottom"
@@ -29,7 +29,7 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/iv_second"
-            style="@style/roundedCornerImageView"
+            app:shapeAppearanceOverlay="@style/roundedCornerImageView"
             android:layout_width="@dimen/_70sdp"
             android:layout_height="@dimen/_100sdp"
             android:layout_gravity="end|bottom"
@@ -40,15 +40,13 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/iv_first"
-            style="@style/roundedCornerImageView"
+            app:shapeAppearanceOverlay="@style/roundedCornerImageView"
             android:layout_width="@dimen/_80sdp"
             android:layout_height="@dimen/_120sdp"
             android:layout_gravity="start|bottom"
             android:layout_marginEnd="@dimen/_40sdp"
             android:contentDescription="@string/shelf_books"
             android:scaleType="fitXY" />
-
-
     </FrameLayout>
 
     <LinearLayout

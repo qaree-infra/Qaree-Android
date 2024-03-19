@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -12,12 +12,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-
         <ImageView
             android:id="@+id/iv_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_20sdp"
+            android:layout_margin="@dimen/_10sdp"
             android:contentDescription="@string/to_return_to_the_previous_page"
             android:src="@drawable/ic_back"
             app:layout_constraintStart_toStartOf="parent"
@@ -27,7 +26,7 @@
             android:id="@+id/tv_settings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_15sdp"
+            android:layout_margin="@dimen/_5sdp"
             android:text="@string/settings"
             android:textColor="@color/primary_color"
             android:textSize="@dimen/_20ssp"
@@ -35,13 +34,13 @@
             app:layout_constraintStart_toEndOf="@id/iv_back"
             app:layout_constraintTop_toTopOf="parent" />
 
-
         <LinearLayout
             android:id="@+id/ll_account_setting"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="@dimen/_15sdp"
+            app:layout_constraintBottom_toTopOf="@id/account_settings_divider"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -51,13 +50,9 @@
                 android:id="@+id/tv_acc_settings"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_1sdp"
                 android:text="@string/account_settings"
                 android:textColor="@color/shimmer_color"
-                android:textSize="@dimen/_17ssp"
-                android:textStyle="normal"
-                tools:layout_editor_absoluteX="16dp"
-                tools:layout_editor_absoluteY="87dp" />
+                android:textSize="@dimen/_17ssp" />
 
             <Space
                 android:layout_width="match_parent"
@@ -73,8 +68,6 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/_17ssp"
                 android:textStyle="normal"
-                tools:layout_editor_absoluteX="16dp"
-                tools:layout_editor_absoluteY="87dp"
                 app:drawableEndCompat="@drawable/ic_forward" />
 
             <Space
@@ -90,9 +83,6 @@
                 android:text="@string/change_password"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_17ssp"
-                android:textStyle="normal"
-                tools:layout_editor_absoluteX="16dp"
-                tools:layout_editor_absoluteY="87dp"
                 app:drawableEndCompat="@drawable/ic_forward" />
 
             <Space
@@ -109,8 +99,6 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/_17ssp"
                 android:textStyle="normal"
-                tools:layout_editor_absoluteX="16dp"
-                tools:layout_editor_absoluteY="87dp"
                 app:drawableEndCompat="@drawable/ic_forward" />
 
             <Space
@@ -127,12 +115,9 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/_17ssp"
                 android:textStyle="normal"
-                tools:layout_editor_absoluteX="16dp"
-                tools:layout_editor_absoluteY="87dp"
                 app:drawableEndCompat="@drawable/ic_forward" />
 
         </LinearLayout>
-
 
         <View
             android:id="@+id/account_settings_divider"
@@ -140,8 +125,8 @@
             android:layout_height="@dimen/_2sdp"
             android:layout_marginHorizontal="@dimen/_30sdp"
             android:background="@color/gray_indicator"
+            app:layout_constraintBottom_toTopOf="@id/ll_personalization"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.493"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ll_account_setting" />
 
@@ -150,7 +135,6 @@
             android:id="@+id/ll_personalization"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
             android:orientation="vertical"
             android:padding="@dimen/_15sdp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -166,9 +150,7 @@
                 android:text="@string/personalization"
                 android:textColor="@color/shimmer_color"
                 android:textSize="@dimen/_17ssp"
-                android:textStyle="normal"
-                tools:layout_editor_absoluteX="16dp"
-                tools:layout_editor_absoluteY="87dp" />
+                android:textStyle="normal" />
 
             <Space
                 android:layout_width="match_parent"
@@ -184,8 +166,6 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/_17ssp"
                 android:textStyle="normal"
-                tools:layout_editor_absoluteX="16dp"
-                tools:layout_editor_absoluteY="87dp"
                 app:drawableEndCompat="@drawable/ic_forward" />
 
             <Space
@@ -205,10 +185,7 @@
                     android:layout_weight="1"
                     android:text="@string/dark_mode"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/_17ssp"
-                    android:textStyle="normal"
-                    tools:layout_editor_absoluteX="16dp"
-                    tools:layout_editor_absoluteY="87dp" />
+                    android:textSize="@dimen/_17ssp" />
 
                 <androidx.appcompat.widget.SwitchCompat
                     android:id="@+id/sw_dark_mode"
@@ -234,10 +211,7 @@
                     android:layout_weight="1"
                     android:text="@string/Notifications"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/_17ssp"
-                    android:textStyle="normal"
-                    tools:layout_editor_absoluteX="16dp"
-                    tools:layout_editor_absoluteY="87dp" />
+                    android:textSize="@dimen/_17ssp" />
 
                 <androidx.appcompat.widget.SwitchCompat
                     android:id="@+id/sw_notification"
@@ -279,10 +253,7 @@
                 android:layout_margin="@dimen/_1sdp"
                 android:text="@string/More"
                 android:textColor="@color/shimmer_color"
-                android:textSize="@dimen/_17ssp"
-                android:textStyle="normal"
-                tools:layout_editor_absoluteX="16dp"
-                tools:layout_editor_absoluteY="87dp" />
+                android:textSize="@dimen/_17ssp" />
 
             <Space
                 android:layout_width="match_parent"
@@ -297,9 +268,6 @@
                 android:text="@string/privacy_policy"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_17ssp"
-                android:textStyle="normal"
-                tools:layout_editor_absoluteX="16dp"
-                tools:layout_editor_absoluteY="87dp"
                 app:drawableEndCompat="@drawable/ic_forward" />
 
             <Space
@@ -315,9 +283,6 @@
                 android:text="@string/about_us"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_17ssp"
-                android:textStyle="normal"
-                tools:layout_editor_absoluteX="16dp"
-                tools:layout_editor_absoluteY="87dp"
                 app:drawableEndCompat="@drawable/ic_forward" />
 
         </LinearLayout>
@@ -334,30 +299,22 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ll_more" />
 
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tv_logout"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:layout_margin="@dimen/_20sdp"
+            android:drawablePadding="@dimen/_10sdp"
             android:gravity="center"
-            app:layout_constraintStart_toStartOf="parent"
+            android:text="@string/log_out"
+            android:textColor="@color/primary_color"
+            android:textSize="@dimen/_20ssp"
+            android:textStyle="bold"
+            app:drawableEndCompat="@drawable/ic_log_out"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/more_divider">
-
-            <TextView
-                android:id="@+id/tv_log_out"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_15sdp"
-                android:text="@string/log_out"
-                android:drawableEnd="@drawable/ic_log_out"
-                android:textColor="@color/primary_color"
-                android:textSize="@dimen/_20ssp"
-                android:textStyle="bold"
-                tools:ignore="UseCompatTextViewDrawableXml" />
-
-        </LinearLayout>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/more_divider" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </ScrollView>

@@ -82,41 +82,40 @@ fun ResetPasswordMutation.ResetPassword.toBaseResponse(): BaseResponse = BaseRes
     success = false
 )
 
-fun GetOffersQuery.GetAllOffers.toOffersResponse(): OffersResponse {
-    val list = ArrayList<Offer>()
-    offers?.map {
-        it?.apply {
-            list.add(
-                Offer(
-                    percent = it.percent ?: 0,
-                    expireAt = it.expireAt ?: "",
-                    book = Book(
-                        price = it.book?.price ?: 0.0,
-                        name = it.book?.name ?: "",
-                        author = User(
-                            id = "", name = it.book?.author?.name ?: "", avatar = Cover()
-                        ),
-                        cover = Cover(
-                            path = it.book?.cover?.path ?: "",
-                            size = it.book?.cover?.size ?: 0.0
-                        ),
-                        categories = it.book?.categories?.map { category ->
-                            Category(
-                                id = "",
-                                nameAr = category?.name_ar ?: "",
-                                nameEn = category?.name_en ?: "",
-                                image = ""
-                            )
-                        },
-                        id = it.book?._id ?: "",
-                        isbn = ""
+fun GetOffersQuery.GetAllOffers.toOffersResponse(): OffersResponse = OffersResponse(
+    data = offers?.map {
+        Offer(
+            percent = it?.percent ?: 0,
+            expireAt = it?.expireAt ?: "",
+            book = Book(
+                createdAt = it?.book?.createdAt ?: "",
+                language = it?.book?.language ?: "",
+                avgRating = it?.book?.avgRate ?: 0,
+                description = it?.book?.description ?: "",
+                price = it?.book?.price ?: 0.0,
+                name = it?.book?.name ?: "",
+                author = User(
+                    name = it?.book?.author?.name ?: "",
+                    id = it?.book?.author?._id ?: "",
+                    avatar = Cover()
+                ),
+                cover = Cover(
+                    path = it?.book?.cover?.path ?: "",
+                    size = it?.book?.cover?.size ?: 0.0
+                ),
+                categories = it?.book?.categories?.map {
+                    Category(
+                        id = "",
+                        nameAr = it?.name_ar ?: "",
+                        nameEn = it?.name_en ?: "", image = ""
                     )
-                )
-            )
-        }
-    }
-    return OffersResponse(list)
-}
+                },
+                id = it?.book?._id ?: "",
+                isbn = ""
+            ),
+        )
+    } ?: listOf(Offer())
+)
 
 fun GetLastActivityQuery.GetLastActivity.toActivityResponse(): ActivityResponse = ActivityResponse(
     book = Book(

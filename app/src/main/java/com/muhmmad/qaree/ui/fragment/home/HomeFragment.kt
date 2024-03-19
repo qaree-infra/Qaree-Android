@@ -36,7 +36,7 @@ class HomeFragment : Fragment() {
         findNavController()
     }
     private val offersAdapter: OffersAdapter by lazy {
-        OffersAdapter{
+        OffersAdapter {
             val bundle = Bundle()
             bundle.putSerializable("book", it)
             nav.navigate(R.id.action_homeFragment_to_bookInfoFragment, bundle)
