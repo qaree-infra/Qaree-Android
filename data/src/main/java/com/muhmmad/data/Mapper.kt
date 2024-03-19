@@ -114,7 +114,7 @@ fun GetOffersQuery.GetAllOffers.toOffersResponse(): OffersResponse = OffersRespo
                 isbn = ""
             ),
         )
-    } ?: listOf(Offer())
+    } ?: listOf(Offer(book = Book()))
 )
 
 fun GetLastActivityQuery.GetLastActivity.toActivityResponse(): ActivityResponse = ActivityResponse(

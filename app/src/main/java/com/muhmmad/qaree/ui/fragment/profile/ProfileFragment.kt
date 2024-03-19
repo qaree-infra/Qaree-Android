@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import coil.load
+import com.muhmmad.domain.model.User
 import com.muhmmad.qaree.R
 import com.muhmmad.qaree.databinding.FragmentProfileBinding
 import com.muhmmad.qaree.ui.activity.home.HomeActivity
@@ -32,6 +33,7 @@ class ProfileFragment : Fragment() {
         ProfileLibraryAdapter()
     }
     private val viewModel: ProfileViewModel by viewModels()
+    private var user: User? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,7 +56,11 @@ class ProfileFragment : Fragment() {
         binding.apply {
             rvLibrary.adapter = adapter
             ivSettings.setOnClickListener {
-                nav.navigate(R.id.action_profileFragment_to_settingsFragment)
+                user?.let{user->
+                    val bundle = Bundle()
+                    bundle.putSerializable("user",user)
+                    nav.navigate(R.id.action_profileFragment_to_settingsFragment,bundle)
+                }
             }
             ivBack.setOnClickListener {
                 nav.navigateUp()
@@ -73,6 +79,7 @@ class ProfileFragment : Fragment() {
                     it.error.toString()
                 )
                 it.userDataResponse?.apply {
+                    user = this
                     binding.ivUser.load(avatar?.path)
                     binding.tvUserName.text = name
                     binding.tvBio.text = bio

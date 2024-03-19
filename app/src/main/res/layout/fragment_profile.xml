@@ -24,7 +24,7 @@
         android:layout_margin="@dimen/_15sdp"
         android:text="@string/My_profile"
         android:textColor="@color/primary_color"
-        android:textSize="@dimen/_20ssp"
+        android:textSize="@dimen/_18ssp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@id/iv_back"
         app:layout_constraintTop_toTopOf="parent" />
@@ -46,12 +46,11 @@
         android:layout_marginTop="@dimen/_30sdp"
         android:contentDescription="@string/user_image"
         android:scaleType="fitXY"
-        android:src="@drawable/ic_profile"
+        android:src="@drawable/ic_profile_avatar"
         app:layout_constraintBottom_toTopOf="@id/tv_user_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_title"
-        app:layout_constraintBottom_toTopOf="@id/tv_user_name"
         app:shapeAppearanceOverlay="@style/roundedImageView" />
 
     <TextView
@@ -72,30 +71,32 @@
         android:id="@+id/tv_bio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_4sdp"
         android:text="@string/reading_is_amazing_hobby"
         android:textColor="@color/gray_indicator"
         android:textSize="@dimen/_10ssp"
-        app:layout_constraintBottom_toTopOf="@id/ll_follow_message"
+        app:layout_constraintBottom_toTopOf="@id/ll_author_profile"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_user_name" />
 
     <LinearLayout
-        android:id="@+id/ll_follow_message"
+        android:id="@+id/ll_author_profile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:gravity="center"
         android:orientation="horizontal"
         android:padding="@dimen/_10sdp"
-        android:gravity="center"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_bio">
 
         <LinearLayout
             android:id="@+id/ll_follow"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -103,11 +104,10 @@
                 android:id="@+id/btn_follow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_add"
                 android:background="@drawable/follow_btn_bg"
-                tools:layout_editor_absoluteX="299dp"
-                tools:layout_editor_absoluteY="285dp"
-                android:contentDescription="@string/to_follow_me" />
+                android:contentDescription="@string/to_follow_me"
+                android:padding="@dimen/_5sdp"
+                android:src="@drawable/ic_add" />
 
             <TextView
                 android:id="@+id/tv_follow"
@@ -119,14 +119,11 @@
 
         </LinearLayout>
 
-        <Space
-            android:layout_width="@dimen/_90sdp"
-            android:layout_height="match_parent"/>
-
         <LinearLayout
             android:id="@+id/ll_message"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -134,11 +131,10 @@
                 android:id="@+id/btn_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_message"
                 android:background="@drawable/follow_btn_bg"
-                tools:layout_editor_absoluteX="299dp"
-                tools:layout_editor_absoluteY="285dp"
-                android:contentDescription="@string/to_message_me" />
+                android:contentDescription="@string/to_message_me"
+                android:padding="@dimen/_5sdp"
+                android:src="@drawable/ic_message" />
 
             <TextView
                 android:id="@+id/tv_message"
@@ -146,10 +142,9 @@
                 android:layout_height="wrap_content"
                 android:text="@string/message"
                 android:textColor="@color/primary_color"
-                android:textSize="@dimen/_13ssp"/>
+                android:textSize="@dimen/_13ssp" />
 
         </LinearLayout>
-
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -162,8 +157,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ll_follow_message"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ll_author_profile"
         tools:listitem="@layout/profile_library_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
