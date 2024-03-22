@@ -150,4 +150,9 @@
     <string name="camera">Camera</string>
     <string name="gallery">Gallery</string>
     <string name="no_image_selected">No image selected</string>
+    <string name="please_enter_the_bio">please enter the bio</string>
+    <string name="th_bio_is_very_short">Th bio is very short</string>
+    <string name="enter_your_bio">Enter your bio</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

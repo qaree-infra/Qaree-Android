@@ -91,10 +91,16 @@ class EditProfileFragment : Fragment() {
                     nav.navigate(R.id.action_editProfileFragment_to_editAvatarDialog)
                 }
                 etName.setOnClickListener {
-
+                    val bundle = Bundle()
+                    bundle.putBoolean("isName", true)
+                    bundle.putString("text", name)
+                    nav.navigate(R.id.action_editProfileFragment_to_editNameDialog, bundle)
                 }
                 etBio.setOnClickListener {
-
+                    val bundle = Bundle()
+                    bundle.putBoolean("isName", false)
+                    bundle.putString("text", bio)
+                    nav.navigate(R.id.action_editProfileFragment_to_editNameDialog, bundle)
                 }
             }
         }
@@ -115,7 +121,6 @@ class EditProfileFragment : Fragment() {
                 it.updateAvatarType?.apply {
                     when (name) {
                         EditProfileViewModel.UpdateImagesType.CAMERA.name -> {
-                            Log.i(TAG, "CAMERA")
                             val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
                             startActivityForResult(intent, 5)
                         }
@@ -123,13 +128,14 @@ class EditProfileFragment : Fragment() {
                         EditProfileViewModel.UpdateImagesType.GALLERY.name -> {
                             pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
                         }
-
-                        else -> {
-                            Log.i(TAG, "ELSE")
-                        }
                     }
                 }
 
+                it.userData?.apply {
+                    binding.etName.setText(name.toString())
+                    binding.etMail.setText(email.toString())
+                    binding.etBio.setText(bio.toString())
+                }
             }
         }
     }

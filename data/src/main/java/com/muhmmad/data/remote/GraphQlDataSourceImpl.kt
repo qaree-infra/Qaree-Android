@@ -1,20 +1,20 @@
 package com.muhmmad.data.remote
 
 import com.apollographql.apollo3.ApolloClient
-import com.muhmmad.data.toActivityResponse
-import com.muhmmad.data.toAuthorsResponse
-import com.muhmmad.data.toBaseResponse
-import com.muhmmad.data.toBookResponse
-import com.muhmmad.data.toBooksResponse
-import com.muhmmad.data.toCategoriesResponse
-import com.muhmmad.data.toLibraryResponse
-import com.muhmmad.data.toLoginResponse
-import com.muhmmad.data.toOffersResponse
-import com.muhmmad.data.toReviewsResponse
-import com.muhmmad.data.toShelfResponse
-import com.muhmmad.data.toUser
-import com.muhmmad.data.toValidateOTPResponse
-import com.muhmmad.data.toVerificationResponse
+import com.muhmmad.data.utils.toActivityResponse
+import com.muhmmad.data.utils.toAuthorsResponse
+import com.muhmmad.data.utils.toBaseResponse
+import com.muhmmad.data.utils.toBookResponse
+import com.muhmmad.data.utils.toBooksResponse
+import com.muhmmad.data.utils.toCategoriesResponse
+import com.muhmmad.data.utils.toLibraryResponse
+import com.muhmmad.data.utils.toLoginResponse
+import com.muhmmad.data.utils.toOffersResponse
+import com.muhmmad.data.utils.toReviewsResponse
+import com.muhmmad.data.utils.toShelfResponse
+import com.muhmmad.data.utils.toUser
+import com.muhmmad.data.utils.toValidateOTPResponse
+import com.muhmmad.data.utils.toVerificationResponse
 import com.muhmmad.data.utils.checkResponse
 import com.muhmmad.domain.model.ActivityResponse
 import com.muhmmad.domain.model.AuthorsResponse
@@ -53,6 +53,8 @@ import com.muhmmad.qaree.ReviewBookMutation
 import com.muhmmad.qaree.SearchQuery
 import com.muhmmad.qaree.SignInMutation
 import com.muhmmad.qaree.SignUpMutation
+import com.muhmmad.qaree.UpdateUserBioMutation
+import com.muhmmad.qaree.UpdateUserNameMutation
 import com.muhmmad.qaree.ValidatePasswordOTPMutation
 import com.muhmmad.qaree.VerifyAccountMutation
 
@@ -515,17 +517,19 @@ class GraphQlDataSourceImpl(
     }
 
     override suspend fun getBookReviews(id: String): NetworkResponse<ReviewsResponse> {
-        return try{
-            val response=checkResponse(apolloClient.query(GetBookReviewsQuery(id)).execute())
+        return try {
+            val response = checkResponse(apolloClient.query(GetBookReviewsQuery(id)).execute())
 
-            when(response){
-                is Success->{
+            when (response) {
+                is Success -> {
                     Success(response.data?.getBookReviews?.toReviewsResponse()!!)
-                }else->{
-                Error(response.message.toString())
+                }
+
+                else -> {
+                    Error(response.message.toString())
                 }
             }
-        }catch (ex:Exception){
+        } catch (ex: Exception) {
             Error(ex.message.toString())
         }
     }
@@ -536,32 +540,89 @@ class GraphQlDataSourceImpl(
         rate: Float,
         content: String
     ): NetworkResponse<BaseResponse> {
-        return try{
-            val response= checkResponse(apolloClient.mutation(ReviewBookMutation(bookId = bookId, rate = rate.toDouble(),content=content)).addHttpHeader("Authorization", token).execute())
+        return try {
+            val response = checkResponse(
+                apolloClient.mutation(
+                    ReviewBookMutation(
+                        bookId = bookId,
+                        rate = rate.toDouble(),
+                        content = content
+                    )
+                ).addHttpHeader("Authorization", token).execute()
+            )
 
-            when(response){
-                is Success->{
+            when (response) {
+                is Success -> {
                     Success(response.data?.reviewBook?.toBaseResponse()!!)
-                }else->{
-                Error(response.message.toString())
+                }
+
+                else -> {
+                    Error(response.message.toString())
                 }
             }
-        }catch(ex:Exception){
+        } catch (ex: Exception) {
             Error(ex.message.toString())
         }
     }
 
     override suspend fun getUserInfo(token: String): NetworkResponse<User> {
-        return try{
-            val response= checkResponse(apolloClient.query(GetUserInfoQuery()).addHttpHeader("Authorization", token).execute())
-            when(response){
-                is Success->{
+        return try {
+            val response = checkResponse(
+                apolloClient.query(GetUserInfoQuery()).addHttpHeader("Authorization", token)
+                    .execute()
+            )
+            when (response) {
+                is Success -> {
                     Success(response.data?.userInfo?.toUser()!!)
-                }else->{
-                Error(response.message.toString())
+                }
+
+                else -> {
+                    Error(response.message.toString())
                 }
             }
-        }catch (ex:Exception){
+        } catch (ex: Exception) {
+            Error(ex.message.toString())
+        }
+    }
+
+    override suspend fun updateUserName(token: String, name: String): NetworkResponse<User> {
+        return try {
+            val response = checkResponse(
+                apolloClient.mutation(UpdateUserNameMutation(name))
+                    .addHttpHeader("Authorization", token).execute()
+            )
+
+            when (response) {
+                is Success -> {
+                    Success(response.data?.updateUser?.toUser()!!)
+                }
+
+                else -> {
+                    Error(response.message.toString())
+                }
+            }
+        } catch (ex: Exception) {
+            Error(ex.message.toString())
+        }
+    }
+
+    override suspend fun updateUserBio(token: String, bio: String): NetworkResponse<User> {
+        return try {
+            val response = checkResponse(
+                apolloClient.mutation(UpdateUserBioMutation(bio))
+                    .addHttpHeader("Authorization", token).execute()
+            )
+
+            when (response) {
+                is Success -> {
+                    Success(response.data?.updateUser?.toUser()!!)
+                }
+
+                else -> {
+                    Error(response.message.toString())
+                }
+            }
+        } catch (ex: Exception) {
             Error(ex.message.toString())
         }
     }

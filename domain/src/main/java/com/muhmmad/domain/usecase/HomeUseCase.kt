@@ -15,14 +15,15 @@ class HomeUseCase(private val repo: HomeRepo) {
     suspend fun getShelfDetails(name: String, token: String) = repo.getShelfDetails(name, token)
     suspend fun removeBookFromShelf(bookId: String, shelfId: String, token: String) =
         repo.removeBookFromShelf(bookId, shelfId, token)
-
     suspend fun createShelf(name: String, token: String) = repo.createShelf(name, token)
     suspend fun removeShelf(id: String, token: String) = repo.removeShelf(id, token)
     suspend fun search(name: String) = repo.search(name)
     suspend fun getBookReviews(id: String) = repo.getBookReviews(id)
     suspend fun makeReview(token: String, bookId: String, rate: Float, content: String) =
         repo.makeReview(token, bookId, rate, content)
-
     suspend fun getUserInfo(token: String) = repo.getUserInfo(token)
-    suspend fun uploadUserAvatar(token: String,image: MultipartBody.Part) = repo.uploadUserAvatar(token,image)
+    suspend fun uploadUserAvatar(token: String, image: MultipartBody.Part) =
+        repo.uploadUserAvatar(token, image)
+    suspend fun updateUserName(token: String, name: String) = repo.updateUserName(token, name)
+    suspend fun updateUserBio(token: String, bio: String) = repo.updateUserBio(token, bio)
 }
