@@ -53,5 +53,8 @@ interface GraphQlDataSource {
         rate: Float,
         content: String
     ): NetworkResponse<BaseResponse>
+
     suspend fun getUserInfo(token: String): NetworkResponse<User>
+    suspend fun updateUserName(token: String, name: String): NetworkResponse<User>
+    suspend fun updateUserBio(token: String, bio: String): NetworkResponse<User>
 }

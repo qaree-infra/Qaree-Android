@@ -1,4 +1,4 @@
-package com.muhmmad.data
+package com.muhmmad.data.utils
 
 import com.muhmmad.domain.model.ActivityResponse
 import com.muhmmad.domain.model.AuthorsResponse
@@ -38,6 +38,8 @@ import com.muhmmad.qaree.ResetPasswordMutation
 import com.muhmmad.qaree.ReviewBookMutation
 import com.muhmmad.qaree.SearchQuery
 import com.muhmmad.qaree.SignInMutation
+import com.muhmmad.qaree.UpdateUserBioMutation
+import com.muhmmad.qaree.UpdateUserNameMutation
 import com.muhmmad.qaree.ValidatePasswordOTPMutation
 import com.muhmmad.qaree.VerifyAccountMutation
 
@@ -281,4 +283,20 @@ fun GetUserInfoQuery.UserInfo.toUser(): User = User(
     avatar = Cover(path = avatar?.path ?: ""),
     email = email ?: "",
     bio = bio ?: ""
+)
+
+fun UpdateUserNameMutation.UpdateUser.toUser(): User = User(
+    id = _id ?: "",
+    name = name ?: "",
+    email = email ?: "",
+    bio = bio ?: "",
+    avatar = Cover(path = avatar?.path ?: "")
+)
+
+fun UpdateUserBioMutation.UpdateUser.toUser(): User = User(
+    id = _id ?: "",
+    name = name ?: "",
+    email = email ?: "",
+    bio = bio ?: "",
+    avatar = Cover(path = avatar?.path ?: "")
 )

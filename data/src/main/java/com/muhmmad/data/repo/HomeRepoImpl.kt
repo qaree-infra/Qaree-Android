@@ -86,4 +86,9 @@ class HomeRepoImpl(
         return retrofitDataSource.uploadUserAvatar(token, image).checkResponse()
     }
 
+    override suspend fun updateUserName(token: String, name: String): NetworkResponse<User> =
+        graphQlDataSource.updateUserName(token, name)
+
+    override suspend fun updateUserBio(token: String, bio: String): NetworkResponse<User> =
+        graphQlDataSource.updateUserBio(token, bio)
 }

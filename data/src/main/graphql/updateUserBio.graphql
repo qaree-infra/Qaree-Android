@@ -1,0 +1,11 @@
+mutation updateUserBio($bio:String!){
+    updateUser(bio:$bio) {
+        _id,
+        name,
+        email,
+        avatar{
+            path
+        },
+        bio,
+    }
+}

@@ -130,9 +130,18 @@
         <action
             android:id="@+id/action_editProfileFragment_to_editAvatarDialog"
             app:destination="@id/editAvatarDialog" />
+        <action
+            android:id="@+id/action_editProfileFragment_to_editNameDialog"
+            app:destination="@id/editNameDialog" />
     </fragment>
     <dialog
         android:id="@+id/editAvatarDialog"
         android:name="com.muhmmad.qaree.ui.fragment.edit_profile.EditAvatarDialog"
-        android:label="EditAvatarDialog" />
+        android:label="EditAvatarDialog"
+        tools:layout="@layout/dialog_edit_avatar" />
+    <dialog
+        android:id="@+id/editNameDialog"
+        android:name="com.muhmmad.qaree.ui.fragment.edit_profile.EditNameDialog"
+        android:label="EditNameDialog"
+        tools:layout="@layout/dialog_edit_name" />
 </navigation>
