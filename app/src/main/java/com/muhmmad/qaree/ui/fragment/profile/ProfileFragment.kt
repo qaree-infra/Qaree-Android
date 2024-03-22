@@ -15,7 +15,6 @@ import com.muhmmad.qaree.R
 import com.muhmmad.qaree.databinding.FragmentProfileBinding
 import com.muhmmad.qaree.ui.activity.home.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -56,10 +55,10 @@ class ProfileFragment : Fragment() {
         binding.apply {
             rvLibrary.adapter = adapter
             ivSettings.setOnClickListener {
-                user?.let{user->
+                user?.let { user ->
                     val bundle = Bundle()
-                    bundle.putSerializable("user",user)
-                    nav.navigate(R.id.action_profileFragment_to_settingsFragment,bundle)
+                    bundle.putSerializable("user", user)
+                    nav.navigate(R.id.action_profileFragment_to_settingsFragment, bundle)
                 }
             }
             ivBack.setOnClickListener {
@@ -80,7 +79,9 @@ class ProfileFragment : Fragment() {
                 )
                 it.userDataResponse?.apply {
                     user = this
-                    binding.ivUser.load(avatar?.path)
+                    if (avatar?.path != "") binding.ivUser.load(avatar?.path) {
+                        placeholder(R.drawable.ic_profile_avatar)
+                    }
                     binding.tvUserName.text = name
                     binding.tvBio.text = bio
                 }

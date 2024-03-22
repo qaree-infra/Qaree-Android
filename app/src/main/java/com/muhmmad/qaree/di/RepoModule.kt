@@ -3,7 +3,8 @@ package com.muhmmad.qaree.di
 import com.muhmmad.data.repo.AuthRepoImpl
 import com.muhmmad.data.repo.HomeRepoImpl
 import com.muhmmad.domain.local.LocalDataSource
-import com.muhmmad.domain.remote.RemoteDataSource
+import com.muhmmad.domain.remote.GraphQlDataSource
+import com.muhmmad.domain.remote.RetrofitDataSource
 import com.muhmmad.domain.repo.AuthRepo
 import com.muhmmad.domain.repo.HomeRepo
 import dagger.Module
@@ -16,12 +17,13 @@ import dagger.hilt.components.SingletonComponent
 object RepoModule {
     @Provides
     fun provideAuthRepo(
-        remoteDataSource: RemoteDataSource,
+        graphQlDataSource: GraphQlDataSource,
         localDataSource: LocalDataSource
-    ): AuthRepo = AuthRepoImpl(remoteDataSource, localDataSource)
+    ): AuthRepo = AuthRepoImpl(graphQlDataSource, localDataSource)
 
     @Provides
     fun provideHomeRepo(
-        remoteDataSource: RemoteDataSource,
-    ): HomeRepo = HomeRepoImpl(remoteDataSource)
+        graphQlDataSource: GraphQlDataSource,
+        retrofitDataSource: RetrofitDataSource
+    ): HomeRepo = HomeRepoImpl(graphQlDataSource,retrofitDataSource)
 }

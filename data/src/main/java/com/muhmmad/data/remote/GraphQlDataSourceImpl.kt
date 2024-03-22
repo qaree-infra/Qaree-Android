@@ -1,7 +1,6 @@
 package com.muhmmad.data.remote
 
 import com.apollographql.apollo3.ApolloClient
-import com.muhmmad.data.NetworkOperations.checkResponse
 import com.muhmmad.data.toActivityResponse
 import com.muhmmad.data.toAuthorsResponse
 import com.muhmmad.data.toBaseResponse
@@ -16,6 +15,7 @@ import com.muhmmad.data.toShelfResponse
 import com.muhmmad.data.toUser
 import com.muhmmad.data.toValidateOTPResponse
 import com.muhmmad.data.toVerificationResponse
+import com.muhmmad.data.utils.checkResponse
 import com.muhmmad.domain.model.ActivityResponse
 import com.muhmmad.domain.model.AuthorsResponse
 import com.muhmmad.domain.model.LoginResponse
@@ -31,7 +31,7 @@ import com.muhmmad.domain.model.OffersResponse
 import com.muhmmad.domain.model.ReviewsResponse
 import com.muhmmad.domain.model.ShelfResponse
 import com.muhmmad.domain.model.User
-import com.muhmmad.domain.remote.RemoteDataSource
+import com.muhmmad.domain.remote.GraphQlDataSource
 import com.muhmmad.qaree.CreateShelfMutation
 import com.muhmmad.qaree.ForgetPasswordMutation
 import com.muhmmad.qaree.GetBestSellerBooksQuery
@@ -56,9 +56,9 @@ import com.muhmmad.qaree.SignUpMutation
 import com.muhmmad.qaree.ValidatePasswordOTPMutation
 import com.muhmmad.qaree.VerifyAccountMutation
 
-class RemoteDataSourceImpl(
+class GraphQlDataSourceImpl(
     private val apolloClient: ApolloClient
-) : RemoteDataSource {
+) : GraphQlDataSource {
     override suspend fun login(email: String, pass: String): NetworkResponse<LoginResponse> {
         try {
             val response = checkResponse(

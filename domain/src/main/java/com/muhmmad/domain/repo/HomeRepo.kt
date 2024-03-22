@@ -12,6 +12,7 @@ import com.muhmmad.domain.model.OffersResponse
 import com.muhmmad.domain.model.ReviewsResponse
 import com.muhmmad.domain.model.ShelfResponse
 import com.muhmmad.domain.model.User
+import okhttp3.MultipartBody
 
 interface HomeRepo {
     suspend fun getOffers(): NetworkResponse<OffersResponse>
@@ -39,5 +40,7 @@ interface HomeRepo {
         rate: Float,
         content: String
     ): NetworkResponse<BaseResponse>
+
     suspend fun getUserInfo(token: String): NetworkResponse<User>
+    suspend fun uploadUserAvatar(token: String, image: MultipartBody.Part): NetworkResponse<Any?>
 }

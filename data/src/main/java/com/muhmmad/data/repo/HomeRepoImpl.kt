@@ -1,5 +1,6 @@
 package com.muhmmad.data.repo
 
+import com.muhmmad.data.utils.checkResponse
 import com.muhmmad.domain.model.ActivityResponse
 import com.muhmmad.domain.model.AuthorsResponse
 import com.muhmmad.domain.model.BaseResponse
@@ -11,63 +12,78 @@ import com.muhmmad.domain.model.OffersResponse
 import com.muhmmad.domain.model.ReviewsResponse
 import com.muhmmad.domain.model.ShelfResponse
 import com.muhmmad.domain.model.User
-import com.muhmmad.domain.remote.RemoteDataSource
+import com.muhmmad.domain.remote.GraphQlDataSource
+import com.muhmmad.domain.remote.RetrofitDataSource
 import com.muhmmad.domain.repo.HomeRepo
+import okhttp3.MultipartBody
 
-class HomeRepoImpl(private val remoteDataSource: RemoteDataSource) : HomeRepo {
-    override suspend fun getOffers(): NetworkResponse<OffersResponse> = remoteDataSource.getOffers()
+class HomeRepoImpl(
+    private val graphQlDataSource: GraphQlDataSource,
+    private val retrofitDataSource: RetrofitDataSource
+) : HomeRepo {
+    override suspend fun getOffers(): NetworkResponse<OffersResponse> =
+        graphQlDataSource.getOffers()
+
     override suspend fun getLastActivity(token: String): NetworkResponse<ActivityResponse> =
-        remoteDataSource.getLastActivity(token)
+        graphQlDataSource.getLastActivity(token)
 
     override suspend fun getTopAuthors(): NetworkResponse<AuthorsResponse> =
-        remoteDataSource.getTopAuthors()
+        graphQlDataSource.getTopAuthors()
 
     override suspend fun getNewReleaseBooks(): NetworkResponse<BooksResponse> =
-        remoteDataSource.getNewReleaseBooks()
+        graphQlDataSource.getNewReleaseBooks()
 
     override suspend fun getBestSellerBooks(): NetworkResponse<BooksResponse> =
-        remoteDataSource.getBestSellerBooks()
+        graphQlDataSource.getBestSellerBooks()
 
     override suspend fun getCategories(): NetworkResponse<CategoriesResponse> =
-        remoteDataSource.getCategories()
+        graphQlDataSource.getCategories()
 
     override suspend fun getBooksByCategory(categoryId: String): NetworkResponse<BooksResponse> =
-        remoteDataSource.getBooksByCategory(categoryId)
+        graphQlDataSource.getBooksByCategory(categoryId)
 
     override suspend fun getLibrary(token: String): NetworkResponse<LibraryResponse> =
-        remoteDataSource.getLibrary(token)
+        graphQlDataSource.getLibrary(token)
 
     override suspend fun getShelfDetails(
         name: String,
         token: String
     ): NetworkResponse<ShelfResponse> =
-        remoteDataSource.getShelfDetails(name, token)
+        graphQlDataSource.getShelfDetails(name, token)
 
     override suspend fun removeBookFromShelf(
         bookId: String,
         shelfId: String,
         token: String
-    ): NetworkResponse<BaseResponse> = remoteDataSource.removeBookFromShelf(bookId, shelfId, token)
+    ): NetworkResponse<BaseResponse> = graphQlDataSource.removeBookFromShelf(bookId, shelfId, token)
 
     override suspend fun createShelf(name: String, token: String): NetworkResponse<BaseResponse> =
-        remoteDataSource.createShelf(name, token)
+        graphQlDataSource.createShelf(name, token)
 
     override suspend fun removeShelf(id: String, token: String): NetworkResponse<BaseResponse> =
-        remoteDataSource.removeShelf(id, token)
+        graphQlDataSource.removeShelf(id, token)
 
     override suspend fun search(name: String): NetworkResponse<BooksResponse> =
-        remoteDataSource.search(name)
+        graphQlDataSource.search(name)
 
     override suspend fun getBookReviews(id: String): NetworkResponse<ReviewsResponse> =
-        remoteDataSource.getBookReviews(id)
+        graphQlDataSource.getBookReviews(id)
 
     override suspend fun makeReview(
         token: String,
         bookId: String,
         rate: Float,
         content: String
-    ): NetworkResponse<BaseResponse> = remoteDataSource.makeReview(token, bookId, rate, content)
+    ): NetworkResponse<BaseResponse> = graphQlDataSource.makeReview(token, bookId, rate, content)
 
     override suspend fun getUserInfo(token: String): NetworkResponse<User> =
-        remoteDataSource.getUserInfo(token)
+        graphQlDataSource.getUserInfo(token)
+
+    override suspend fun uploadUserAvatar(
+        token: String,
+        image: MultipartBody.Part
+    ): NetworkResponse<Any?> {
+        return retrofitDataSource.uploadUserAvatar(token, image).checkResponse()
+    }
+
 }

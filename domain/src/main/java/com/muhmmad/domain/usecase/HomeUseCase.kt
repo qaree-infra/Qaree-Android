@@ -1,6 +1,7 @@
 package com.muhmmad.domain.usecase
 
 import com.muhmmad.domain.repo.HomeRepo
+import okhttp3.MultipartBody
 
 class HomeUseCase(private val repo: HomeRepo) {
     suspend fun getOffers() = repo.getOffers()
@@ -23,4 +24,5 @@ class HomeUseCase(private val repo: HomeRepo) {
         repo.makeReview(token, bookId, rate, content)
 
     suspend fun getUserInfo(token: String) = repo.getUserInfo(token)
+    suspend fun uploadUserAvatar(token: String,image: MultipartBody.Part) = repo.uploadUserAvatar(token,image)
 }

@@ -48,6 +48,9 @@ dependencies {
     //apollo
     implementation("com.apollographql.apollo3:apollo-runtime:3.8.2")
     implementation("com.apollographql.apollo:apollo-android-support:1.0.0")
+    //Retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.10.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     //Domain Module
     api(project(":domain"))
     //DataStore

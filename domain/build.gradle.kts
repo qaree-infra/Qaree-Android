@@ -42,4 +42,6 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     //Serialization
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2")
+    //Retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.10.0")
 }
