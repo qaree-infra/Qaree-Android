@@ -5,6 +5,7 @@
         <item name="colorPrimary">@color/primary_color</item>
         <item name="android:statusBarColor">@color/white</item>
         <item name="fontFamily">@font/main_fonts</item>
+        <item name="android:windowLightStatusBar">true</item> <!-- For making status bar content color dark -->
     </style>
 
     <style name="Theme.Qaree" parent="Base.Theme.Qaree" />
@@ -13,8 +14,7 @@
         <item name="android:windowBackground">@drawable/launch_window_background</item>
         <!-- System UI Configurations-->
         <item name="android:statusBarColor">@color/white</item>
-        <item name="android:windowLightStatusBar">true
-        </item> <!-- For making status bar content color dark -->
+        <item name="android:windowLightStatusBar">true</item> <!-- For making status bar content color dark -->
         <item name="android:navigationBarColor">@color/white</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">false
         </item>  <!-- For making Navigation bar content color dark -->

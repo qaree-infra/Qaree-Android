@@ -14,7 +14,7 @@ import com.muhmmad.domain.model.ReviewsResponse
 import com.muhmmad.domain.model.ShelfResponse
 import com.muhmmad.domain.model.User
 
-interface RemoteDataSource {
+interface GraphQlDataSource {
     suspend fun login(email: String, pass: String): NetworkResponse<LoginResponse>
     suspend fun register(name: String, email: String, pass: String): NetworkResponse<String>
     suspend fun verifyAccount(email: String, otp: String): NetworkResponse<BaseResponse>
