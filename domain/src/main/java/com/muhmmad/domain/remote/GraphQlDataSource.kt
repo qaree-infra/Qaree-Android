@@ -57,4 +57,9 @@ interface GraphQlDataSource {
     suspend fun getUserInfo(token: String): NetworkResponse<User>
     suspend fun updateUserName(token: String, name: String): NetworkResponse<User>
     suspend fun updateUserBio(token: String, bio: String): NetworkResponse<User>
+    suspend fun updatePassword(
+        token: String,
+        oldPassword: String,
+        newPassword: String
+    ): NetworkResponse<User>
 }

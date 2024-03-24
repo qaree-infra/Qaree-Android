@@ -22,12 +22,6 @@ class SettingsFragment : Fragment() {
     private val nav: NavController by lazy {
         findNavController()
     }
-    private val user: User by lazy {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) arguments?.getSerializable(
-            "user",
-            User::class.java
-        ) ?: User(id = "", name = "") else arguments?.getSerializable("user") as User
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,21 +39,32 @@ class SettingsFragment : Fragment() {
 
     private fun handleViews() {
         binding.apply {
+            val user =
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) arguments?.getSerializable(
+                    "user",
+                    User::class.java
+                ) ?: User(id = "", name = "") else arguments?.getSerializable("user") as User
             ivBack.setOnClickListener {
                 nav.navigateUp()
             }
             tvEditProfile.setOnClickListener {
                 val bundle = Bundle()
                 bundle.putSerializable("user", user)
-                nav.navigate(R.id.action_settingsFragment_to_editProfileFragment,bundle)
+                nav.navigate(R.id.action_settingsFragment_to_editProfileFragment, bundle)
             }
             tvChangePass.setOnClickListener {
-
+                nav.navigate(R.id.action_settingsFragment_to_changePasswordFragment)
             }
             tvPayment.setOnClickListener {
 
             }
             tvDeleteAccount.setOnClickListener {
+
+            }
+            switchMode.setOnCheckedChangeListener { buttonView, isChecked ->
+
+            }
+            switchNotification.setOnCheckedChangeListener { buttonView, isChecked ->
 
             }
             tvLanguage.setOnClickListener {
@@ -72,7 +77,6 @@ class SettingsFragment : Fragment() {
 
             }
             tvLogout.setOnClickListener {
-
             }
         }
     }

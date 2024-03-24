@@ -155,4 +155,11 @@
     <string name="enter_your_bio">Enter your bio</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="update_password">Update password</string>
+    <string name="old_password">Old password</string>
+    <string name="please_enter_your_old_password">Please enter your old password</string>
+    <string name="please_enter_your_new_password">Please enter your new password</string>
+    <string name="the_password_should_not_be_less_than_6_letters">the password should not be less than 6 letters</string>
+    <string name="the_repeated_password_does_not_matches_the_password">The repeated password does not matches the password</string>
+    <string name="the_password_changed_successfully">The password Changed successfully</string>
 </resources>

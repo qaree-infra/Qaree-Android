@@ -91,4 +91,10 @@ class HomeRepoImpl(
 
     override suspend fun updateUserBio(token: String, bio: String): NetworkResponse<User> =
         graphQlDataSource.updateUserBio(token, bio)
+
+    override suspend fun updatePassword(
+        token: String,
+        oldPassword: String,
+        newPassword: String
+    ): NetworkResponse<User> = graphQlDataSource.updatePassword(token, oldPassword, newPassword)
 }
