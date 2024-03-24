@@ -53,6 +53,7 @@ import com.muhmmad.qaree.ReviewBookMutation
 import com.muhmmad.qaree.SearchQuery
 import com.muhmmad.qaree.SignInMutation
 import com.muhmmad.qaree.SignUpMutation
+import com.muhmmad.qaree.UpdatePasswordMutation
 import com.muhmmad.qaree.UpdateUserBioMutation
 import com.muhmmad.qaree.UpdateUserNameMutation
 import com.muhmmad.qaree.ValidatePasswordOTPMutation
@@ -62,27 +63,18 @@ class GraphQlDataSourceImpl(
     private val apolloClient: ApolloClient
 ) : GraphQlDataSource {
     override suspend fun login(email: String, pass: String): NetworkResponse<LoginResponse> {
-        try {
+        return try {
             val response = checkResponse(
                 apolloClient.mutation(SignInMutation(email, pass))
                     .execute()
             )
 
-            return when (response) {
-                is Success -> {
-                    Success(
-                        response.data?.signin?.toLoginResponse()!!
-                    )
-                }
-
-                else -> {
-                    Error(
-                        response.message!!
-                    )
-                }
+            when (response) {
+                is Success -> Success(response.data?.signin?.toLoginResponse()!!)
+                else -> Error(response.message!!)
             }
         } catch (exception: Exception) {
-            return Error(
+            Error(
                 exception.localizedMessage?.toString()!!
             )
         }
@@ -99,15 +91,8 @@ class GraphQlDataSourceImpl(
 
 
             return when (response) {
-                is Success -> {
-                    Success(response.data?.signup?.message.toString())
-                }
-
-                else -> {
-                    Error(
-                        response.message.toString()
-                    )
-                }
+                is Success -> Success(response.data?.signup?.message.toString())
+                else -> Error(response.message.toString())
             }
 
         } catch (ex: Exception) {
@@ -121,67 +106,50 @@ class GraphQlDataSourceImpl(
         email: String,
         otp: String
     ): NetworkResponse<BaseResponse> {
-        try {
+        return try {
             val response = checkResponse(
                 apolloClient.mutation(VerifyAccountMutation(otp = otp, email = email)).execute()
             )
 
-            return when (response) {
-                is Success -> {
-                    Success(response.data?.verifyAccount?.toVerificationResponse()!!)
-                }
-
-                else -> {
-                    Error(
-                        response.message.toString()
-                    )
-                }
+            when (response) {
+                is Success -> Success(response.data?.verifyAccount?.toVerificationResponse()!!)
+                else -> Error(response.message.toString())
             }
 
         } catch (ex: Exception) {
-            return Error(ex.localizedMessage?.toString()!!)
+            Error(ex.localizedMessage?.toString()!!)
         }
     }
 
     override suspend fun resendVerifyOTP(email: String): NetworkResponse<BaseResponse> {
-        try {
+        return try {
             val response = checkResponse(
                 apolloClient.mutation(ResendVerificationOTPMutation(email = email)).execute()
             )
 
-            return when (response) {
-                is Success -> {
-                    Success(response.data?.resendValidatingOTP?.toVerificationResponse()!!)
-                }
-
-                else -> {
-                    Error(
-                        response.message.toString()
-                    )
-                }
+            when (response) {
+                is Success -> Success(response.data?.resendValidatingOTP?.toVerificationResponse()!!)
+                else -> Error(
+                    response.message.toString()
+                )
             }
         } catch (ex: Exception) {
-            return Error(ex.localizedMessage?.toString()!!)
+            Error(ex.localizedMessage?.toString()!!)
         }
     }
 
     override suspend fun forgotPassword(email: String): NetworkResponse<BaseResponse> {
-        try {
+        return try {
             val response = checkResponse(
                 apolloClient.mutation(ForgetPasswordMutation(email = email)).execute()
             )
 
-            return when (response) {
-                is Success -> {
-                    Success(response.data?.forgetPassword?.toVerificationResponse()!!)
-                }
-
-                else -> {
-                    Error(response.message.toString())
-                }
+            when (response) {
+                is Success -> Success(response.data?.forgetPassword?.toVerificationResponse()!!)
+                else -> Error(response.message.toString())
             }
         } catch (ex: Exception) {
-            return Error(ex.localizedMessage?.toString()!!)
+            Error(ex.localizedMessage?.toString()!!)
         }
     }
 
@@ -200,13 +168,8 @@ class GraphQlDataSourceImpl(
             )
 
             return when (response) {
-                is Success -> {
-                    Success(response.data?.validateResetPasswordOTP?.toValidateOTPResponse()!!)
-                }
-
-                else -> {
-                    Error(response.message.toString())
-                }
+                is Success -> Success(response.data?.validateResetPasswordOTP?.toValidateOTPResponse()!!)
+                else -> Error(response.message.toString())
             }
         } catch (ex: Exception) {
             return Error(ex.localizedMessage?.toString()!!)
@@ -214,57 +177,42 @@ class GraphQlDataSourceImpl(
     }
 
     override suspend fun resendPasswordOTP(email: String): NetworkResponse<BaseResponse> {
-        try {
+        return try {
             val response = checkResponse(
                 apolloClient.mutation(ResendPasswordOTPMutation(email)).execute()
             )
 
-            return when (response) {
-                is Success -> {
-                    Success(response.data?.resendResetPasswordOTP?.toBaseResponse()!!)
-                }
-
-                else -> {
-                    Error(response.message.toString())
-                }
+            when (response) {
+                is Success -> Success(response.data?.resendResetPasswordOTP?.toBaseResponse()!!)
+                else -> Error(response.message.toString())
             }
         } catch (ex: Exception) {
-            return Error(ex.localizedMessage?.toString()!!)
+            Error(ex.localizedMessage?.toString()!!)
         }
     }
 
     override suspend fun resetPassword(pass: String, token: String): NetworkResponse<BaseResponse> {
-        try {
+        return try {
             val response = checkResponse(
                 apolloClient.mutation(ResetPasswordMutation(pass))
                     .addHttpHeader("Authorization", token).execute()
             )
 
-            return when (response) {
-                is Success -> {
-                    Success(response.data?.resetPassword?.toBaseResponse()!!)
-                }
-
-                else -> {
-                    Error(response.message.toString())
-                }
+            when (response) {
+                is Success -> Success(response.data?.resetPassword?.toBaseResponse()!!)
+                else -> Error(response.message.toString())
             }
 
         } catch (ex: Exception) {
-            return Error(ex.localizedMessage?.toString()!!)
+            Error(ex.localizedMessage?.toString()!!)
         }
     }
 
     override suspend fun getOffers(): NetworkResponse<OffersResponse> {
         return try {
             when (val response = checkResponse(apolloClient.query(GetOffersQuery()).execute())) {
-                is Success -> {
-                    Success(response.data?.getAllOffers?.toOffersResponse()!!)
-                }
-
-                else -> {
-                    Error(response.message.toString())
-                }
+                is Success -> Success(response.data?.getAllOffers?.toOffersResponse()!!)
+                else -> Error(response.message.toString())
             }
         } catch (ex: Exception) {
             Error(ex.localizedMessage?.toString()!!)
@@ -279,13 +227,8 @@ class GraphQlDataSourceImpl(
             )
 
             when (response) {
-                is Success -> {
-                    Success(response.data?.getLastActivity?.toActivityResponse()!!)
-                }
-
-                else -> {
-                    Error(response.message.toString())
-                }
+                is Success -> Success(response.data?.getLastActivity?.toActivityResponse()!!)
+                else -> Error(response.message.toString())
             }
         } catch (ex: NullPointerException) {
             ex.printStackTrace()
@@ -300,13 +243,8 @@ class GraphQlDataSourceImpl(
             val response = checkResponse(apolloClient.query(GetTopAuthorsQuery()).execute())
 
             when (response) {
-                is Success -> {
-                    Success(response.data?.getTopAuthors?.toAuthorsResponse()!!)
-                }
-
-                else -> {
-                    Error(response.message.toString())
-                }
+                is Success -> Success(response.data?.getTopAuthors?.toAuthorsResponse()!!)
+                else -> Error(response.message.toString())
             }
         } catch (ex: Exception) {
             Error(ex.message.toString())
@@ -316,13 +254,8 @@ class GraphQlDataSourceImpl(
     override suspend fun getNewReleaseBooks(): NetworkResponse<BooksResponse> {
         return try {
             when (val response = checkResponse(apolloClient.query(GetBooksQuery("")).execute())) {
-                is Success -> {
-                    Success(response.data?.toBooksResponse()!!)
-                }
-
-                else -> {
-                    Error(response.message.toString())
-                }
+                is Success -> Success(response.data?.toBooksResponse()!!)
+                else -> Error(response.message.toString())
             }
         } catch (ex: Exception) {
             Error(ex.message.toString())
@@ -332,15 +265,9 @@ class GraphQlDataSourceImpl(
     override suspend fun getBestSellerBooks(): NetworkResponse<BooksResponse> {
         return try {
             val response = checkResponse(apolloClient.query(GetBestSellerBooksQuery()).execute())
-
             when (response) {
-                is Success -> {
-                    Success(response.data?.toBookResponse()!!)
-                }
-
-                else -> {
-                    Error(response.message.toString())
-                }
+                is Success -> Success(response.data?.toBookResponse()!!)
+                else -> Error(response.message.toString())
             }
         } catch (ex: Exception) {
             Error(ex.message.toString())
@@ -351,13 +278,8 @@ class GraphQlDataSourceImpl(
         return try {
             when (val response =
                 checkResponse(apolloClient.query(GetBooksQuery(categoryId)).execute())) {
-                is Success -> {
-                    Success(response.data?.toBooksResponse()!!)
-                }
-
-                else -> {
-                    Error(response.message.toString())
-                }
+                is Success -> Success(response.data?.toBooksResponse()!!)
+                else -> Error(response.message.toString())
             }
         } catch (ex: Exception) {
             Error(ex.message.toString())
@@ -369,13 +291,8 @@ class GraphQlDataSourceImpl(
             val response = checkResponse(apolloClient.query(GetCategoriesQuery()).execute())
 
             when (response) {
-                is Success -> {
-                    Success(response.data?.getAllCategories?.toCategoriesResponse()!!)
-                }
-
-                else -> {
-                    Error(response.message.toString())
-                }
+                is Success -> Success(response.data?.getAllCategories?.toCategoriesResponse()!!)
+                else -> Error(response.message.toString())
             }
         } catch (ex: Exception) {
             Error(ex.message.toString())
@@ -593,13 +510,8 @@ class GraphQlDataSourceImpl(
             )
 
             when (response) {
-                is Success -> {
-                    Success(response.data?.updateUser?.toUser()!!)
-                }
-
-                else -> {
-                    Error(response.message.toString())
-                }
+                is Success -> Success(response.data?.updateUser?.toUser()!!)
+                else -> Error(response.message.toString())
             }
         } catch (ex: Exception) {
             Error(ex.message.toString())
@@ -614,14 +526,34 @@ class GraphQlDataSourceImpl(
             )
 
             when (response) {
-                is Success -> {
-                    Success(response.data?.updateUser?.toUser()!!)
-                }
-
-                else -> {
-                    Error(response.message.toString())
-                }
+                is Success -> Success(response.data?.updateUser?.toUser()!!)
+                else -> Error(response.message.toString())
             }
+        } catch (ex: Exception) {
+            Error(ex.message.toString())
+        }
+    }
+
+    override suspend fun updatePassword(
+        token: String,
+        oldPassword: String,
+        newPassword: String
+    ): NetworkResponse<User> {
+        return try {
+            val response = checkResponse(
+                apolloClient.mutation(
+                    UpdatePasswordMutation(
+                        oldPassword,
+                        newPassword
+                    )
+                ).addHttpHeader("Authorization", token).execute()
+            )
+
+            when (response) {
+                is Success -> Success(response.data?.updateUser?.toUser()!!)
+                else -> Error(response.message.toString())
+            }
+
         } catch (ex: Exception) {
             Error(ex.message.toString())
         }

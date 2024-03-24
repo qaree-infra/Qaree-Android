@@ -38,6 +38,7 @@ import com.muhmmad.qaree.ResetPasswordMutation
 import com.muhmmad.qaree.ReviewBookMutation
 import com.muhmmad.qaree.SearchQuery
 import com.muhmmad.qaree.SignInMutation
+import com.muhmmad.qaree.UpdatePasswordMutation
 import com.muhmmad.qaree.UpdateUserBioMutation
 import com.muhmmad.qaree.UpdateUserNameMutation
 import com.muhmmad.qaree.ValidatePasswordOTPMutation
@@ -294,6 +295,14 @@ fun UpdateUserNameMutation.UpdateUser.toUser(): User = User(
 )
 
 fun UpdateUserBioMutation.UpdateUser.toUser(): User = User(
+    id = _id ?: "",
+    name = name ?: "",
+    email = email ?: "",
+    bio = bio ?: "",
+    avatar = Cover(path = avatar?.path ?: "")
+)
+
+fun UpdatePasswordMutation.UpdateUser.toUser(): User = User(
     id = _id ?: "",
     name = name ?: "",
     email = email ?: "",
