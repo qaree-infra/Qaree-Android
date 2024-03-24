@@ -115,6 +115,9 @@
         <action
             android:id="@+id/action_settingsFragment_to_editProfileFragment"
             app:destination="@id/editProfileFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_changePasswordFragment"
+            app:destination="@id/changePasswordFragment" />
     </fragment>
     <fragment
         android:id="@+id/editProfileFragment"
@@ -144,4 +147,9 @@
         android:name="com.muhmmad.qaree.ui.fragment.edit_profile.EditNameDialog"
         android:label="EditNameDialog"
         tools:layout="@layout/dialog_edit_name" />
+    <fragment
+        android:id="@+id/changePasswordFragment"
+        android:name="com.muhmmad.qaree.ui.fragment.change_password.ChangePasswordFragment"
+        android:label="fragment_change_password"
+        tools:layout="@layout/fragment_change_password" />
 </navigation>

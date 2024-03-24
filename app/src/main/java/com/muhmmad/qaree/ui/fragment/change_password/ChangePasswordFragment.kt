@@ -39,6 +39,9 @@ class ChangePasswordFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
             checkState()
+            ivBack.setOnClickListener {
+                nav.navigateUp()
+            }
             btnCreateNewPass.setOnClickListener {
                 val oldPassword = layoutOldPassword.editText?.text.toString()
                 val newPassword = layoutNewPassword.editText?.text.toString()
