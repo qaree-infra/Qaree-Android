@@ -5,7 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.muhmmad.domain.model.LibraryResponse
 import com.muhmmad.domain.model.User
 import com.muhmmad.domain.usecase.AuthUseCase
-import com.muhmmad.domain.usecase.HomeUseCase
+import com.muhmmad.domain.usecase.LibraryUseCase
+import com.muhmmad.domain.usecase.UserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,7 +17,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
-    private val useCase: HomeUseCase,
+    private val libraryUseCase:LibraryUseCase,
+    private val useCase: UserUseCase,
     private val authUseCase: AuthUseCase
 ) : ViewModel() {
     private val _state = MutableStateFlow(ProfileState())
@@ -39,7 +41,7 @@ class ProfileViewModel @Inject constructor(
     fun getLibrary() {
         viewModelScope.launch(Dispatchers.IO) {
             _state.update { it.copy(isLoading = true) }
-            useCase.getLibrary(authUseCase.getToken()).apply {
+            libraryUseCase.getLibrary(authUseCase.getToken()).apply {
                 _state.update {
                     it.copy(
                         isLoading = false,

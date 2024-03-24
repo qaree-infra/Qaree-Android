@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.muhmmad.domain.model.BaseResponse
 import com.muhmmad.domain.model.ReviewsResponse
 import com.muhmmad.domain.usecase.AuthUseCase
+import com.muhmmad.domain.usecase.BookUseCase
 import com.muhmmad.domain.usecase.HomeUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -16,7 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class BookInfoViewModel @Inject constructor(
-    private val useCase: HomeUseCase,
+    private val useCase: BookUseCase,
     private val authUseCase: AuthUseCase
 ) : ViewModel() {
     private val _state = MutableStateFlow(BookInfoState())

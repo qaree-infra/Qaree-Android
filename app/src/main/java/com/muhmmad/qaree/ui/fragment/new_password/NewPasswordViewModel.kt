@@ -3,9 +3,7 @@ package com.muhmmad.qaree.ui.fragment.new_password
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.muhmmad.domain.model.BaseResponse
-import com.muhmmad.domain.model.ValidatePasswordOTPResponse
 import com.muhmmad.domain.usecase.AuthUseCase
-import com.muhmmad.qaree.ui.fragment.verification.VerificationViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow

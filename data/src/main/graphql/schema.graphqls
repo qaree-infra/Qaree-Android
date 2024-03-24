@@ -32,6 +32,8 @@ type Query {
 
   getPaymentClientData("" bookId: String): GetClientData
 
+  getBookStatus("" bookId: String): Activity
+
   getShelf("" shelf: String, "" user: String, "" booksLimit: Int, "" booksPage: Int): ShelfType
 
   getLibrary("" user: String, "" limit: Int, "" page: Int): Library
@@ -185,6 +187,8 @@ type CategroyType {
   name_en: String
 
   icon: File
+
+  background: String
 
   createdAt: String
 

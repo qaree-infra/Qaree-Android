@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.muhmmad.domain.model.User
 import com.muhmmad.domain.usecase.AuthUseCase
 import com.muhmmad.domain.usecase.HomeUseCase
+import com.muhmmad.domain.usecase.UserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,7 +19,7 @@ private const val TAG = "EditProfileViewModel"
 
 @HiltViewModel
 class EditProfileViewModel @Inject constructor(
-    private val useCase: HomeUseCase,
+    private val useCase: UserUseCase,
     private val authUseCase: AuthUseCase
 ) : ViewModel() {
     private val _state = MutableStateFlow(EditProfileState())

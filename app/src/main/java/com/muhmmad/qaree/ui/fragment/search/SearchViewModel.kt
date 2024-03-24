@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.muhmmad.domain.model.BooksResponse
 import com.muhmmad.domain.model.CategoriesResponse
+import com.muhmmad.domain.usecase.BookUseCase
 import com.muhmmad.domain.usecase.HomeUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -14,7 +15,10 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SearchViewModel @Inject constructor(private val useCase: HomeUseCase) : ViewModel() {
+class SearchViewModel @Inject constructor(
+    private val useCase: BookUseCase,
+    private val homeUseCase: HomeUseCase
+) : ViewModel() {
     private val _state = MutableStateFlow(SearchState())
     val state = _state.asStateFlow()
 
@@ -34,7 +38,7 @@ class SearchViewModel @Inject constructor(private val useCase: HomeUseCase) : Vi
     fun getCategories() {
         viewModelScope.launch(Dispatchers.IO) {
             _state.update { it.copy(isLoading = true) }
-            useCase.getCategories().apply {
+            homeUseCase.getCategories().apply {
                 _state.update {
                     it.copy(isLoading = false, error = message, categoriesResponse = data)
                 }
