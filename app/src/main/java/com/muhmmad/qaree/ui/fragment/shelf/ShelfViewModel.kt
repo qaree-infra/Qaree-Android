@@ -6,6 +6,7 @@ import com.muhmmad.domain.model.BaseResponse
 import com.muhmmad.domain.model.ShelfResponse
 import com.muhmmad.domain.usecase.AuthUseCase
 import com.muhmmad.domain.usecase.HomeUseCase
+import com.muhmmad.domain.usecase.LibraryUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,7 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ShelfViewModel @Inject constructor(
     private val authUseCase: AuthUseCase,
-    private val useCase: HomeUseCase
+    private val useCase: LibraryUseCase
 ) : ViewModel() {
     private val _state = MutableStateFlow(ShelfState())
     val state = _state.asStateFlow()

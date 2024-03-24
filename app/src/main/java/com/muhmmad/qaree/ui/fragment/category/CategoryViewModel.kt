@@ -3,6 +3,7 @@ package com.muhmmad.qaree.ui.fragment.category
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.muhmmad.domain.model.BooksResponse
+import com.muhmmad.domain.usecase.BookUseCase
 import com.muhmmad.domain.usecase.HomeUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -13,7 +14,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CategoryViewModel @Inject constructor(private val useCase: HomeUseCase) : ViewModel() {
+class CategoryViewModel @Inject constructor(private val useCase: BookUseCase) : ViewModel() {
 
     private val _state = MutableStateFlow(CategoryState())
     val state = _state.asStateFlow()

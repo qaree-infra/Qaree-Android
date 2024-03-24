@@ -1,0 +1,8 @@
+query getBookStatus($bookId:String!){
+    getBookStatus(bookId:$bookId){
+        status,
+        readingProgress,
+        updatedAt,
+        createdAt
+    }
+}
