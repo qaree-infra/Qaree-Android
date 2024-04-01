@@ -1,21 +1,58 @@
 package com.muhmmad.qaree.ui.activity.reading_view
 
 import android.os.Bundle
+import android.util.Log
+import androidx.activity.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.muhmmad.qaree.databinding.ActivityReadingViewBinding
 import com.muhmmad.qaree.ui.activity.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+
+private const val TAG = "ReadingViewActivity"
 
 @AndroidEntryPoint
 class ReadingViewActivity : BaseActivity() {
     private val binding: ActivityReadingViewBinding by lazy {
         ActivityReadingViewBinding.inflate(layoutInflater)
     }
+    private val bookId: String by lazy {
+        intent.getStringExtra("id").toString()
+    }
+    private val viewModel: ReadingViewViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         binding.apply {
-            val bookId = intent.getStringExtra("id").toString()
+            checkState()
+
+            viewModel.getBookContent(bookId)
+
+        }
+    }
+
+    private fun checkState() {
+        lifecycleScope.launch {
+            viewModel.state.collect {
+                it.error?.apply {
+                    this@ReadingViewActivity.showError(binding.root, this)
+                }
+
+                if (it.isLoading) this@ReadingViewActivity.showLoading(binding.root) else this@ReadingViewActivity.dismissLoading(
+                    binding.root
+                )
+
+                it.bookContent?.apply {
+                    viewModel.getChapter(bookId, this.data[0].id)
+                    Log.i(TAG, this.toString())
+                }
+
+                it.chapterContent?.apply {
+                    Log.i(TAG, this.toString())
+                }
+            }
         }
     }
 }

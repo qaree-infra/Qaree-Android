@@ -52,7 +52,7 @@ class HomeViewModel @Inject constructor(
                     activitiesResponse = ActivityResponse(
                         book = book,
                         createdAt = "",
-                        readingProgress = 70,
+                        readingProgress = 70.0,
                         updatedAt = "",
                         status = ""
                     ),

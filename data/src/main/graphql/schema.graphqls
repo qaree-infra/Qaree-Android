@@ -158,7 +158,7 @@ type BookInfo {
 
   author: Author
 
-  sample: File
+  sample: [String]
 
   cover: File
 
@@ -285,7 +285,7 @@ type Activity {
 
   status: String
 
-  readingProgress: Int
+  readingProgress: Float
 
   updatedAt: String
 

@@ -15,5 +15,9 @@ interface LibraryRepo {
         shelfId: String,
         token: String
     ): NetworkResponse<BaseResponse>
-
+    suspend fun addBookToShelf(
+        token: String,
+        shelfId: String,
+        bookId: String
+    ): NetworkResponse<BaseResponse>
 }

@@ -82,6 +82,9 @@
         <argument
             android:name="showBottomNavigation"
             android:defaultValue="false" />
+        <action
+            android:id="@+id/action_bookInfoFragment_to_bookInfoDialog"
+            app:destination="@id/bookInfoDialog" />
     </fragment>
     <fragment
         android:id="@+id/categoryFragment"
@@ -152,4 +155,14 @@
         android:name="com.muhmmad.qaree.ui.fragment.change_password.ChangePasswordFragment"
         android:label="fragment_change_password"
         tools:layout="@layout/fragment_change_password" />
+    <dialog
+        android:id="@+id/bookInfoDialog"
+        android:name="com.muhmmad.qaree.ui.fragment.book_info.dialogs.BookInfoDialog"
+        android:label="BookInfoDialog"
+        tools:layout="@layout/dialog_book_info" />
+    <dialog
+        android:id="@+id/shelfsDialog"
+        android:name="com.muhmmad.qaree.ui.fragment.book_info.dialogs.ShelfsDialog"
+        android:label="dialog_shelfs"
+        tools:layout="@layout/dialog_shelfs" />
 </navigation>

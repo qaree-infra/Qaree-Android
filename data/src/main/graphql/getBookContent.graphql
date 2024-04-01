@@ -1,0 +1,18 @@
+query getBookContent($bookId:String!){
+    getBookContent(bookId: $bookId) {
+        allHTML {
+            id
+            mediaType
+            title
+            order
+            level
+        }
+        content {
+            id
+            mediaType
+            title
+            order
+            level
+        }
+    }
+}

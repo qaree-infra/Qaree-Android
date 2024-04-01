@@ -123,7 +123,7 @@ class HomeFragment : Fragment() {
                         it.activitiesResponse.apply {
                             binding.tvActivitiesName.text = book.name
 //                            binding.tvReadingPages.text = "$readingProgress/100"
-                            binding.progressBar.progress = readingProgress
+                            binding.progressBar.progress = readingProgress.toInt()
                             binding.tvProgressPresent.text =
                                 getString(R.string.reading_percent, readingProgress.toString())
                             binding.ivActivitiesBook.load(book.cover.path) {

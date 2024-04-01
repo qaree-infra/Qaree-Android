@@ -1,6 +1,7 @@
 package com.muhmmad.domain.repo
 
 import com.muhmmad.domain.model.BaseResponse
+import com.muhmmad.domain.model.BookStatus
 import com.muhmmad.domain.model.BooksResponse
 import com.muhmmad.domain.model.NetworkResponse
 import com.muhmmad.domain.model.ReviewsResponse
@@ -15,4 +16,6 @@ interface BookRepo {
         rate: Float,
         content: String
     ): NetworkResponse<BaseResponse>
+
+    suspend fun getBookStatus(token: String, bookId: String): NetworkResponse<BookStatus>
 }

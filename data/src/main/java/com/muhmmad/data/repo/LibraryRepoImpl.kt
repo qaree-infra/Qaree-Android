@@ -27,4 +27,10 @@ class LibraryRepoImpl(private val graphQlDataSource: GraphQlDataSource) : Librar
         shelfId: String,
         token: String
     ): NetworkResponse<BaseResponse> = graphQlDataSource.removeBookFromShelf(bookId, shelfId, token)
+
+    override suspend fun addBookToShelf(
+        token: String,
+        shelfId: String,
+        bookId: String
+    ): NetworkResponse<BaseResponse> =graphQlDataSource.addBookToShelf(token, shelfId, bookId)
 }
