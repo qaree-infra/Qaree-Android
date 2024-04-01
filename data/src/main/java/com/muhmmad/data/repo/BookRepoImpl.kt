@@ -1,6 +1,7 @@
 package com.muhmmad.data.repo
 
 import com.muhmmad.domain.model.BaseResponse
+import com.muhmmad.domain.model.BookStatus
 import com.muhmmad.domain.model.BooksResponse
 import com.muhmmad.domain.model.NetworkResponse
 import com.muhmmad.domain.model.ReviewsResponse
@@ -25,4 +26,7 @@ class BookRepoImpl(
         rate: Float,
         content: String
     ): NetworkResponse<BaseResponse> = graphQlDataSource.makeReview(token, bookId, rate, content)
+
+    override suspend fun getBookStatus(token: String, bookId: String): NetworkResponse<BookStatus> =
+        graphQlDataSource.getBookStatus(token, bookId)
 }

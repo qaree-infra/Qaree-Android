@@ -16,6 +16,8 @@ import com.muhmmad.data.utils.toUser
 import com.muhmmad.data.utils.toValidateOTPResponse
 import com.muhmmad.data.utils.toVerificationResponse
 import com.muhmmad.data.utils.checkResponse
+import com.muhmmad.data.utils.toBookContent
+import com.muhmmad.data.utils.toBookStatus
 import com.muhmmad.domain.model.ActivityResponse
 import com.muhmmad.domain.model.AuthorsResponse
 import com.muhmmad.domain.model.LoginResponse
@@ -24,6 +26,8 @@ import com.muhmmad.domain.model.NetworkResponse.Error
 import com.muhmmad.domain.model.NetworkResponse.Success
 import com.muhmmad.domain.model.ValidatePasswordOTPResponse
 import com.muhmmad.domain.model.BaseResponse
+import com.muhmmad.domain.model.BookContent
+import com.muhmmad.domain.model.BookStatus
 import com.muhmmad.domain.model.BooksResponse
 import com.muhmmad.domain.model.CategoriesResponse
 import com.muhmmad.domain.model.LibraryResponse
@@ -32,10 +36,13 @@ import com.muhmmad.domain.model.ReviewsResponse
 import com.muhmmad.domain.model.ShelfResponse
 import com.muhmmad.domain.model.User
 import com.muhmmad.domain.remote.GraphQlDataSource
+import com.muhmmad.qaree.AddBookToShelfMutation
 import com.muhmmad.qaree.CreateShelfMutation
 import com.muhmmad.qaree.ForgetPasswordMutation
 import com.muhmmad.qaree.GetBestSellerBooksQuery
+import com.muhmmad.qaree.GetBookContentQuery
 import com.muhmmad.qaree.GetBookReviewsQuery
+import com.muhmmad.qaree.GetBookStatusQuery
 import com.muhmmad.qaree.GetBooksQuery
 import com.muhmmad.qaree.GetCategoriesQuery
 import com.muhmmad.qaree.GetLastActivityQuery
@@ -85,18 +92,17 @@ class GraphQlDataSourceImpl(
         email: String,
         pass: String
     ): NetworkResponse<String> {
-        try {
+        return try {
             val response =
                 checkResponse(apolloClient.mutation(SignUpMutation(name, email, pass)).execute())
 
-
-            return when (response) {
+            when (response) {
                 is Success -> Success(response.data?.signup?.message.toString())
                 else -> Error(response.message.toString())
             }
 
         } catch (ex: Exception) {
-            return Error(
+            Error(
                 ex.localizedMessage?.toString()!!
             )
         }
@@ -554,6 +560,55 @@ class GraphQlDataSourceImpl(
                 else -> Error(response.message.toString())
             }
 
+        } catch (ex: Exception) {
+            Error(ex.message.toString())
+        }
+    }
+
+    override suspend fun getBookStatus(token: String, bookId: String): NetworkResponse<BookStatus> {
+        return try {
+            val response = checkResponse(
+                apolloClient.query(GetBookStatusQuery(bookId)).addHttpHeader("Authorization", token)
+                    .execute()
+            )
+
+            when (response) {
+                is Success -> Success(response.data?.getBookStatus?.toBookStatus()!!)
+                else -> Error(response.message.toString())
+            }
+        } catch (ex: Exception) {
+            if (ex.message.toString() == "null") Success(BookStatus()) else Error(ex.message.toString())
+        }
+    }
+
+    override suspend fun getBookContent(id: String): NetworkResponse<BookContent> {
+        return try {
+            val response = checkResponse(apolloClient.query(GetBookContentQuery(id)).execute())
+
+            when (response) {
+                is Success -> Success(response.data?.getBookContent?.toBookContent()!!)
+                else -> Error(response.message.toString())
+            }
+        } catch (ex: Exception) {
+            Error(ex.message.toString())
+        }
+    }
+
+    override suspend fun addBookToShelf(
+        token: String,
+        shelfId: String,
+        bookId: String
+    ): NetworkResponse<BaseResponse> {
+        return try {
+            val response = checkResponse(
+                apolloClient.mutation(AddBookToShelfMutation(shelfId, bookId))
+                    .addHttpHeader("Authorization", token).execute()
+            )
+
+            when (response) {
+                is Success -> Success(response.data?.addBookToShelf?.toBaseResponse()!!)
+                else -> Error(response.message.toString())
+            }
         } catch (ex: Exception) {
             Error(ex.message.toString())
         }

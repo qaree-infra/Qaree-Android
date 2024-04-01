@@ -162,4 +162,9 @@
     <string name="the_password_should_not_be_less_than_6_letters">the password should not be less than 6 letters</string>
     <string name="the_repeated_password_does_not_matches_the_password">The repeated password does not matches the password</string>
     <string name="the_password_changed_successfully">The password Changed successfully</string>
+    <string name="start_read">Start Read</string>
+    <string name="continue_reading">Continue Reading</string>
+    <string name="read_sample">Read sample</string>
+    <string name="add_to_shelf">Add to shelf</string>
+    <string name="add_to">Add to ...</string>
 </resources>

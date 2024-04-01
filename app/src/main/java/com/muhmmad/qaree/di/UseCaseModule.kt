@@ -8,11 +8,13 @@ import com.muhmmad.domain.repo.AuthRepo
 import com.muhmmad.domain.repo.BookRepo
 import com.muhmmad.domain.repo.HomeRepo
 import com.muhmmad.domain.repo.LibraryRepo
+import com.muhmmad.domain.repo.ReadingViewRepo
 import com.muhmmad.domain.repo.UserRepo
 import com.muhmmad.domain.usecase.AuthUseCase
 import com.muhmmad.domain.usecase.BookUseCase
 import com.muhmmad.domain.usecase.HomeUseCase
 import com.muhmmad.domain.usecase.LibraryUseCase
+import com.muhmmad.domain.usecase.ReadingVIewUseCase
 import com.muhmmad.domain.usecase.UserUseCase
 import dagger.Module
 import dagger.Provides
@@ -37,4 +39,8 @@ object UseCaseModule {
 
     @Provides
     fun provideUserUseCase(userRepo: UserRepo): UserUseCase = UserUseCase(userRepo)
+
+    @Provides
+    fun provideReadingViewUseCase(readingViewRepo: ReadingViewRepo): ReadingVIewUseCase =
+        ReadingVIewUseCase(readingViewRepo)
 }

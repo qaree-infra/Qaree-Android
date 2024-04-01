@@ -6,6 +6,8 @@ import com.muhmmad.domain.model.LoginResponse
 import com.muhmmad.domain.model.NetworkResponse
 import com.muhmmad.domain.model.ValidatePasswordOTPResponse
 import com.muhmmad.domain.model.BaseResponse
+import com.muhmmad.domain.model.BookContent
+import com.muhmmad.domain.model.BookStatus
 import com.muhmmad.domain.model.BooksResponse
 import com.muhmmad.domain.model.CategoriesResponse
 import com.muhmmad.domain.model.LibraryResponse
@@ -62,4 +64,8 @@ interface GraphQlDataSource {
         oldPassword: String,
         newPassword: String
     ): NetworkResponse<User>
+
+    suspend fun getBookStatus(token: String, bookId: String): NetworkResponse<BookStatus>
+    suspend fun getBookContent(id: String): NetworkResponse<BookContent>
+    suspend fun addBookToShelf(token: String, shelfId: String, bookId: String):NetworkResponse<BaseResponse>
 }

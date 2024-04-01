@@ -4,12 +4,14 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.muhmmad.domain.remote.RetrofitDataSource
 import okhttp3.OkHttpClient
+import org.jsoup.Jsoup
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.util.concurrent.TimeUnit
 
 object RetrofitClient {
-    val gson: Gson by lazy {
+    private val gson: Gson by lazy {
         GsonBuilder()
             .setLenient()
             .create()

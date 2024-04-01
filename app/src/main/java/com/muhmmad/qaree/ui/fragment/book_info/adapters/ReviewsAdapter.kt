@@ -1,4 +1,4 @@
-package com.muhmmad.qaree.ui.fragment.book_info
+package com.muhmmad.qaree.ui.fragment.book_info.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

@@ -6,9 +6,12 @@ import com.muhmmad.domain.model.LoginResponse
 import com.muhmmad.domain.model.ValidatePasswordOTPResponse
 import com.muhmmad.domain.model.BaseResponse
 import com.muhmmad.domain.model.Book
+import com.muhmmad.domain.model.BookContent
+import com.muhmmad.domain.model.BookStatus
 import com.muhmmad.domain.model.BooksResponse
 import com.muhmmad.domain.model.CategoriesResponse
 import com.muhmmad.domain.model.Category
+import com.muhmmad.domain.model.ContentItem
 import com.muhmmad.domain.model.Cover
 import com.muhmmad.domain.model.LibraryResponse
 import com.muhmmad.domain.model.Offer
@@ -18,10 +21,13 @@ import com.muhmmad.domain.model.ReviewsResponse
 import com.muhmmad.domain.model.Shelf
 import com.muhmmad.domain.model.ShelfResponse
 import com.muhmmad.domain.model.User
+import com.muhmmad.qaree.AddBookToShelfMutation
 import com.muhmmad.qaree.CreateShelfMutation
 import com.muhmmad.qaree.ForgetPasswordMutation
 import com.muhmmad.qaree.GetBestSellerBooksQuery
+import com.muhmmad.qaree.GetBookContentQuery
 import com.muhmmad.qaree.GetBookReviewsQuery
+import com.muhmmad.qaree.GetBookStatusQuery
 import com.muhmmad.qaree.GetBooksQuery
 import com.muhmmad.qaree.GetCategoriesQuery
 import com.muhmmad.qaree.GetLastActivityQuery
@@ -133,7 +139,7 @@ fun GetLastActivityQuery.GetLastActivity.toActivityResponse(): ActivityResponse 
     createdAt = createdAt ?: "",
     status = status ?: "",
     updatedAt = updatedAt ?: "",
-    readingProgress = readingProgress ?: 0
+    readingProgress = readingProgress ?: 0.0
 )
 
 fun GetTopAuthorsQuery.GetTopAuthors.toAuthorsResponse(): AuthorsResponse =
@@ -308,4 +314,28 @@ fun UpdatePasswordMutation.UpdateUser.toUser(): User = User(
     email = email ?: "",
     bio = bio ?: "",
     avatar = Cover(path = avatar?.path ?: "")
+)
+
+fun GetBookStatusQuery.GetBookStatus.toBookStatus(): BookStatus = BookStatus(
+    status = status ?: "",
+    readingProgress = readingProgress ?: 0.0,
+    updatedAt = updatedAt ?: "",
+    createdAt = createdAt ?: ""
+)
+
+fun GetBookContentQuery.GetBookContent.toBookContent(): BookContent = BookContent(
+    content?.map {
+        ContentItem(
+            id = it?.id ?: "",
+            mediaType = it?.mediaType ?: "",
+            title = it?.title ?: "",
+            order = it?.order ?: 0,
+            level = it?.level ?: 0
+        )
+    }!!
+)
+
+fun AddBookToShelfMutation.AddBookToShelf.toBaseResponse(): BaseResponse = BaseResponse(
+    message = message ?: "",
+    success = success ?: false
 )

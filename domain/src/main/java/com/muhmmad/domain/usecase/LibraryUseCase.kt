@@ -9,4 +9,6 @@ class LibraryUseCase(private val repo: LibraryRepo) {
     suspend fun removeShelf(id: String, token: String) = repo.removeShelf(id, token)
     suspend fun removeBookFromShelf(bookId: String, shelfId: String, token: String) =
         repo.removeBookFromShelf(bookId, shelfId, token)
+    suspend fun addBookToShelf(token: String, shelfId: String, bookId: String) =
+        repo.addBookToShelf(token, shelfId, bookId)
 }

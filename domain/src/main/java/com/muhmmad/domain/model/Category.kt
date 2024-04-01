@@ -8,4 +8,4 @@ data class Category(
     val nameAr: String,
     val nameEn: String,
     val image: String,
-)
+):java.io.Serializable
