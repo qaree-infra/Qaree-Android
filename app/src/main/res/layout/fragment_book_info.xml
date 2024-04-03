@@ -46,17 +46,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_title" />
 
-
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_buy"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_15sdp"
-            android:paddingHorizontal="@dimen/_70sdp"
+            android:layout_marginHorizontal="@dimen/_10sdp"
             android:paddingVertical="@dimen/_5sdp"
             android:text="@string/buy"
             android:textColor="@color/white"
-            android:textSize="@dimen/_16ssp"
+            android:textSize="@dimen/_14ssp"
             android:textStyle="bold"
             app:cornerRadius="@dimen/_12sdp"
             app:layout_constraintEnd_toStartOf="@id/btn_list"

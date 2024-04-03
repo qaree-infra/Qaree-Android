@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.muhmmad.qaree.R
@@ -14,6 +15,8 @@ import com.muhmmad.qaree.databinding.DialogBookInfoBinding
 import com.muhmmad.qaree.ui.activity.reading_view.ReadingViewActivity
 import com.muhmmad.qaree.ui.fragment.book_info.BookInfoViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class BookInfoDialog : DialogFragment() {
@@ -36,6 +39,7 @@ class BookInfoDialog : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
+            checkState()
             tvCancel.setOnClickListener {
                 this@BookInfoDialog.dismiss()
             }
@@ -46,6 +50,27 @@ class BookInfoDialog : DialogFragment() {
                 val intent = Intent(context, ReadingViewActivity::class.java)
                 intent.putExtra("id", viewModel.book.value.id)
                 startActivity(intent)
+            }
+            tvCommunity.setOnClickListener {
+
+            }
+        }
+    }
+
+    private fun checkState() {
+        lifecycleScope.launch {
+            viewModel.bookState.collect {
+                when (it) {
+                    BookInfoViewModel.BookState.BUY -> {
+                        binding.llSample.visibility = View.VISIBLE
+                        binding.llCommunity.visibility = View.GONE
+                    }
+
+                    else -> {
+                        binding.llSample.visibility = View.GONE
+                        binding.llCommunity.visibility = View.VISIBLE
+                    }
+                }
             }
         }
     }

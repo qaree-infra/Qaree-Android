@@ -13,3 +13,4 @@ Features :
     Dagger Hilt
     Coil
     Palette
+    Retrofit

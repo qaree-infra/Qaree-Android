@@ -51,11 +51,6 @@ dependencies {
     //Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.10.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-    //scalars Converter
-    implementation("com.squareup.retrofit2:converter-scalars:2.5.0")
-
-    //Html Converter
-    implementation("org.jsoup:jsoup:1.17.2")
     //Domain Module
     api(project(":domain"))
     //DataStore
