@@ -97,7 +97,9 @@ class BookInfoFragment : Fragment() {
                     }
 
                     BookInfoViewModel.BookState.CONTINUE_READING -> {
-
+                        val intent = Intent(context, ReadingViewActivity::class.java)
+                        intent.putExtra("id", book.id)
+                        startActivity(intent)
                     }
                 }
             }

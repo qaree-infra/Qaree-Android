@@ -1,13 +1,14 @@
 package com.muhmmad.qaree.ui.activity.reading_view
 
 import android.os.Bundle
+import android.util.Base64
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.muhmmad.qaree.databinding.ActivityReadingViewBinding
 import com.muhmmad.qaree.ui.activity.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 private const val TAG = "ReadingViewActivity"
@@ -20,6 +21,9 @@ class ReadingViewActivity : BaseActivity() {
     private val bookId: String by lazy {
         intent.getStringExtra("id").toString()
     }
+    private val adapter: ReadingViewAdapter by lazy {
+        ReadingViewAdapter()
+    }
     private val viewModel: ReadingViewViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,13 +31,21 @@ class ReadingViewActivity : BaseActivity() {
         setContentView(binding.root)
         binding.apply {
             checkState()
-
+            binding.recyclerView.adapter = adapter
             viewModel.getBookContent(bookId)
-
         }
     }
 
     private fun checkState() {
+        lifecycleScope.launch {
+            viewModel.bookContent.collectLatest {
+                viewModel.token.value?.let { token ->
+                    viewModel.getChapter(token, bookId, it?.data ?: emptyList()).collectLatest {
+                        adapter.submitData(it)
+                    }
+                }
+            }
+        }
         lifecycleScope.launch {
             viewModel.state.collect {
                 it.error?.apply {
@@ -43,15 +55,6 @@ class ReadingViewActivity : BaseActivity() {
                 if (it.isLoading) this@ReadingViewActivity.showLoading(binding.root) else this@ReadingViewActivity.dismissLoading(
                     binding.root
                 )
-
-                it.bookContent?.apply {
-                    viewModel.getChapter(bookId, this.data[0].id)
-                    Log.i(TAG, this.toString())
-                }
-
-                it.chapterContent?.apply {
-                    Log.i(TAG, this.toString())
-                }
             }
         }
     }
