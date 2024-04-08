@@ -9,6 +9,7 @@ import androidx.paging.cachedIn
 import com.muhmmad.domain.model.BookChapter
 import com.muhmmad.domain.model.BookContent
 import com.muhmmad.domain.model.ContentItem
+import com.muhmmad.domain.model.NetworkResponse
 import com.muhmmad.domain.usecase.AuthUseCase
 import com.muhmmad.domain.usecase.ReadingVIewUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -29,6 +30,8 @@ class ReadingViewViewModel @Inject constructor(
 
     private val _bookContent = MutableStateFlow<BookContent?>(null)
     val bookContent = _bookContent.asStateFlow()
+    private val _chapter = MutableStateFlow<String?>(null)
+    val chapter = _chapter.asStateFlow()
     val token = MutableStateFlow<String?>(null)
 
     init {
@@ -60,7 +63,7 @@ class ReadingViewViewModel @Inject constructor(
         token: String,
         bookId: String,
         chaptersList: List<ContentItem>
-    ): Flow<PagingData<BookChapter>> {
+    ): Flow<PagingData<NetworkResponse<BookChapter>>> {
         return Pager(
             // Configure how data is loaded by passing additional properties to
             // PagingConfig, such as prefetchDistance.
@@ -68,6 +71,15 @@ class ReadingViewViewModel @Inject constructor(
         ) {
             BookPagingSource(useCase, chaptersList, bookId, token)
         }.flow.cachedIn(viewModelScope)
+    }
+
+    fun getChapter(bookId: String, chapterId: String) {
+        viewModelScope.launch {
+            useCase.getChapter(authUseCase.getToken(), bookId, chapterId).apply {
+                _chapter.update { data?.content }
+                _state.update { it.copy(error = message) }
+            }
+        }
     }
 
     data class ReadingViewState(

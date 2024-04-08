@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_homeFragment_to_bookInfoFragment"
             app:destination="@id/bookInfoFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_reading_view"
+            app:destination="@id/reading_view" />
     </fragment>
     <fragment
         android:id="@+id/libraryFragment"
@@ -165,4 +168,9 @@
         android:name="com.muhmmad.qaree.ui.fragment.book_info.dialogs.ShelfsDialog"
         android:label="dialog_shelfs"
         tools:layout="@layout/dialog_shelfs" />
+    <activity
+        android:id="@+id/reading_view"
+        android:name="com.muhmmad.qaree.ui.activity.reading_view.ReadingViewActivity"
+        android:label="activity_reading_view"
+        tools:layout="@layout/activity_reading_view" />
 </navigation>

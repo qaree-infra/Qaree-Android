@@ -5,8 +5,8 @@ import com.apollographql.apollo3.api.Operation
 import com.muhmmad.domain.model.NetworkResponse
 import retrofit2.Response
 
-fun <T> Response<T>.checkResponse(): NetworkResponse<T?> {
-    return if (isSuccessful) NetworkResponse.Success(body()) else NetworkResponse.Error(
+fun <T> Response<T>.checkResponse(): NetworkResponse<T> {
+    return if (isSuccessful) NetworkResponse.Success(body()!!) else NetworkResponse.Error(
         message = "Error",
         data = body()
     )

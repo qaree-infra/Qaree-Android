@@ -30,6 +30,13 @@ android {
                 "proguard-rules.pro"
             )
         }
+        forEach {
+            it.buildConfigField(
+                "String",
+                "paypalClientId",
+                "\"AcwxZmzj2-Kstpv2OU4ivSAQZlYA6ThecdxZlXOI6T0QL_W--ODJ6ad0YuKPcBU6VmP2MUlsdrjo15Ey\""
+            )
+        }
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -95,6 +102,8 @@ dependencies {
     //Paypal
     implementation("com.paypal.android:card-payments:1.3.0")
     implementation("com.paypal.android:paypal-web-payments:1.3.0")
+    //Android Browser Switch
+    //  implementation("com.braintreepayments.api:browser-switch:2.6.2-SNAPSHOT")
     //Paging 3
     implementation("androidx.paging:paging-runtime-ktx:$paging_version")
 }

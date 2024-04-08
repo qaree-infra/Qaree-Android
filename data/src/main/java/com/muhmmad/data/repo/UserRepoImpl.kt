@@ -18,7 +18,7 @@ class UserRepoImpl(
     override suspend fun uploadUserAvatar(
         token: String,
         image: MultipartBody.Part
-    ): NetworkResponse<Any?> = retrofitDataSource.uploadUserAvatar(token, image).checkResponse()
+    ): NetworkResponse<Any> = retrofitDataSource.uploadUserAvatar(token, image).checkResponse()
 
     override suspend fun updateUserName(token: String, name: String): NetworkResponse<User> =
         graphQlDataSource.updateUserName(token, name)

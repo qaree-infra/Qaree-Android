@@ -4,6 +4,7 @@ import com.muhmmad.domain.model.BaseResponse
 import com.muhmmad.domain.model.BookStatus
 import com.muhmmad.domain.model.BooksResponse
 import com.muhmmad.domain.model.NetworkResponse
+import com.muhmmad.domain.model.PaymentOrder
 import com.muhmmad.domain.model.ReviewsResponse
 import com.muhmmad.domain.remote.GraphQlDataSource
 import com.muhmmad.domain.repo.BookRepo
@@ -29,4 +30,9 @@ class BookRepoImpl(
 
     override suspend fun getBookStatus(token: String, bookId: String): NetworkResponse<BookStatus> =
         graphQlDataSource.getBookStatus(token, bookId)
+
+    override suspend fun createPaymentOrder(
+        token: String,
+        bookId: String
+    ): NetworkResponse<PaymentOrder> = graphQlDataSource.createPaymentOrder(token, bookId)
 }

@@ -10,4 +10,6 @@ class BookUseCase(private val repo: BookRepo) {
     suspend fun getBooksByCategory(categoryId: String) = repo.getBooksByCategory(categoryId)
     suspend fun search(name: String) = repo.search(name)
     suspend fun getBookStatus(token: String, bookId: String) = repo.getBookStatus(token, bookId)
+    suspend fun createPaymentOrder(token: String, bookId: String) =
+        repo.createPaymentOrder(token, bookId)
 }
