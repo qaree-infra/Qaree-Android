@@ -4,6 +4,7 @@ import com.muhmmad.domain.model.BaseResponse
 import com.muhmmad.domain.model.BookStatus
 import com.muhmmad.domain.model.BooksResponse
 import com.muhmmad.domain.model.NetworkResponse
+import com.muhmmad.domain.model.PaymentOrder
 import com.muhmmad.domain.model.ReviewsResponse
 
 interface BookRepo {
@@ -18,4 +19,5 @@ interface BookRepo {
     ): NetworkResponse<BaseResponse>
 
     suspend fun getBookStatus(token: String, bookId: String): NetworkResponse<BookStatus>
+    suspend fun createPaymentOrder(token: String, bookId: String): NetworkResponse<PaymentOrder>
 }

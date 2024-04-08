@@ -16,12 +16,14 @@ import com.muhmmad.domain.model.Cover
 import com.muhmmad.domain.model.LibraryResponse
 import com.muhmmad.domain.model.Offer
 import com.muhmmad.domain.model.OffersResponse
+import com.muhmmad.domain.model.PaymentOrder
 import com.muhmmad.domain.model.Review
 import com.muhmmad.domain.model.ReviewsResponse
 import com.muhmmad.domain.model.Shelf
 import com.muhmmad.domain.model.ShelfResponse
 import com.muhmmad.domain.model.User
 import com.muhmmad.qaree.AddBookToShelfMutation
+import com.muhmmad.qaree.CreatePaymentOrderMutation
 import com.muhmmad.qaree.CreateShelfMutation
 import com.muhmmad.qaree.ForgetPasswordMutation
 import com.muhmmad.qaree.GetBestSellerBooksQuery
@@ -170,7 +172,8 @@ fun GetBooksQuery.Data.toBooksResponse(): BooksResponse =
                 },
                 language = it?.language ?: "",
                 description = it?.description ?: "",
-                createdAt = it?.createdAt ?: ""
+                createdAt = it?.createdAt ?: "",
+                price = it?.price ?: 0.0
             )
         }!!
     )
@@ -178,6 +181,7 @@ fun GetBooksQuery.Data.toBooksResponse(): BooksResponse =
 fun GetBestSellerBooksQuery.Data.toBookResponse(): BooksResponse = BooksResponse(
     getBestSellerBooks?.books?.map {
         Book(
+            price = it?.price ?: 0.0,
             avgRating = it?.avgRate ?: 0,
             id = it?._id ?: "",
             name = it?.name ?: "",
@@ -338,4 +342,9 @@ fun GetBookContentQuery.GetBookContent.toBookContent(): BookContent = BookConten
 fun AddBookToShelfMutation.AddBookToShelf.toBaseResponse(): BaseResponse = BaseResponse(
     message = message ?: "",
     success = success ?: false
+)
+
+fun CreatePaymentOrderMutation.CreatePaymentOrder.toPaymentOrder(): PaymentOrder = PaymentOrder(
+    id = id ?: "",
+    status = status ?: ""
 )

@@ -1,6 +1,7 @@
 package com.muhmmad.qaree.ui.fragment.home
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -8,11 +9,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
-import androidx.navigation.NavType
 import androidx.navigation.fragment.findNavController
 import coil.load
-import coil.transform.CircleCropTransformation
-import com.muhmmad.domain.model.Book
 import com.muhmmad.qaree.R
 import com.muhmmad.qaree.databinding.FragmentHomeBinding
 import com.muhmmad.qaree.ui.activity.home.HomeActivity
@@ -22,7 +20,6 @@ import com.muhmmad.qaree.ui.fragment.home.adapters.CategoriesAdapter
 import com.muhmmad.qaree.ui.fragment.home.adapters.OffersAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import java.io.Serializable
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -92,6 +89,13 @@ class HomeFragment : Fragment() {
             rvCategories.adapter = categoriesAdapter
             rvNewReleases.adapter = newReleaseAdapter
             rvBestSellers.adapter = bestSellerAdapter
+            activities.setOnClickListener {
+                viewModel.state.value.activitiesResponse?.let {
+                    val bundle = Bundle()
+                    bundle.putString("id", it.book.id)
+                    nav.navigate(R.id.action_homeFragment_to_reading_view, bundle)
+                }
+            }
         }
     }
 
@@ -117,26 +121,33 @@ class HomeFragment : Fragment() {
                     it.error.toString()
                 )
                 else {
-                    if (it.activitiesResponse != null) {
+                    if (it.activitiesResponse == null) {
+                        binding.tvActivities.visibility = View.GONE
+                        binding.activities.visibility = View.GONE
+                    } else {
                         binding.tvActivities.visibility = View.VISIBLE
                         binding.activities.visibility = View.VISIBLE
                         it.activitiesResponse.apply {
                             binding.tvActivitiesName.text = book.name
 //                            binding.tvReadingPages.text = "$readingProgress/100"
                             binding.progressBar.progress = readingProgress.toInt()
-                            binding.tvProgressPresent.text =
-                                getString(R.string.reading_percent, readingProgress.toString())
-                            binding.ivActivitiesBook.load(book.cover.path) {
-                                transformations(CircleCropTransformation())
-                            }
+                            binding.tvProgressPresent.text = getString(
+                                R.string.reading_percent,
+                                String.format("%.1f", readingProgress)
+                            )
+                            binding.ivActivitiesBook.load(book.cover.path)
                         }
-                    } else {
-                        binding.tvActivities.visibility = View.GONE
-                        binding.activities.visibility = View.GONE
                     }
 
                     it.offersResponse?.apply {
-                        offersAdapter.setData(data)
+                        if (data.isNotEmpty()) {
+                            binding.tvOffers.visibility = View.VISIBLE
+                            binding.rvOffers.visibility = View.VISIBLE
+                            offersAdapter.setData(data)
+                        } else {
+                            binding.tvOffers.visibility = View.GONE
+                            binding.rvOffers.visibility = View.GONE
+                        }
                     }
 
                     it.authorsResponse?.apply {
@@ -178,3 +189,5 @@ class HomeFragment : Fragment() {
         var isFirstTime: Boolean = false
     }
 }
+
+private const val TAG = "HomeFragment"

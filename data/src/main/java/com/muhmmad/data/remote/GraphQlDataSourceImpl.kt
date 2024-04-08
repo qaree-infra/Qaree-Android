@@ -18,6 +18,7 @@ import com.muhmmad.data.utils.toVerificationResponse
 import com.muhmmad.data.utils.checkResponse
 import com.muhmmad.data.utils.toBookContent
 import com.muhmmad.data.utils.toBookStatus
+import com.muhmmad.data.utils.toPaymentOrder
 import com.muhmmad.domain.model.ActivityResponse
 import com.muhmmad.domain.model.AuthorsResponse
 import com.muhmmad.domain.model.LoginResponse
@@ -32,11 +33,13 @@ import com.muhmmad.domain.model.BooksResponse
 import com.muhmmad.domain.model.CategoriesResponse
 import com.muhmmad.domain.model.LibraryResponse
 import com.muhmmad.domain.model.OffersResponse
+import com.muhmmad.domain.model.PaymentOrder
 import com.muhmmad.domain.model.ReviewsResponse
 import com.muhmmad.domain.model.ShelfResponse
 import com.muhmmad.domain.model.User
 import com.muhmmad.domain.remote.GraphQlDataSource
 import com.muhmmad.qaree.AddBookToShelfMutation
+import com.muhmmad.qaree.CreatePaymentOrderMutation
 import com.muhmmad.qaree.CreateShelfMutation
 import com.muhmmad.qaree.ForgetPasswordMutation
 import com.muhmmad.qaree.GetBestSellerBooksQuery
@@ -607,6 +610,25 @@ class GraphQlDataSourceImpl(
 
             when (response) {
                 is Success -> Success(response.data?.addBookToShelf?.toBaseResponse()!!)
+                else -> Error(response.message.toString())
+            }
+        } catch (ex: Exception) {
+            Error(ex.message.toString())
+        }
+    }
+
+    override suspend fun createPaymentOrder(
+        token: String,
+        bookId: String
+    ): NetworkResponse<PaymentOrder> {
+        return try {
+            val response = checkResponse(
+                apolloClient.mutation(CreatePaymentOrderMutation(bookId))
+                    .addHttpHeader("Authorization", token).execute()
+            )
+
+            when (response) {
+                is Success -> Success(response.data?.createPaymentOrder?.toPaymentOrder()!!)
                 else -> Error(response.message.toString())
             }
         } catch (ex: Exception) {

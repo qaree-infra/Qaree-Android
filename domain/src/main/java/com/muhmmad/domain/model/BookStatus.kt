@@ -1,8 +1,8 @@
 package com.muhmmad.domain.model
 
 data class BookStatus(
-    val status: String = "",
-    val readingProgress: Double = 0.0,
-    val updatedAt: String = "",
-    val createdAt: String = ""
+    val status: String?=null,
+    val readingProgress: Double?=null,
+    val updatedAt: String?=null,
+    val createdAt: String?=null
 )

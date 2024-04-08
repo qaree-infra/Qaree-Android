@@ -1,30 +1,41 @@
 package com.muhmmad.qaree.ui.activity.reading_view
 
 import android.util.Base64
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.muhmmad.domain.model.BookChapter
+import com.muhmmad.domain.model.NetworkResponse
 import com.muhmmad.qaree.databinding.ReadingViewItemBinding
 
+private const val TAG = "ReadingViewAdapter"
 class ReadingViewAdapter :
-    PagingDataAdapter<BookChapter, ReadingViewAdapter.ViewHolder>(chapterComparator) {
-
+    PagingDataAdapter<NetworkResponse<BookChapter>, ReadingViewAdapter.ViewHolder>(chapterComparator) {
     class ViewHolder(private val binding: ReadingViewItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(path: String) {
             val encodedHtml =
                 Base64.encodeToString(path.toByteArray(), Base64.NO_PADDING)
             binding.webView.loadData(encodedHtml, "text/html", "base64")
+            binding.webView.settings.javaScriptEnabled = true
+            binding.webView.webViewClient=object:WebViewClient(){
+                override fun onPageFinished(view: WebView?, url: String?) {
+                    Log.i(TAG,url.toString())
+                    super.onPageFinished(view, url)
+                }
+            }
         }
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
         item?.let {
-            holder.bind(it.content)
+            holder.bind(it.data?.content ?: "")
         }
     }
 
@@ -37,13 +48,19 @@ class ReadingViewAdapter :
             )
         )
 
-    object chapterComparator : DiffUtil.ItemCallback<BookChapter>() {
-        override fun areItemsTheSame(oldItem: BookChapter, newItem: BookChapter): Boolean {
+    object chapterComparator : DiffUtil.ItemCallback<NetworkResponse<BookChapter>>() {
+        override fun areItemsTheSame(
+            oldItem: NetworkResponse<BookChapter>,
+            newItem: NetworkResponse<BookChapter>
+        ): Boolean {
             // Id is unique.
-            return oldItem.content == newItem.content
+            return oldItem.data == newItem.data
         }
 
-        override fun areContentsTheSame(oldItem: BookChapter, newItem: BookChapter): Boolean {
+        override fun areContentsTheSame(
+            oldItem: NetworkResponse<BookChapter>,
+            newItem: NetworkResponse<BookChapter>
+        ): Boolean {
             return oldItem == newItem
         }
     }

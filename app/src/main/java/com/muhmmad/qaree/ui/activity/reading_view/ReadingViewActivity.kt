@@ -1,10 +1,10 @@
 package com.muhmmad.qaree.ui.activity.reading_view
 
 import android.os.Bundle
-import android.util.Base64
-import android.util.Log
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.map
+import com.muhmmad.domain.model.NetworkResponse
 import com.muhmmad.qaree.databinding.ActivityReadingViewBinding
 import com.muhmmad.qaree.ui.activity.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -42,6 +42,14 @@ class ReadingViewActivity : BaseActivity() {
                 viewModel.token.value?.let { token ->
                     viewModel.getChapter(token, bookId, it?.data ?: emptyList()).collectLatest {
                         adapter.submitData(it)
+                        it.map {
+                            if (it is NetworkResponse.Error) {
+                                this@ReadingViewActivity.showError(
+                                    binding.root,
+                                    it.message.toString()
+                                )
+                            }
+                        }
                     }
                 }
             }

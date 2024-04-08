@@ -12,6 +12,7 @@ import com.muhmmad.domain.model.BooksResponse
 import com.muhmmad.domain.model.CategoriesResponse
 import com.muhmmad.domain.model.LibraryResponse
 import com.muhmmad.domain.model.OffersResponse
+import com.muhmmad.domain.model.PaymentOrder
 import com.muhmmad.domain.model.ReviewsResponse
 import com.muhmmad.domain.model.ShelfResponse
 import com.muhmmad.domain.model.User
@@ -67,5 +68,11 @@ interface GraphQlDataSource {
 
     suspend fun getBookStatus(token: String, bookId: String): NetworkResponse<BookStatus>
     suspend fun getBookContent(id: String): NetworkResponse<BookContent>
-    suspend fun addBookToShelf(token: String, shelfId: String, bookId: String):NetworkResponse<BaseResponse>
+    suspend fun addBookToShelf(
+        token: String,
+        shelfId: String,
+        bookId: String
+    ): NetworkResponse<BaseResponse>
+
+    suspend fun createPaymentOrder(token: String, bookId: String): NetworkResponse<PaymentOrder>
 }

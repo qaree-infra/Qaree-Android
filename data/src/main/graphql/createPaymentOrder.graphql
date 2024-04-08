@@ -1,0 +1,6 @@
+mutation createPaymentOrder($bookId:String!){
+    createPaymentOrder(bookId: $bookId){
+        id,
+        status
+    }
+}

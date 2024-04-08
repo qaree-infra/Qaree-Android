@@ -3,6 +3,7 @@ package com.muhmmad.qaree.ui.fragment.book_info
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,12 +14,21 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import coil.load
 import com.muhmmad.domain.model.Book
+import com.muhmmad.qaree.BuildConfig
 import com.muhmmad.qaree.R
 import com.muhmmad.qaree.databinding.FragmentBookInfoBinding
 import com.muhmmad.qaree.ui.activity.home.HomeActivity
 import com.muhmmad.qaree.ui.activity.reading_view.ReadingViewActivity
 import com.muhmmad.qaree.ui.fragment.book_info.adapters.ReviewsAdapter
 import com.muhmmad.qaree.utils.DateUtils.getBookYear
+import com.paypal.android.corepayments.CoreConfig
+import com.paypal.android.corepayments.Environment
+import com.paypal.android.corepayments.PayPalSDKError
+import com.paypal.android.paypalwebpayments.PayPalWebCheckoutClient
+import com.paypal.android.paypalwebpayments.PayPalWebCheckoutFundingSource
+import com.paypal.android.paypalwebpayments.PayPalWebCheckoutListener
+import com.paypal.android.paypalwebpayments.PayPalWebCheckoutRequest
+import com.paypal.android.paypalwebpayments.PayPalWebCheckoutResult
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -57,7 +67,7 @@ class BookInfoFragment : Fragment() {
             viewModel.updateBook(book)
 
             handleViews(book)
-            checkState(book)
+            checkState()
             viewModel.getBookStatus()
             viewModel.getReviews()
         }
@@ -87,7 +97,7 @@ class BookInfoFragment : Fragment() {
             btnBuy.setOnClickListener {
                 when (viewModel.bookState.value) {
                     BookInfoViewModel.BookState.BUY -> {
-
+                        viewModel.createPaymentOrder()
                     }
 
                     BookInfoViewModel.BookState.START_READING -> {
@@ -110,7 +120,7 @@ class BookInfoFragment : Fragment() {
         }
     }
 
-    private fun checkState(book: Book) {
+    private fun checkState() {
         lifecycleScope.launch {
             viewModel.state.collect {
                 if (it.isLoading) activity.showLoading(binding.root) else activity.dismissLoading(
@@ -131,18 +141,53 @@ class BookInfoFragment : Fragment() {
                 if (it.makeReviewResponse != null) activity.showMessage(it.makeReviewResponse.message)
 
                 it.bookStatus?.apply {
-                    if (status == "purchased" || book.price == 0.0) {
+                    if (status == null) {
+                        binding.btnBuy.text = getString(R.string.buy)
+                    } else {
                         if (readingProgress == 0.0) binding.btnBuy.text =
                             getString(R.string.start_read)
                         else binding.btnBuy.text = getString(R.string.continue_reading)
-                    } else binding.btnBuy.text = getString(R.string.buy)
+                    }
                 }
 
                 it.addBookToShelfResponse?.apply {
                     activity.showMessage(message)
                 }
+
+                it.paymentOrder?.apply {
+                    paymentProcess(id)
+                }
             }
         }
+    }
+
+    private fun paymentProcess(orderId: String) {
+        val config = CoreConfig(
+            BuildConfig.paypalClientId,
+            environment = Environment.SANDBOX
+        )
+
+        val payPalWebCheckoutClient =
+            PayPalWebCheckoutClient(activity, config, "com.muhmmad.qaree.payment")
+        payPalWebCheckoutClient.listener = object : PayPalWebCheckoutListener {
+            override fun onPayPalWebCanceled() {
+                Log.i(TAG, "Canceled")
+            }
+
+            override fun onPayPalWebFailure(error: PayPalSDKError) {
+                activity.showError(binding.root, error.message.toString())
+            }
+
+            override fun onPayPalWebSuccess(result: PayPalWebCheckoutResult) {
+                viewModel.getBookStatus()
+            }
+        }
+
+        val payPalWebCheckoutRequest = PayPalWebCheckoutRequest(
+            orderId,
+            fundingSource = PayPalWebCheckoutFundingSource.PAYPAL
+        )
+        payPalWebCheckoutClient.start(payPalWebCheckoutRequest)
     }
 
     private fun checkValidation(content: String, rate: Float): Boolean {
@@ -163,3 +208,5 @@ class BookInfoFragment : Fragment() {
         return true
     }
 }
+
+private const val TAG = "BookInfoFragment"

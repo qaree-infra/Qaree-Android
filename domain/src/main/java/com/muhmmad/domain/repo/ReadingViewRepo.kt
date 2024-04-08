@@ -10,5 +10,5 @@ interface ReadingViewRepo {
         token: String,
         bookId: String,
         chapter: String
-    ): NetworkResponse<BookChapter?>
+    ): NetworkResponse<BookChapter>
 }
