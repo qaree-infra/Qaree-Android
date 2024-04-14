@@ -20,4 +20,9 @@ interface BookRepo {
 
     suspend fun getBookStatus(token: String, bookId: String): NetworkResponse<BookStatus>
     suspend fun createPaymentOrder(token: String, bookId: String): NetworkResponse<PaymentOrder>
+    suspend fun completePaymentOrder(
+        token: String,
+        bookId: String,
+        orderId: String
+    ): NetworkResponse<PaymentOrder>
 }

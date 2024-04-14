@@ -75,4 +75,10 @@ interface GraphQlDataSource {
     ): NetworkResponse<BaseResponse>
 
     suspend fun createPaymentOrder(token: String, bookId: String): NetworkResponse<PaymentOrder>
+    suspend fun joinCommunity(token: String, bookId: String): NetworkResponse<BaseResponse>
+    suspend fun completePaymentOrder(
+        token: String,
+        bookId: String,
+        orderId: String
+    ): NetworkResponse<PaymentOrder>
 }

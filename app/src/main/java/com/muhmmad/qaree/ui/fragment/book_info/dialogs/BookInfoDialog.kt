@@ -52,7 +52,7 @@ class BookInfoDialog : DialogFragment() {
                 startActivity(intent)
             }
             tvCommunity.setOnClickListener {
-
+                viewModel.joinCommunity()
             }
         }
     }

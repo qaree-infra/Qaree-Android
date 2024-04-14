@@ -2,6 +2,7 @@ package com.muhmmad.qaree.di
 
 import com.muhmmad.data.repo.AuthRepoImpl
 import com.muhmmad.data.repo.BookRepoImpl
+import com.muhmmad.data.repo.CommunityRepoImpl
 import com.muhmmad.data.repo.HomeRepoImpl
 import com.muhmmad.data.repo.LibraryRepoImpl
 import com.muhmmad.data.repo.ReadingViewRepoImpl
@@ -11,6 +12,7 @@ import com.muhmmad.domain.remote.GraphQlDataSource
 import com.muhmmad.domain.remote.RetrofitDataSource
 import com.muhmmad.domain.repo.AuthRepo
 import com.muhmmad.domain.repo.BookRepo
+import com.muhmmad.domain.repo.CommunityRepo
 import com.muhmmad.domain.repo.HomeRepo
 import com.muhmmad.domain.repo.LibraryRepo
 import com.muhmmad.domain.repo.ReadingViewRepo
@@ -55,4 +57,9 @@ object RepoModule {
         graphQlDataSource: GraphQlDataSource,
         retrofitDataSource: RetrofitDataSource
     ): ReadingViewRepo = ReadingViewRepoImpl(graphQlDataSource, retrofitDataSource)
+
+    @Provides
+    fun provideCommunityRepo(
+        graphQlDataSource: GraphQlDataSource,
+    ): CommunityRepo = CommunityRepoImpl(graphQlDataSource)
 }

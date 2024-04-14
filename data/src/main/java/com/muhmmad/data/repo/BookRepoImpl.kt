@@ -35,4 +35,11 @@ class BookRepoImpl(
         token: String,
         bookId: String
     ): NetworkResponse<PaymentOrder> = graphQlDataSource.createPaymentOrder(token, bookId)
+
+    override suspend fun completePaymentOrder(
+        token: String,
+        bookId: String,
+        orderId: String
+    ): NetworkResponse<PaymentOrder> =
+        graphQlDataSource.completePaymentOrder(token, bookId, orderId)
 }

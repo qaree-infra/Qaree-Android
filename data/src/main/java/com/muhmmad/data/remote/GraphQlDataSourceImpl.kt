@@ -39,6 +39,7 @@ import com.muhmmad.domain.model.ShelfResponse
 import com.muhmmad.domain.model.User
 import com.muhmmad.domain.remote.GraphQlDataSource
 import com.muhmmad.qaree.AddBookToShelfMutation
+import com.muhmmad.qaree.CompletePaymentOrderMutation
 import com.muhmmad.qaree.CreatePaymentOrderMutation
 import com.muhmmad.qaree.CreateShelfMutation
 import com.muhmmad.qaree.ForgetPasswordMutation
@@ -54,6 +55,7 @@ import com.muhmmad.qaree.GetOffersQuery
 import com.muhmmad.qaree.GetShelfDetailsQuery
 import com.muhmmad.qaree.GetTopAuthorsQuery
 import com.muhmmad.qaree.GetUserInfoQuery
+import com.muhmmad.qaree.JoinCommunityMutation
 import com.muhmmad.qaree.RemoveBookFromShelfMutation
 import com.muhmmad.qaree.RemoveShelfMutation
 import com.muhmmad.qaree.ResendPasswordOTPMutation
@@ -629,6 +631,46 @@ class GraphQlDataSourceImpl(
 
             when (response) {
                 is Success -> Success(response.data?.createPaymentOrder?.toPaymentOrder()!!)
+                else -> Error(response.message.toString())
+            }
+        } catch (ex: Exception) {
+            Error(ex.message.toString())
+        }
+    }
+
+    override suspend fun joinCommunity(
+        token: String,
+        bookId: String
+    ): NetworkResponse<BaseResponse> {
+        return try {
+            val response = checkResponse(
+                apolloClient.mutation(JoinCommunityMutation(bookId))
+                    .addHttpHeader("Authorization", token).execute()
+            )
+
+            when (response) {
+                is Success -> Success(response.data?.joinBookCommunity?.toBaseResponse()!!)
+                else -> Error(response.message.toString())
+            }
+        } catch (ex: Exception) {
+            Error(ex.message.toString())
+        }
+    }
+
+    override suspend fun completePaymentOrder(
+        token: String,
+        bookId: String,
+        orderId: String
+    ): NetworkResponse<PaymentOrder> {
+        return try {
+            val response = checkResponse(
+                apolloClient.mutation(CompletePaymentOrderMutation(bookId, orderId))
+                    .addHttpHeader("Authorization", token)
+                    .execute()
+            )
+
+            when (response) {
+                is Success -> Success(response.data?.completePaymentOrder?.toPaymentOrder()!!)
                 else -> Error(response.message.toString())
             }
         } catch (ex: Exception) {

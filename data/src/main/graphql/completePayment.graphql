@@ -1,0 +1,8 @@
+mutation completePaymentOrder($bookId:String!,$orderId:String!){
+    completePaymentOrder(bookId:$bookId,orderId:$orderId){
+        capturedOrder{
+            id,
+            status
+        }
+    }
+}
