@@ -157,6 +157,14 @@ class BookInfoFragment : Fragment() {
                 it.paymentOrder?.apply {
                     paymentProcess(id)
                 }
+
+                it.completePaymentResponse?.apply {
+                    viewModel.getBookStatus()
+                }
+
+                it.joinCommunityResponse?.apply {
+                    TODO("navigate to Community Screen")
+                }
             }
         }
     }
@@ -179,7 +187,7 @@ class BookInfoFragment : Fragment() {
             }
 
             override fun onPayPalWebSuccess(result: PayPalWebCheckoutResult) {
-                viewModel.getBookStatus()
+                viewModel.completePayment(result.orderId.toString())
             }
         }
 

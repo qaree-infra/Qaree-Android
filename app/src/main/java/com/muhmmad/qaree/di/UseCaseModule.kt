@@ -6,12 +6,14 @@ import com.muhmmad.data.local.UserDataSerializer
 import com.muhmmad.domain.model.UserData
 import com.muhmmad.domain.repo.AuthRepo
 import com.muhmmad.domain.repo.BookRepo
+import com.muhmmad.domain.repo.CommunityRepo
 import com.muhmmad.domain.repo.HomeRepo
 import com.muhmmad.domain.repo.LibraryRepo
 import com.muhmmad.domain.repo.ReadingViewRepo
 import com.muhmmad.domain.repo.UserRepo
 import com.muhmmad.domain.usecase.AuthUseCase
 import com.muhmmad.domain.usecase.BookUseCase
+import com.muhmmad.domain.usecase.CommunityUseCase
 import com.muhmmad.domain.usecase.HomeUseCase
 import com.muhmmad.domain.usecase.LibraryUseCase
 import com.muhmmad.domain.usecase.ReadingVIewUseCase
@@ -43,4 +45,8 @@ object UseCaseModule {
     @Provides
     fun provideReadingViewUseCase(readingViewRepo: ReadingViewRepo): ReadingVIewUseCase =
         ReadingVIewUseCase(readingViewRepo)
+
+    @Provides
+    fun provideCommunityUseCase(communityRepo: CommunityRepo): CommunityUseCase =
+        CommunityUseCase(communityRepo)
 }

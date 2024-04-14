@@ -1,0 +1,5 @@
+mutation joinCommunity($bookId:String!){
+    joinBookCommunity(bookId:$bookId){
+        success,message
+    }
+}

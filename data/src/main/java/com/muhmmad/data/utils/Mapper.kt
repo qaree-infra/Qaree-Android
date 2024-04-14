@@ -1,5 +1,6 @@
 package com.muhmmad.data.utils
 
+import androidx.lifecycle.createSavedStateHandle
 import com.muhmmad.domain.model.ActivityResponse
 import com.muhmmad.domain.model.AuthorsResponse
 import com.muhmmad.domain.model.LoginResponse
@@ -23,6 +24,7 @@ import com.muhmmad.domain.model.Shelf
 import com.muhmmad.domain.model.ShelfResponse
 import com.muhmmad.domain.model.User
 import com.muhmmad.qaree.AddBookToShelfMutation
+import com.muhmmad.qaree.CompletePaymentOrderMutation
 import com.muhmmad.qaree.CreatePaymentOrderMutation
 import com.muhmmad.qaree.CreateShelfMutation
 import com.muhmmad.qaree.ForgetPasswordMutation
@@ -38,6 +40,7 @@ import com.muhmmad.qaree.GetOffersQuery
 import com.muhmmad.qaree.GetShelfDetailsQuery
 import com.muhmmad.qaree.GetTopAuthorsQuery
 import com.muhmmad.qaree.GetUserInfoQuery
+import com.muhmmad.qaree.JoinCommunityMutation
 import com.muhmmad.qaree.RemoveBookFromShelfMutation
 import com.muhmmad.qaree.RemoveShelfMutation
 import com.muhmmad.qaree.ResendPasswordOTPMutation
@@ -347,4 +350,14 @@ fun AddBookToShelfMutation.AddBookToShelf.toBaseResponse(): BaseResponse = BaseR
 fun CreatePaymentOrderMutation.CreatePaymentOrder.toPaymentOrder(): PaymentOrder = PaymentOrder(
     id = id ?: "",
     status = status ?: ""
+)
+
+fun JoinCommunityMutation.JoinBookCommunity.toBaseResponse(): BaseResponse = BaseResponse(
+    message = message ?: "",
+    success = success ?: false
+)
+
+fun CompletePaymentOrderMutation.CompletePaymentOrder.toPaymentOrder():PaymentOrder = PaymentOrder(
+    id = capturedOrder?.id?:"",
+    status = capturedOrder?.status?:""
 )

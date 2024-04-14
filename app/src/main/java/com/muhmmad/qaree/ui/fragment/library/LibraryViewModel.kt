@@ -70,5 +70,4 @@ class LibraryViewModel @Inject constructor(
         val libraryResponse: LibraryResponse? = null,
         val createShelfResponse: BaseResponse? = null
     )
-
 }

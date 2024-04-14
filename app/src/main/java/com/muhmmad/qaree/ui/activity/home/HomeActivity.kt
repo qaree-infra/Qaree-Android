@@ -1,13 +1,8 @@
 package com.muhmmad.qaree.ui.activity.home
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
-import android.provider.MediaStore
-import android.util.Log
 import android.view.View
-import androidx.activity.result.PickVisualMediaRequest
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.isVisible
 import androidx.navigation.NavController
@@ -119,5 +114,3 @@ class HomeActivity : BaseActivity() {
         }
     }
 }
-
-private const val TAG = "HomeActivity"

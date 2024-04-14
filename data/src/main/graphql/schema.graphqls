@@ -34,6 +34,10 @@ type Query {
 
   getBookStatus("" bookId: String): Activity
 
+  getBookCommunity("" id: String, "" bookId: String): BookCommunity
+
+  getCommunityMembers("" id: String, "" bookId: String, "" limitMembers: Int, "" page: Int): CommunityMembers
+
   getShelf("" shelf: String, "" user: String, "" booksLimit: Int, "" booksPage: Int): ShelfType
 
   getLibrary("" user: String, "" limit: Int, "" page: Int): Library
@@ -306,6 +310,31 @@ type GetClientData {
 }
 
 """
+this is book community
+"""
+type BookCommunity {
+  _id: String
+
+  lastMessage: String
+
+  book: BookInfo
+
+  roomId: String
+
+  members: CommunityMembers
+}
+
+type CommunityMembers {
+  members: [User]
+
+  currentPage: Int
+
+  numberOfPages: Int
+
+  totalMembers: Int
+}
+
+"""
 This liberary shelf data
 """
 type ShelfType {
@@ -420,6 +449,8 @@ type Mutation {
   createPaymentOrder("" bookId: String): CreatePaymentOrder
 
   completePaymentOrder("" bookId: String, "" orderId: String): CompletePaymentOrder
+
+  joinBookCommunity("" bookId: String): JoinBookCommunity
 
   createShelf("" name: String): CreateShelfType
 
@@ -568,6 +599,12 @@ type CapaturedPaymentOrder {
   id: String
 
   status: String
+}
+
+type JoinBookCommunity {
+  success: Boolean
+
+  message: String
 }
 
 """
