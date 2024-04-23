@@ -18,4 +18,17 @@
     <string name="chat">Chat</string>
     <string name="best_sellers">Best Sellers</string>
     <string name="more">More</string>
+    <string name="time_ago_prefix" formatted="true">منذ</string>
+    <string name="time_ago_suffix" formatted="true"></string>
+    <string name="time_ago_seconds" formatted="true"> اقل من دقيقة</string>
+    <string name="time_ago_minute" formatted="true">حوالى دقيقة</string>
+    <string name="time_ago_minutes" formatted="true">%d دقائق</string>
+    <string name="time_ago_hour" formatted="true">حوالى ساعة</string>
+    <string name="time_ago_hours" formatted="true"> حوالى %d ساعة</string>
+    <string name="time_ago_day" formatted="true"> يوم</string>
+    <string name="time_ago_days" formatted="true">%d ايام</string>
+    <string name="time_ago_month" formatted="true"> حوالى شهر </string>
+    <string name="time_ago_months" formatted="true">%d شهور</string>
+    <string name="time_ago_year" formatted="true"> حوالى سنة</string>
+    <string name="time_ago_years" formatted="true">%d سنين</string>
 </resources>

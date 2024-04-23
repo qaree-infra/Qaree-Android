@@ -12,10 +12,10 @@ class CommunityRepoImpl(private val graphQlDataSource: GraphQlDataSource) : Comm
         bookId: String
     ): NetworkResponse<BaseResponse> = graphQlDataSource.joinCommunity(token, bookId)
 
-    override suspend fun connectSocket() {
-        SocketHandler.setSocket()
-        SocketHandler.establishConnection()
-    }
+    override suspend fun connectSocket(token: String) = SocketHandler.connectSocket(token)
 
     override suspend fun disconnectSocket() = SocketHandler.closeConnection()
+
+    override suspend fun getSocket() = SocketHandler.getSocket()
+    // override suspend fun getRooms(token: String) = SocketHandler.getRooms(token)
 }

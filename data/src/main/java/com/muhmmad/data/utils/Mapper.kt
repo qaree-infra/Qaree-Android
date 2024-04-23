@@ -1,6 +1,5 @@
 package com.muhmmad.data.utils
 
-import androidx.lifecycle.createSavedStateHandle
 import com.muhmmad.domain.model.ActivityResponse
 import com.muhmmad.domain.model.AuthorsResponse
 import com.muhmmad.domain.model.LoginResponse
@@ -110,7 +109,7 @@ fun GetOffersQuery.GetAllOffers.toOffersResponse(): OffersResponse = OffersRespo
                 name = it?.book?.name ?: "",
                 author = User(
                     name = it?.book?.author?.name ?: "",
-                    id = it?.book?.author?._id ?: "",
+                    _id = it?.book?.author?._id ?: "",
                     avatar = Cover()
                 ),
                 cover = Cover(
@@ -150,7 +149,7 @@ fun GetLastActivityQuery.GetLastActivity.toActivityResponse(): ActivityResponse 
 fun GetTopAuthorsQuery.GetTopAuthors.toAuthorsResponse(): AuthorsResponse =
     AuthorsResponse(authors?.map {
         User(
-            id = it?._id ?: "",
+            _id = it?._id ?: "",
             name = it?.name ?: "",
             avatar = Cover(path = it?.avatar?.path ?: "")
         )
@@ -164,7 +163,7 @@ fun GetBooksQuery.Data.toBooksResponse(): BooksResponse =
                 id = it?._id ?: "",
                 name = it?.name ?: "",
                 cover = Cover(path = it?.cover?.path ?: ""),
-                author = User(id = it?.author?._id ?: "", name = it?.author?.name ?: ""),
+                author = User(_id = it?.author?._id ?: "", name = it?.author?.name ?: ""),
                 categories = it?.categories?.map {
                     Category(
                         id = it?._id ?: "",
@@ -190,7 +189,7 @@ fun GetBestSellerBooksQuery.Data.toBookResponse(): BooksResponse = BooksResponse
             name = it?.name ?: "",
             cover = Cover(path = it?.cover?.path ?: ""),
             author = User(
-                id = it?.author?._id ?: "", name = it?.author?.name ?: ""
+                _id = it?.author?._id ?: "", name = it?.author?.name ?: ""
             )
         )
     }!!
@@ -216,7 +215,7 @@ fun GetLibraryQuery.GetLibrary.toLibraryResponse(): LibraryResponse = LibraryRes
                     id = it?.book?._id ?: "",
                     name = it?.book?.name ?: "",
                     author = User(
-                        id = it?.book?.author?._id ?: "",
+                        _id = it?.book?.author?._id ?: "",
                         name = it?.book?.author?.name ?: ""
                     ),
                     cover = Cover(path = it?.book?.cover?.path ?: ""),
@@ -238,7 +237,7 @@ fun GetShelfDetailsQuery.GetShelf.toShelfResponse(): ShelfResponse = ShelfRespon
             name = it?.book?.name ?: "",
             avgRating = it?.book?.avgRate ?: 0,
             author = User(
-                id = it?.book?.author?._id ?: "", name = it?.book?.author?.name ?: ""
+                _id = it?.book?.author?._id ?: "", name = it?.book?.author?.name ?: ""
             ), readingProgress = it?.readingProgress ?: 0, status = it?.status ?: ""
         )
     }!!,
@@ -264,7 +263,7 @@ fun SearchQuery.Search.toBooksResponse(): BooksResponse = BooksResponse(
             cover = Cover(path = it?.cover?.path ?: ""),
             name = it?.name ?: "",
             avgRating = it?.avgRate ?: 0,
-            author = User(id = it?.author?._id ?: "", name = it?.author?.name ?: "")
+            author = User(_id = it?.author?._id ?: "", name = it?.author?.name ?: "")
         )
     }!!
 )
@@ -279,7 +278,7 @@ fun GetBookReviewsQuery.GetBookReviews.toReviewsResponse(): ReviewsResponse = Re
         Review(
             id = it?._id ?: "",
             content = it?.content ?: "",
-            user = User(id = it?.user?._id ?: "", name = it?.user?.name ?: "", avatar = null),
+            user = User(_id = it?.user?._id ?: "", name = it?.user?.name ?: "", avatar = null),
             rate = it?.rate?.toFloat() ?: 0.0F, createdAt = it?.createdAt ?: "",
             updatedAt = it?.updatedAt ?: ""
         )
@@ -292,7 +291,7 @@ fun ReviewBookMutation.ReviewBook.toBaseResponse(): BaseResponse = BaseResponse(
 )
 
 fun GetUserInfoQuery.UserInfo.toUser(): User = User(
-    id = _id ?: "",
+    _id = _id ?: "",
     name = name ?: "",
     avatar = Cover(path = avatar?.path ?: ""),
     email = email ?: "",
@@ -300,7 +299,7 @@ fun GetUserInfoQuery.UserInfo.toUser(): User = User(
 )
 
 fun UpdateUserNameMutation.UpdateUser.toUser(): User = User(
-    id = _id ?: "",
+    _id = _id ?: "",
     name = name ?: "",
     email = email ?: "",
     bio = bio ?: "",
@@ -308,7 +307,7 @@ fun UpdateUserNameMutation.UpdateUser.toUser(): User = User(
 )
 
 fun UpdateUserBioMutation.UpdateUser.toUser(): User = User(
-    id = _id ?: "",
+    _id = _id ?: "",
     name = name ?: "",
     email = email ?: "",
     bio = bio ?: "",
@@ -316,7 +315,7 @@ fun UpdateUserBioMutation.UpdateUser.toUser(): User = User(
 )
 
 fun UpdatePasswordMutation.UpdateUser.toUser(): User = User(
-    id = _id ?: "",
+    _id = _id ?: "",
     name = name ?: "",
     email = email ?: "",
     bio = bio ?: "",
@@ -357,7 +356,7 @@ fun JoinCommunityMutation.JoinBookCommunity.toBaseResponse(): BaseResponse = Bas
     success = success ?: false
 )
 
-fun CompletePaymentOrderMutation.CompletePaymentOrder.toPaymentOrder():PaymentOrder = PaymentOrder(
-    id = capturedOrder?.id?:"",
-    status = capturedOrder?.status?:""
+fun CompletePaymentOrderMutation.CompletePaymentOrder.toPaymentOrder(): PaymentOrder = PaymentOrder(
+    id = capturedOrder?.id ?: "",
+    status = capturedOrder?.status ?: ""
 )
