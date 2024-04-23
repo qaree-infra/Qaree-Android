@@ -223,4 +223,8 @@
     <string name="time_ago_months" formatted="true">%d months</string>
     <string name="time_ago_year" formatted="true">about a year</string>
     <string name="time_ago_years" formatted="true">%d years</string>
+    <string name="chat_image">Chat image</string>
+    <string name="menu">Menu</string>
+    <string name="send_message">Send message</string>
+    <string name="type_a_message">type a message</string>
 </resources>

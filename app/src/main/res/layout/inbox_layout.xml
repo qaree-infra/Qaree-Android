@@ -13,12 +13,12 @@
         android:layout_height="@dimen/_45sdp"
         android:layout_margin="@dimen/_7sdp"
         android:scaleType="fitXY"
+        android:src="@drawable/ic_logo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/tv_name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:shapeAppearanceOverlay="@style/roundedCornerImageView"
-        tools:src="@drawable/ic_logo" />
+        app:shapeAppearanceOverlay="@style/roundedCornerImageView" />
 
     <TextView
         android:id="@+id/tv_name"

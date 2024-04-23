@@ -68,6 +68,7 @@ class InboxViewModel @Inject constructor(
 
     private val roomsListener: Emitter.Listener = Emitter.Listener {
         val response = it[0] as JSONObject
+        Log.i(TAG, response.toString())
         val data =
             Gson().fromJson(response.get("rooms").toString(), Array<Chat>::class.java).asList()
         _state.update {
@@ -78,8 +79,9 @@ class InboxViewModel @Inject constructor(
         }
     }
 
-    private fun getRooms() = viewModelScope.launch {
-        mSocket.emit(EVENT_GET_ROOMS, JSONObject())
+    fun getRooms(keyword: String = "") = viewModelScope.launch {
+        if (keyword.isNotEmpty()) mSocket.emit(EVENT_GET_ROOMS, JSONObject("{keyword:$keyword}"))
+        else mSocket.emit(EVENT_GET_ROOMS, JSONObject())
     }
 
     data class InboxState(
