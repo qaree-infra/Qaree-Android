@@ -57,7 +57,7 @@ dependencies {
     val nav_version = "2.7.7"
     val paging_version = "3.2.1"
     val hilt_version = "2.50"
-    implementation("androidx.core:core-ktx:1.12.0")
+    implementation("androidx.core:core-ktx:1.13.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
@@ -84,11 +84,11 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
     //Data Module
-    implementation(project(":data"))
+    api(project(":data"))
     //OTP view
     implementation("com.github.aabhasr1:OtpView:v1.1.2-ktx")
     //Firebase
-    implementation(platform("com.google.firebase:firebase-bom:32.8.0"))
+    implementation(platform("com.google.firebase:firebase-bom:32.8.1"))
     implementation("com.google.firebase:firebase-analytics")
     //Firebase-crashlytics
     implementation("com.google.firebase:firebase-crashlytics")
@@ -103,10 +103,12 @@ dependencies {
     //Paypal
     implementation("com.paypal.android:card-payments:1.3.0")
     implementation("com.paypal.android:paypal-web-payments:1.3.0")
-    //Android Browser Switch
-    //  implementation("com.braintreepayments.api:browser-switch:2.6.2-SNAPSHOT")
     //Paging 3
     implementation("androidx.paging:paging-runtime-ktx:$paging_version")
+    //Socket IO
+    implementation("io.socket:socket.io-client:2.0.0")
+    //Gson
+    implementation("com.google.code.gson:gson:2.10.1")
 }
 
 kapt {

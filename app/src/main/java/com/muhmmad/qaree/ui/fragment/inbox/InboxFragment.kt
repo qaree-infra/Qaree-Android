@@ -6,13 +6,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.muhmmad.qaree.databinding.FragmentInboxBinding
+import com.muhmmad.qaree.ui.activity.home.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class InboxFragment : Fragment() {
     private val binding: FragmentInboxBinding by lazy {
         FragmentInboxBinding.inflate(layoutInflater)
+    }
+    private val activity: HomeActivity by lazy {
+        getActivity() as HomeActivity
+    }
+    private val adapter: InboxAdapter by lazy {
+        InboxAdapter {
+
+        }
     }
     private val viewModel: InboxViewModel by viewModels()
 
@@ -26,7 +38,28 @@ class InboxFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
+            checkState()
+            rvInbox.adapter = adapter
+        }
+    }
 
+    private fun checkState() {
+        lifecycleScope.launch {
+            viewModel.state.collectLatest {
+                if (it.isLoading) activity.showLoading(binding.root)
+                else activity.dismissLoading(binding.root)
+
+                if (it.error?.isNotEmpty() == true) activity.showError(
+                    binding.root,
+                    it.error.toString()
+                )
+
+                it.chats?.apply {
+                    adapter.setData(this)
+                }
+            }
         }
     }
 }
+
+private const val TAG = "InboxFragment"

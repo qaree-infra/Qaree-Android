@@ -209,4 +209,18 @@
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
+    <string name="edt_search_inbox">Search...</string>
+    <string name="time_ago_prefix"></string>
+    <string name="time_ago_suffix" formatted="true">ago</string>
+    <string name="time_ago_seconds" formatted="true"> less than a minute</string>
+    <string name="time_ago_minute" formatted="true">about a minute</string>
+    <string name="time_ago_minutes" formatted="true">%d minutes</string>
+    <string name="time_ago_hour" formatted="true">about an hour</string>
+    <string name="time_ago_hours" formatted="true">about %d hours</string>
+    <string name="time_ago_day" formatted="true">a day</string>
+    <string name="time_ago_days" formatted="true">%d days</string>
+    <string name="time_ago_month" formatted="true">about a month</string>
+    <string name="time_ago_months" formatted="true">%d months</string>
+    <string name="time_ago_year" formatted="true">about a year</string>
+    <string name="time_ago_years" formatted="true">%d years</string>
 </resources>

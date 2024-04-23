@@ -43,7 +43,7 @@ class SettingsFragment : Fragment() {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) arguments?.getSerializable(
                     "user",
                     User::class.java
-                ) ?: User(id = "", name = "") else arguments?.getSerializable("user") as User
+                ) ?: User(_id = "", name = "") else arguments?.getSerializable("user") as User
             ivBack.setOnClickListener {
                 nav.navigateUp()
             }

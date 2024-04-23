@@ -42,5 +42,4 @@ class CategoriesAdapter(private val onClick: (id: String) -> Unit) :
         data.addAll(newData)
         diffResult.dispatchUpdatesTo(this)
     }
-
 }

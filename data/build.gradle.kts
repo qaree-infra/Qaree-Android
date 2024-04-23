@@ -39,7 +39,7 @@ apollo {
 }
 
 dependencies {
-    implementation("androidx.core:core-ktx:1.12.0")
+    implementation("androidx.core:core-ktx:1.13.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")
     testImplementation("junit:junit:4.13.2")
@@ -56,8 +56,8 @@ dependencies {
     //Domain Module
     api(project(":domain"))
     //DataStore
-    implementation("androidx.datastore:datastore:1.0.0")
-    implementation("androidx.datastore:datastore-core:1.0.0")
+    implementation("androidx.datastore:datastore:1.1.0")
+    implementation("androidx.datastore:datastore-core:1.1.0")
     //Serialization
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
 }

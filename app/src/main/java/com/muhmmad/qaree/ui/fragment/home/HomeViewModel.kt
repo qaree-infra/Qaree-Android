@@ -32,7 +32,7 @@ class HomeViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            val author = User(id = "", name = "author name", avatar = Cover())
+            val author = User(_id = "", name = "author name", avatar = Cover())
             val book = Book(
                 price = 50.0,
                 name = "Book name",
