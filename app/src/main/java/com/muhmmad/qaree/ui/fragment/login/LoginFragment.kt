@@ -1,9 +1,7 @@
 package com.muhmmad.qaree.ui.fragment.login
 
 import android.content.Context
-import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.util.Patterns.EMAIL_ADDRESS
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -19,8 +17,6 @@ import com.muhmmad.qaree.databinding.FragmentLoginBinding
 import com.muhmmad.qaree.ui.activity.auth.AuthActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-
-private const val TAG = "LoginFragment"
 
 @AndroidEntryPoint
 class LoginFragment : Fragment() {

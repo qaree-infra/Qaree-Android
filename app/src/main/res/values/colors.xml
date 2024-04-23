@@ -12,4 +12,7 @@
     <color name="shimmer_color">#C2C2C2</color>
     <color name="search_inbox_bg">#F5F5F5</color>
     <color name="last_message_color">#ADB5BD</color>
+    <color name="send_message_stroke">#EDEDED</color>
+    <color name="receiver_bg">#769AB8</color>
+    <color name="sender_bg">#FCFCFC</color>
 </resources>

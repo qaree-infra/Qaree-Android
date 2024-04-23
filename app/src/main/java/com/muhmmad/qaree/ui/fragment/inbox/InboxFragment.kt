@@ -5,8 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import com.muhmmad.qaree.R
 import com.muhmmad.qaree.databinding.FragmentInboxBinding
 import com.muhmmad.qaree.ui.activity.home.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,7 +26,9 @@ class InboxFragment : Fragment() {
     }
     private val adapter: InboxAdapter by lazy {
         InboxAdapter {
-
+            val bundle = Bundle()
+            bundle.putSerializable("chat", it)
+            findNavController().navigate(R.id.action_inboxFragment_to_chatFragment, bundle)
         }
     }
     private val viewModel: InboxViewModel by viewModels()
@@ -40,6 +45,9 @@ class InboxFragment : Fragment() {
         binding.apply {
             checkState()
             rvInbox.adapter = adapter
+            layoutSearch.editText?.doOnTextChanged { text, start, before, count ->
+                viewModel.getRooms(text.toString())
+            }
         }
     }
 

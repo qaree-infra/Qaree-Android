@@ -28,7 +28,7 @@
         <item name="color">@color/white</item>
     </style>
 
-    <style name="roundedImageView" parent="">
+    <style name="cornerImageView" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
     </style>

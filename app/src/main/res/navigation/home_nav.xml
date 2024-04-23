@@ -42,7 +42,10 @@
         tools:layout="@layout/fragment_inbox">
         <argument
             android:name="ShowAppBar"
-            android:defaultValue="true" />
+            android:defaultValue="false" />
+        <action
+            android:id="@+id/action_inboxFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
@@ -173,4 +176,9 @@
         android:name="com.muhmmad.qaree.ui.activity.reading_view.ReadingViewActivity"
         android:label="activity_reading_view"
         tools:layout="@layout/activity_reading_view" />
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="com.muhmmad.qaree.ui.fragment.chat.ChatFragment"
+        android:label="fragment_chat"
+        tools:layout="@layout/fragment_chat" />
 </navigation>
