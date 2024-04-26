@@ -6,12 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.muhmmad.qaree.R
 import com.muhmmad.qaree.databinding.FragmentInboxBinding
 import com.muhmmad.qaree.ui.activity.home.HomeActivity
+import com.muhmmad.qaree.ui.fragment.CommunityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -27,11 +28,11 @@ class InboxFragment : Fragment() {
     private val adapter: InboxAdapter by lazy {
         InboxAdapter {
             val bundle = Bundle()
-            bundle.putSerializable("chat", it)
+            bundle.putParcelable("chat", it)
             findNavController().navigate(R.id.action_inboxFragment_to_chatFragment, bundle)
         }
     }
-    private val viewModel: InboxViewModel by viewModels()
+    private val viewModel: CommunityViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

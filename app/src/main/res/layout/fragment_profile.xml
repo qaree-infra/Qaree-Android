@@ -51,7 +51,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_title"
-        app:shapeAppearanceOverlay="@style/roundedImageView" />
+        app:shapeAppearanceOverlay="@style/cornerImageView" />
 
     <TextView
         android:id="@+id/tv_user_name"

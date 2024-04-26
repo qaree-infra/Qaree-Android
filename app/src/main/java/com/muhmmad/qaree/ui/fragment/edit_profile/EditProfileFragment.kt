@@ -65,11 +65,11 @@ class EditProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
             user =
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) arguments?.getSerializable(
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) arguments?.getParcelable(
                     "user",
                     User::class.java
                 )!!
-                else arguments?.getSerializable("user") as User
+                else arguments?.getParcelable("user")
             checkState()
             handleViews()
         }

@@ -58,11 +58,11 @@ class BookInfoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
             val book: Book =
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) arguments?.getSerializable(
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) arguments?.getParcelable(
                     "book",
                     Book::class.java
                 )!!
-                else arguments?.getSerializable("book") as Book
+                else arguments?.getParcelable<Book>("book") as Book
 
             viewModel.updateBook(book)
 
