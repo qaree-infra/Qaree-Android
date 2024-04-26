@@ -1,5 +1,9 @@
 package com.muhmmad.domain.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class Book(
     val price: Double = 0.0,
     val name: String = "",
@@ -14,4 +18,4 @@ data class Book(
     val language: String = "",
     val description: String = "",
     val createdAt: String = ""
-) : java.io.Serializable
+) : Parcelable

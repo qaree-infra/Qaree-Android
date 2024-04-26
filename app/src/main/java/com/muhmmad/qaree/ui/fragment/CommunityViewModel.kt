@@ -1,4 +1,4 @@
-package com.muhmmad.qaree.ui.fragment.inbox
+package com.muhmmad.qaree.ui.fragment
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
@@ -18,11 +18,11 @@ import org.json.JSONObject
 import javax.inject.Inject
 
 @HiltViewModel
-class InboxViewModel @Inject constructor(
+class CommunityViewModel @Inject constructor(
     private val communityUseCase: CommunityUseCase,
     private val authUseCase: AuthUseCase
 ) : ViewModel() {
-    private val _state = MutableStateFlow(InboxState())
+    private val _state = MutableStateFlow(CommunityState())
     val state = _state.asStateFlow()
     private lateinit var mSocket: Socket
 
@@ -46,7 +46,17 @@ class InboxViewModel @Inject constructor(
         mSocket.on(Socket.EVENT_DISCONNECT, onDisconnect)
         mSocket.on(Socket.EVENT_CONNECT_ERROR, onConnectError)
         mSocket.on(EVENT_GET_ROOMS, roomsListener)
+        mSocket.on(EVENT_MESSAGE_LIST, messagesListener)
         mSocket.connect()
+    }
+
+    fun getRooms(keyword: String = "") = viewModelScope.launch {
+        if (keyword.isNotEmpty()) mSocket.emit(EVENT_GET_ROOMS, JSONObject("{keyword:$keyword}"))
+        else mSocket.emit(EVENT_GET_ROOMS, JSONObject())
+    }
+
+    fun getMessages(roomId: String, type: MessageType) {
+        mSocket.emit(EVENT_MESSAGE_LIST, JSONObject("{room:$roomId,type:${type.name}}"))
     }
 
     private val onConnect: Emitter.Listener = Emitter.Listener {
@@ -79,17 +89,24 @@ class InboxViewModel @Inject constructor(
         }
     }
 
-    fun getRooms(keyword: String = "") = viewModelScope.launch {
-        if (keyword.isNotEmpty()) mSocket.emit(EVENT_GET_ROOMS, JSONObject("{keyword:$keyword}"))
-        else mSocket.emit(EVENT_GET_ROOMS, JSONObject())
+    private val messagesListener: Emitter.Listener = Emitter.Listener {
+        val response = it[0] as JSONObject
+        Log.i(TAG, "messages : ${it[0]}")
+        Log.i(TAG, "response : $response")
     }
 
-    data class InboxState(
+    data class CommunityState(
         val error: String? = null,
         val isLoading: Boolean = false,
         val chats: List<Chat>? = null
     )
+
+    enum class MessageType {
+        READ,
+        UNREAD
+    }
 }
 
 private const val TAG = "InboxViewModel"
 private const val EVENT_GET_ROOMS = "get-rooms"
+private const val EVENT_MESSAGE_LIST = "message-list"

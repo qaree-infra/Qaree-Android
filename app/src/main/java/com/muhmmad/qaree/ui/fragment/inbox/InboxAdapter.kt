@@ -33,8 +33,8 @@ class InboxAdapter(private val onClick: (chat: Chat) -> Unit) :
 
             ivBook.load(item.getImage())
             tvName.text = item.getName()
-            tvLastMessage.text = item.lastMessage.content
-            tvLastMessageTime.text = getMessageDate(ctx, item.lastMessage.createdAt)
+            tvLastMessage.text = item.lastMessage?.content
+            tvLastMessageTime.text = getMessageDate(ctx, item.lastMessage?.createdAt?:"")
 
             root.setOnClickListener {
                 onClick(item)

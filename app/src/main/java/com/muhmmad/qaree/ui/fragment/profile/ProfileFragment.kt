@@ -57,7 +57,7 @@ class ProfileFragment : Fragment() {
             ivSettings.setOnClickListener {
                 user?.let { user ->
                     val bundle = Bundle()
-                    bundle.putSerializable("user", user)
+                    bundle.putParcelable("user", user)
                     nav.navigate(R.id.action_profileFragment_to_settingsFragment, bundle)
                 }
             }

@@ -35,7 +35,7 @@ class HomeFragment : Fragment() {
     private val offersAdapter: OffersAdapter by lazy {
         OffersAdapter {
             val bundle = Bundle()
-            bundle.putSerializable("book", it)
+            bundle.putParcelable("book", it)
             nav.navigate(R.id.action_homeFragment_to_bookInfoFragment, bundle)
         }
     }
@@ -52,14 +52,14 @@ class HomeFragment : Fragment() {
     private val newReleaseAdapter: BooksAdapter by lazy {
         BooksAdapter {
             val bundle = Bundle()
-            bundle.putSerializable("book", it)
+            bundle.putParcelable("book", it)
             nav.navigate(R.id.action_homeFragment_to_bookInfoFragment, bundle)
         }
     }
     private val bestSellerAdapter: BooksAdapter by lazy {
         BooksAdapter {
             val bundle = Bundle()
-            bundle.putSerializable("book", it)
+            bundle.putParcelable("book", it)
             nav.navigate(R.id.action_homeFragment_to_bookInfoFragment, bundle)
         }
     }

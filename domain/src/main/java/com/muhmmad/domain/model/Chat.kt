@@ -1,20 +1,19 @@
 package com.muhmmad.domain.model
 
-import kotlinx.serialization.SerialName
-import java.io.Serializable
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class Chat(
-    @SerialName("_id")
-    val _id: String,
-    @SerialName("lastMessage")
-    val lastMessage: Message,
-    val activation: Boolean,
-    val creator: String,
-    val partner: User,
-    val roomId: String,
-    val book: Book,
-) : Serializable {
-    fun getImage(): String = book.cover.path.ifEmpty { partner.avatar?.path ?: "" }
+    val _id: String?,
+    val lastMessage: Message?,
+    val activation: Boolean?,
+    val creator: String?,
+    val partner: User?,
+    val roomId: String?,
+    val book: Book?,
+) : Parcelable {
+    fun getImage(): String = book?.cover?.path?.ifEmpty { partner?.avatar?.path ?: "" } ?: ""
 
-    fun getName(): String = book.name.ifEmpty { partner.name ?: "" }
+    fun getName(): String = book?.name?.ifEmpty { partner?.name ?: "" } ?: ""
 }

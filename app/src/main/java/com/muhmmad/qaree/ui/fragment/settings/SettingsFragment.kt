@@ -40,16 +40,16 @@ class SettingsFragment : Fragment() {
     private fun handleViews() {
         binding.apply {
             val user =
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) arguments?.getSerializable(
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) arguments?.getParcelable(
                     "user",
                     User::class.java
-                ) ?: User(_id = "", name = "") else arguments?.getSerializable("user") as User
+                ) ?: User(_id = "", name = "") else arguments?.getParcelable("user")
             ivBack.setOnClickListener {
                 nav.navigateUp()
             }
             tvEditProfile.setOnClickListener {
                 val bundle = Bundle()
-                bundle.putSerializable("user", user)
+                bundle.putParcelable("user", user)
                 nav.navigate(R.id.action_settingsFragment_to_editProfileFragment, bundle)
             }
             tvChangePass.setOnClickListener {
