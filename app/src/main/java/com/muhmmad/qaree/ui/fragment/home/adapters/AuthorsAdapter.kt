@@ -9,7 +9,8 @@ import com.muhmmad.domain.model.User
 import com.muhmmad.qaree.databinding.AuthorItemBinding
 import com.muhmmad.qaree.utils.DiffUtilCallback
 
-class AuthorsAdapter : RecyclerView.Adapter<AuthorsAdapter.ViewHolder>() {
+class AuthorsAdapter(private val onClick: (User) -> Unit) :
+    RecyclerView.Adapter<AuthorsAdapter.ViewHolder>() {
     private val data = ArrayList<User>()
 
     class ViewHolder(val binding: AuthorItemBinding) : RecyclerView.ViewHolder(binding.root)
@@ -31,6 +32,9 @@ class AuthorsAdapter : RecyclerView.Adapter<AuthorsAdapter.ViewHolder>() {
             val item = data[position]
             ivAuthor.load(item.avatar?.path)
             tvAuthor.text = item.name
+            root.setOnClickListener {
+                onClick(item)
+            }
         }
     }
 

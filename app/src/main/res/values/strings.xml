@@ -227,4 +227,5 @@
     <string name="menu">Menu</string>
     <string name="send_message">Send message</string>
     <string name="type_a_message">type a message</string>
+    <string name="enter_the_message">Enter the message</string>
 </resources>

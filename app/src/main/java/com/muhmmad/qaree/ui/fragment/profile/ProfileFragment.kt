@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
@@ -37,23 +38,25 @@ class ProfileFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        return binding.root
-    }
+    ): View = binding.root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
+            val userId = arguments?.getString("userId")
+
             checkState()
-            handleViews()
-            viewModel.getProfileInfo()
+            handleViews(!userId.isNullOrEmpty())
+            if (userId != null) viewModel.getAuthorInfo(userId)
+            else viewModel.getProfileInfo()
             viewModel.getLibrary()
         }
     }
 
-    private fun handleViews() {
+    private fun handleViews(isAuthor: Boolean) {
         binding.apply {
             rvLibrary.adapter = adapter
+            ivSettings.isVisible = !isAuthor
             ivSettings.setOnClickListener {
                 user?.let { user ->
                     val bundle = Bundle()

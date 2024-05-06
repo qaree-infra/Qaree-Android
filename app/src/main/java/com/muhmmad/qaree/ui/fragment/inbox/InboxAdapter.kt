@@ -5,14 +5,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.muhmmad.domain.model.Chat
+import coil.transform.CircleCropTransformation
+import com.muhmmad.domain.model.Room
+import com.muhmmad.qaree.R
 import com.muhmmad.qaree.databinding.InboxLayoutBinding
 import com.muhmmad.qaree.utils.DateUtils.getMessageDate
 import com.muhmmad.qaree.utils.DiffUtilCallback
 
-class InboxAdapter(private val onClick: (chat: Chat) -> Unit) :
+class InboxAdapter(private val onClick: (chat: Room) -> Unit) :
     RecyclerView.Adapter<InboxAdapter.ViewHolder>() {
-    private val data = ArrayList<Chat>()
+    private val data = ArrayList<Room>()
 
     class ViewHolder(val binding: InboxLayoutBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -31,10 +33,14 @@ class InboxAdapter(private val onClick: (chat: Chat) -> Unit) :
             val item = data[position]
             val ctx = root.context
 
-            ivBook.load(item.getImage())
+            ivBook.load(item.getImage()) {
+                crossfade(true)
+                placeholder(R.drawable.ic_logo)
+                transformations(CircleCropTransformation())
+            }
             tvName.text = item.getName()
-            tvLastMessage.text = item.lastMessage?.content
-            tvLastMessageTime.text = getMessageDate(ctx, item.lastMessage?.createdAt?:"")
+            tvLastMessage.text = item.lastMessage.content
+            tvLastMessageTime.text = getMessageDate(ctx, item.lastMessage.createdAt ?: "")
 
             root.setOnClickListener {
                 onClick(item)
@@ -42,7 +48,7 @@ class InboxAdapter(private val onClick: (chat: Chat) -> Unit) :
         }
     }
 
-    fun setData(newData: List<Chat>) {
+    fun setData(newData: List<Room>) {
         val diffCallback = DiffUtilCallback(data, newData)
         val diffResult = DiffUtil.calculateDiff(diffCallback)
         data.clear()

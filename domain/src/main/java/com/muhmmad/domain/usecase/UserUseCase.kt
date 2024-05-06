@@ -3,7 +3,7 @@ package com.muhmmad.domain.usecase
 import com.muhmmad.domain.repo.UserRepo
 import okhttp3.MultipartBody
 
-class UserUseCase(private val repo:UserRepo) {
+class UserUseCase(private val repo: UserRepo) {
     suspend fun getUserInfo(token: String) = repo.getUserInfo(token)
     suspend fun uploadUserAvatar(token: String, image: MultipartBody.Part) =
         repo.uploadUserAvatar(token, image)
@@ -15,4 +15,6 @@ class UserUseCase(private val repo:UserRepo) {
         oldPassword: String,
         newPassword: String
     ) = repo.updatePassword(token, oldPassword, newPassword)
+
+    suspend fun getAuthorInfo(userId: String) = repo.getAuthorInfo(userId)
 }

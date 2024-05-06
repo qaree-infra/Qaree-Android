@@ -63,7 +63,7 @@ class InboxFragment : Fragment() {
                     it.error.toString()
                 )
 
-                it.chats?.apply {
+                it.rooms?.apply {
                     adapter.setData(this)
                 }
             }

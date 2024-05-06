@@ -14,3 +14,4 @@ Features :
     Coil
     Palette
     Retrofit
+    Parcelable

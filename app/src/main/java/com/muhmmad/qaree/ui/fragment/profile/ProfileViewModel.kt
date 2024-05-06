@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
-    private val libraryUseCase:LibraryUseCase,
+    private val libraryUseCase: LibraryUseCase,
     private val useCase: UserUseCase,
     private val authUseCase: AuthUseCase
 ) : ViewModel() {
@@ -34,6 +34,19 @@ class ProfileViewModel @Inject constructor(
                         userDataResponse = data
                     )
                 }
+            }
+        }
+    }
+
+    fun getAuthorInfo(userId: String) = viewModelScope.launch(Dispatchers.IO) {
+        _state.update { it.copy(isLoading = true) }
+        useCase.getAuthorInfo(userId).apply {
+            _state.update {
+                it.copy(
+                    isLoading = false,
+                    error = message,
+                    userDataResponse = data
+                )
             }
         }
     }

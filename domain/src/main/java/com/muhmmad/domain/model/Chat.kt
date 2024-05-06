@@ -5,15 +5,8 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Chat(
-    val _id: String?,
-    val lastMessage: Message?,
-    val activation: Boolean?,
-    val creator: String?,
-    val partner: User?,
-    val roomId: String?,
-    val book: Book?,
-) : Parcelable {
-    fun getImage(): String = book?.cover?.path?.ifEmpty { partner?.avatar?.path ?: "" } ?: ""
-
-    fun getName(): String = book?.name?.ifEmpty { partner?.name ?: "" } ?: ""
-}
+    val messages: List<Message> = emptyList(),
+    val totalMessages: Int = 0,
+    val currentPage: Int = 0,
+    val numberOfPages: Int = 0
+) : Parcelable

@@ -1,6 +1,7 @@
 package com.muhmmad.qaree.utils
 
 import android.content.Context
+import android.util.Log
 import com.muhmmad.qaree.R
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -37,6 +38,7 @@ object DateUtils {
         val hours = minutes / 60
         val days = hours / 24
         val years = days / 365
+
         val words: String = when {
             seconds < 45 -> {
                 r.getString(R.string.time_ago_seconds)

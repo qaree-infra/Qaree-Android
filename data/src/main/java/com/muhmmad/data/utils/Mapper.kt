@@ -27,6 +27,7 @@ import com.muhmmad.qaree.CompletePaymentOrderMutation
 import com.muhmmad.qaree.CreatePaymentOrderMutation
 import com.muhmmad.qaree.CreateShelfMutation
 import com.muhmmad.qaree.ForgetPasswordMutation
+import com.muhmmad.qaree.GetAuthorInfoQuery
 import com.muhmmad.qaree.GetBestSellerBooksQuery
 import com.muhmmad.qaree.GetBookContentQuery
 import com.muhmmad.qaree.GetBookReviewsQuery
@@ -359,4 +360,12 @@ fun JoinCommunityMutation.JoinBookCommunity.toBaseResponse(): BaseResponse = Bas
 fun CompletePaymentOrderMutation.CompletePaymentOrder.toPaymentOrder(): PaymentOrder = PaymentOrder(
     id = capturedOrder?.id ?: "",
     status = capturedOrder?.status ?: ""
+)
+
+fun GetAuthorInfoQuery.GetAuthorInfo.toUser(): User = User(
+    _id = _id ?: "",
+    name = name ?: "",
+    email = "",
+    bio = bio ?: "",
+    avatar = Cover(path = avatar?.path ?: "")
 )
