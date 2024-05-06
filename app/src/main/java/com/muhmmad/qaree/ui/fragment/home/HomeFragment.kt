@@ -40,7 +40,11 @@ class HomeFragment : Fragment() {
         }
     }
     private val authorsAdapter: AuthorsAdapter by lazy {
-        AuthorsAdapter()
+        AuthorsAdapter {
+            val bundle = Bundle()
+            bundle.putString("userId", it._id)
+            nav.navigate(R.id.action_homeFragment_to_profileFragment, bundle)
+        }
     }
     private val categoriesAdapter: CategoriesAdapter by lazy {
         CategoriesAdapter {

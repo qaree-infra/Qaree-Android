@@ -163,7 +163,7 @@ class BookInfoFragment : Fragment() {
                 }
 
                 it.joinCommunityResponse?.apply {
-                    TODO("navigate to Community Screen")
+                    activity.showMessage(message)
                 }
             }
         }

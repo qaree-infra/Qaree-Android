@@ -43,6 +43,7 @@ import com.muhmmad.qaree.CompletePaymentOrderMutation
 import com.muhmmad.qaree.CreatePaymentOrderMutation
 import com.muhmmad.qaree.CreateShelfMutation
 import com.muhmmad.qaree.ForgetPasswordMutation
+import com.muhmmad.qaree.GetAuthorInfoQuery
 import com.muhmmad.qaree.GetBestSellerBooksQuery
 import com.muhmmad.qaree.GetBookContentQuery
 import com.muhmmad.qaree.GetBookReviewsQuery
@@ -676,5 +677,16 @@ class GraphQlDataSourceImpl(
         } catch (ex: Exception) {
             Error(ex.message.toString())
         }
+    }
+
+    override suspend fun getAuthorInfo(userId: String): NetworkResponse<User> = try {
+        val response = checkResponse(apolloClient.query(GetAuthorInfoQuery(userId)).execute())
+
+        when (response){
+            is Success -> Success(response.data?.getAuthorInfo?.toUser()!!)
+            else -> Error(response.message.toString())
+        }
+    } catch (ex: Exception) {
+        Error(ex.message.toString())
     }
 }

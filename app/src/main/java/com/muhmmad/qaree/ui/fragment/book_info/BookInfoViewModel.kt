@@ -1,6 +1,5 @@
 package com.muhmmad.qaree.ui.fragment.book_info
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.muhmmad.domain.model.BaseResponse
@@ -55,8 +54,10 @@ class BookInfoViewModel @Inject constructor(
                 }
 
                 data?.apply {
-                    if (status == null) _bookState.emit(BookState.BUY)
-                    else {
+                    if (status == null) {
+                        if (_book.value.price < 1) _bookState.emit(BookState.START_READING)
+                        else _bookState.emit(BookState.BUY)
+                    } else {
                         if (readingProgress == 0.0) _bookState.emit(BookState.START_READING)
                         else _bookState.emit(BookState.CONTINUE_READING)
                     }
@@ -118,8 +119,6 @@ class BookInfoViewModel @Inject constructor(
 
     fun addBookToShelf(shelfId: String) = viewModelScope.launch {
         _state.update { it.copy(isLoading = true) }
-        Log.i(TAG, shelfId.toString())
-        Log.i(TAG, _book.value.id)
         libraryUseCase.addBookToShelf(authUseCase.getToken(), shelfId, _book.value.id).apply {
             _state.update {
                 it.copy(isLoading = false, error = message, addBookToShelfResponse = data)
@@ -178,5 +177,3 @@ class BookInfoViewModel @Inject constructor(
         CONTINUE_READING,
     }
 }
-
-private const val TAG = "BookInfoViewModel"

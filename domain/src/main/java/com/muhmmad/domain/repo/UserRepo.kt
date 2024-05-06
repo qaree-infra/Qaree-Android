@@ -14,4 +14,6 @@ interface UserRepo {
         oldPassword: String,
         newPassword: String
     ): NetworkResponse<User>
+
+    suspend fun getAuthorInfo(userId: String): NetworkResponse<User>
 }

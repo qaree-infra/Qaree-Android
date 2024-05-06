@@ -14,9 +14,13 @@ type Query {
 
   getTopAuthors("" page: Int, "" limit: Int): GetTopAuthors
 
+  getAuthorInfo("The id of the user" userId: String): User
+
   getBooks("" category: String, "" sort: String, "" page: Int, "" limit: Int): GetBooks
 
   getBook("" bookId: String): BookInfo
+
+  getAuthorBooks("" userId: String, "" sort: String, "" page: Int, "" limit: Int): GetAuthorBooks
 
   getBookReviews("" bookId: String, "" sort: String, "" page: Int, "" limit: Int): GetBookReviews
 
@@ -47,6 +51,8 @@ type Query {
   getOffer("" id: String): OfferType
 
   getAllOffers("" page: Int, "" limit: Int, "" sort: String): GetAllOffers
+
+  getNotifications("" limit: Int, "" page: Int): GetNotifications
 }
 
 """
@@ -66,6 +72,10 @@ type User {
   updatedAt: String
 
   createdAt: String
+
+  followers: [String]
+
+  following: [String]
 }
 
 """
@@ -208,6 +218,19 @@ type Author {
   name: String
 
   avatar: String
+}
+
+"""
+This is the user books type
+"""
+type GetAuthorBooks {
+  books: [BookInfo]
+
+  currentPage: Int
+
+  numberOfPages: Int
+
+  total: Int
 }
 
 """
@@ -419,6 +442,50 @@ type GetAllOffers {
   total: Int
 }
 
+type GetNotifications {
+  """
+  This is the notifications list
+  """
+  notifications: [Notification]
+
+  total: Int
+
+  currentPage: Int
+
+  numberOfPages: Int
+}
+
+"""
+This is the notification type
+"""
+type Notification {
+  _id: ID
+
+  title: String
+
+  body: String
+
+  type: String
+
+  image: String
+
+  data: NotificationData
+
+  createdAt: String
+
+  updatedAt: String
+}
+
+type NotificationData {
+  bookId: String
+
+  userId: String
+
+  reviewId: String
+
+  roomId: String
+}
+
 type Mutation {
   signup(userData: SignUpInput): SignUp
 
@@ -442,6 +509,8 @@ type Mutation {
 
   googleLogin("" google_token: String): GoogleLoginType
 
+  followUser("" userId: String): FollowUser
+
   reviewBook("" bookId: ID, "" content: String, "" rate: Float): ReviewBookResponseType
 
   likeReview("" reviewId: String): LikeReview
@@ -450,8 +519,6 @@ type Mutation {
 
   completePaymentOrder("" bookId: String, "" orderId: String): CompletePaymentOrder
 
-  joinBookCommunity("" bookId: String): JoinBookCommunity
-
   createShelf("" name: String): CreateShelfType
 
   addBookToShelf("" bookId: String, "" shelf: String): AddBookShelf
@@ -459,6 +526,16 @@ type Mutation {
   removeBookFromShelf("" bookId: String, "" shelf: String): RemoveBookFromShelf
 
   removeShelf("" shelf: String): RemoveShelfType
+
+  joinBookCommunity("" bookId: String): JoinBookCommunity
+
+  deleteChat("" room: String): DeleteChat
+
+  addRegistrationToken("" token: String): AddRegisterationToken
+
+  muteNotifications("" type: String): MuteNotifications
+
+  deleteNotification("" notificationId: String): DeleteNotification
 }
 
 """
@@ -557,6 +634,15 @@ type GoogleLoginType {
 }
 
 """
+this is the follow user mutation type
+"""
+type FollowUser {
+  success: Boolean
+
+  message: String
+}
+
+"""
 this is review book response type
 """
 type ReviewBookResponseType {
@@ -601,12 +687,6 @@ type CapaturedPaymentOrder {
   status: String
 }
 
-type JoinBookCommunity {
-  success: Boolean
-
-  message: String
-}
-
 """
 this is create shelf type
 """
@@ -643,6 +723,48 @@ type RemoveShelfType {
   success: String
 
   message: String
+}
+
+type JoinBookCommunity {
+  success: Boolean
+
+  message: String
+}
+
+"""
+this is the delete chat type
+"""
+type DeleteChat {
+  success: Boolean
+
+  message: String
+}
+
+"""
+this is add the registration token for notifications
+"""
+type AddRegisterationToken {
+  success: Boolean
+
+  message: String
+}
+
+"""
+Mute notifications
+"""
+type MuteNotifications {
+  success: Boolean
+
+  message: String
+}
+
+"""
+Delete notification
+"""
+type DeleteNotification {
+  message: String
+
+  success: Boolean
 }
 
 """

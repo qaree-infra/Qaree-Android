@@ -81,4 +81,6 @@ interface GraphQlDataSource {
         bookId: String,
         orderId: String
     ): NetworkResponse<PaymentOrder>
+
+    suspend fun getAuthorInfo(userId: String): NetworkResponse<User>
 }
