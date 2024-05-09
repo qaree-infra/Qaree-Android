@@ -37,9 +37,7 @@ class LoginFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        return binding.root
-    }
+    ): View = binding.root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -90,6 +88,7 @@ class LoginFragment : Fragment() {
                 else if (it.loginResponse != null) {
                     if (it.loginResponse.token.isNotEmpty()) {
                         viewModel.saveToken("Bearer ${it.loginResponse.token}")
+                        viewModel.getUserData()
                     }
                 }
             }

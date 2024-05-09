@@ -6,6 +6,7 @@ import okhttp3.MultipartBody
 
 interface UserRepo {
     suspend fun getUserInfo(token: String): NetworkResponse<User>
+    suspend fun saveUserData(user: User)
     suspend fun uploadUserAvatar(token: String, image: MultipartBody.Part): NetworkResponse<Any>
     suspend fun updateUserName(token: String, name: String): NetworkResponse<User>
     suspend fun updateUserBio(token: String, bio: String): NetworkResponse<User>
@@ -16,4 +17,5 @@ interface UserRepo {
     ): NetworkResponse<User>
 
     suspend fun getAuthorInfo(userId: String): NetworkResponse<User>
+    suspend fun isUserProfile(userId: String): Boolean
 }

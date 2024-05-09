@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.datastore.core.DataStore
 import com.muhmmad.domain.local.LocalDataSource
 import com.muhmmad.domain.model.Language
+import com.muhmmad.domain.model.User
 import com.muhmmad.domain.model.UserData
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.firstOrNull
@@ -30,6 +31,16 @@ class LocalDataSourceImpl(private val dataStore: DataStore<UserData>) : LocalDat
     }
 
     override suspend fun getToken(): String = dataStore.data.map { it.token }.first()
+    override suspend fun saveUserData(user: User) {
+        dataStore.updateData {
+            it.copy(
+                id = user._id,
+                name = user.name,
+                email = user.email,
+            )
+        }
+    }
 
     override suspend fun getLanguage(): Language = dataStore.data.map { it.language }.first()
+    override suspend fun isUserProfile(userId: String): Boolean = dataStore.data.map { it.id }.first() == userId
 }
