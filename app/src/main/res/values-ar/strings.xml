@@ -31,4 +31,5 @@
     <string name="time_ago_months" formatted="true">%d شهور</string>
     <string name="time_ago_year" formatted="true"> حوالى سنة</string>
     <string name="time_ago_years" formatted="true">%d سنين</string>
+    <string name="author">Author</string>
 </resources>

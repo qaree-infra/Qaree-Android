@@ -23,7 +23,13 @@ class ProfileViewModel @Inject constructor(
 ) : ViewModel() {
     private val _state = MutableStateFlow(ProfileState())
     val state = _state.asStateFlow()
-    fun getProfileInfo() {
+
+    fun getProfileInfo(userId: String) = viewModelScope.launch {
+        if (useCase.isUserProfile(userId)) getUserInfo()
+        else getAuthorInfo(userId)
+    }
+
+    fun getUserInfo() {
         viewModelScope.launch(Dispatchers.IO) {
             _state.update { it.copy(isLoading = true) }
             useCase.getUserInfo(authUseCase.getToken()).apply {

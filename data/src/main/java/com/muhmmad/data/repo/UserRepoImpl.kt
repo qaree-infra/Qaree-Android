@@ -1,6 +1,7 @@
 package com.muhmmad.data.repo
 
 import com.muhmmad.data.utils.checkResponse
+import com.muhmmad.domain.local.LocalDataSource
 import com.muhmmad.domain.model.NetworkResponse
 import com.muhmmad.domain.model.User
 import com.muhmmad.domain.remote.GraphQlDataSource
@@ -10,10 +11,13 @@ import okhttp3.MultipartBody
 
 class UserRepoImpl(
     private val graphQlDataSource: GraphQlDataSource,
-    private val retrofitDataSource: RetrofitDataSource
+    private val retrofitDataSource: RetrofitDataSource,
+    private val localDataSource: LocalDataSource
 ) : UserRepo {
     override suspend fun getUserInfo(token: String): NetworkResponse<User> =
         graphQlDataSource.getUserInfo(token)
+
+    override suspend fun saveUserData(user: User) = localDataSource.saveUserData(user)
 
     override suspend fun uploadUserAvatar(
         token: String,
@@ -34,4 +38,7 @@ class UserRepoImpl(
 
     override suspend fun getAuthorInfo(userId: String): NetworkResponse<User> =
         graphQlDataSource.getAuthorInfo(userId)
+
+    override suspend fun isUserProfile(userId: String): Boolean =
+        localDataSource.isUserProfile(userId)
 }

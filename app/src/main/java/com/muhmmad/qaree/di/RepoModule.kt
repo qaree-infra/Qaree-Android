@@ -44,8 +44,9 @@ object RepoModule {
     @Provides
     fun provideUserRepo(
         graphQlDataSource: GraphQlDataSource,
-        retrofitDataSource: RetrofitDataSource
-    ): UserRepo = UserRepoImpl(graphQlDataSource, retrofitDataSource)
+        retrofitDataSource: RetrofitDataSource,
+        localDataSource: LocalDataSource
+    ): UserRepo = UserRepoImpl(graphQlDataSource, retrofitDataSource, localDataSource)
 
     @Provides
     fun provideLibraryRepo(

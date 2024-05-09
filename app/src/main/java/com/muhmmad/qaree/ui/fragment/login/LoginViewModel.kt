@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.muhmmad.domain.model.LoginResponse
 import com.muhmmad.domain.usecase.AuthUseCase
+import com.muhmmad.domain.usecase.UserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,6 +16,7 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val authUseCase: AuthUseCase,
+    private val userUseCase: UserUseCase
 ) : ViewModel() {
     private val _state = MutableStateFlow(LoginState())
     val state = _state.asStateFlow()
@@ -49,6 +51,14 @@ class LoginViewModel @Inject constructor(
                         error = this.message
                     )
                 }
+            }
+        }
+    }
+
+    fun getUserData() = viewModelScope.launch(Dispatchers.IO) {
+        userUseCase.getUserInfo(authUseCase.getToken()).apply {
+            data?.let {
+                userUseCase.saveUserData(it)
             }
         }
     }

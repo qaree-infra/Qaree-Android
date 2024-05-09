@@ -45,10 +45,10 @@ class ProfileFragment : Fragment() {
         binding.apply {
             val userId = arguments?.getString("userId")
 
-            checkState()
+            checkState(!userId.isNullOrEmpty())
             handleViews(!userId.isNullOrEmpty())
-            if (userId != null) viewModel.getAuthorInfo(userId)
-            else viewModel.getProfileInfo()
+            if (userId != null) viewModel.getProfileInfo(userId)
+            else viewModel.getUserInfo()
             viewModel.getLibrary()
         }
     }
@@ -70,7 +70,7 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    private fun checkState() {
+    private fun checkState(isAuthor: Boolean) {
         lifecycleScope.launch {
             viewModel.state.collect {
                 if (it.isLoading) activity.showLoading(binding.root) else activity.dismissLoading(
@@ -87,6 +87,8 @@ class ProfileFragment : Fragment() {
                     }
                     binding.tvUserName.text = name
                     binding.tvBio.text = bio
+                    if (isAuthor) binding.tvTitle.text = getString(R.string.author)
+                    else binding.tvTitle.text = getString(R.string.My_profile)
                 }
 
                 it.libraryResponse?.apply {
