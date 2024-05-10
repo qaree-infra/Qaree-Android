@@ -44,7 +44,7 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
-    fun getAuthorInfo(userId: String) = viewModelScope.launch(Dispatchers.IO) {
+    private fun getAuthorInfo(userId: String) = viewModelScope.launch(Dispatchers.IO) {
         _state.update { it.copy(isLoading = true) }
         useCase.getAuthorInfo(userId).apply {
             _state.update {
@@ -57,10 +57,10 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
-    fun getLibrary() {
+    fun getLibrary(userId: String?) {
         viewModelScope.launch(Dispatchers.IO) {
             _state.update { it.copy(isLoading = true) }
-            libraryUseCase.getLibrary(authUseCase.getToken()).apply {
+            libraryUseCase.getLibrary(userId, authUseCase.getToken()).apply {
                 _state.update {
                     it.copy(
                         isLoading = false,

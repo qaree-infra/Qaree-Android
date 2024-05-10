@@ -131,7 +131,12 @@ class ChatFragment : Fragment(), OnClickListener {
                     bundle.putString("userId", viewModel.room.value?.partner?._id)
                     nav.navigate(R.id.action_chatFragment_to_profileFragment, bundle)
                 } else {
-                    Log.i(TAG, "Book Community")
+                    viewModel.room.value?.let {
+                        val bundle = Bundle()
+                        bundle.putParcelable("room", it)
+                        nav.navigate(R.id.action_chatFragment_to_communityDetailsFragment, bundle)
+                    }
+
                 }
             }
 

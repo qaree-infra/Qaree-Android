@@ -229,4 +229,6 @@
     <string name="type_a_message">type a message</string>
     <string name="enter_the_message">Enter the message</string>
     <string name="author">Author</string>
+    <string name="community_image">Community Image</string>
+    <string name="members">%1$s members</string>
 </resources>

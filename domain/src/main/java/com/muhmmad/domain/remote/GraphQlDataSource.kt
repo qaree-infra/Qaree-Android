@@ -10,6 +10,7 @@ import com.muhmmad.domain.model.BookContent
 import com.muhmmad.domain.model.BookStatus
 import com.muhmmad.domain.model.BooksResponse
 import com.muhmmad.domain.model.CategoriesResponse
+import com.muhmmad.domain.model.CommunityMembers
 import com.muhmmad.domain.model.LibraryResponse
 import com.muhmmad.domain.model.OffersResponse
 import com.muhmmad.domain.model.PaymentOrder
@@ -38,7 +39,7 @@ interface GraphQlDataSource {
     suspend fun getBestSellerBooks(): NetworkResponse<BooksResponse>
     suspend fun getBooksByCategory(categoryId: String): NetworkResponse<BooksResponse>
     suspend fun getCategories(): NetworkResponse<CategoriesResponse>
-    suspend fun getLibrary(token: String): NetworkResponse<LibraryResponse>
+    suspend fun getLibrary(userId: String?, token: String): NetworkResponse<LibraryResponse>
     suspend fun getShelfDetails(name: String, token: String): NetworkResponse<ShelfResponse>
     suspend fun removeBookFromShelf(
         bookId: String,
@@ -83,4 +84,10 @@ interface GraphQlDataSource {
     ): NetworkResponse<PaymentOrder>
 
     suspend fun getAuthorInfo(userId: String): NetworkResponse<User>
+    suspend fun getCommunityMembers(
+        id: String,
+        page: Int,
+        membersPerPage: Int,
+        token:String
+    ): NetworkResponse<CommunityMembers>
 }

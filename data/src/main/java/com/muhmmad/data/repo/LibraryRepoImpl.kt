@@ -14,8 +14,11 @@ class LibraryRepoImpl(private val graphQlDataSource: GraphQlDataSource) : Librar
     override suspend fun removeShelf(id: String, token: String): NetworkResponse<BaseResponse> =
         graphQlDataSource.removeShelf(id, token)
 
-    override suspend fun getLibrary(token: String): NetworkResponse<LibraryResponse> =
-        graphQlDataSource.getLibrary(token)
+    override suspend fun getLibrary(
+        userId: String?,
+        token: String
+    ): NetworkResponse<LibraryResponse> =
+        graphQlDataSource.getLibrary(userId, token)
 
     override suspend fun getShelfDetails(
         name: String,
@@ -32,5 +35,5 @@ class LibraryRepoImpl(private val graphQlDataSource: GraphQlDataSource) : Librar
         token: String,
         shelfId: String,
         bookId: String
-    ): NetworkResponse<BaseResponse> =graphQlDataSource.addBookToShelf(token, shelfId, bookId)
+    ): NetworkResponse<BaseResponse> = graphQlDataSource.addBookToShelf(token, shelfId, bookId)
 }

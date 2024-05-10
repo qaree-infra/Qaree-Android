@@ -11,6 +11,7 @@ import com.muhmmad.domain.model.BookStatus
 import com.muhmmad.domain.model.BooksResponse
 import com.muhmmad.domain.model.CategoriesResponse
 import com.muhmmad.domain.model.Category
+import com.muhmmad.domain.model.CommunityMembers
 import com.muhmmad.domain.model.ContentItem
 import com.muhmmad.domain.model.Cover
 import com.muhmmad.domain.model.LibraryResponse
@@ -34,6 +35,7 @@ import com.muhmmad.qaree.GetBookReviewsQuery
 import com.muhmmad.qaree.GetBookStatusQuery
 import com.muhmmad.qaree.GetBooksQuery
 import com.muhmmad.qaree.GetCategoriesQuery
+import com.muhmmad.qaree.GetCommunityMembersQuery
 import com.muhmmad.qaree.GetLastActivityQuery
 import com.muhmmad.qaree.GetLibraryQuery
 import com.muhmmad.qaree.GetOffersQuery
@@ -369,3 +371,19 @@ fun GetAuthorInfoQuery.GetAuthorInfo.toUser(): User = User(
     bio = bio ?: "",
     avatar = Cover(path = avatar?.path ?: "")
 )
+
+fun GetCommunityMembersQuery.GetCommunityMembers.toCommunityMembers(): CommunityMembers =
+    CommunityMembers(
+        totalMembers = totalMembers ?: 0,
+        numberOfPages = numberOfPages ?: 0,
+        currentPage = currentPage ?: 0,
+        members = members?.map {
+            User(
+                _id = it?._id ?: "",
+                name = it?.name ?: "",
+                avatar = Cover(path = it?.avatar?.path ?: ""),
+                bio = it?.bio ?: "",
+                email = it?.email ?: ""
+            )
+        }!!
+    )

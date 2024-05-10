@@ -105,7 +105,7 @@ class BookInfoViewModel @Inject constructor(
     private fun getLibrary() {
         viewModelScope.launch(Dispatchers.IO) {
             _state.update { it.copy(isLoading = true) }
-            libraryUseCase.getLibrary(authUseCase.getToken()).apply {
+            libraryUseCase.getLibrary(token=authUseCase.getToken()).apply {
                 _state.update {
                     it.copy(
                         isLoading = false,

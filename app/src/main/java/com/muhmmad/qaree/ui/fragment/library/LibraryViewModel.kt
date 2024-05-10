@@ -31,7 +31,7 @@ class LibraryViewModel @Inject constructor(
                     libraryResponse = null
                 )
             }
-            useCase.getLibrary(authUseCase.getToken()).apply {
+            useCase.getLibrary(token = authUseCase.getToken()).apply {
                 _state.update {
                     it.copy(
                         isLoading = false,

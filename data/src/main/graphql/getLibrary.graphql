@@ -1,5 +1,5 @@
-query getLibrary($page:Int!){
-    getLibrary(page:$page){
+query getLibrary($userId:String!,$page:Int!){
+    getLibrary(user:$userId,page:$page){
         shelves{
             _id,
             name,
