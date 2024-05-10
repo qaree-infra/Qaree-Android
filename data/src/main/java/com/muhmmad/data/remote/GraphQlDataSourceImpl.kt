@@ -18,6 +18,7 @@ import com.muhmmad.data.utils.toVerificationResponse
 import com.muhmmad.data.utils.checkResponse
 import com.muhmmad.data.utils.toBookContent
 import com.muhmmad.data.utils.toBookStatus
+import com.muhmmad.data.utils.toCommunityMembers
 import com.muhmmad.data.utils.toPaymentOrder
 import com.muhmmad.domain.model.ActivityResponse
 import com.muhmmad.domain.model.AuthorsResponse
@@ -31,6 +32,7 @@ import com.muhmmad.domain.model.BookContent
 import com.muhmmad.domain.model.BookStatus
 import com.muhmmad.domain.model.BooksResponse
 import com.muhmmad.domain.model.CategoriesResponse
+import com.muhmmad.domain.model.CommunityMembers
 import com.muhmmad.domain.model.LibraryResponse
 import com.muhmmad.domain.model.OffersResponse
 import com.muhmmad.domain.model.PaymentOrder
@@ -50,6 +52,7 @@ import com.muhmmad.qaree.GetBookReviewsQuery
 import com.muhmmad.qaree.GetBookStatusQuery
 import com.muhmmad.qaree.GetBooksQuery
 import com.muhmmad.qaree.GetCategoriesQuery
+import com.muhmmad.qaree.GetCommunityMembersQuery
 import com.muhmmad.qaree.GetLastActivityQuery
 import com.muhmmad.qaree.GetLibraryQuery
 import com.muhmmad.qaree.GetOffersQuery
@@ -311,10 +314,14 @@ class GraphQlDataSourceImpl(
         }
     }
 
-    override suspend fun getLibrary(token: String): NetworkResponse<LibraryResponse> {
+    override suspend fun getLibrary(
+        userId: String?,
+        token: String
+    ): NetworkResponse<LibraryResponse> {
         return try {
             val response = checkResponse(
-                apolloClient.query(GetLibraryQuery(1)).addHttpHeader("Authorization", token)
+                apolloClient.query(GetLibraryQuery(userId ?: "", 1))
+                    .addHttpHeader("Authorization", token)
                     .execute()
             )
 
@@ -682,8 +689,27 @@ class GraphQlDataSourceImpl(
     override suspend fun getAuthorInfo(userId: String): NetworkResponse<User> = try {
         val response = checkResponse(apolloClient.query(GetAuthorInfoQuery(userId)).execute())
 
-        when (response){
+        when (response) {
             is Success -> Success(response.data?.getAuthorInfo?.toUser()!!)
+            else -> Error(response.message.toString())
+        }
+    } catch (ex: Exception) {
+        Error(ex.message.toString())
+    }
+
+    override suspend fun getCommunityMembers(
+        id: String,
+        page: Int,
+        membersPerPage: Int,
+        token: String
+    ): NetworkResponse<CommunityMembers> = try {
+        val response = checkResponse(
+            apolloClient.query(GetCommunityMembersQuery(id, membersPerPage, page))
+                .addHttpHeader("Authorization", token).execute()
+        )
+
+        when (response) {
+            is Success -> Success(response.data?.getCommunityMembers?.toCommunityMembers()!!)
             else -> Error(response.message.toString())
         }
     } catch (ex: Exception) {

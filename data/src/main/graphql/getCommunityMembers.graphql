@@ -1,0 +1,20 @@
+query getCommunityMembers($id:String!,$membersPerPage:Int!,$page:Int!,){
+    getCommunityMembers(id:$id,limitMembers:$membersPerPage,page:$page){
+        members{
+            _id,
+            name,
+            email,
+            avatar{
+                path
+            },
+            bio,
+            updatedAt,
+            createdAt,
+            followers,
+            following
+        },
+        currentPage,
+        numberOfPages,
+        totalMembers
+    }
+}

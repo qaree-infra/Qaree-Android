@@ -49,7 +49,7 @@ class ProfileFragment : Fragment() {
             handleViews(!userId.isNullOrEmpty())
             if (userId != null) viewModel.getProfileInfo(userId)
             else viewModel.getUserInfo()
-            viewModel.getLibrary()
+            viewModel.getLibrary(userId)
         }
     }
 
