@@ -14,6 +14,6 @@
     <color name="last_message_color">#ADB5BD</color>
     <color name="send_message_stroke">#EDEDED</color>
     <color name="receiver_bg">#769AB8</color>
-    <color name="sender_bg">#FCFCFC</color>
+    <color name="sender_bg">@color/search_inbox_bg</color>
     <color name="community_bg">#F7F7FC</color>
 </resources>

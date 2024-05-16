@@ -47,6 +47,7 @@
                 android:text="@string/save"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_10ssp"
+                app:backgroundTint="@color/primary_color"
                 app:cornerRadius="@dimen/_7sdp" />
 
             <Space

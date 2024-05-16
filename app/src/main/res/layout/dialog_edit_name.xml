@@ -46,6 +46,7 @@
             android:layout_margin="@dimen/_10sdp"
             android:text="@string/submit"
             android:textColor="@color/white"
+            app:backgroundTint="@color/primary_color"
             app:cornerRadius="@dimen/_7sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/btn_cancel"

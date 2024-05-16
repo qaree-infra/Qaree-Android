@@ -57,6 +57,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/_3sdp"
+                android:contentDescription="@string/home"
                 android:src="@drawable/ic_home_enabled" />
 
             <TextView

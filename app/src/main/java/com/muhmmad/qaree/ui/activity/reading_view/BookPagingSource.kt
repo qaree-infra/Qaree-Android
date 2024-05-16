@@ -14,15 +14,14 @@ class BookPagingSource(
     private val token: String,
     private var position: Int = 0
 ) : PagingSource<String, NetworkResponse<BookChapter>>() {
-    override fun getRefreshKey(state: PagingState<String, NetworkResponse<BookChapter>>): String? {
-        return state.anchorPosition?.let { anchorPosition ->
+    override fun getRefreshKey(state: PagingState<String, NetworkResponse<BookChapter>>): String? =
+        state.anchorPosition?.let { anchorPosition ->
             val anchorPage = state.closestPageToPosition(anchorPosition)
             anchorPage?.prevKey ?: anchorPage?.nextKey
         }
-    }
 
-    override suspend fun load(params: LoadParams<String>): LoadResult<String, NetworkResponse<BookChapter>> {
-        return try {
+    override suspend fun load(params: LoadParams<String>): LoadResult<String, NetworkResponse<BookChapter>> =
+        try {
             // Start refresh at page 1 if undefined.
             val id: String = params.key ?: chaptersList[position].id
             val response: NetworkResponse<BookChapter> = useCase.getChapter(token, bookId, id)
@@ -36,5 +35,4 @@ class BookPagingSource(
             // expected errors (such as a network failure).
             LoadResult.Error(e)
         }
-    }
 }

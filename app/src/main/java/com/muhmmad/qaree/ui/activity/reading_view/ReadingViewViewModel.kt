@@ -16,6 +16,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -30,60 +31,46 @@ class ReadingViewViewModel @Inject constructor(
 
     private val _bookContent = MutableStateFlow<BookContent?>(null)
     val bookContent = _bookContent.asStateFlow()
-    private val _chapter = MutableStateFlow<String?>(null)
-    val chapter = _chapter.asStateFlow()
+
+    //private val _chapter = MutableStateFlow<String?>(null)
+    // val chapter = _chapter.asStateFlow()
     val token = MutableStateFlow<String?>(null)
 
     init {
         getToken()
     }
 
-    private fun getToken() {
-        viewModelScope.launch {
-            authUseCase.getToken().apply {
-                token.update {
-                    this
-                }
+    private fun getToken() = viewModelScope.launch {
+        authUseCase.getToken().apply { token.update { this } }
+    }
+
+    fun getBookContent(bookId: String) = viewModelScope.launch {
+        _state.update { it.copy(isLoading = true) }
+        useCase.getBookContent(bookId).apply {
+            _state.update { it.copy(isLoading = false, error = message) }
+            _bookContent.update { data }
+            getChapter(authUseCase.getToken(), bookId, data?.data ?: emptyList()).apply {
+                _state.update { it.copy(chapter = this.first()) }
             }
         }
     }
 
-
-    fun getBookContent(bookId: String) {
-        viewModelScope.launch {
-            _state.update { it.copy(isLoading = true) }
-            useCase.getBookContent(bookId).apply {
-                _state.update { it.copy(isLoading = false, error = message) }
-                _bookContent.update { data }
-            }
-        }
-    }
-
-    fun getChapter(
+    private fun getChapter(
         token: String,
         bookId: String,
         chaptersList: List<ContentItem>
-    ): Flow<PagingData<NetworkResponse<BookChapter>>> {
-        return Pager(
-            // Configure how data is loaded by passing additional properties to
-            // PagingConfig, such as prefetchDistance.
-            PagingConfig(pageSize = 1)
-        ) {
-            BookPagingSource(useCase, chaptersList, bookId, token)
-        }.flow.cachedIn(viewModelScope)
-    }
+    ): Flow<PagingData<NetworkResponse<BookChapter>>> = Pager(
+        // Configure how data is loaded by passing additional properties to
+        // PagingConfig, such as prefetchDistance.
+        PagingConfig(pageSize = 1)
+    ) {
+        BookPagingSource(useCase, chaptersList, bookId, token)
+    }.flow.cachedIn(viewModelScope)
 
-    fun getChapter(bookId: String, chapterId: String) {
-        viewModelScope.launch {
-            useCase.getChapter(authUseCase.getToken(), bookId, chapterId).apply {
-                _chapter.update { data?.content }
-                _state.update { it.copy(error = message) }
-            }
-        }
-    }
 
     data class ReadingViewState(
         val isLoading: Boolean = false,
         val error: String? = null,
+        val chapter: PagingData<NetworkResponse<BookChapter>>? = null
     )
 }
