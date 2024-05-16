@@ -370,7 +370,8 @@ fun GetAuthorInfoQuery.GetAuthorInfo.toUser(): User = User(
     name = name ?: "",
     email = "",
     bio = bio ?: "",
-    avatar = Cover(path = avatar?.path ?: "")
+    avatar = Cover(path = avatar?.path ?: ""),
+    isFollowed = isFollowed ?: false
 )
 
 fun GetCommunityMembersQuery.GetCommunityMembers.toCommunityMembers(): CommunityMembers =

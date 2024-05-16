@@ -17,7 +17,7 @@ interface UserRepo {
         newPassword: String
     ): NetworkResponse<User>
 
-    suspend fun getAuthorInfo(userId: String): NetworkResponse<User>
+    suspend fun getAuthorInfo(userId: String, token: String): NetworkResponse<User>
     suspend fun isUserProfile(userId: String): Boolean
     suspend fun getUserId(): String
     suspend fun followUser(token: String, userId: String): NetworkResponse<BaseResponse>

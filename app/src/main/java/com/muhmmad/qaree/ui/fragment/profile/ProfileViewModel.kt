@@ -52,7 +52,7 @@ class ProfileViewModel @Inject constructor(
 
     private fun getAuthorInfo(userId: String) = viewModelScope.launch(Dispatchers.IO) {
         _state.update { it.copy(isLoading = true) }
-        useCase.getAuthorInfo(userId).apply {
+        useCase.getAuthorInfo(userId, authUseCase.getToken()).apply {
             _state.update {
                 it.copy(
                     isLoading = false,
@@ -88,7 +88,7 @@ class ProfileViewModel @Inject constructor(
 
     fun followAuthor(userId: String) = viewModelScope.launch {
         _state.update { it.copy(isLoading = true) }
-        useCase.followUser(authUseCase.getToken(),userId).apply {
+        useCase.followUser(authUseCase.getToken(), userId).apply {
             _state.update {
                 it.copy(
                     isLoading = false,

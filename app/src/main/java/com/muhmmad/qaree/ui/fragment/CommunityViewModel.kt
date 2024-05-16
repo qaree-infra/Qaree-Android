@@ -13,7 +13,6 @@ import com.muhmmad.domain.usecase.UserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.socket.client.Socket
 import io.socket.emitter.Emitter
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -34,18 +33,16 @@ class CommunityViewModel @Inject constructor(
 
     val userId = MutableStateFlow("")
     val message = MutableSharedFlow<Message?>()
-    val _room = MutableStateFlow<Room?>(null)
+    private val _room = MutableStateFlow<Room?>(null)
     val room = _room.asStateFlow()
 
     init {
         Log.i(TAG, "INIT")
-        connectSocket()
         getUserId()
+        connectSocket()
     }
 
-    fun setRoom(room: Room) {
-        _room.update { room }
-    }
+    fun setRoom(room: Room) = _room.update { room }
 
     private fun connectSocket() = viewModelScope.launch {
         Log.i(TAG, "CONNECT")
@@ -60,7 +57,6 @@ class CommunityViewModel @Inject constructor(
     }
 
     private fun initSocket() {
-        Log.i(TAG, "INITSOCKET")
         mSocket?.on(Socket.EVENT_CONNECT, onConnect)
         mSocket?.on(Socket.EVENT_DISCONNECT, onDisconnect)
         mSocket?.on(Socket.EVENT_CONNECT_ERROR, onConnectError)
@@ -76,19 +72,21 @@ class CommunityViewModel @Inject constructor(
     }
 
     fun getMessages(roomId: String, type: MessageType) {
-        Log.i(TAG, "GETMESSAGES")
         mSocket?.emit(EVENT_MESSAGE_LIST, JSONObject("{room:$roomId,type:${type.name}}"))
     }
 
     fun sendMessage(message: String) {
+        var roomId = _room.value?._id
+        if (_room.value?.lastMessage?.content.isNullOrEmpty()) {
+            roomId = "user-${_room.value?.partner?._id}"
+        }
         mSocket?.emit(
             EVENT_SEND_MESSAGE,
-            JSONObject("{content:\"$message\",to:${_room.value?._id}}")
+            JSONObject("{content:\"$message\",to:$roomId}")
         )
     }
 
     private val onConnect: Emitter.Listener = Emitter.Listener {
-        Log.i(TAG, "Connect")
         getRooms()
     }
 
@@ -119,10 +117,15 @@ class CommunityViewModel @Inject constructor(
 
     private val chatListener: Emitter.Listener = Emitter.Listener {
         val response = it[0] as JSONObject
-        // val id: String = response.get("userId").toString()
         val data = Gson().fromJson(response.get("messages").toString(), Chat::class.java)
+        if (data.messages.isNotEmpty()) {
+            _room.update {
+                it?.copy(
+                    _id = data.messages[0].room
+                )
+            }
+        }
         Log.i(TAG, data.toString())
-        //  userId.update { id }
         _state.update {
             it.copy(
                 isLoading = false,

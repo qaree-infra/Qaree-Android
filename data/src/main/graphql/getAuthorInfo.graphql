@@ -4,7 +4,6 @@ query getAuthorInfo($userId:String!){
             path
         } ,
         bio,
-        followers,
-        following
+        isFollowed
     }
 }

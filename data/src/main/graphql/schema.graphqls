@@ -73,9 +73,7 @@ type User {
 
   createdAt: String
 
-  followers: [String]
-
-  following: [String]
+  isFollowed: Boolean
 }
 
 """
@@ -105,6 +103,11 @@ type File {
 The `Float` scalar type represents signed double-precision fractional values as specified by [IEEE 754](https://en.wikipedia.org/wiki/IEEE_floating_point).
 """
 scalar Float
+
+"""
+The `Boolean` scalar type represents `true` or `false`.
+"""
+scalar Boolean
 
 """
 refresh token type
@@ -184,11 +187,6 @@ type BookInfo {
 
   previousPublishingData: String
 }
-
-"""
-The `Boolean` scalar type represents `true` or `false`.
-"""
-scalar Boolean
 
 """
 This books category type

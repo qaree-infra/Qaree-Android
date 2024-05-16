@@ -83,7 +83,7 @@ interface GraphQlDataSource {
         orderId: String
     ): NetworkResponse<PaymentOrder>
 
-    suspend fun getAuthorInfo(userId: String): NetworkResponse<User>
+    suspend fun getAuthorInfo(userId: String, token: String): NetworkResponse<User>
     suspend fun getCommunityMembers(
         id: String,
         page: Int,
