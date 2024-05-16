@@ -70,11 +70,20 @@ class ProfileFragment : Fragment() {
                 nav.navigateUp()
             }
             llFollow.setOnClickListener {
-
+                user?._id?.let {
+                    viewModel.followAuthor(it)
+                }
             }
             llMessage.setOnClickListener {
                 val bundle = Bundle()
-                val chat = Room()
+                val roomId = "${viewModel.userId.value}-${user?._id}"
+                val chat = user?.let { user ->
+                    Room(
+                        _id = roomId,
+                        roomId = roomId,
+                        partner = user,
+                    )
+                }
                 bundle.putParcelable("chat", chat)
                 nav.navigate(R.id.action_profileFragment_to_chatFragment, bundle)
             }
@@ -104,6 +113,13 @@ class ProfileFragment : Fragment() {
 
                 it.libraryResponse?.apply {
                     adapter.setData(data)
+                }
+                it.followResponse?.apply {
+                    if (success) {
+                        binding.btnFollow.load(R.drawable.ic_following)
+                        binding.tvFollow.text = getString(R.string.following)
+                    }
+                    activity.showMessage(message)
                 }
             }
         }

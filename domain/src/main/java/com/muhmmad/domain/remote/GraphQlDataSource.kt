@@ -88,6 +88,8 @@ interface GraphQlDataSource {
         id: String,
         page: Int,
         membersPerPage: Int,
-        token:String
+        token: String
     ): NetworkResponse<CommunityMembers>
+
+    suspend fun followUser(token: String, userId: String): NetworkResponse<BaseResponse>
 }

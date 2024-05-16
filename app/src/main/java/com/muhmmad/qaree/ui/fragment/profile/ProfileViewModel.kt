@@ -2,6 +2,7 @@ package com.muhmmad.qaree.ui.fragment.profile
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.muhmmad.domain.model.BaseResponse
 import com.muhmmad.domain.model.LibraryResponse
 import com.muhmmad.domain.model.User
 import com.muhmmad.domain.usecase.AuthUseCase
@@ -23,6 +24,11 @@ class ProfileViewModel @Inject constructor(
 ) : ViewModel() {
     private val _state = MutableStateFlow(ProfileState())
     val state = _state.asStateFlow()
+    val userId = MutableStateFlow("")
+
+    init {
+        getUserId()
+    }
 
     fun getProfileInfo(userId: String) = viewModelScope.launch {
         if (useCase.isUserProfile(userId)) getUserInfo()
@@ -44,7 +50,6 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
-
     private fun getAuthorInfo(userId: String) = viewModelScope.launch(Dispatchers.IO) {
         _state.update { it.copy(isLoading = true) }
         useCase.getAuthorInfo(userId).apply {
@@ -54,6 +59,14 @@ class ProfileViewModel @Inject constructor(
                     error = message,
                     userDataResponse = data
                 )
+            }
+        }
+    }
+
+    private fun getUserId() = viewModelScope.launch {
+        useCase.getUserId().apply {
+            userId.update {
+                this
             }
         }
     }
@@ -73,10 +86,24 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
+    fun followAuthor(userId: String) = viewModelScope.launch {
+        _state.update { it.copy(isLoading = true) }
+        useCase.followUser(authUseCase.getToken(),userId).apply {
+            _state.update {
+                it.copy(
+                    isLoading = false,
+                    error = message,
+                    followResponse = data
+                )
+            }
+        }
+    }
+
     data class ProfileState(
         val libraryResponse: LibraryResponse? = null,
         val userDataResponse: User? = null,
         val isLoading: Boolean = false,
         val error: String? = null,
+        val followResponse: BaseResponse? = null
     )
 }

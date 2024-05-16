@@ -12,4 +12,5 @@ interface LocalDataSource {
     suspend fun getLanguage(): Language
     suspend fun isUserProfile(userId: String): Boolean
     suspend fun logout()
+    suspend fun getUserId(): String
 }
