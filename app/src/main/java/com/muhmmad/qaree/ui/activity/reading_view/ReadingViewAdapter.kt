@@ -14,8 +14,8 @@ import com.muhmmad.domain.model.NetworkResponse
 import com.muhmmad.qaree.databinding.ReadingViewItemBinding
 
 private const val TAG = "ReadingViewAdapter"
-class ReadingViewAdapter :
-    PagingDataAdapter<NetworkResponse<BookChapter>, ReadingViewAdapter.ViewHolder>(chapterComparator) {
+
+class ReadingViewAdapter : PagingDataAdapter<NetworkResponse<BookChapter>, ReadingViewAdapter.ViewHolder>(ChapterComparator) {
     class ViewHolder(private val binding: ReadingViewItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(path: String) {
@@ -23,9 +23,9 @@ class ReadingViewAdapter :
                 Base64.encodeToString(path.toByteArray(), Base64.NO_PADDING)
             binding.webView.loadData(encodedHtml, "text/html", "base64")
             binding.webView.settings.javaScriptEnabled = true
-            binding.webView.webViewClient=object:WebViewClient(){
+            binding.webView.webViewClient = object : WebViewClient() {
                 override fun onPageFinished(view: WebView?, url: String?) {
-                    Log.i(TAG,url.toString())
+                    Log.i(TAG, url.toString())
                     super.onPageFinished(view, url)
                 }
             }
@@ -48,20 +48,15 @@ class ReadingViewAdapter :
             )
         )
 
-    object chapterComparator : DiffUtil.ItemCallback<NetworkResponse<BookChapter>>() {
+    object ChapterComparator : DiffUtil.ItemCallback<NetworkResponse<BookChapter>>() {
         override fun areItemsTheSame(
             oldItem: NetworkResponse<BookChapter>,
             newItem: NetworkResponse<BookChapter>
-        ): Boolean {
-            // Id is unique.
-            return oldItem.data == newItem.data
-        }
+        ): Boolean = oldItem.data == newItem.data
 
         override fun areContentsTheSame(
             oldItem: NetworkResponse<BookChapter>,
             newItem: NetworkResponse<BookChapter>
-        ): Boolean {
-            return oldItem == newItem
-        }
+        ): Boolean = oldItem == newItem
     }
 }

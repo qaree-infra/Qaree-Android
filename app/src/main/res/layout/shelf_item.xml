@@ -18,11 +18,11 @@
             android:layout_height="0dp"
             android:layout_marginVertical="@dimen/_15sdp"
             android:scaleType="fitXY"
-            app:shapeAppearanceOverlay="@style/roundedCornerImageView"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/ll_btns"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/roundedCornerImageView"
             tools:src="@drawable/ic_logo" />
 
         <LinearLayout
@@ -78,6 +78,7 @@
             android:layout_margin="@dimen/_10sdp"
             android:max="100"
             android:min="0"
+            app:indicatorColor="@color/primary_color"
             android:progress="50"
             app:layout_constraintBottom_toTopOf="@id/ll_btns"
             app:layout_constraintEnd_toStartOf="@id/tv_progress"
@@ -133,6 +134,7 @@
                 android:text="@string/read"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_8ssp"
+                app:backgroundTint="@color/primary_color"
                 app:cornerRadius="@dimen/_7sdp" />
 
             <Space
@@ -149,6 +151,7 @@
                 android:text="@string/book_info"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_8ssp"
+                app:backgroundTint="@color/primary_color"
                 app:cornerRadius="@dimen/_7sdp" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,6 +7,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_UNSPECIFIED
+import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
@@ -18,6 +21,7 @@ import com.muhmmad.qaree.ui.activity.auth.AuthActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+
 
 @AndroidEntryPoint
 class SettingsFragment : Fragment() {
@@ -49,6 +53,12 @@ class SettingsFragment : Fragment() {
                     "user",
                     User::class.java
                 ) ?: User(_id = "", name = "") else arguments?.getParcelable("user")
+
+            when (AppCompatDelegate.getDefaultNightMode()) {
+                MODE_NIGHT_YES, MODE_NIGHT_UNSPECIFIED -> switchMode.isChecked = true
+                else -> switchMode.isChecked = false
+            }
+
             ivBack.setOnClickListener {
                 nav.navigateUp()
             }
@@ -67,7 +77,8 @@ class SettingsFragment : Fragment() {
 
             }
             switchMode.setOnCheckedChangeListener { buttonView, isChecked ->
-
+                if (isChecked) AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                else AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             }
             switchNotification.setOnCheckedChangeListener { buttonView, isChecked ->
 

@@ -122,6 +122,18 @@ class BookInfoFragment : Fragment() {
 
     private fun checkState() {
         lifecycleScope.launch {
+            viewModel.bookState.collect {
+                when (it) {
+                    BookInfoViewModel.BookState.BUY -> binding.btnBuy.text = getString(R.string.buy)
+                    BookInfoViewModel.BookState.START_READING -> binding.btnBuy.text =
+                        getString(R.string.start_read)
+
+                    BookInfoViewModel.BookState.CONTINUE_READING -> binding.btnBuy.text =
+                        getString(R.string.continue_reading)
+                }
+            }
+        }
+        lifecycleScope.launch {
             viewModel.state.collect {
                 if (it.isLoading) activity.showLoading(binding.root) else activity.dismissLoading(
                     binding.root
@@ -141,13 +153,13 @@ class BookInfoFragment : Fragment() {
                 if (it.makeReviewResponse != null) activity.showMessage(it.makeReviewResponse.message)
 
                 it.bookStatus?.apply {
-                    if (status == null) {
-                        binding.btnBuy.text = getString(R.string.buy)
-                    } else {
-                        if (readingProgress == 0.0) binding.btnBuy.text =
-                            getString(R.string.start_read)
-                        else binding.btnBuy.text = getString(R.string.continue_reading)
-                    }
+//                    if (status == null) {
+//
+//                    } else {
+//                        if (readingProgress == 0.0) binding.btnBuy.text =
+//                            getString(R.string.start_read)
+//                        else binding.btnBuy.text = getString(R.string.continue_reading)
+//                    }
                 }
 
                 it.addBookToShelfResponse?.apply {

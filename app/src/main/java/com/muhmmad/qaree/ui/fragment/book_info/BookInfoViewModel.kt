@@ -41,26 +41,24 @@ class BookInfoViewModel @Inject constructor(
         getLibrary()
     }
 
-    fun getBookStatus() {
-        viewModelScope.launch(Dispatchers.IO) {
-            _state.update { it.copy(isLoading = true) }
-            bookUseCase.getBookStatus(authUseCase.getToken(), _book.value.id).apply {
-                _state.update {
-                    it.copy(
-                        isLoading = false,
-                        error = message,
-                        bookStatus = data
-                    )
-                }
+    fun getBookStatus() = viewModelScope.launch(Dispatchers.IO) {
+        _state.update { it.copy(isLoading = true) }
+        bookUseCase.getBookStatus(authUseCase.getToken(), _book.value.id).apply {
+            _state.update {
+                it.copy(
+                    isLoading = false,
+                    error = message,
+                    bookStatus = data
+                )
+            }
 
-                data?.apply {
-                    if (status == null) {
-                        if (_book.value.price < 1) _bookState.emit(BookState.START_READING)
-                        else _bookState.emit(BookState.BUY)
-                    } else {
-                        if (readingProgress == 0.0) _bookState.emit(BookState.START_READING)
-                        else _bookState.emit(BookState.CONTINUE_READING)
-                    }
+            data?.apply {
+                if (status == null) {
+                    if (_book.value.price < 1) _bookState.emit(BookState.START_READING)
+                    else _bookState.emit(BookState.BUY)
+                } else {
+                    if (readingProgress == 0.0) _bookState.emit(BookState.START_READING)
+                    else _bookState.emit(BookState.CONTINUE_READING)
                 }
             }
         }
@@ -105,7 +103,7 @@ class BookInfoViewModel @Inject constructor(
     private fun getLibrary() {
         viewModelScope.launch(Dispatchers.IO) {
             _state.update { it.copy(isLoading = true) }
-            libraryUseCase.getLibrary(token=authUseCase.getToken()).apply {
+            libraryUseCase.getLibrary(token = authUseCase.getToken()).apply {
                 _state.update {
                     it.copy(
                         isLoading = false,

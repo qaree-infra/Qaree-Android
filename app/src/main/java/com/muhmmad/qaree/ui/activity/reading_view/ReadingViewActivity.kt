@@ -1,6 +1,7 @@
 package com.muhmmad.qaree.ui.activity.reading_view
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.map
@@ -38,31 +39,18 @@ class ReadingViewActivity : BaseActivity() {
 
     private fun checkState() {
         lifecycleScope.launch {
-            viewModel.bookContent.collectLatest {
-                viewModel.token.value?.let { token ->
-                    viewModel.getChapter(token, bookId, it?.data ?: emptyList()).collectLatest {
-                        adapter.submitData(it)
-                        it.map {
-                            if (it is NetworkResponse.Error) {
-                                this@ReadingViewActivity.showError(
-                                    binding.root,
-                                    it.message.toString()
-                                )
-                            }
+            viewModel.state.collectLatest {
+                it.error?.apply { showError(binding.root, this) }
+                if (it.isLoading) showLoading(binding.root) else dismissLoading(binding.root)
+
+                it.chapter?.let {
+                    adapter.submitData(it)
+                    it.map {
+                        if (it is NetworkResponse.Error) {
+                            showError(binding.root, it.message.toString())
                         }
                     }
                 }
-            }
-        }
-        lifecycleScope.launch {
-            viewModel.state.collect {
-                it.error?.apply {
-                    this@ReadingViewActivity.showError(binding.root, this)
-                }
-
-                if (it.isLoading) this@ReadingViewActivity.showLoading(binding.root) else this@ReadingViewActivity.dismissLoading(
-                    binding.root
-                )
             }
         }
     }
