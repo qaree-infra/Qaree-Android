@@ -18,7 +18,7 @@ class UserUseCase(private val repo: UserRepo) {
         newPassword: String
     ) = repo.updatePassword(token, oldPassword, newPassword)
 
-    suspend fun getAuthorInfo(userId: String) = repo.getAuthorInfo(userId)
+    suspend fun getAuthorInfo(userId: String, token: String) = repo.getAuthorInfo(userId, token)
     suspend fun isUserProfile(userId: String) = repo.isUserProfile(userId)
     suspend fun getUserId() = repo.getUserId()
     suspend fun followUser(token: String, userId: String) = repo.followUser(token, userId)

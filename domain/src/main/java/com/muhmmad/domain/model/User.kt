@@ -9,5 +9,6 @@ data class User(
     val name: String = "",
     val avatar: Cover? = null,
     val email: String = "",
-    val bio: String = ""
+    val bio: String = "",
+    val isFollowed: Boolean = false
 ) : Parcelable

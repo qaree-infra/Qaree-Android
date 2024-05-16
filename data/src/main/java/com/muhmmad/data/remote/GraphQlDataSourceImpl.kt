@@ -687,8 +687,11 @@ class GraphQlDataSourceImpl(
         }
     }
 
-    override suspend fun getAuthorInfo(userId: String): NetworkResponse<User> = try {
-        val response = checkResponse(apolloClient.query(GetAuthorInfoQuery(userId)).execute())
+    override suspend fun getAuthorInfo(userId: String, token: String): NetworkResponse<User> = try {
+        val response = checkResponse(
+            apolloClient.query(GetAuthorInfoQuery(userId)).addHttpHeader("Authorization", token)
+                .execute()
+        )
 
         when (response) {
             is Success -> Success(response.data?.getAuthorInfo?.toUser()!!)

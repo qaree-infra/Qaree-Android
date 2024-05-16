@@ -2,7 +2,6 @@ package com.muhmmad.qaree.ui.fragment.chat
 
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +11,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import com.muhmmad.domain.model.Message
 import com.muhmmad.domain.model.Room
@@ -35,7 +33,10 @@ class ChatFragment : Fragment(), OnClickListener {
     }
     private val adapter: ChatAdapter by lazy {
         ChatAdapter(
-            viewModel.userId.value
+            //get userId from arguments or viewModel
+            // if the user coming from ProfileFragment then userId will be from the arguments
+            // else it will be from the viewModel
+            viewModel.userId.value.ifEmpty { arguments?.getString("userId") ?: "" }
         )
     }
     private val viewModel: CommunityViewModel by activityViewModels()
@@ -105,13 +106,11 @@ class ChatFragment : Fragment(), OnClickListener {
         }
     }
 
-    private fun checkValidation(message: String): Boolean {
+    private fun checkValidation(message: String): Boolean =
         if (message.isEmpty()) {
             binding.layoutMessage.error = getString(R.string.enter_the_message)
-            return false
-        }
-        return true
-    }
+            false
+        } else true
 
     override fun onClick(v: View?) {
         when (v) {
@@ -141,5 +140,3 @@ class ChatFragment : Fragment(), OnClickListener {
         }
     }
 }
-
-private const val TAG = "ChatFragment"

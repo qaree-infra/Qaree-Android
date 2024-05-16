@@ -85,6 +85,7 @@ class ProfileFragment : Fragment() {
                     )
                 }
                 bundle.putParcelable("chat", chat)
+                bundle.putString("userId", viewModel.userId.value)
                 nav.navigate(R.id.action_profileFragment_to_chatFragment, bundle)
             }
         }
@@ -105,6 +106,15 @@ class ProfileFragment : Fragment() {
                     if (avatar?.path != "") binding.ivUser.load(avatar?.path) {
                         placeholder(R.drawable.ic_profile_avatar)
                     }
+
+                    if (isFollowed) {
+                        binding.btnFollow.load(R.drawable.ic_following)
+                        binding.tvFollow.text = getString(R.string.following)
+                    } else {
+                        binding.btnFollow.load(R.drawable.ic_add)
+                        binding.tvFollow.text = getString(R.string.follow)
+                    }
+
                     binding.tvUserName.text = name
                     binding.tvBio.text = bio
                     if (isAuthor) binding.tvTitle.text = getString(R.string.author)

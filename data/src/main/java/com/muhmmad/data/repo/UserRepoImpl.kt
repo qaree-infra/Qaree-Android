@@ -37,8 +37,8 @@ class UserRepoImpl(
         newPassword: String
     ): NetworkResponse<User> = graphQlDataSource.updatePassword(token, oldPassword, newPassword)
 
-    override suspend fun getAuthorInfo(userId: String): NetworkResponse<User> =
-        graphQlDataSource.getAuthorInfo(userId)
+    override suspend fun getAuthorInfo(userId: String, token: String): NetworkResponse<User> =
+        graphQlDataSource.getAuthorInfo(userId, token)
 
     override suspend fun isUserProfile(userId: String): Boolean =
         localDataSource.isUserProfile(userId)
