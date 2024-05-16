@@ -87,7 +87,7 @@
         android:gravity="center"
         android:orientation="horizontal"
         android:padding="@dimen/_10sdp"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_bio">

@@ -10,9 +10,13 @@ data class UserData(
     val token: String = "",
     val isFirstTime: Boolean = true,
     val language: Language = Language.ENGLISH,
-    val darkMode: Boolean = false,
+    val darkMode: AppMode = AppMode.DEFAULT,
 )
 
 enum class Language {
     ENGLISH, ARABIC
+}
+
+enum class AppMode {
+    DEFAULT, LIGHT, DARK
 }
