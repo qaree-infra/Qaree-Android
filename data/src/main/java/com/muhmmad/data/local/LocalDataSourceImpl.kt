@@ -42,5 +42,17 @@ class LocalDataSourceImpl(private val dataStore: DataStore<UserData>) : LocalDat
     }
 
     override suspend fun getLanguage(): Language = dataStore.data.map { it.language }.first()
-    override suspend fun isUserProfile(userId: String): Boolean = dataStore.data.map { it.id }.first() == userId
+    override suspend fun isUserProfile(userId: String): Boolean =
+        dataStore.data.map { it.id }.first() == userId
+
+    override suspend fun logout() {
+        dataStore.updateData {
+            it.copy(
+                id = "",
+                name = "",
+                email = "",
+                token = "",
+            )
+        }
+    }
 }

@@ -19,4 +19,5 @@ class AuthUseCase(private val repo: AuthRepo) {
     suspend fun resetPassword(pass: String, token: String) = repo.resetPassword(pass, token)
     suspend fun getToken() = repo.getToken()
     suspend fun setToken(token: String) = repo.setToken(token)
+    suspend fun logout() = repo.logout()
 }

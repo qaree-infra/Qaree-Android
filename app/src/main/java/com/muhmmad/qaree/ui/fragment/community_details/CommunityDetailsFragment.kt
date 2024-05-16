@@ -16,7 +16,6 @@ import com.muhmmad.qaree.R
 import com.muhmmad.qaree.databinding.FragmentCommunityDetailsBinding
 import com.muhmmad.qaree.ui.activity.home.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 

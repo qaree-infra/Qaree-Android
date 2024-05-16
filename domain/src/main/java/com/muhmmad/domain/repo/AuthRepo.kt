@@ -22,4 +22,5 @@ interface AuthRepo {
     suspend fun resetPassword(pass: String, token: String): NetworkResponse<BaseResponse>
     suspend fun getToken(): String
     suspend fun setToken(token: String)
+    suspend fun logout()
 }

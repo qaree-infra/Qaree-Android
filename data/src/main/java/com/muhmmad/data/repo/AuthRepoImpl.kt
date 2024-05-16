@@ -50,7 +50,7 @@ class AuthRepoImpl(
         graphQlDataSource.resetPassword(pass, token)
 
     override suspend fun getToken(): String = localDataSource.getToken()
-    override suspend fun setToken(token: String) {
-        localDataSource.setToken(token)
-    }
+    override suspend fun setToken(token: String) = localDataSource.setToken(token)
+
+    override suspend fun logout() = localDataSource.logout()
 }

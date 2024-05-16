@@ -44,6 +44,7 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
+
     private fun getAuthorInfo(userId: String) = viewModelScope.launch(Dispatchers.IO) {
         _state.update { it.copy(isLoading = true) }
         useCase.getAuthorInfo(userId).apply {

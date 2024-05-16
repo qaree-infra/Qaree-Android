@@ -139,7 +139,6 @@ class ChatFragment : Fragment(), OnClickListener {
 
                 }
             }
-
         }
     }
 }

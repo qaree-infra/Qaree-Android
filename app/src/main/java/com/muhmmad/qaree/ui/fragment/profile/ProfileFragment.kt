@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import coil.load
+import com.muhmmad.domain.model.Room
 import com.muhmmad.domain.model.User
 import com.muhmmad.qaree.R
 import com.muhmmad.qaree.databinding.FragmentProfileBinding
@@ -55,6 +56,7 @@ class ProfileFragment : Fragment() {
 
     private fun handleViews(isAuthor: Boolean) {
         binding.apply {
+            llAuthorProfile.isVisible = isAuthor
             rvLibrary.adapter = adapter
             ivSettings.isVisible = !isAuthor
             ivSettings.setOnClickListener {
@@ -66,6 +68,15 @@ class ProfileFragment : Fragment() {
             }
             ivBack.setOnClickListener {
                 nav.navigateUp()
+            }
+            llFollow.setOnClickListener {
+
+            }
+            llMessage.setOnClickListener {
+                val bundle = Bundle()
+                val chat = Room()
+                bundle.putParcelable("chat", chat)
+                nav.navigate(R.id.action_profileFragment_to_chatFragment, bundle)
             }
         }
     }
