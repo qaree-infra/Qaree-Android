@@ -2,6 +2,7 @@ package com.muhmmad.data.repo
 
 import com.muhmmad.data.utils.checkResponse
 import com.muhmmad.domain.local.LocalDataSource
+import com.muhmmad.domain.model.BaseResponse
 import com.muhmmad.domain.model.NetworkResponse
 import com.muhmmad.domain.model.User
 import com.muhmmad.domain.remote.GraphQlDataSource
@@ -41,4 +42,8 @@ class UserRepoImpl(
 
     override suspend fun isUserProfile(userId: String): Boolean =
         localDataSource.isUserProfile(userId)
+
+    override suspend fun getUserId(): String = localDataSource.getUserId()
+    override suspend fun followUser(token: String, userId: String): NetworkResponse<BaseResponse> =
+        graphQlDataSource.followUser(token, userId)
 }

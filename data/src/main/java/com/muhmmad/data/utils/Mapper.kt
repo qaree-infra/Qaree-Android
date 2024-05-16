@@ -27,6 +27,7 @@ import com.muhmmad.qaree.AddBookToShelfMutation
 import com.muhmmad.qaree.CompletePaymentOrderMutation
 import com.muhmmad.qaree.CreatePaymentOrderMutation
 import com.muhmmad.qaree.CreateShelfMutation
+import com.muhmmad.qaree.FollowUserMutation
 import com.muhmmad.qaree.ForgetPasswordMutation
 import com.muhmmad.qaree.GetAuthorInfoQuery
 import com.muhmmad.qaree.GetBestSellerBooksQuery
@@ -387,3 +388,8 @@ fun GetCommunityMembersQuery.GetCommunityMembers.toCommunityMembers(): Community
             )
         }!!
     )
+
+fun FollowUserMutation.FollowUser.toBaseResponse(): BaseResponse = BaseResponse(
+    message = message ?: "",
+    success = success ?: false
+)

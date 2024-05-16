@@ -64,6 +64,7 @@ class ChatFragment : Fragment(), OnClickListener {
 
     private fun initViews(room: Room) {
         binding.apply {
+            rvChat.adapter = adapter
             ivChat.load(room.getImage())
             tvChat.text = room.getName()
             ivBack.setOnClickListener(this@ChatFragment)
@@ -98,7 +99,6 @@ class ChatFragment : Fragment(), OnClickListener {
                 )
 
                 it.chat?.apply {
-                    binding.rvChat.adapter = adapter
                     adapter.submitList(this.messages)
                 }
             }
@@ -136,7 +136,6 @@ class ChatFragment : Fragment(), OnClickListener {
                         bundle.putParcelable("room", it)
                         nav.navigate(R.id.action_chatFragment_to_communityDetailsFragment, bundle)
                     }
-
                 }
             }
         }

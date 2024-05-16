@@ -11,6 +11,7 @@ data class UserData(
     val isFirstTime: Boolean = true,
     val language: Language = Language.ENGLISH,
     val darkMode: AppMode = AppMode.DEFAULT,
+    val notifications: Boolean = true
 )
 
 enum class Language {

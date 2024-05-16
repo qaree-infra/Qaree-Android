@@ -55,4 +55,6 @@ class LocalDataSourceImpl(private val dataStore: DataStore<UserData>) : LocalDat
             )
         }
     }
+
+    override suspend fun getUserId(): String = dataStore.data.map { it.id }.first()
 }

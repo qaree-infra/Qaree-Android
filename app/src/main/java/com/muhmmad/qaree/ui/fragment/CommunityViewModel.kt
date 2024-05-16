@@ -9,6 +9,7 @@ import com.muhmmad.domain.model.Message
 import com.muhmmad.domain.model.Room
 import com.muhmmad.domain.usecase.AuthUseCase
 import com.muhmmad.domain.usecase.CommunityUseCase
+import com.muhmmad.domain.usecase.UserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.socket.client.Socket
 import io.socket.emitter.Emitter
@@ -24,11 +25,12 @@ import javax.inject.Inject
 @HiltViewModel
 class CommunityViewModel @Inject constructor(
     private val communityUseCase: CommunityUseCase,
-    private val authUseCase: AuthUseCase
+    private val authUseCase: AuthUseCase,
+    private val userUseCase: UserUseCase
 ) : ViewModel() {
     private val _state = MutableStateFlow(CommunityState())
     val state = _state.asStateFlow()
-    private lateinit var mSocket: Socket
+    private var mSocket: Socket? = null
 
     val userId = MutableStateFlow("")
     val message = MutableSharedFlow<Message?>()
@@ -36,7 +38,9 @@ class CommunityViewModel @Inject constructor(
     val room = _room.asStateFlow()
 
     init {
+        Log.i(TAG, "INIT")
         connectSocket()
+        getUserId()
     }
 
     fun setRoom(room: Room) {
@@ -44,6 +48,7 @@ class CommunityViewModel @Inject constructor(
     }
 
     private fun connectSocket() = viewModelScope.launch {
+        Log.i(TAG, "CONNECT")
         _state.update { it.copy(isLoading = true) }
         communityUseCase.connectSocket(authUseCase.getToken()).apply {
             communityUseCase.getSocket().apply {
@@ -55,26 +60,28 @@ class CommunityViewModel @Inject constructor(
     }
 
     private fun initSocket() {
-        mSocket.on(Socket.EVENT_CONNECT, onConnect)
-        mSocket.on(Socket.EVENT_DISCONNECT, onDisconnect)
-        mSocket.on(Socket.EVENT_CONNECT_ERROR, onConnectError)
-        mSocket.on(EVENT_GET_ROOMS, roomsListener)
-        mSocket.on(EVENT_MESSAGE_LIST, chatListener)
-        mSocket.on(EVENT_SEND_MESSAGE, messageListener)
-        mSocket.connect()
+        Log.i(TAG, "INITSOCKET")
+        mSocket?.on(Socket.EVENT_CONNECT, onConnect)
+        mSocket?.on(Socket.EVENT_DISCONNECT, onDisconnect)
+        mSocket?.on(Socket.EVENT_CONNECT_ERROR, onConnectError)
+        mSocket?.on(EVENT_GET_ROOMS, roomsListener)
+        mSocket?.on(EVENT_MESSAGE_LIST, chatListener)
+        mSocket?.on(EVENT_SEND_MESSAGE, messageListener)
+        mSocket?.connect()
     }
 
     fun getRooms(keyword: String = "") = viewModelScope.launch {
-        if (keyword.isNotEmpty()) mSocket.emit(EVENT_GET_ROOMS, JSONObject("{keyword:$keyword}"))
-        else mSocket.emit(EVENT_GET_ROOMS, JSONObject())
+        if (keyword.isNotEmpty()) mSocket?.emit(EVENT_GET_ROOMS, JSONObject("{keyword:$keyword}"))
+        else mSocket?.emit(EVENT_GET_ROOMS, JSONObject())
     }
 
     fun getMessages(roomId: String, type: MessageType) {
-        mSocket.emit(EVENT_MESSAGE_LIST, JSONObject("{room:$roomId,type:${type.name}}"))
+        Log.i(TAG, "GETMESSAGES")
+        mSocket?.emit(EVENT_MESSAGE_LIST, JSONObject("{room:$roomId,type:${type.name}}"))
     }
 
     fun sendMessage(message: String) {
-        mSocket.emit(
+        mSocket?.emit(
             EVENT_SEND_MESSAGE,
             JSONObject("{content:\"$message\",to:${_room.value?._id}}")
         )
@@ -112,10 +119,10 @@ class CommunityViewModel @Inject constructor(
 
     private val chatListener: Emitter.Listener = Emitter.Listener {
         val response = it[0] as JSONObject
-        val id: String = response.get("userId").toString()
+        // val id: String = response.get("userId").toString()
         val data = Gson().fromJson(response.get("messages").toString(), Chat::class.java)
         Log.i(TAG, data.toString())
-        userId.update { id }
+        //  userId.update { id }
         _state.update {
             it.copy(
                 isLoading = false,
@@ -158,6 +165,12 @@ class CommunityViewModel @Inject constructor(
             } catch (exception: Exception) {
                 Log.e(TAG, exception.message.toString())
             }
+        }
+    }
+
+    private fun getUserId() = viewModelScope.launch {
+        userUseCase.getUserId().apply {
+            userId.update { this }
         }
     }
 
