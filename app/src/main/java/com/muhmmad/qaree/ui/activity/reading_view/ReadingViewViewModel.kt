@@ -48,8 +48,7 @@ class ReadingViewViewModel @Inject constructor(
         _state.update { it.copy(isLoading = true) }
         useCase.getBookContent(bookId).apply {
             _state.update { it.copy(isLoading = false, error = message) }
-            _bookContent.update { data }
-            getChapter(authUseCase.getToken(), bookId, data?.data ?: emptyList()).apply {
+            getChapter(authUseCase.getToken(), bookId, data?.allHTML ?: emptyList()).apply {
                 _state.update { it.copy(chapter = this.first()) }
             }
         }

@@ -334,7 +334,16 @@ fun GetBookStatusQuery.GetBookStatus.toBookStatus(): BookStatus = BookStatus(
 )
 
 fun GetBookContentQuery.GetBookContent.toBookContent(): BookContent = BookContent(
-    content?.map {
+    allHTML = allHTML?.map {
+        ContentItem(
+            id = it?.id ?: "",
+            mediaType = it?.mediaType ?: "",
+            title = it?.title ?: "",
+            order = it?.order ?: 0,
+            level = it?.level ?: 0
+        )
+    }!!,
+    content = content?.map {
         ContentItem(
             id = it?.id ?: "",
             mediaType = it?.mediaType ?: "",

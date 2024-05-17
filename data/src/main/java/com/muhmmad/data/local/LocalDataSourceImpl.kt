@@ -1,16 +1,14 @@
 package com.muhmmad.data.local
 
-import android.util.Log
 import androidx.datastore.core.DataStore
 import com.muhmmad.domain.local.LocalDataSource
+import com.muhmmad.domain.model.AppMode
 import com.muhmmad.domain.model.Language
 import com.muhmmad.domain.model.User
 import com.muhmmad.domain.model.UserData
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
 
-private const val TAG = "LocalDataSourceImpl"
 
 class LocalDataSourceImpl(private val dataStore: DataStore<UserData>) : LocalDataSource {
     override suspend fun setFirstTime(isFirstTime: Boolean) {
@@ -22,7 +20,6 @@ class LocalDataSourceImpl(private val dataStore: DataStore<UserData>) : LocalDat
     override suspend fun isFirstTime(): Boolean = dataStore.data.map { it.isFirstTime }.first()
 
     override suspend fun setToken(token: String) {
-        Log.i(TAG, token.toString())
         dataStore.updateData {
             it.copy(
                 token = token
@@ -57,4 +54,13 @@ class LocalDataSourceImpl(private val dataStore: DataStore<UserData>) : LocalDat
     }
 
     override suspend fun getUserId(): String = dataStore.data.map { it.id }.first()
+    override suspend fun changeMode(mode: AppMode) {
+        dataStore.updateData {
+            it.copy(
+                uiMode = mode
+            )
+        }
+    }
+
+    override suspend fun getUiMode(): AppMode = dataStore.data.map { it.uiMode }.first()
 }

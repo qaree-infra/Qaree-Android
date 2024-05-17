@@ -1,5 +1,6 @@
 package com.muhmmad.domain.repo
 
+import com.muhmmad.domain.model.AppMode
 import com.muhmmad.domain.model.BaseResponse
 import com.muhmmad.domain.model.NetworkResponse
 import com.muhmmad.domain.model.User
@@ -21,4 +22,6 @@ interface UserRepo {
     suspend fun isUserProfile(userId: String): Boolean
     suspend fun getUserId(): String
     suspend fun followUser(token: String, userId: String): NetworkResponse<BaseResponse>
+    suspend fun changeMode(mode: AppMode)
+    suspend fun getUiMode(): AppMode
 }

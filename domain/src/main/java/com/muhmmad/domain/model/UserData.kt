@@ -10,7 +10,7 @@ data class UserData(
     val token: String = "",
     val isFirstTime: Boolean = true,
     val language: Language = Language.ENGLISH,
-    val darkMode: AppMode = AppMode.DEFAULT,
+    val uiMode: AppMode = AppMode.DEFAULT,
     val notifications: Boolean = true
 )
 

@@ -19,6 +19,5 @@ class ReadingViewRepoImpl(
         token: String,
         bookId: String,
         chapter: String
-    ): NetworkResponse<BookChapter> =
-        retrofitDataSource.getBookChapter(token, bookId, chapter).checkResponse()
+    ): NetworkResponse<BookChapter> = retrofitDataSource.getBookChapter(token, bookId, chapter).checkResponse()
 }

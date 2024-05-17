@@ -2,7 +2,9 @@ package com.muhmmad.qaree.ui.activity.on_boarding
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.muhmmad.domain.model.AppMode
 import com.muhmmad.domain.usecase.AuthUseCase
+import com.muhmmad.domain.usecase.UserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,6 +16,7 @@ import javax.inject.Inject
 @HiltViewModel
 class OnBoardingViewModel @Inject constructor(
     private val authUseCase: AuthUseCase,
+    private val userUseCase: UserUseCase
 ) : ViewModel() {
     private val _state = MutableStateFlow(MainState())
     val state = _state.asStateFlow()
@@ -51,9 +54,17 @@ class OnBoardingViewModel @Inject constructor(
         }
     }
 
+    fun getUiMode() = viewModelScope.launch {
+        userUseCase.getUiMode().apply {
+            _state.update { it.copy(uiMode = this) }
+        }
+    }
+
+
     data class MainState(
         val isFirstTime: Boolean? = null,
         val isLogged: Boolean? = null,
-        val error: String? = null
+        val error: String? = null,
+        val uiMode: AppMode? = null
     )
 }
