@@ -1,19 +1,23 @@
 package com.muhmmad.qaree.ui.fragment.settings
 
+import android.app.UiModeManager
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO
 import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_UNSPECIFIED
 import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import com.muhmmad.domain.model.AppMode
 import com.muhmmad.domain.model.User
 import com.muhmmad.qaree.R
 import com.muhmmad.qaree.databinding.FragmentSettingsBinding
@@ -22,6 +26,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+private const val TAG = "SettingsFragment"
 
 @AndroidEntryPoint
 class SettingsFragment : Fragment() {
@@ -77,8 +82,13 @@ class SettingsFragment : Fragment() {
 
             }
             switchMode.setOnCheckedChangeListener { buttonView, isChecked ->
-                if (isChecked) AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                else AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                if (isChecked) {
+                    AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_YES)
+                    viewModel.changeUiMode(AppMode.DARK)
+                } else {
+                    AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_NO)
+                    viewModel.changeUiMode(AppMode.LIGHT)
+                }
             }
             switchNotification.setOnCheckedChangeListener { buttonView, isChecked ->
 

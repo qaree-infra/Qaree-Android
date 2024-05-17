@@ -1,5 +1,6 @@
 package com.muhmmad.domain.local
 
+import com.muhmmad.domain.model.AppMode
 import com.muhmmad.domain.model.Language
 import com.muhmmad.domain.model.User
 
@@ -13,4 +14,6 @@ interface LocalDataSource {
     suspend fun isUserProfile(userId: String): Boolean
     suspend fun logout()
     suspend fun getUserId(): String
+    suspend fun changeMode(mode: AppMode)
+    suspend fun getUiMode(): AppMode
 }

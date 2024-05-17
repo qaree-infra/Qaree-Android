@@ -1,5 +1,6 @@
 package com.muhmmad.domain.usecase
 
+import com.muhmmad.domain.model.AppMode
 import com.muhmmad.domain.model.User
 import com.muhmmad.domain.repo.UserRepo
 import okhttp3.MultipartBody
@@ -22,4 +23,6 @@ class UserUseCase(private val repo: UserRepo) {
     suspend fun isUserProfile(userId: String) = repo.isUserProfile(userId)
     suspend fun getUserId() = repo.getUserId()
     suspend fun followUser(token: String, userId: String) = repo.followUser(token, userId)
+    suspend fun changeMode(mode: AppMode) = repo.changeMode(mode)
+    suspend fun getUiMode() = repo.getUiMode()
 }

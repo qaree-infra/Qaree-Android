@@ -7,10 +7,15 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO
+import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES
+import androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
+import com.muhmmad.domain.model.AppMode
 import com.muhmmad.qaree.R
 import com.muhmmad.qaree.databinding.ActivityOnBoardingBinding
 import com.muhmmad.qaree.ui.activity.auth.AuthActivity
@@ -31,6 +36,7 @@ class OnBoardingActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         initSplashScreen()
         super.onCreate(savedInstanceState)
+        viewModel.getUiMode()
         viewModel.isFirstTime()
         viewModel.isLogged()
 //        setContentView(binding.root)
@@ -63,6 +69,14 @@ class OnBoardingActivity : BaseActivity() {
                             viewModel.setFirstTime()
                             super.setContentView(binding.root)
                         } else goToAuth(context)
+                    }
+                }
+
+                it.uiMode?.let { mode ->
+                    when (mode) {
+                        AppMode.LIGHT -> setDefaultNightMode(MODE_NIGHT_NO)
+                        AppMode.DARK -> setDefaultNightMode(MODE_NIGHT_YES)
+                        else -> setDefaultNightMode(MODE_NIGHT_FOLLOW_SYSTEM)
                     }
                 }
             }

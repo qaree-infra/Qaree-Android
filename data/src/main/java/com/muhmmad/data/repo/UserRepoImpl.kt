@@ -2,6 +2,7 @@ package com.muhmmad.data.repo
 
 import com.muhmmad.data.utils.checkResponse
 import com.muhmmad.domain.local.LocalDataSource
+import com.muhmmad.domain.model.AppMode
 import com.muhmmad.domain.model.BaseResponse
 import com.muhmmad.domain.model.NetworkResponse
 import com.muhmmad.domain.model.User
@@ -46,4 +47,7 @@ class UserRepoImpl(
     override suspend fun getUserId(): String = localDataSource.getUserId()
     override suspend fun followUser(token: String, userId: String): NetworkResponse<BaseResponse> =
         graphQlDataSource.followUser(token, userId)
+
+    override suspend fun changeMode(mode: AppMode) = localDataSource.changeMode(mode)
+    override suspend fun getUiMode(): AppMode =localDataSource.getUiMode()
 }

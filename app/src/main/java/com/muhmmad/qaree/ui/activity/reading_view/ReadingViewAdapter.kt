@@ -15,7 +15,8 @@ import com.muhmmad.qaree.databinding.ReadingViewItemBinding
 
 private const val TAG = "ReadingViewAdapter"
 
-class ReadingViewAdapter : PagingDataAdapter<NetworkResponse<BookChapter>, ReadingViewAdapter.ViewHolder>(ChapterComparator) {
+class ReadingViewAdapter :
+    PagingDataAdapter<NetworkResponse<BookChapter>, ReadingViewAdapter.ViewHolder>(ChapterComparator) {
     class ViewHolder(private val binding: ReadingViewItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(path: String) {
@@ -25,7 +26,7 @@ class ReadingViewAdapter : PagingDataAdapter<NetworkResponse<BookChapter>, Readi
             binding.webView.settings.javaScriptEnabled = true
             binding.webView.webViewClient = object : WebViewClient() {
                 override fun onPageFinished(view: WebView?, url: String?) {
-                    Log.i(TAG, url.toString())
+                    Log.i(TAG, "url ${url.toString()}")
                     super.onPageFinished(view, url)
                 }
             }
@@ -35,6 +36,7 @@ class ReadingViewAdapter : PagingDataAdapter<NetworkResponse<BookChapter>, Readi
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
         item?.let {
+            Log.i(TAG, "content : ${it.data?.content.toString()}")
             holder.bind(it.data?.content ?: "")
         }
     }
