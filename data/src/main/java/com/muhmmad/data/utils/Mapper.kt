@@ -15,6 +15,9 @@ import com.muhmmad.domain.model.CommunityMembers
 import com.muhmmad.domain.model.ContentItem
 import com.muhmmad.domain.model.Cover
 import com.muhmmad.domain.model.LibraryResponse
+import com.muhmmad.domain.model.Notification
+import com.muhmmad.domain.model.NotificationData
+import com.muhmmad.domain.model.NotificationsResponse
 import com.muhmmad.domain.model.Offer
 import com.muhmmad.domain.model.OffersResponse
 import com.muhmmad.domain.model.PaymentOrder
@@ -39,6 +42,7 @@ import com.muhmmad.qaree.GetCategoriesQuery
 import com.muhmmad.qaree.GetCommunityMembersQuery
 import com.muhmmad.qaree.GetLastActivityQuery
 import com.muhmmad.qaree.GetLibraryQuery
+import com.muhmmad.qaree.GetNotificationsQuery
 import com.muhmmad.qaree.GetOffersQuery
 import com.muhmmad.qaree.GetShelfDetailsQuery
 import com.muhmmad.qaree.GetTopAuthorsQuery
@@ -403,3 +407,26 @@ fun FollowUserMutation.FollowUser.toBaseResponse(): BaseResponse = BaseResponse(
     message = message ?: "",
     success = success ?: false
 )
+
+fun GetNotificationsQuery.GetNotifications.toNotificationsResponse(): NotificationsResponse =
+    NotificationsResponse(
+        numberOfPages = numberOfPages ?: 0,
+        currentPage = currentPage ?: 0,
+        notifications = notifications?.map {
+            Notification(
+                id = it?._id ?: "",
+                title = it?.title ?: "",
+                body = it?.body ?: "",
+                createdAt = it?.createdAt ?: "",
+                updatedAt = it?.updatedAt ?: "",
+                type = it?.type ?: "",
+                data = NotificationData(
+                    userId = it?.data?.userId ?: "",
+                    bookId = it?.data?.bookId ?: "",
+                    reviewId = it?.data?.reviewId ?: "",
+                    roomId = it?.data?.roomId ?: ""
+                ),
+                image = it?.image ?: ""
+            )
+        }!!
+    )

@@ -5,6 +5,7 @@ import com.muhmmad.domain.local.LocalDataSource
 import com.muhmmad.domain.model.AppMode
 import com.muhmmad.domain.model.BaseResponse
 import com.muhmmad.domain.model.NetworkResponse
+import com.muhmmad.domain.model.NotificationsResponse
 import com.muhmmad.domain.model.User
 import com.muhmmad.domain.remote.GraphQlDataSource
 import com.muhmmad.domain.remote.RetrofitDataSource
@@ -49,5 +50,11 @@ class UserRepoImpl(
         graphQlDataSource.followUser(token, userId)
 
     override suspend fun changeMode(mode: AppMode) = localDataSource.changeMode(mode)
-    override suspend fun getUiMode(): AppMode =localDataSource.getUiMode()
+    override suspend fun getUiMode(): AppMode = localDataSource.getUiMode()
+    override suspend fun getNotifications(
+        token: String,
+        page: Int,
+        limit: Int
+    ): NetworkResponse<NotificationsResponse> =
+        graphQlDataSource.getNotifications(token, page, limit)
 }

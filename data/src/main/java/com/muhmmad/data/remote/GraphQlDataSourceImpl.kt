@@ -19,6 +19,7 @@ import com.muhmmad.data.utils.checkResponse
 import com.muhmmad.data.utils.toBookContent
 import com.muhmmad.data.utils.toBookStatus
 import com.muhmmad.data.utils.toCommunityMembers
+import com.muhmmad.data.utils.toNotificationsResponse
 import com.muhmmad.data.utils.toPaymentOrder
 import com.muhmmad.domain.model.ActivityResponse
 import com.muhmmad.domain.model.AuthorsResponse
@@ -34,6 +35,7 @@ import com.muhmmad.domain.model.BooksResponse
 import com.muhmmad.domain.model.CategoriesResponse
 import com.muhmmad.domain.model.CommunityMembers
 import com.muhmmad.domain.model.LibraryResponse
+import com.muhmmad.domain.model.NotificationsResponse
 import com.muhmmad.domain.model.OffersResponse
 import com.muhmmad.domain.model.PaymentOrder
 import com.muhmmad.domain.model.ReviewsResponse
@@ -56,6 +58,7 @@ import com.muhmmad.qaree.GetCategoriesQuery
 import com.muhmmad.qaree.GetCommunityMembersQuery
 import com.muhmmad.qaree.GetLastActivityQuery
 import com.muhmmad.qaree.GetLibraryQuery
+import com.muhmmad.qaree.GetNotificationsQuery
 import com.muhmmad.qaree.GetOffersQuery
 import com.muhmmad.qaree.GetShelfDetailsQuery
 import com.muhmmad.qaree.GetTopAuthorsQuery
@@ -734,4 +737,22 @@ class GraphQlDataSourceImpl(
         } catch (ex: Exception) {
             Error(ex.message.toString())
         }
+
+    override suspend fun getNotifications(
+        token: String,
+        page: Int,
+        limit: Int
+    ): NetworkResponse<NotificationsResponse> = try {
+        val response = checkResponse(
+            apolloClient.query(GetNotificationsQuery(page = page, limit = limit))
+                .addHttpHeader("Authorization", token).execute()
+        )
+
+        when(response){
+            is Success -> Success(response.data?.getNotifications?.toNotificationsResponse()!!)
+            else->Error(response.message.toString())
+        }
+    } catch (ex: Exception) {
+        Error(ex.message.toString())
+    }
 }

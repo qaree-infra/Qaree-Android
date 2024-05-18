@@ -25,4 +25,6 @@ class UserUseCase(private val repo: UserRepo) {
     suspend fun followUser(token: String, userId: String) = repo.followUser(token, userId)
     suspend fun changeMode(mode: AppMode) = repo.changeMode(mode)
     suspend fun getUiMode() = repo.getUiMode()
+    suspend fun getNotifications(token: String, page: Int, limit: Int) =
+        repo.getNotifications(token, page, limit)
 }

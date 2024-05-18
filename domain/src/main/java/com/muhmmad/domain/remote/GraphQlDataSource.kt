@@ -12,6 +12,7 @@ import com.muhmmad.domain.model.BooksResponse
 import com.muhmmad.domain.model.CategoriesResponse
 import com.muhmmad.domain.model.CommunityMembers
 import com.muhmmad.domain.model.LibraryResponse
+import com.muhmmad.domain.model.NotificationsResponse
 import com.muhmmad.domain.model.OffersResponse
 import com.muhmmad.domain.model.PaymentOrder
 import com.muhmmad.domain.model.ReviewsResponse
@@ -92,4 +93,5 @@ interface GraphQlDataSource {
     ): NetworkResponse<CommunityMembers>
 
     suspend fun followUser(token: String, userId: String): NetworkResponse<BaseResponse>
+    suspend fun getNotifications(token: String, page: Int, limit: Int): NetworkResponse<NotificationsResponse>
 }
