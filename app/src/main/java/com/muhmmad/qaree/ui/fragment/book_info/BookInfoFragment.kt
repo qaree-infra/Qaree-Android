@@ -1,5 +1,6 @@
 package com.muhmmad.qaree.ui.fragment.book_info
 
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -13,14 +14,23 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import coil.load
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.muhmmad.domain.model.Book
 import com.muhmmad.qaree.BuildConfig
 import com.muhmmad.qaree.R
+import com.muhmmad.qaree.databinding.DialogPaymentBinding
 import com.muhmmad.qaree.databinding.FragmentBookInfoBinding
 import com.muhmmad.qaree.ui.activity.home.HomeActivity
 import com.muhmmad.qaree.ui.activity.reading_view.ReadingViewActivity
 import com.muhmmad.qaree.ui.fragment.book_info.adapters.ReviewsAdapter
 import com.muhmmad.qaree.utils.DateUtils.getBookYear
+import com.paypal.android.cardpayments.ApproveOrderListener
+import com.paypal.android.cardpayments.Card
+import com.paypal.android.cardpayments.CardClient
+import com.paypal.android.cardpayments.CardRequest
+import com.paypal.android.cardpayments.CardResult
+import com.paypal.android.cardpayments.threedsecure.SCA
+import com.paypal.android.corepayments.Address
 import com.paypal.android.corepayments.CoreConfig
 import com.paypal.android.corepayments.Environment
 import com.paypal.android.corepayments.PayPalSDKError
@@ -30,6 +40,7 @@ import com.paypal.android.paypalwebpayments.PayPalWebCheckoutListener
 import com.paypal.android.paypalwebpayments.PayPalWebCheckoutRequest
 import com.paypal.android.paypalwebpayments.PayPalWebCheckoutResult
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -46,7 +57,11 @@ class BookInfoFragment : Fragment() {
     private val adapter: ReviewsAdapter by lazy {
         ReviewsAdapter()
     }
+    private val ctx: Context by lazy {
+        binding.root.context
+    }
     private val viewModel: BookInfoViewModel by activityViewModels()
+    private var paymentType: String = "Paypal"
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -97,7 +112,7 @@ class BookInfoFragment : Fragment() {
             btnBuy.setOnClickListener {
                 when (viewModel.bookState.value) {
                     BookInfoViewModel.BookState.BUY -> {
-                        viewModel.createPaymentOrder()
+                        showPaymentDialog()
                     }
 
                     BookInfoViewModel.BookState.START_READING -> {
@@ -121,6 +136,13 @@ class BookInfoFragment : Fragment() {
     }
 
     private fun checkState() {
+        lifecycleScope.launch {
+            viewModel.paymentOrder.collectLatest {
+                it?.let {
+                    if (paymentType == "Paypal") paypalProcess(it.id) else cardsProcess(it.id)
+                }
+            }
+        }
         lifecycleScope.launch {
             viewModel.bookState.collect {
                 when (it) {
@@ -166,10 +188,6 @@ class BookInfoFragment : Fragment() {
                     activity.showMessage(message)
                 }
 
-                it.paymentOrder?.apply {
-                    paymentProcess(id)
-                }
-
                 it.completePaymentResponse?.apply {
                     viewModel.getBookStatus()
                 }
@@ -181,17 +199,40 @@ class BookInfoFragment : Fragment() {
         }
     }
 
-    private fun paymentProcess(orderId: String) {
+    private fun showPaymentDialog() {
+        val dialog = BottomSheetDialog(ctx)
+        val dialogBinding = DialogPaymentBinding.inflate(LayoutInflater.from(ctx))
+
+        dialogBinding.apply {
+            paypal.setOnClickListener {
+                viewModel.createPaymentOrder()
+                paymentType = "Paypal"
+                dialog.dismiss()
+            }
+
+            cards.setOnClickListener {
+                viewModel.createPaymentOrder()
+                paymentType = "Cards"
+                dialog.dismiss()
+            }
+        }
+
+        dialog.setContentView(dialogBinding.root)
+        dialog.show()
+    }
+
+    private fun paypalProcess(orderId: String) {
         val config = CoreConfig(
             BuildConfig.paypalClientId,
             environment = Environment.SANDBOX
         )
 
+
         val payPalWebCheckoutClient =
             PayPalWebCheckoutClient(activity, config, "com.muhmmad.qaree.payment")
         payPalWebCheckoutClient.listener = object : PayPalWebCheckoutListener {
             override fun onPayPalWebCanceled() {
-                Log.i(TAG, "Canceled")
+                activity.showMessage("Canceled")
             }
 
             override fun onPayPalWebFailure(error: PayPalSDKError) {
@@ -208,6 +249,60 @@ class BookInfoFragment : Fragment() {
             fundingSource = PayPalWebCheckoutFundingSource.PAYPAL
         )
         payPalWebCheckoutClient.start(payPalWebCheckoutRequest)
+    }
+
+    private fun cardsProcess(orderId: String) {
+        val config = CoreConfig(
+            BuildConfig.paypalClientId,
+            environment = Environment.SANDBOX
+        )
+        val cardClient = CardClient(activity, config)
+
+        val card = Card(
+            number = "4032036725116402",
+            expirationMonth = "11",
+            expirationYear = "2027",
+            securityCode = "867",
+            billingAddress = Address(
+                streetAddress = "123 Main St.",
+                extendedAddress = "Apt. 1A",
+                locality = "Anytown",
+                region = "CA",
+                postalCode = "12345",
+                countryCode = "US"
+            )
+        )
+
+        val cardRequest = CardRequest(
+            orderId = orderId,
+            card = card,
+            returnUrl = "myapp://com.muhmmad.qaree.payment", // custom URL scheme needs to be configured in AndroidManifest.xml
+            sca = SCA.SCA_ALWAYS // default value is SCA.SCA_WHEN_REQUIRED
+        )
+
+        cardClient.approveOrderListener = object : ApproveOrderListener {
+            override fun onApproveOrderCanceled() {
+                activity.showMessage("Canceled")
+            }
+
+            override fun onApproveOrderFailure(error: PayPalSDKError) {
+                activity.showError(binding.root, error.message.toString())
+            }
+
+            override fun onApproveOrderSuccess(result: CardResult) {
+                viewModel.completePayment(result.orderId)
+            }
+
+            override fun onApproveOrderThreeDSecureDidFinish() {
+                Log.i(TAG, "Approve Order ThreeDSecure Did Finish")
+            }
+
+            override fun onApproveOrderThreeDSecureWillLaunch() {
+                Log.i(TAG, "Approve Order ThreeDSecure Will Launch")
+            }
+        }
+
+        cardClient.approveOrder(activity, cardRequest)
     }
 
     private fun checkValidation(content: String, rate: Float): Boolean {

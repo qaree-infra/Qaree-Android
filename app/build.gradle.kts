@@ -2,7 +2,8 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
-    id("dagger.hilt.android.plugin")
+    id("com.google.dagger.hilt.android")
+   // id("dagger.hilt.android.plugin")
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
     id("com.google.firebase.firebase-perf")
@@ -56,7 +57,7 @@ android {
 dependencies {
     val nav_version = "2.7.7"
     val paging_version = "3.2.1"
-    val hilt_version = "2.50"
+    val hilt_version = "2.44"
     implementation("androidx.core:core-ktx:1.13.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")
@@ -80,20 +81,22 @@ dependencies {
     implementation("com.google.dagger:hilt-android:$hilt_version")
     kapt("com.google.dagger:hilt-compiler:$hilt_version")
     //ViewModel
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.8.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.0")
     //Data Module
     api(project(":data"))
     //OTP view
     implementation("com.github.aabhasr1:OtpView:v1.1.2-ktx")
     //Firebase
-    implementation(platform("com.google.firebase:firebase-bom:32.8.1"))
+    implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
     implementation("com.google.firebase:firebase-analytics")
     //Firebase-crashlytics
     implementation("com.google.firebase:firebase-crashlytics")
     //Firebase-Performance
     implementation("com.google.firebase:firebase-perf")
+    //Firebase-FCM
+    implementation("com.google.firebase:firebase-messaging")
     //Shimmer effect
     implementation("com.facebook.shimmer:shimmer:0.1.0@aar")
     //Coil
@@ -109,6 +112,9 @@ dependencies {
     implementation("io.socket:socket.io-client:2.0.0")
     //Gson
     implementation("com.google.code.gson:gson:2.10.1")
+    //DataStore
+    implementation("androidx.datastore:datastore:1.1.1")
+    implementation("androidx.datastore:datastore-core:1.1.1")
 }
 
 kapt {
