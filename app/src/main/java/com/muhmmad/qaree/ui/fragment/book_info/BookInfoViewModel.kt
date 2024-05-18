@@ -15,6 +15,7 @@ import com.muhmmad.domain.usecase.LibraryUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -35,6 +36,10 @@ class BookInfoViewModel @Inject constructor(
 
     private val _book = MutableStateFlow(Book())
     val book = _book.asStateFlow()
+
+    private val _paymentOrder: MutableStateFlow<PaymentOrder?> = MutableStateFlow(null)
+    val paymentOrder = _paymentOrder.asSharedFlow()
+
 
     fun updateBook(book: Book) {
         _book.update { book }
@@ -129,7 +134,8 @@ class BookInfoViewModel @Inject constructor(
         _state.update { it.copy(isLoading = true) }
         bookUseCase.createPaymentOrder(authUseCase.getToken(), _book.value.id).apply {
             _state.update {
-                it.copy(isLoading = false, error = message, paymentOrder = data)
+                _paymentOrder.emit(data)
+                it.copy(isLoading = false, error = message)
             }
         }
     }
@@ -164,7 +170,6 @@ class BookInfoViewModel @Inject constructor(
         val isLoading: Boolean = false,
         val error: String? = null,
         val libraryResponse: LibraryResponse? = null,
-        val paymentOrder: PaymentOrder? = null,
         val joinCommunityResponse: BaseResponse? = null,
         val completePaymentResponse: PaymentOrder? = null
     )

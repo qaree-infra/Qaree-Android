@@ -18,12 +18,14 @@
 
     <TextView
         android:id="@+id/tv_book_name"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_20sdp"
         android:textColor="@color/black"
         android:textSize="@dimen/_15ssp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/tv_book_author"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/iv_cover"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Thinking in Java" />

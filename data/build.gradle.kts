@@ -56,8 +56,8 @@ dependencies {
     //Domain Module
     api(project(":domain"))
     //DataStore
-    implementation("androidx.datastore:datastore:1.1.0")
-    implementation("androidx.datastore:datastore-core:1.1.0")
+    implementation("androidx.datastore:datastore:1.1.1")
+    implementation("androidx.datastore:datastore-core:1.1.1")
     //Serialization
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
 }
