@@ -35,7 +35,11 @@ class CommunityDetailsFragment : Fragment() {
     }
     private val viewModel: CommunityDetailsViewModel by viewModels()
     private val adapter: MembersAdapter by lazy {
-        MembersAdapter()
+        MembersAdapter {
+            val bundle = Bundle()
+            bundle.putString("userId", it._id)
+            nav.navigate(R.id.action_communityDetailsFragment_to_profileFragment, bundle)
+        }
     }
 
     override fun onCreateView(
@@ -53,9 +57,6 @@ class CommunityDetailsFragment : Fragment() {
                 )!!
                 else arguments?.getParcelable("room")!!
 
-
-            Log.i(TAG, room.toString())
-
             viewModel.getCommunityMembers(room.roomId)
 
             checkState()
@@ -69,6 +70,7 @@ class CommunityDetailsFragment : Fragment() {
                 it?.let {
                     binding.tvCommunityMembers.text =
                         getString(R.string.members, it.totalMembers.toString())
+                    adapter.setData(it.members)
                 }
             }
         }
@@ -92,6 +94,7 @@ class CommunityDetailsFragment : Fragment() {
             }
             ivCommunity.load(room.book.cover.path)
             tvCommunity.text = room.book.name
+            rvMembers.adapter = adapter
         }
     }
 }
