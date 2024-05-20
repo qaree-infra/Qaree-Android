@@ -65,6 +65,37 @@ Here are some screenshots from the Qaree app:
 
 Each of these tools and libraries contributes to the functionality, performance, and user experience of the Qaree app. They are chosen based on their efficiency, ease of use, and community support.
 
+## Reason of choice the technical tools
+###  DataStore VS Shared Preferences
+
+#### Shared Preferences
+- **Ease of Use**: Shared Preferences are easy to use and require minimal setup.
+- **Ideal for Small Data**: They are ideal for storing small amounts of data such as user preferences, settings, and session information.
+- **Limitations**: Shared Preferences are not safe to call on the UI thread as operations are synchronous and may block the main thread. They support only primitive data types and do not provide type safety.
+
+#### DataStore
+- **Complex Data Objects**: DataStore can handle complex data objects through serialization.
+- **Asynchronous Operations**: It has built-in support for asynchronous operations using Kotlin Coroutines.
+- **Observability**: DataStore offers observability through Flow or LiveData.
+- **Support for Encryption**: It provides an added layer of protection with support for encryption.
+
+In summary, while Shared Preferences are suitable for storing small amounts of primitive data types, DataStore provides a more robust and efficient solution for storing complex data objects, with support for asynchronous operations, observability, and encryption.
+
+### Coil VS Glide
+
+#### Glide
+- **Familiar API**: Glide offers a familiar API and is adept at handling complex image loading scenarios.
+- **Robust**: Its robust caching mechanisms, seamless fetching of images, and ease of integration have made it a go-to choice for many projects.
+
+#### Coil
+- **Modern**: Coil is a modern and lightweight image loading library designed with a focus on modern Android development practices.
+- **Kotlin Integration**: It leverages Kotlin’s coroutines and extension functions to simplify the process of image loading while promoting clean and concise code.
+- **Lightweight**: Coil prides itself on its lightweight nature, excelling in providing the essentials without unnecessary overhead.
+- **Automatic Memory Management**: Coil ensures that memory management is automated and optimized, preventing memory leaks and out-of-memory errors.
+
+In conclusion, while Glide is a powerful toolset for handling complex image needs, Coil is a modern, lightweight approach that values memory efficiency and integrates well with Kotlin.
+
+
 ## Project Structure
 
 Qaree is structured as a multi-module project for better separation of concerns and scalability. The main modules include:
