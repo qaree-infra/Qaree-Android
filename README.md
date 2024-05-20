@@ -38,7 +38,7 @@ Here are some screenshots from the Qaree app:
   </tr>
 </table>
 
-###Dark Mode
+### Dark Mode
 <table>
   <tr>
     <td><img src="./images/home_screen.png" alt="Home Screen"></td>
