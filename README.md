@@ -26,21 +26,15 @@ Welcome to Qaree, the ultimate e-book reading app that enhances your reading exp
 
 Here are some screenshots from the Qaree app:
 
-### Home Screen
+### Light Mode
 ![Home Screen](./images/home_screen.png)
-
-### Book Details
 ![Book Details](./images/book_details.png)
-
-### Book Details
 ![Library](./images/library.png)
-
-### Chat Feature
 ![Chat Feature](./images/inbox.png)
 ![Chat Feature](./images/chat.png)
-
-### ReadingView
 ![Reading View Feature](./images/reading_view.png)
+
+
 
 ## Comparing MVVM with Other Architecture Patterns
 
