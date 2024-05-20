@@ -41,8 +41,8 @@ class BookInfoViewModel @Inject constructor(
     val paymentOrder = _paymentOrder.asSharedFlow()
 
 
-    fun updateBook(book: Book) {
-        _book.update { book }
+    fun updateBook(book: Book?) {
+        if (book!=null) _book.update { book }
         getLibrary()
     }
 

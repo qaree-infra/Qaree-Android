@@ -2,6 +2,7 @@ package com.muhmmad.qaree.ui.fragment.community_details
 
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +19,8 @@ import com.muhmmad.qaree.ui.activity.home.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+
+private const val TAG = "CommunityDetailsFragmen"
 
 @AndroidEntryPoint
 class CommunityDetailsFragment : Fragment() {
@@ -49,6 +52,9 @@ class CommunityDetailsFragment : Fragment() {
                     Room::class.java
                 )!!
                 else arguments?.getParcelable("room")!!
+
+
+            Log.i(TAG, room.toString())
 
             viewModel.getCommunityMembers(room.roomId)
 

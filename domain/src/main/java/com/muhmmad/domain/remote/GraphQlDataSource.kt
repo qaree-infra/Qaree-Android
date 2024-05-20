@@ -86,12 +86,16 @@ interface GraphQlDataSource {
 
     suspend fun getAuthorInfo(userId: String, token: String): NetworkResponse<User>
     suspend fun getCommunityMembers(
-        id: String,
+        bookId: String,
         page: Int,
         membersPerPage: Int,
         token: String
     ): NetworkResponse<CommunityMembers>
 
     suspend fun followUser(token: String, userId: String): NetworkResponse<BaseResponse>
-    suspend fun getNotifications(token: String, page: Int, limit: Int): NetworkResponse<NotificationsResponse>
+    suspend fun getNotifications(
+        token: String,
+        page: Int,
+        limit: Int
+    ): NetworkResponse<NotificationsResponse>
 }

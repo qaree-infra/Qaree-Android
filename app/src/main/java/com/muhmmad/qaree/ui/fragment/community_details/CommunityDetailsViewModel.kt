@@ -1,5 +1,6 @@
 package com.muhmmad.qaree.ui.fragment.community_details
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.muhmmad.domain.usecase.AuthUseCase
@@ -14,6 +15,8 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+private const val TAG = "CommunityDetailsViewMod"
+
 @HiltViewModel
 class CommunityDetailsViewModel @Inject constructor(
     private val communityUseCase: CommunityUseCase,
@@ -25,28 +28,17 @@ class CommunityDetailsViewModel @Inject constructor(
         MutableStateFlow(null)
     val communityMembers = _communityMembers.asStateFlow()
 
-    fun getCommunityMembers(communityId: String) = viewModelScope.launch(Dispatchers.IO) {
-        _state.update {
-            it.copy(
-                isLoading = true
-            )
-        }
+    fun getCommunityMembers(bookId: String) = viewModelScope.launch(Dispatchers.IO) {
+        Log.i(TAG, bookId.toString())
+        _state.update { it.copy(isLoading = true) }
         communityUseCase.getCommunityMembers(
-            id = communityId,
+            bookId = bookId,
             page = 1,
             membersPerPage = 20,
             authUseCase.getToken()
         ).apply {
-            _state.update {
-                it.copy(
-                    isLoading = false,
-                    error = message,
-                )
-            }
-
-            _communityMembers.update {
-                data
-            }
+            _state.update { it.copy(isLoading = false, error = message) }
+            _communityMembers.update { data }
         }
     }
 

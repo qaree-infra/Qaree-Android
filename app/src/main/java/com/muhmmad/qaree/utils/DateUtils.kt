@@ -20,6 +20,7 @@ object DateUtils {
     }
 
     fun getMessageDate(context: Context, createdAt: String): String {
+        if (createdAt.isEmpty()) return ""
         val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
         format.timeZone = TimeZone.getDefault()
 

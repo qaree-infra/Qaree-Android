@@ -2,6 +2,7 @@ package com.muhmmad.qaree.ui.fragment.chat
 
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -21,6 +22,7 @@ import com.muhmmad.qaree.ui.fragment.CommunityViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+private const val TAG = "ChatFragment"
 class ChatFragment : Fragment(), OnClickListener {
     private val binding: FragmentChatBinding by lazy {
         FragmentChatBinding.inflate(layoutInflater)
@@ -56,6 +58,8 @@ class ChatFragment : Fragment(), OnClickListener {
                     Room::class.java
                 )!!
                 else arguments?.getParcelable("chat")!!
+
+            Log.i(TAG, room.toString())
 
             viewModel.setRoom(room)
             viewModel.getMessages(room._id, CommunityViewModel.MessageType.UNREAD)

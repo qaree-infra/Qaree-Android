@@ -94,6 +94,9 @@
         <action
             android:id="@+id/action_bookInfoFragment_to_bookInfoDialog"
             app:destination="@id/bookInfoDialog" />
+        <action
+            android:id="@+id/action_bookInfoFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
     </fragment>
     <fragment
         android:id="@+id/categoryFragment"
@@ -207,5 +210,12 @@
         android:id="@+id/communityDetailsFragment"
         android:name="com.muhmmad.qaree.ui.fragment.community_details.CommunityDetailsFragment"
         android:label="fragment_community_details"
-        tools:layout="@layout/fragment_community_details" />
+        tools:layout="@layout/fragment_community_details">
+        <argument
+            android:name="ShowAppBar"
+            android:defaultValue="false" />
+        <argument
+            android:name="showBottomNavigation"
+            android:defaultValue="false" />
+    </fragment>
 </navigation>

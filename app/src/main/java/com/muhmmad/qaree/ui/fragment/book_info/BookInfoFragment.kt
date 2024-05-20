@@ -16,6 +16,7 @@ import androidx.navigation.fragment.findNavController
 import coil.load
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.muhmmad.domain.model.Book
+import com.muhmmad.domain.model.Room
 import com.muhmmad.qaree.BuildConfig
 import com.muhmmad.qaree.R
 import com.muhmmad.qaree.databinding.DialogPaymentBinding
@@ -65,19 +66,22 @@ class BookInfoFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        return binding.root
-    }
+    ): View = binding.root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
-            val book: Book =
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) arguments?.getParcelable(
-                    "book",
-                    Book::class.java
-                )!!
-                else arguments?.getParcelable<Book>("book") as Book
+            val book: Book? =
+                try {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) arguments?.getParcelable(
+                        "book",
+                        Book::class.java
+                    )
+                    else arguments?.getParcelable<Book>("book") as Book
+                } catch (ex: Exception) {
+                    null
+                }
+
 
             viewModel.updateBook(book)
 
@@ -88,16 +92,20 @@ class BookInfoFragment : Fragment() {
         }
     }
 
-    private fun handleViews(book: Book) {
+    private fun handleViews(book: Book?) {
         binding.apply {
-            bookInfoHeader.ivCover.load(book.cover.path)
-            bookInfoHeader.tvBookName.text = book.name
-            bookInfoHeader.tvBookAuthor.text = getString(R.string.author_name, book.author?.name)
-            bookInfoHeader.ratingBar.rating = book.avgRating.toFloat()
-            bookInfoHeader.tvBookYear.text = getBookYear(book.createdAt)
-            bookInfoHeader.tvBookLanguage.text = book.language
-            bookInfoHeader.tvBookPrice.text = getString(R.string.offer_price, book.price.toString())
-            tvDescription.text = book.description
+            if (book != null) {
+                bookInfoHeader.ivCover.load(book.cover.path)
+                bookInfoHeader.tvBookName.text = book.name
+                bookInfoHeader.tvBookAuthor.text =
+                    getString(R.string.author_name, book.author?.name)
+                bookInfoHeader.ratingBar.rating = book.avgRating.toFloat()
+                bookInfoHeader.tvBookYear.text = getBookYear(book.createdAt)
+                bookInfoHeader.tvBookLanguage.text = book.language
+                bookInfoHeader.tvBookPrice.text =
+                    getString(R.string.offer_price, book.price.toString())
+                tvDescription.text = book.description
+            }
             rvReviews.adapter = adapter
             ivBack.setOnClickListener {
                 nav.navigateUp()
@@ -117,13 +125,13 @@ class BookInfoFragment : Fragment() {
 
                     BookInfoViewModel.BookState.START_READING -> {
                         val intent = Intent(context, ReadingViewActivity::class.java)
-                        intent.putExtra("id", book.id)
+                        intent.putExtra("id", book?.id ?: "")
                         startActivity(intent)
                     }
 
                     BookInfoViewModel.BookState.CONTINUE_READING -> {
                         val intent = Intent(context, ReadingViewActivity::class.java)
-                        intent.putExtra("id", book.id)
+                        intent.putExtra("id", book?.id ?: "")
                         startActivity(intent)
                     }
                 }
@@ -193,6 +201,18 @@ class BookInfoFragment : Fragment() {
                 }
 
                 it.joinCommunityResponse?.apply {
+//                    val bundle = Bundle()
+//                    val roomId = "${viewModel.userId.value}-${user?._id}"
+//                    val chat = user?.let { user ->
+//                        Room(
+//                            _id = roomId,
+//                            roomId = roomId,
+//                            partner = user,
+//                        )
+//                    }
+//                    bundle.putParcelable("chat", chat)
+//                    bundle.putString("userId", viewModel.userId.value)
+//                    nav.navigate(R.id.action_bookInfoFragment_to_chatFragment, bundle)
                     activity.showMessage(message)
                 }
             }
