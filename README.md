@@ -63,7 +63,7 @@ Here are some screenshots from the Qaree app:
 - [Paging3](https://developer.android.com/topic/libraries/architecture/paging/v3-overview): A library that helps you load and display pages of data from larger datasets from local storage or over network in a RecyclerView.
 - [Socket-IO](https://socket.io/): A library for real-time web applications. It enables real-time, bidirectional and event-based communication between the browser and the server.
 
-Each of these tools and libraries contributes to the functionality, performance, and user experience of the Qaree app. They are chosen based on their efficiency, ease of use, and community support. Happy reading with Qaree! 😊
+Each of these tools and libraries contributes to the functionality, performance, and user experience of the Qaree app. They are chosen based on their efficiency, ease of use, and community support.
 
 ## Project Structure
 
@@ -73,4 +73,3 @@ Qaree is structured as a multi-module project for better separation of concerns 
 - `data`: Handles data management and repository implementations.
 - `domain`: Contains use cases and business logic.
 
-Happy reading with Qaree!
