@@ -104,3 +104,8 @@ Qaree is structured as a multi-module project for better separation of concerns 
 - `data`: Handles data management and repository implementations.
 - `domain`: Contains use cases and business logic.
 
+# Another Qaree Services
+
+1. [Qaree Backend](https://github.com/qaree-infra/qaree-backend):The backend repository contains the server-side logic for the Qaree platform.
+2. [Qaree Publish Service](https://github.com/qaree-infra/qaree-web-publish): The Qaree Publish Service is the website where writers can publish their books, manage their books, and receive their earnings. It provides the necessary tools and interfaces for writers to effectively manage their publications.
+3. [Qaree Admin Panel](https://github.com/qaree-infra/qaree-web-admin): The Qaree Admin Panel is responsible for verifying the authenticity of the books before they are published. It ensures that the book is genuinely written by the writer, maintaining the integrity of the content on the platform.
