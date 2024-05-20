@@ -38,6 +38,18 @@ Here are some screenshots from the Qaree app:
   </tr>
 </table>
 
+###Dark Mode
+<table>
+  <tr>
+    <td><img src="./images/home_screen.png" alt="Home Screen"></td>
+   <td> <img src="./images/book_details.png" alt="Book Details"></td>
+ <td>  <img src="./images/reading_view.png" alt="Reading View"></td>
+<td>  <img src="./images/library.png" alt="Library Feature"></td>
+ <td>  <img src="./images/inbox.png" alt="Chat Feature"></td>
+ <td>   <img src="./images/chat.png" alt="Chat Feature"> </td>
+  </tr>
+</table>
+
 ## About MVVM arch
 ![MVVM](https://camo.githubusercontent.com/a0c965a9357f0704a1f5219cfec01510dd1014adba29f88f873e2d937c70336a/68747470733a2f2f646576656c6f7065722e616e64726f69642e636f6d2f746f7069632f6c69627261726965732f6172636869746563747572652f696d616765732f66696e616c2d6172636869746563747572652e706e67)
 
