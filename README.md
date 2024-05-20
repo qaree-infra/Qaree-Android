@@ -29,14 +29,14 @@ Here are some screenshots from the Qaree app:
 ### Light Mode
 ![Home Screen](./images/home_screen.png)
 ![Book Details](./images/book_details.png)
+![Reading View Feature](./images/reading_view.png)
 ![Library](./images/library.png)
 ![Chat Feature](./images/inbox.png)
 ![Chat Feature](./images/chat.png)
-![Reading View Feature](./images/reading_view.png)
 
 
-
-## Comparing MVVM with Other Architecture Patterns
+## About MVVM arch
+![MVVM](https://camo.githubusercontent.com/a0c965a9357f0704a1f5219cfec01510dd1014adba29f88f873e2d937c70336a/68747470733a2f2f646576656c6f7065722e616e64726f69642e636f6d2f746f7069632f6c69627261726965732f6172636869746563747572652f696d616765732f66696e616c2d6172636869746563747572652e706e67)
 
 ### MVVM (Model-View-ViewModel)
 
@@ -45,64 +45,6 @@ Here are some screenshots from the Qaree app:
 - **Two-Way Data Binding**: Simplifies the synchronization between the UI and the underlying data.
 - **Flexibility**: Adapts well to changing requirements and complex UI interactions.
 
-### MVC (Model-View-Controller)
-
-- **Separation of Concerns**: Less separation compared to MVVM; the Controller often becomes a mix of UI and business logic.
-- **Testability**: Testing can be more challenging due to the tight coupling of components.
-- **Simplicity**: Easier to understand and implement for simple applications.
-- **Scalability**: Can become unwieldy with complex applications due to less modularity.
-
-### MVP (Model-View-Presenter)
-
-- **Separation of Concerns**: Better separation than MVC, with the Presenter handling business logic.
-- **Testability**: Easier to test than MVC, but still requires mocking of the View.
-- **Single Responsibility**: Presenter has a single responsibility, making it easier to manage.
-- **View-Presenter Communication**: Requires manual synchronization between the View and the Presenter.
-
-### MVI (Model-View-Intent)
-
-- **Unidirectional Data Flow**: Promotes a clear flow of data, making state management predictable.
-- **Testability**: High testability due to the isolation of business logic in Intents.
-- **Complexity**: Can be complex to implement and understand, especially for newcomers.
-- **State Management**: Explicit state management can make the app more robust.
-
-## Comparing Coil, Glide, and Picasso
-
-### Coil
-
-- **Performance**: Fast and efficient, optimized for Kotlin and Coroutines.
-- **Modern Features**: Supports animations, transformations, and easy integration with Compose.
-- **Lightweight**: Smaller footprint compared to Glide and Picasso.
-- **Ease of Use**: Simple API, designed with Android's modern development practices in mind.
-
-### Glide
-
-- **Performance**: Very fast, with effective memory and disk caching.
-- **Features**: Rich set of features including GIF support, video stills, and complex image transformations.
-- **Flexibility**: Highly customizable with extensive configuration options.
-- **Community Support**: Widely used with extensive documentation and community support.
-
-### Picasso
-
-- **Simplicity**: Easy to use with a straightforward API.
-- **Performance**: Good performance, but not as optimized as Glide for handling large images or complex transformations.
-- **Caching**: Effective memory and disk caching mechanisms.
-- **Stability**: Proven track record with stable performance over time.
-
-### Comparison Summary
-
-- **Performance**: Glide > Coil > Picasso
-- **Ease of Use**: Picasso > Coil > Glide
-- **Features**: Glide > Coil > Picasso
-- **Modern Development**: Coil > Glide > Picasso
-
-## Architecture
-
-Qaree follows Clean Architecture principles, ensuring a high-quality codebase that is both scalable and maintainable:
-
-- **Presentation Layer**: Contains UI components and ViewModels.
-- **Domain Layer**: Contains business logic and use cases.
-- **Data Layer**: Manages data sources and repositories.
 
 ## Project Structure
 
