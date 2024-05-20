@@ -1,0 +1,11 @@
+mutation updateUserName($name:String!){
+    updateUser(name:$name) {
+        _id,
+        name,
+        email,
+        avatar{
+            path
+        },
+        bio,
+    }
+}

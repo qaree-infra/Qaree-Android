@@ -1,0 +1,21 @@
+query getNotifications($page:Int!,$limit:Int!){
+    getNotifications(limit:$limit,page:$page){
+        notifications{
+            _id,
+            title,
+            body,
+            type,
+            image,
+            data{
+                bookId,
+                userId,
+                reviewId,
+                roomId
+            },
+            createdAt,
+            updatedAt
+        },
+        currentPage,
+        numberOfPages
+    }
+}

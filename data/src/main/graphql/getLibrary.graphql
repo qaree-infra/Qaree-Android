@@ -1,0 +1,17 @@
+query getLibrary($userId:String!,$page:Int!){
+    getLibrary(user:$userId,page:$page){
+        shelves{
+            _id,
+            name,
+            books{
+                book{
+                    _id,name,avgRate,author{name,_id},cover{
+                        path
+                    }
+                },
+                readingProgress
+                status
+            },totalBooks,numberOfBooksPages,currentBooksPage,createdAt,updatedAt
+        },total,currentPage,numberOfPages
+    }
+}

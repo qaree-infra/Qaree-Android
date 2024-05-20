@@ -1,0 +1,26 @@
+query getBooks($id:String!){
+    getBooks(category:$id) {
+        numberOfPages
+        books {
+            name
+            _id,
+            isbn,
+            author{
+                _id,name
+            },
+            avgRate,
+            language,
+            price,
+            description,
+            cover{
+                path
+            },
+            categories{
+                _id
+                name_ar,
+                name_en
+            },
+            createdAt
+        }
+    }
+}

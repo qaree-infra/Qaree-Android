@@ -1,0 +1,32 @@
+query getOffers{
+    getAllOffers {
+        offers {
+            percent
+            expireAt
+            book {
+                price
+                name
+                author {
+                    _id
+                    name
+                }
+                categories{
+                    name_ar,
+                    name_en
+                },
+                cover {
+                    path
+                    size
+                }
+                _id,
+                avgRate,
+                language,
+                description,
+                createdAt
+            }
+        }
+        currentPage
+        numberOfPages
+        total
+    }
+}

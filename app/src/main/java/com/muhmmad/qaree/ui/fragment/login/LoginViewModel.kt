@@ -4,7 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.muhmmad.domain.model.LoginResponse
 import com.muhmmad.domain.usecase.AuthUseCase
+import com.muhmmad.domain.usecase.UserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -12,7 +14,10 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(private val authUseCase: AuthUseCase) : ViewModel() {
+class LoginViewModel @Inject constructor(
+    private val authUseCase: AuthUseCase,
+    private val userUseCase: UserUseCase
+) : ViewModel() {
     private val _state = MutableStateFlow(LoginState())
     val state = _state.asStateFlow()
     private val _email = MutableStateFlow("")
@@ -29,7 +34,7 @@ class LoginViewModel @Inject constructor(private val authUseCase: AuthUseCase) :
     }
 
     fun login() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             _state.update {
                 it.copy(
                     loginResponse = null,
@@ -50,10 +55,29 @@ class LoginViewModel @Inject constructor(private val authUseCase: AuthUseCase) :
         }
     }
 
+    fun getUserData() = viewModelScope.launch(Dispatchers.IO) {
+        userUseCase.getUserInfo(authUseCase.getToken()).apply {
+            data?.let {
+                userUseCase.saveUserData(it)
+            }
+        }
+    }
+
+    fun saveToken(token: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            authUseCase.setToken(token).apply {
+                _state.update {
+                    it.copy(goHome = true)
+                }
+            }
+        }
+    }
+
 
     data class LoginState(
         val loginResponse: LoginResponse? = null,
         val isLoading: Boolean = false,
-        val error: String? = null
+        val error: String? = null,
+        val goHome: Boolean = false
     )
 }

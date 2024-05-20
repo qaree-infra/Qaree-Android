@@ -11,4 +11,12 @@ Features :
     Shimmer animation
     DataStore
     Dagger Hilt
-    
+    Coil
+    Palette
+    Retrofit
+    Parcelable
+    FCM
+    payment : Paypal => payment with paypal , payment with cards
+    Ui Modes => Light Mode , Dark Mode
+    Languages => English , Arabic
+    Paging3

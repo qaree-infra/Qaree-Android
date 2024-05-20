@@ -1,7 +1,7 @@
 package com.muhmmad.qaree.ui.fragment.login
 
+import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.util.Patterns.EMAIL_ADDRESS
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,21 +12,22 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import com.muhmmad.qaree.ui.activity.main.MainActivity
 import com.muhmmad.qaree.R
 import com.muhmmad.qaree.databinding.FragmentLoginBinding
+import com.muhmmad.qaree.ui.activity.auth.AuthActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-
-private const val TAG = "LoginFragment"
 
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
     private val binding: FragmentLoginBinding by lazy {
         FragmentLoginBinding.inflate(layoutInflater)
     }
-    private val activity: MainActivity by lazy {
-        getActivity() as MainActivity
+    private val activity: AuthActivity by lazy {
+        getActivity() as AuthActivity
+    }
+    private val ctx: Context by lazy {
+        binding.root.context
     }
     private val nav: NavController by lazy {
         findNavController()
@@ -36,9 +37,7 @@ class LoginFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        return binding.root
-    }
+    ): View = binding.root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -78,12 +77,19 @@ class LoginFragment : Fragment() {
     private fun checkStatus() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.state.collect {
-                if (it.isLoading) activity.showLoading()
-                else activity.dismissLoading()
+                if (it.goHome) activity.goToHome(ctx)
+                if (it.isLoading) activity.showLoading(binding.root)
+                else activity.dismissLoading(binding.root)
 
-                if (it.error?.isNotEmpty() == true) activity.showError(it.error.toString())
+                if (it.error?.isNotEmpty() == true) activity.showError(
+                    binding.root,
+                    it.error.toString()
+                )
                 else if (it.loginResponse != null) {
-                    Log.i(TAG, it.loginResponse.toString())
+                    if (it.loginResponse.token.isNotEmpty()) {
+                        viewModel.saveToken("Bearer ${it.loginResponse.token}")
+                        viewModel.getUserData()
+                    }
                 }
             }
         }

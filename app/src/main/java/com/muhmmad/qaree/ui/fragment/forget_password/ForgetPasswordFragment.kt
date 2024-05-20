@@ -12,7 +12,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.muhmmad.qaree.R
 import com.muhmmad.qaree.databinding.FragmentForgetPasswordBinding
-import com.muhmmad.qaree.ui.activity.main.MainActivity
+import com.muhmmad.qaree.ui.activity.auth.AuthActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -22,8 +22,8 @@ class ForgetPasswordFragment : Fragment() {
     private val binding: FragmentForgetPasswordBinding by lazy {
         FragmentForgetPasswordBinding.inflate(layoutInflater)
     }
-    private val activity: MainActivity by lazy {
-        getActivity() as MainActivity
+    private val activity: AuthActivity by lazy {
+        getActivity() as AuthActivity
     }
     private val nav: NavController by lazy {
         findNavController()
@@ -67,13 +67,19 @@ class ForgetPasswordFragment : Fragment() {
     private fun checkStatus() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.state.collect {
-                if (it.isLoading) activity.showLoading()
-                else activity.dismissLoading()
+                if (it.isLoading) activity.showLoading(binding.root)
+                else activity.dismissLoading(binding.root)
 
-                if (it.error?.isNotEmpty() == true) activity.showError(it.error.toString())
+                if (it.error?.isNotEmpty() == true) activity.showError(
+                    binding.root,
+                    it.error.toString()
+                )
                 else if (it.forgotPasswordResponse != null) {
+                    val bundle = Bundle()
+                    bundle.putBoolean("forgetPassword", true)
+                    bundle.putString("email", binding.layoutEmail.editText?.text.toString())
                     activity.showMessage(it.forgotPasswordResponse.message.toString())
-                    nav.navigate(R.id.action_forgetPasswordFragment_to_newPasswordFragment)
+                    nav.navigate(R.id.action_forgetPasswordFragment_to_verificationFragment, bundle)
                 }
             }
         }

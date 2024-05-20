@@ -1,8 +1,16 @@
 package com.muhmmad.qaree.di
 
+import androidx.datastore.core.DataStore
 import com.apollographql.apollo3.ApolloClient
-import com.muhmmad.data.remote.RemoteDataSourceImpl
-import com.muhmmad.domain.remote.RemoteDataSource
+import com.muhmmad.data.local.LocalDataSourceImpl
+import com.muhmmad.data.remote.GraphQlDataSourceImpl
+import com.muhmmad.data.remote.RetrofitClient
+import com.muhmmad.domain.local.LocalDataSource
+import com.muhmmad.domain.model.UserData
+import com.muhmmad.domain.remote.GraphQlDataSource
+import com.muhmmad.domain.remote.RetrofitDataSource
+import com.muhmmad.qaree.utils.Constants.GRAPHQL_BASEURL
+import com.muhmmad.qaree.utils.Constants.Retrofit_BASEURL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,13 +24,25 @@ object NetworkModule {
     @Singleton
     fun provideApolloClient(): ApolloClient {
         return ApolloClient.Builder()
-            .serverUrl("https://publishingcompany-backend.onrender.com/graphql")
+            .serverUrl(GRAPHQL_BASEURL)
             .build()
     }
 
     @Provides
     @Singleton
-    fun provideAuthClient(apolloClient: ApolloClient): RemoteDataSource {
-        return RemoteDataSourceImpl(apolloClient)
+    fun provideRemoteDataSource(apolloClient: ApolloClient): GraphQlDataSource {
+        return GraphQlDataSourceImpl(apolloClient)
     }
+
+    @Provides
+    @Singleton
+    fun provideLocalDataSource(dataStore: DataStore<UserData>): LocalDataSource =
+        LocalDataSourceImpl(dataStore)
+
+    @Provides
+    @Singleton
+    fun provideRetrofitDataSource(): RetrofitDataSource = RetrofitClient.retrofitDataSource(
+        Retrofit_BASEURL
+    )
+
 }

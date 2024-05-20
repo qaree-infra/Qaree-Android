@@ -1,0 +1,18 @@
+query getCommunityMembers($bookId:String!,$membersPerPage:Int!,$page:Int!,){
+    getCommunityMembers(bookId:$bookId,limitMembers:$membersPerPage,page:$page){
+        members{
+            _id,
+            name,
+            email,
+            avatar{
+                path
+            },
+            bio,
+            updatedAt,
+            createdAt,
+        },
+        currentPage,
+        numberOfPages,
+        totalMembers
+    }
+}

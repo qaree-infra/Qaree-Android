@@ -1,0 +1,9 @@
+query getAuthorInfo($userId:String!){
+    getAuthorInfo(userId:$userId){
+        _id,name,avatar{
+            path
+        } ,
+        bio,
+        isFollowed
+    }
+}

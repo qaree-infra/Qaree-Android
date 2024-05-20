@@ -2,7 +2,8 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
-    id("dagger.hilt.android.plugin")
+    id("com.google.dagger.hilt.android")
+   // id("dagger.hilt.android.plugin")
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
     id("com.google.firebase.firebase-perf")
@@ -14,7 +15,7 @@ android {
 
     defaultConfig {
         applicationId = "com.muhmmad.qaree"
-        minSdk = 26
+        minSdk = 27
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -24,10 +25,18 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
+            )
+        }
+        forEach {
+            it.buildConfigField(
+                "String",
+                "paypalClientId",
+                "\"AcwxZmzj2-Kstpv2OU4ivSAQZlYA6ThecdxZlXOI6T0QL_W--ODJ6ad0YuKPcBU6VmP2MUlsdrjo15Ey\""
             )
         }
     }
@@ -41,12 +50,15 @@ android {
 
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 }
 
 dependencies {
     val nav_version = "2.7.7"
-    implementation("androidx.core:core-ktx:1.12.0")
+    val paging_version = "3.2.1"
+    val hilt_version = "2.44"
+    implementation("androidx.core:core-ktx:1.13.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
@@ -66,25 +78,43 @@ dependencies {
     implementation("com.apollographql.apollo3:apollo-runtime:3.8.2")
     implementation("com.apollographql.apollo:apollo-android-support:1.0.0")
     //Dagger-hilt
-    implementation("com.google.dagger:hilt-android:2.47")
-    kapt("com.google.dagger:hilt-compiler:2.44")
+    implementation("com.google.dagger:hilt-android:$hilt_version")
+    kapt("com.google.dagger:hilt-compiler:$hilt_version")
     //ViewModel
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
-    //Domain Module
-    implementation(project(":domain"))
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.8.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.0")
     //Data Module
-    implementation(project(":data"))
+    api(project(":data"))
     //OTP view
     implementation("com.github.aabhasr1:OtpView:v1.1.2-ktx")
     //Firebase
-    implementation(platform("com.google.firebase:firebase-bom:32.7.2"))
+    implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
     implementation("com.google.firebase:firebase-analytics")
     //Firebase-crashlytics
     implementation("com.google.firebase:firebase-crashlytics")
     //Firebase-Performance
     implementation("com.google.firebase:firebase-perf")
+    //Firebase-FCM
+    implementation("com.google.firebase:firebase-messaging")
+    //Shimmer effect
+    implementation("com.facebook.shimmer:shimmer:0.1.0@aar")
+    //Coil
+    implementation("io.coil-kt:coil:2.6.0")
+    //Palette
+    implementation("androidx.palette:palette-ktx:1.0.0")
+    //Paypal
+    implementation("com.paypal.android:card-payments:1.3.0")
+    implementation("com.paypal.android:paypal-web-payments:1.3.0")
+    //Paging 3
+    implementation("androidx.paging:paging-runtime-ktx:$paging_version")
+    //Socket IO
+    implementation("io.socket:socket.io-client:2.0.0")
+    //Gson
+    implementation("com.google.code.gson:gson:2.10.1")
+    //DataStore
+    implementation("androidx.datastore:datastore:1.1.1")
+    implementation("androidx.datastore:datastore-core:1.1.1")
 }
 
 kapt {

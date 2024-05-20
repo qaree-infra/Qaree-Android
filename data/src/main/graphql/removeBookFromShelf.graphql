@@ -1,0 +1,6 @@
+mutation removeBookFromShelf($bookId:String!,$shelfId:String!){
+    removeBookFromShelf(bookId: $bookId, shelf: $shelfId) {
+        message,
+        success,
+    }
+}

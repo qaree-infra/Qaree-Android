@@ -1,0 +1,17 @@
+query getShelfDetails($shelf:String!){
+    getShelf(shelf:$shelf){
+        numberOfBooksPages
+        name,
+        _id,books{
+            book{
+                avgRate,
+                _id,name,author{
+                    _id,name
+                },cover{
+                    path
+                }
+            },
+            status,readingProgress
+        },totalBooks
+    }
+}

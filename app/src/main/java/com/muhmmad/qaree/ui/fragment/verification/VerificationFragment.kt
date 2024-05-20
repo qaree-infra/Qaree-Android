@@ -11,7 +11,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.muhmmad.qaree.R
 import com.muhmmad.qaree.databinding.FragmentVerificationBinding
-import com.muhmmad.qaree.ui.activity.main.MainActivity
+import com.muhmmad.qaree.ui.activity.auth.AuthActivity
 import dagger.hilt.android.AndroidEntryPoint
 import `in`.aabhasjindal.otptextview.OTPListener
 import kotlinx.coroutines.launch
@@ -21,13 +21,14 @@ class VerificationFragment : Fragment() {
     private val binding: FragmentVerificationBinding by lazy {
         FragmentVerificationBinding.inflate(layoutInflater)
     }
-    private val activity: MainActivity by lazy {
-        getActivity() as MainActivity
+    private val activity: AuthActivity by lazy {
+        getActivity() as AuthActivity
     }
     private val nav: NavController by lazy {
         findNavController()
     }
     private val viewModel: VerificationViewModel by viewModels()
+    private var isForgetPassword: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,6 +43,7 @@ class VerificationFragment : Fragment() {
             //checkStatus
             checkStatus()
             val email: String = arguments?.getString("email", "").toString()
+            isForgetPassword = arguments?.getBoolean("forgetPassword", false) == true
             tvEmail.text = email
 
 
@@ -50,20 +52,29 @@ class VerificationFragment : Fragment() {
                 }
 
                 override fun onOTPComplete(otp: String) {
-                    viewModel.verifyAccount(email, otp)
+                    if (isForgetPassword) viewModel.validateOTPPassword(
+                        email,
+                        otpView.otp.toString()
+                    )
+                    else viewModel.verifyAccount(email, otpView.otp.toString())
                 }
             }
 
             btnVerify.setOnClickListener {
                 if (otpView.otp?.length!! < 6) {
-                    activity.showError(getString(R.string.the_otp_is_not_valid))
+                    activity.showError(binding.root, getString(R.string.the_otp_is_not_valid))
                 } else {
-                    viewModel.verifyAccount(email, otpView.otp.toString())
+                    if (isForgetPassword) viewModel.validateOTPPassword(
+                        email,
+                        otpView.otp.toString()
+                    )
+                    else viewModel.verifyAccount(email, otpView.otp.toString())
                 }
             }
 
             tvResendCode.setOnClickListener {
-                viewModel.resendVerifyOTP(email)
+                if (isForgetPassword) viewModel.resendOTPPassword(email)
+                else viewModel.resendVerifyOTP(email)
             }
         }
     }
@@ -71,13 +82,23 @@ class VerificationFragment : Fragment() {
     private fun checkStatus() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.state.collect {
-                if (it.isLoading) activity.showLoading()
-                else activity.dismissLoading()
+                if (it.isLoading) activity.showLoading(binding.root)
+                else activity.dismissLoading(binding.root)
 
-                if (it.error?.isNotEmpty() == true) activity.showError(it.error.toString())
+                if (it.error?.isNotEmpty() == true) activity.showError(
+                    binding.root,
+                    it.error.toString()
+                )
                 else if (it.verificationResponse != null) {
                     activity.showMessage(it.verificationResponse.message.toString())
-                    nav.navigate(R.id.action_verificationFragment_to_loginFragment)
+                    if (isForgetPassword) {
+                        val bundle = Bundle()
+                        bundle.putString("token", "Bearer ${it.verificationResponse.reset_token}")
+                        nav.navigate(
+                            R.id.action_verificationFragment_to_newPasswordFragment,
+                            bundle
+                        )
+                    } else nav.navigate(R.id.action_verificationFragment_to_loginFragment)
                 } else if (it.resendVerifyResponse != null) {
                     activity.showMessage(it.resendVerifyResponse.message.toString())
                 }

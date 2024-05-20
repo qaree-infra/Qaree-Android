@@ -1,0 +1,14 @@
+query getTopAuthors{
+    getTopAuthors {
+        authors {
+            _id
+            avatar {
+                path
+            }
+            name
+        }
+        total
+        currentPage
+        numberOfPages
+    }
+}

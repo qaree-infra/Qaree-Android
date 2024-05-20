@@ -1,5 +1,6 @@
 <resources>
-    <string name="app_name">Qaree</string>
+    <string name="app_name" translatable="false">Qaree</string>
+    <string name="default_notification_channel_id">Qaree notification</string>
     <string name="skip">Skip</string>
     <string name="easy_search">Easy Search</string>
     <string name="read_anytime_any_where"><![CDATA[Read Anytime & Any Where]]></string>
@@ -31,8 +32,6 @@
     <string name="e_mail_address_is_not_valid">E-mail address is not valid</string>
     <string name="please_enter_the_password">Please enter the password</string>
     <string name="the_password_is_not_valid">The password is not valid</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="please_enter_your_name">Please enter your name</string>
     <string name="please_enter_your_full_name">Please enter your full-name</string>
     <string name="verify_code">Verify Code</string>
@@ -57,5 +56,185 @@
     <string name="new_releases">New Releases</string>
     <string name="activities">Activities</string>
     <string name="item_name">item name</string>
+    <string name="current_reading">Current Reading</string>
+    <string name="want_to_read">Want to read</string>
+    <string name="adding">+</string>
+    <string name="finished_reading">Finished Reading</string>
     <string name="the_password_is_not_matches_the_confirmation_password">The password is not matches the confirmation password</string>
+    <string name="current_Reading">Current reading</string>
+    <string name="home">Home</string>
+    <string name="library">Library</string>
+    <string name="chat">Chat</string>
+    <string name="offer_image">offer image</string>
+    <string name="book_image">Book image</string>
+    <string name="author_image">author image</string>
+    <string name="categories">Categories</string>
+    <string name="category_image">Category image</string>
+    <string name="best_sellers">Best Sellers</string>
+    <string name="read">Read</string>
+    <string name="book_info">Book info.</string>
+    <string name="to_delete_this_book">to delete this book</string>
+    <string name="book_name">Book Name</string>
+    <string name="enter_book_name">Enter book name</string>
+    <string name="science">science</string>
+    <string name="history">history</string>
+    <string name="offer_price">%s LE</string>
+    <string name="offer_percent">%s off</string>
+    <string name="reading_percent">%s %%</string>
+    <string name="add_shelf">Add shelf</string>
+    <string name="more">More</string>
+    <string name="search">search</string>
+    <string name="browse_any_category">Browse any category</string>
+    <string name="shelf_books">Shelf books</string>
+    <string name="enter_the_shelf_name">Enter the shelf name</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="books_number">%s Books</string>
+    <string name="back_button">Back button</string>
+    <string name="category">Category</string>
+    <string name="to_return_to_the_previous_page">To return to the previous page</string>
+    <string name="notifications">Notifications</string>
+    <string name="to_open_more_options">to open more options</string>
+    <string name="please_enter_shelf_name">Please enter shelf name</string>
+    <string name="shelf_name_should_be_more_than_5_chars">Shelf name should be more than 5 chars</string>
+    <string name="Book_info">Book info</string>
+    <string name="the_book_cover">the book cover</string>
+    <string name="buy">Buy</string>
+    <string name="to_go_to_book_community">to go to book community</string>
+    <string name="leave_a_comment">Leave a comment</string>
+    <string name="post">Post</string>
+    <string name="reviews">Reviews</string>
+    <string name="My_profile">My Profile</string>
+    <string name="to_go_to_setting">to go to setting</string>
+    <string name="my_name">my name</string>
+    <string name="reading_is_amazing_hobby">reading is amazing hobby</string>
+    <string name="settings">Settings</string>
+    <string name="default_image">Default image</string>
+    <string name="for_test">for test</string>
+    <string name="account_settings">Account Settings</string>
+    <string name="edit_profile">Edit profile</string>
+    <string name="change_password">Change password</string>
+    <string name="delete_account">Delete account</string>
+    <string name="payment">Payment</string>
+    <string name="personalization">Personalization</string>
+    <string name="language">Language</string>
+    <string name="Notifications">Notifications</string>
+    <string name="More">More</string>
+    <string name="privacy_policy">Privacy policy</string>
+    <string name="about_us">About us</string>
+    <string name="log_out">Log out</string>
+    <string name="to_log_out">to log out</string>
+    <string name="dark_mode">Dark mode</string>
+    <string name="edit_my_photo">edit my photo</string>
+    <string name="Name">Name</string>
+    <string name="Edit_profile">Edit profile</string>
+    <string name="enter_your_name">Enter your name</string>
+    <string name="bio">Bio</string>
+    <string name="what_do_you_want_to_write">what do you want to write</string>
+    <string name="E_mail">E-mail</string>
+    <string name="example_gmail_com">example@gmail.com</string>
+    <string name="author_name">By %1$s</string>
+    <string name="year">year</string>
+    <string name="price">Price</string>
+    <string name="description">Description</string>
+    <string name="ratings">(%1$s Ratings)</string>
+    <string name="please_enter_your_comment">Please Enter your comment</string>
+    <string name="please_enter_valid_comment">Please enter valid comment</string>
+    <string name="please_enter_your_rate">Please Enter your rate</string>
+    <string name="user_image">User Image</string>
+    <string name="to_follow_me">to follow me</string>
+    <string name="follow">Follow</string>
+    <string name="to_message_me">to message me</string>
+    <string name="message">Message</string>
+    <string name="to_edit">to edit</string>
+    <string name="profile_photo">Profile photo</string>
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
+    <string name="no_image_selected">No image selected</string>
+    <string name="please_enter_the_bio">please enter the bio</string>
+    <string name="th_bio_is_very_short">Th bio is very short</string>
+    <string name="enter_your_bio">Enter your bio</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="update_password">Update password</string>
+    <string name="old_password">Old password</string>
+    <string name="please_enter_your_old_password">Please enter your old password</string>
+    <string name="please_enter_your_new_password">Please enter your new password</string>
+    <string name="the_password_should_not_be_less_than_6_letters">the password should not be less than 6 letters</string>
+    <string name="the_repeated_password_does_not_matches_the_password">The repeated password does not matches the password</string>
+    <string name="the_password_changed_successfully">The password Changed successfully</string>
+    <string name="start_read">Start Read</string>
+    <string name="continue_reading">Continue Reading</string>
+    <string name="read_sample">Read sample</string>
+    <string name="add_to_shelf">Add to shelf</string>
+    <string name="add_to">Add to ...</string>
+    <string name="community">Community</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="previous">Previous</string>
+
+    <string name="lorem_ipsum">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
+        volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus
+        dui nec risus. Maecenas non sodales nisi, vel dictum dolor. Class aptent taciti sociosqu ad
+        litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse blandit eleifend
+        diam, vel rutrum tellus vulputate quis. Aliquam eget libero aliquet, imperdiet nisl a,
+        ornare ex. Sed rhoncus est ut libero porta lobortis. Fusce in dictum tellus.\n\n
+        Suspendisse interdum ornare ante. Aliquam nec cursus lorem. Morbi id magna felis. Vivamus
+        egestas, est a condimentum egestas, turpis nisl iaculis ipsum, in dictum tellus dolor sed
+        neque. Morbi tellus erat, dapibus ut sem a, iaculis tincidunt dui. Interdum et malesuada
+        fames ac ante ipsum primis in faucibus. Curabitur et eros porttitor, ultricies urna vitae,
+        molestie nibh. Phasellus at commodo eros, non aliquet metus. Sed maximus nisl nec dolor
+        bibendum, vel congue leo egestas.\n\n
+        Sed interdum tortor nibh, in sagittis risus mollis quis. Curabitur mi odio, condimentum sit
+        amet auctor at, mollis non turpis. Nullam pretium libero vestibulum, finibus orci vel,
+        molestie quam. Fusce blandit tincidunt nulla, quis sollicitudin libero facilisis et. Integer
+        interdum nunc ligula, et fermentum metus hendrerit id. Vestibulum lectus felis, dictum at
+        lacinia sit amet, tristique id quam. Cras eu consequat dui. Suspendisse sodales nunc ligula,
+        in lobortis sem porta sed. Integer id ultrices magna, in luctus elit. Sed a pellentesque
+        est.\n\n
+        Aenean nunc velit, lacinia sed dolor sed, ultrices viverra nulla. Etiam a venenatis nibh.
+        Morbi laoreet, tortor sed facilisis varius, nibh orci rhoncus nulla, id elementum leo dui
+        non lorem. Nam mollis ipsum quis auctor varius. Quisque elementum eu libero sed commodo. In
+        eros nisl, imperdiet vel imperdiet et, scelerisque a mauris. Pellentesque varius ex nunc,
+        quis imperdiet eros placerat ac. Duis finibus orci et est auctor tincidunt. Sed non viverra
+        ipsum. Nunc quis augue egestas, cursus lorem at, molestie sem. Morbi a consectetur ipsum, a
+        placerat diam. Etiam vulputate dignissim convallis. Integer faucibus mauris sit amet finibus
+        convallis.\n\n
+        Phasellus in aliquet mi. Pellentesque habitant morbi tristique senectus et netus et
+        malesuada fames ac turpis egestas. In volutpat arcu ut felis sagittis, in finibus massa
+        gravida. Pellentesque id tellus orci. Integer dictum, lorem sed efficitur ullamcorper,
+        libero justo consectetur ipsum, in mollis nisl ex sed nisl. Donec maximus ullamcorper
+        sodales. Praesent bibendum rhoncus tellus nec feugiat. In a ornare nulla. Donec rhoncus
+        libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
+        vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
+    </string>
+    <string name="edt_search_inbox">Search...</string>
+    <string name="time_ago_prefix"></string>
+    <string name="time_ago_suffix" formatted="true">ago</string>
+    <string name="time_ago_seconds" formatted="true"> less than a minute</string>
+    <string name="time_ago_minute" formatted="true">about a minute</string>
+    <string name="time_ago_minutes" formatted="true">%d minutes</string>
+    <string name="time_ago_hour" formatted="true">about an hour</string>
+    <string name="time_ago_hours" formatted="true">about %d hours</string>
+    <string name="time_ago_day" formatted="true">a day</string>
+    <string name="time_ago_days" formatted="true">%d days</string>
+    <string name="time_ago_month" formatted="true">about a month</string>
+    <string name="time_ago_months" formatted="true">%d months</string>
+    <string name="time_ago_year" formatted="true">about a year</string>
+    <string name="time_ago_years" formatted="true">%d years</string>
+    <string name="chat_image">Chat image</string>
+    <string name="menu">Menu</string>
+    <string name="send_message">Send message</string>
+    <string name="type_a_message">type a message</string>
+    <string name="enter_the_message">Enter the message</string>
+    <string name="author">Author</string>
+    <string name="community_image">Community Image</string>
+    <string name="members">%1$s members</string>
+    <string name="following">Following</string>
+    <string name="paypal">Paypal</string>
+    <string name="cards">Cards</string>
+    <string name="the_app_can_not_show_notifications">The app can not show notifications.</string>
+    <string name="you_have_not_any_notifications">You have not any notifications</string>
 </resources>

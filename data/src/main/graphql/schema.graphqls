@@ -12,44 +12,47 @@ type Query {
   """
   refreshToken: RefreshTokenType
 
-  """
-  get user book
-  """
-  getUserBook("" bookId: String): UserBook
+  getTopAuthors("" page: Int, "" limit: Int): GetTopAuthors
 
-  """
-  get user books
-  """
-  getUserBooks("" sortBy: String, "" filterBy: String, "" page: Int, "" limit: Int, "" keyword: String): GetUserBooks
+  getAuthorInfo("The id of the user" userId: String): User
 
   getBooks("" category: String, "" sort: String, "" page: Int, "" limit: Int): GetBooks
 
   getBook("" bookId: String): BookInfo
 
+  getAuthorBooks("" userId: String, "" sort: String, "" page: Int, "" limit: Int): GetAuthorBooks
+
   getBookReviews("" bookId: String, "" sort: String, "" page: Int, "" limit: Int): GetBookReviews
 
   getBookReview("" reviewId: String): ReviewBook
 
-  getBooksFromRecycleBin("" sortBy: String, "" filterBy: String, "" page: Int, "" limit: Int, "" keyword: String): GetBooksFromRecyclePinType
-
   search("" categories: [String], "" keyword: String, "" sort: String, "" page: Int, "" limit: Int): SearchType
 
-  """
-  get user books
-  """
-  adminGetBooks("" sortBy: String, "" filterBy: String, "" page: Int, "" limit: Int, "" keyword: String): AdminGetBooks
+  getBookContent("" bookId: String): BookContent
+
+  getLastActivity: Activity
+
+  getBestSellerBooks("" limit: Int): BestSeller
+
+  getPaymentClientData("" bookId: String): GetClientData
+
+  getBookStatus("" bookId: String): Activity
+
+  getBookCommunity("" id: String, "" bookId: String): BookCommunity
+
+  getCommunityMembers("" id: String, "" bookId: String, "" limitMembers: Int, "" page: Int): CommunityMembers
 
   getShelf("" shelf: String, "" user: String, "" booksLimit: Int, "" booksPage: Int): ShelfType
 
   getLibrary("" user: String, "" limit: Int, "" page: Int): Library
-
-  adminGetAllCategories("" limit: Int, "" page: Int, "" completed: Boolean): AdminGetAllCategories
 
   getAllCategories("" limit: Int, "" page: Int): GetAllCategories
 
   getOffer("" id: String): OfferType
 
   getAllOffers("" page: Int, "" limit: Int, "" sort: String): GetAllOffers
+
+  getNotifications("" limit: Int, "" page: Int): GetNotifications
 }
 
 """
@@ -64,9 +67,13 @@ type User {
 
   avatar: File
 
+  bio: String
+
   updatedAt: String
 
   createdAt: String
+
+  isFollowed: Boolean
 }
 
 """
@@ -98,6 +105,11 @@ The `Float` scalar type represents signed double-precision fractional values as 
 scalar Float
 
 """
+The `Boolean` scalar type represents `true` or `false`.
+"""
+scalar Boolean
+
+"""
 refresh token type
 """
 type RefreshTokenType {
@@ -107,91 +119,10 @@ type RefreshTokenType {
 }
 
 """
-This book datails
+this is get top authors query
 """
-type UserBook {
-  _id: ID
-
-  name: String
-
-  description: String
-
-  isbn: String
-
-  edition: Int
-
-  publishingRights: Boolean
-
-  categories: [CategroyType]
-
-  avgRate: Int
-
-  price: Float
-
-  language: String
-
-  author: Author
-
-  sample: File
-
-  cover: File
-
-  file: File
-
-  status: String
-
-  createdAt: String
-
-  updatedAt: String
-
-  publishionDate: String
-
-  rejectionReasons: String
-}
-
-"""
-The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1.
-"""
-scalar Int
-
-"""
-The `Boolean` scalar type represents `true` or `false`.
-"""
-scalar Boolean
-
-"""
-This books category type
-"""
-type CategroyType {
-  _id: ID
-
-  name_ar: String
-
-  name_en: String
-
-  icon: File
-
-  createdAt: String
-
-  updatedAt: String
-}
-
-"""
-this is book author type
-"""
-type Author {
-  _id: ID
-
-  name: String
-
-  avatar: String
-}
-
-"""
-This is the user books type
-"""
-type GetUserBooks {
-  books: [UserBook]
+type GetTopAuthors {
+  authors: [User]
 
   currentPage: Int
 
@@ -199,6 +130,11 @@ type GetUserBooks {
 
   total: Int
 }
+
+"""
+The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1.
+"""
+scalar Int
 
 """
 This is the user books type
@@ -231,7 +167,7 @@ type BookInfo {
 
   categories: [CategroyType]
 
-  avgRate: Int
+  avgRate: Float
 
   price: Float
 
@@ -239,7 +175,7 @@ type BookInfo {
 
   author: Author
 
-  sample: File
+  sample: [String]
 
   cover: File
 
@@ -248,6 +184,51 @@ type BookInfo {
   updatedAt: String
 
   publishionDate: String
+
+  previousPublishingData: String
+}
+
+"""
+This books category type
+"""
+type CategroyType {
+  _id: ID
+
+  name_ar: String
+
+  name_en: String
+
+  icon: File
+
+  background: String
+
+  createdAt: String
+
+  updatedAt: String
+}
+
+"""
+this is book author type
+"""
+type Author {
+  _id: ID
+
+  name: String
+
+  avatar: String
+}
+
+"""
+This is the user books type
+"""
+type GetAuthorBooks {
+  books: [BookInfo]
+
+  currentPage: Int
+
+  numberOfPages: Int
+
+  total: Int
 }
 
 """
@@ -285,19 +266,6 @@ type ReviewBook {
 }
 
 """
-this is type of get books from recycle pin type
-"""
-type GetBooksFromRecyclePinType {
-  books: [UserBook]
-
-  currentPage: Int
-
-  numberOfPages: Int
-
-  total: Int
-}
-
-"""
 This is the search books type
 """
 type SearchType {
@@ -311,75 +279,80 @@ type SearchType {
 }
 
 """
-This is the user books type
+this is book content time
 """
-type AdminGetBooks {
-  books: [AdminBookType]
+type BookContent {
+  content: [ContentRaw]
+
+  allHTML: [ContentRaw]
+}
+
+"""
+This is content raw
+"""
+type ContentRaw {
+  id: String
+
+  mediaType: String
+
+  title: String
+
+  order: Int
+
+  level: Int
+}
+
+"""
+this is read activity
+"""
+type Activity {
+  book: BookInfo
+
+  status: String
+
+  readingProgress: Float
+
+  updatedAt: String
+
+  createdAt: String
+}
+
+type BestSeller {
+  books: [BookInfo]
+}
+
+"""
+This is get client data
+"""
+type GetClientData {
+  clientId: String
+
+  clientToken: String
+}
+
+"""
+this is book community
+"""
+type BookCommunity {
+  _id: String
+
+  lastMessage: String
+
+  book: BookInfo
+
+  roomId: String
+
+  members: CommunityMembers
+}
+
+type CommunityMembers {
+  members: [User]
 
   currentPage: Int
 
   numberOfPages: Int
 
-  total: Int
-}
-
-type AdminBookType {
-  _id: ID
-
-  name: String
-
-  description: String
-
-  isbn: String
-
-  edition: Int
-
-  publishingRights: Boolean
-
-  categories: [CategroyType]
-
-  avgRate: Int
-
-  price: Float
-
-  language: String
-
-  author: Author
-
-  sample: File
-
-  cover: File
-
-  file: File
-
-  status: String
-
-  createdAt: String
-
-  updatedAt: String
-
-  publishionDate: String
-
-  rejectionReasons: String
-
-  reviewer: Admin
-}
-
-"""
-this is admin type
-"""
-type Admin {
-  _id: ID
-
-  name: String
-
-  email: String
-
-  avatar: File
-
-  updatedAt: String
-
-  createdAt: String
+  totalMembers: Int
 }
 
 """
@@ -390,7 +363,7 @@ type ShelfType {
 
   name: String
 
-  books: [BookInfo]
+  books: [BookShelf]
 
   totalBooks: Int
 
@@ -401,6 +374,14 @@ type ShelfType {
   createdAt: String
 
   updatedAt: String
+}
+
+type BookShelf {
+  book: BookInfo
+
+  status: String
+
+  readingProgress: Int
 }
 
 """
@@ -414,23 +395,6 @@ type Library {
   currentPage: Int
 
   numberOfPages: Int
-}
-
-"""
-This is get all categories type
-"""
-type AdminGetAllCategories {
-  categories: [CategroyType]
-
-  currentPage: Int
-
-  numberOfPages: Int
-
-  totalCompleted: Int
-
-  totalUncompleted: Int
-
-  total: Int
 }
 
 """
@@ -476,14 +440,58 @@ type GetAllOffers {
   total: Int
 }
 
+type GetNotifications {
+  """
+  This is the notifications list
+  """
+  notifications: [Notification]
+
+  total: Int
+
+  currentPage: Int
+
+  numberOfPages: Int
+}
+
+"""
+This is the notification type
+"""
+type Notification {
+  _id: ID
+
+  title: String
+
+  body: String
+
+  type: String
+
+  image: String
+
+  data: NotificationData
+
+  createdAt: String
+
+  updatedAt: String
+}
+
+type NotificationData {
+  bookId: String
+
+  userId: String
+
+  reviewId: String
+
+  roomId: String
+}
+
 type Mutation {
   signup(userData: SignUpInput): SignUp
 
   verifyAccount("" email: String, "" otp: String): VerifyAccountType
 
-  resendValidatingOTP("" email: String, "" lang: String): ResendValidatingOTPType
+  resendValidatingOTP("" email: String): ResendValidatingOTPType
 
-  signin("" email: String, "" password: String): SigninType
+  signin("" email: String, "" password: String, "" regestrationToken: String): SigninType
 
   forgetPassword("" email: String): ForgetPasswordType
 
@@ -491,37 +499,23 @@ type Mutation {
 
   resendResetPasswordOTP("" email: String): ResendResetPasswordOTPType
 
-  resetPassword("" newPassword: String, "" oldPassword: String): ResetPassword
+  resetPassword("" newPassword: String): ResetPassword
 
-  updateUser("" name: String, "" oldPassword: String, "" newPassword: String): User
+  updateUser("" name: String, "" bio: String, "" oldPassword: String, "" newPassword: String): User
 
   deleteAccount: DeleteAccountType
 
   googleLogin("" google_token: String): GoogleLoginType
 
-  addBookDetails("" name: String, "" description: String, "" isbn: String, "" edition: Int, "" language: String, "" publishingRights: Boolean, "" categories: [String], "" price: Float): UserBook
-
-  editBookDetails("" bookId: String, "" name: String, "" description: String, "" isbn: String, "" edition: Int, "" language: String, "" publishingRights: Boolean, "" categories: [String], "" price: Float): UserBook
-
-  moveBookToRecycleBin("" bookId: String): MoveBookToRecycleType
-
-  moveBookFromRecycleBin("" bookId: String): MoveBookToRecycleType
-
-  publishBook("" bookId: String): PublishBook
-
-  adminReviewBookData("" bookId: String, "" status: String, "" content: String): AdminBookReview
+  followUser("" userId: String): FollowUser
 
   reviewBook("" bookId: ID, "" content: String, "" rate: Float): ReviewBookResponseType
 
   likeReview("" reviewId: String): LikeReview
 
-  adminSignIn("" email: String, "" password: String): SignInAdminType
+  createPaymentOrder("" bookId: String): CreatePaymentOrder
 
-  adminRegister("" name: String, "" email: String, "" password: String): Admin
-
-  adminUpdateAccount("" name: String, "" oldPassword: String, "" newPassword: String): Admin
-
-  adminDeleteAccount: AdminDeleteAccount
+  completePaymentOrder("" bookId: String, "" orderId: String): CompletePaymentOrder
 
   createShelf("" name: String): CreateShelfType
 
@@ -531,17 +525,15 @@ type Mutation {
 
   removeShelf("" shelf: String): RemoveShelfType
 
-  addCategory("" name_ar: String, "" name_en: String): CategroyType
+  joinBookCommunity("" bookId: String): JoinBookCommunity
 
-  editCategory("" categoryId: String, "" name_ar: String, "" name_en: String): CategroyType
+  deleteChat("" room: String): DeleteChat
 
-  deleteCategory("" categoryId: String): DeleteCategoryType
+  addRegistrationToken("" token: String): AddRegisterationToken
 
-  addOffer("" bookId: String, "" percent: Int, "" expireAt: String): OfferType
+  muteNotifications("" type: String): MuteNotifications
 
-  deleteOffer("" id: String): DeleteOfferType
-
-  editOffer("" id: String, "" percent: Int, "" expireAt: String): OfferType
+  deleteNotification("" notificationId: String): DeleteNotification
 }
 
 """
@@ -582,6 +574,7 @@ signin type
 """
 type SigninType {
   message: String
+
   access_token: String
 }
 
@@ -639,32 +632,12 @@ type GoogleLoginType {
 }
 
 """
-this is the moved book to recycle bin type
+this is the follow user mutation type
 """
-type MoveBookToRecycleType {
-  message: String
-
-  deleted_id: String
-
+type FollowUser {
   success: Boolean
-}
 
-"""
-this is the publish book type
-"""
-type PublishBook {
   message: String
-
-  book: UserBook
-}
-
-"""
-admin book review type
-"""
-type AdminBookReview {
-  message: String
-
-  success: Boolean
 }
 
 """
@@ -686,23 +659,30 @@ type LikeReview {
 }
 
 """
-admin sign in type
+This is create buy book order payment
 """
-type SignInAdminType {
-  message: String
+type CreatePaymentOrder {
+  id: String
 
-  access_token: String
+  status: String
 }
 
 """
-This is admin delet account type
+This is captured order type
 """
-type AdminDeleteAccount {
-  message: String
+type CompletePaymentOrder {
+  capturedOrder: CapaturedPaymentOrder
 
-  deleted_id: String
+  purchasedBook: Activity
+}
 
-  success: Boolean
+"""
+This is create buy book order payment
+"""
+type CapaturedPaymentOrder {
+  id: String
+
+  status: String
 }
 
 """
@@ -720,8 +700,6 @@ type CreateShelfType {
 this add book shelf type
 """
 type AddBookShelf {
-  shelf: ShelfType
-
   message: String
 
   success: Boolean
@@ -731,8 +709,6 @@ type AddBookShelf {
 This is remove book from shelf type
 """
 type RemoveBookFromShelf {
-  shelf: ShelfType
-
   message: String
 
   success: Boolean
@@ -747,19 +723,43 @@ type RemoveShelfType {
   message: String
 }
 
-"""
-This is delete category type
-"""
-type DeleteCategoryType {
-  message: String
-
+type JoinBookCommunity {
   success: Boolean
+
+  message: String
 }
 
 """
-this is delete offer type
+this is the delete chat type
 """
-type DeleteOfferType {
+type DeleteChat {
+  success: Boolean
+
+  message: String
+}
+
+"""
+this is add the registration token for notifications
+"""
+type AddRegisterationToken {
+  success: Boolean
+
+  message: String
+}
+
+"""
+Mute notifications
+"""
+type MuteNotifications {
+  success: Boolean
+
+  message: String
+}
+
+"""
+Delete notification
+"""
+type DeleteNotification {
   message: String
 
   success: Boolean

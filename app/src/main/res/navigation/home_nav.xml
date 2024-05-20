@@ -2,88 +2,220 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_auth"
-    app:startDestination="@id/nav_on_boarding">
+    android:id="@+id/home_nav"
+    app:startDestination="@id/homeFragment">
 
     <fragment
-        android:id="@+id/nav_on_boarding"
-        android:name="com.muhmmad.qaree.ui.fragment.on_boarding.OnBoardingFragment"
-        android:label="fragment_on_boarding"
-        tools:layout="@layout/fragment_on_boarding">
+        android:id="@+id/homeFragment"
+        android:name="com.muhmmad.qaree.ui.fragment.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home">
+        <argument
+            android:name="ShowAppBar"
+            android:defaultValue="true" />
+        <action
+            android:id="@+id/action_homeFragment_to_categoryFragment"
+            app:destination="@id/categoryFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_bookInfoFragment"
+            app:destination="@id/bookInfoFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_reading_view"
+            app:destination="@id/reading_view" />
+        <action
+            android:id="@+id/action_homeFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/libraryFragment"
+        android:name="com.muhmmad.qaree.ui.fragment.library.LibraryFragment"
+        android:label="fragment_library"
+        tools:layout="@layout/fragment_library">
+        <argument
+            android:name="ShowAppBar"
+            android:defaultValue="true" />
+        <action
+            android:id="@+id/action_libraryFragment_to_shelfFragment"
+            app:destination="@id/shelfFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/inboxFragment"
+        android:name="com.muhmmad.qaree.ui.fragment.inbox.InboxFragment"
+        android:label="fragment_inbox"
+        tools:layout="@layout/fragment_inbox">
         <argument
             android:name="ShowAppBar"
             android:defaultValue="false" />
         <action
-            android:id="@+id/action_nav_on_boarding_to_loginFragment"
-            app:destination="@id/loginFragment"
-            app:launchSingleTop="true"
-            app:popUpTo="@+id/nav_auth"
-            app:popUpToInclusive="true" />
+            android:id="@+id/action_inboxFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
     </fragment>
     <fragment
-        android:id="@+id/loginFragment"
-        android:name="com.muhmmad.qaree.ui.fragment.login.LoginFragment"
-        android:label="fragment_login"
-        tools:layout="@layout/fragment_login">
+        android:id="@+id/searchFragment"
+        android:name="com.muhmmad.qaree.ui.fragment.search.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search">
         <argument
             android:name="ShowAppBar"
             android:defaultValue="false" />
         <action
-            android:id="@+id/action_loginFragment_to_registerFragment"
-            app:destination="@id/registerFragment" />
-        <action
-            android:id="@+id/action_loginFragment_to_forgetPasswordFragment"
-            app:destination="@id/forgetPasswordFragment" />
+            android:id="@+id/action_searchFragment_to_categoryFragment"
+            app:destination="@id/categoryFragment" />
     </fragment>
     <fragment
-        android:id="@+id/registerFragment"
-        android:name="com.muhmmad.qaree.ui.fragment.register.RegisterFragment"
-        android:label="fragment_register"
-        tools:layout="@layout/fragment_register">
+        android:id="@+id/notificationFragment"
+        android:name="com.muhmmad.qaree.ui.fragment.notification.NotificationsFragment"
+        android:label="fragment_notification"
+        tools:layout="@layout/fragment_notifications">
         <argument
             android:name="ShowAppBar"
-            android:defaultValue="true" />
-        <action
-            android:id="@+id/action_registerFragment_to_verificationFragment"
-            app:destination="@id/verificationFragment" />
-        <action
-            android:id="@+id/action_registerFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            android:defaultValue="false" />
     </fragment>
     <fragment
-        android:id="@+id/verificationFragment"
-        android:name="com.muhmmad.qaree.ui.fragment.verification.VerificationFragment"
-        android:label="fragment_verification"
-        tools:layout="@layout/fragment_verification">
-        <argument
-            android:name="ShowAppBar"
-            android:defaultValue="true" />
+        android:id="@+id/shelfFragment"
+        android:name="com.muhmmad.qaree.ui.fragment.shelf.ShelfFragment"
+        android:label="fragment_shelf"
+        tools:layout="@layout/fragment_shelf">
         <action
-            android:id="@+id/action_verificationFragment_to_loginFragment"
-            app:destination="@id/loginFragment"
-            app:launchSingleTop="true"
-            app:popUpTo="@+id/nav_auth"
-            app:popUpToInclusive="true" />
+            android:id="@+id/action_shelfFragment_to_bookInfoFragment"
+            app:destination="@id/bookInfoFragment" />
     </fragment>
     <fragment
-        android:id="@+id/forgetPasswordFragment"
-        android:name="com.muhmmad.qaree.ui.fragment.forget_password.ForgetPasswordFragment"
-        android:label="fragment_forget_password"
-        tools:layout="@layout/fragment_forget_password">
+        android:id="@+id/bookInfoFragment"
+        android:name="com.muhmmad.qaree.ui.fragment.book_info.BookInfoFragment"
+        android:label="fragment_book_info"
+        tools:layout="@layout/fragment_book_info">
         <argument
             android:name="ShowAppBar"
-            android:defaultValue="true" />
+            android:defaultValue="false" />
+        <argument
+            android:name="showBottomNavigation"
+            android:defaultValue="false" />
         <action
-            android:id="@+id/action_forgetPasswordFragment_to_newPasswordFragment"
-            app:destination="@id/newPasswordFragment" />
+            android:id="@+id/action_bookInfoFragment_to_bookInfoDialog"
+            app:destination="@id/bookInfoDialog" />
+        <action
+            android:id="@+id/action_bookInfoFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
     </fragment>
     <fragment
-        android:id="@+id/newPasswordFragment"
-        android:name="com.muhmmad.qaree.ui.fragment.new_password.NewPasswordFragment"
-        android:label="fragment_new_password"
-        tools:layout="@layout/fragment_new_password">
+        android:id="@+id/categoryFragment"
+        android:name="com.muhmmad.qaree.ui.fragment.category.CategoryFragment"
+        android:label="fragment_category"
+        tools:layout="@layout/fragment_category">
         <argument
             android:name="ShowAppBar"
-            android:defaultValue="true" />
+            android:defaultValue="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.muhmmad.qaree.ui.fragment.profile.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile">
+        <argument
+            android:name="ShowAppBar"
+            android:defaultValue="false" />
+        <action
+            android:id="@+id/action_profileFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.muhmmad.qaree.ui.fragment.settings.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings">
+        <argument
+            android:name="ShowAppBar"
+            android:defaultValue="false" />
+        <argument
+            android:name="showBottomNavigation"
+            android:defaultValue="false" />
+        <action
+            android:id="@+id/action_settingsFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_changePasswordFragment"
+            app:destination="@id/changePasswordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.muhmmad.qaree.ui.fragment.edit_profile.EditProfileFragment"
+        android:label="fragment_edit_profile"
+        tools:layout="@layout/fragment_edit_profile">
+        <argument
+            android:name="ShowAppBar"
+            android:defaultValue="false" />
+        <argument
+            android:name="showBottomNavigation"
+            android:defaultValue="false" />
+        <action
+            android:id="@+id/action_editProfileFragment_to_editAvatarDialog"
+            app:destination="@id/editAvatarDialog" />
+        <action
+            android:id="@+id/action_editProfileFragment_to_editNameDialog"
+            app:destination="@id/editNameDialog" />
+    </fragment>
+    <dialog
+        android:id="@+id/editAvatarDialog"
+        android:name="com.muhmmad.qaree.ui.fragment.edit_profile.EditAvatarDialog"
+        android:label="EditAvatarDialog"
+        tools:layout="@layout/dialog_edit_avatar" />
+    <dialog
+        android:id="@+id/editNameDialog"
+        android:name="com.muhmmad.qaree.ui.fragment.edit_profile.EditNameDialog"
+        android:label="EditNameDialog"
+        tools:layout="@layout/dialog_edit_name" />
+    <fragment
+        android:id="@+id/changePasswordFragment"
+        android:name="com.muhmmad.qaree.ui.fragment.change_password.ChangePasswordFragment"
+        android:label="fragment_change_password"
+        tools:layout="@layout/fragment_change_password" />
+    <dialog
+        android:id="@+id/bookInfoDialog"
+        android:name="com.muhmmad.qaree.ui.fragment.book_info.dialogs.BookInfoDialog"
+        android:label="BookInfoDialog"
+        tools:layout="@layout/dialog_book_info" />
+    <dialog
+        android:id="@+id/shelfsDialog"
+        android:name="com.muhmmad.qaree.ui.fragment.book_info.dialogs.ShelfsDialog"
+        android:label="dialog_shelfs"
+        tools:layout="@layout/dialog_shelfs" />
+    <activity
+        android:id="@+id/reading_view"
+        android:name="com.muhmmad.qaree.ui.activity.reading_view.ReadingViewActivity"
+        android:label="activity_reading_view"
+        tools:layout="@layout/activity_reading_view" />
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="com.muhmmad.qaree.ui.fragment.chat.ChatFragment"
+        android:label="fragment_chat"
+        tools:layout="@layout/fragment_chat">
+        <argument
+            android:name="ShowAppBar"
+            android:defaultValue="false" />
+        <argument
+            android:name="showBottomNavigation"
+            android:defaultValue="false" />
+        <action
+            android:id="@+id/action_chatFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_chatFragment_to_communityDetailsFragment"
+            app:destination="@id/communityDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/communityDetailsFragment"
+        android:name="com.muhmmad.qaree.ui.fragment.community_details.CommunityDetailsFragment"
+        android:label="fragment_community_details"
+        tools:layout="@layout/fragment_community_details">
+        <argument
+            android:name="ShowAppBar"
+            android:defaultValue="false" />
+        <argument
+            android:name="showBottomNavigation"
+            android:defaultValue="false" />
     </fragment>
 </navigation>

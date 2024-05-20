@@ -114,6 +114,7 @@
         android:fontFamily="@font/poppins"
         android:text="@string/remember_me"
         android:textColor="@color/checkbox_color"
+        android:textSize="@dimen/_10ssp"
         app:layout_constraintEnd_toStartOf="@id/tv_forgot_password"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layout_password" />
@@ -126,7 +127,7 @@
         android:fontFamily="@font/poppins"
         android:text="@string/forgot_password"
         android:textColor="@color/primary_color"
-        android:textSize="@dimen/_12ssp"
+        android:textSize="@dimen/_10ssp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/checkbox_remember"
         app:layout_constraintTop_toBottomOf="@id/layout_password" />
@@ -143,6 +144,7 @@
         android:textColor="@color/white"
         android:textSize="@dimen/_14ssp"
         app:cornerRadius="@dimen/_7sdp"
+        app:backgroundTint="@color/primary_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/checkbox_remember" />

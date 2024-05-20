@@ -1,0 +1,6 @@
+query getRefreshToken{
+    refreshToken {
+        message,
+        refresh_token
+    }
+}

@@ -1,0 +1,6 @@
+mutation addBookToShelf($shelfId:String!,$bookId:String!){
+    addBookToShelf (shelf: $shelfId, bookId: $bookId) {
+        message,
+        success
+    }
+}

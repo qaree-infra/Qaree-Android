@@ -2,6 +2,7 @@ package com.muhmmad.qaree
 
 import android.app.Application
 import android.content.res.Configuration
+import com.google.firebase.FirebaseApp
 import dagger.hilt.android.HiltAndroidApp
 import java.util.Locale
 
@@ -12,5 +13,6 @@ class App : Application() {
         val local = Locale("en")
         Locale.setDefault(local)
         Configuration().setLocale(local)
+        FirebaseApp.initializeApp(this)
     }
 }
