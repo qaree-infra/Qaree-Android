@@ -13,8 +13,6 @@ import com.muhmmad.domain.model.BookChapter
 import com.muhmmad.domain.model.NetworkResponse
 import com.muhmmad.qaree.databinding.ReadingViewItemBinding
 
-private const val TAG = "ReadingViewAdapter"
-
 class ReadingViewAdapter :
     PagingDataAdapter<NetworkResponse<BookChapter>, ReadingViewAdapter.ViewHolder>(ChapterComparator) {
     class ViewHolder(private val binding: ReadingViewItemBinding) :
@@ -26,7 +24,6 @@ class ReadingViewAdapter :
             binding.webView.settings.javaScriptEnabled = true
             binding.webView.webViewClient = object : WebViewClient() {
                 override fun onPageFinished(view: WebView?, url: String?) {
-                    Log.i(TAG, "url ${url.toString()}")
                     super.onPageFinished(view, url)
                 }
             }
@@ -36,7 +33,6 @@ class ReadingViewAdapter :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
         item?.let {
-            Log.i(TAG, "content : ${it.data?.content.toString()}")
             holder.bind(it.data?.content ?: "")
         }
     }

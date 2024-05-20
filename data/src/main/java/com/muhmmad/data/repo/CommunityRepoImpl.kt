@@ -19,11 +19,11 @@ class CommunityRepoImpl(private val graphQlDataSource: GraphQlDataSource) : Comm
 
     override suspend fun getSocket() = SocketHandler.getSocket()
     override suspend fun getCommunityMembers(
-        id: String,
+        bookId: String,
         page: Int,
         membersPerPage: Int,
         token: String
     ): NetworkResponse<CommunityMembers> =
-        graphQlDataSource.getCommunityMembers(id, page, membersPerPage, token)
+        graphQlDataSource.getCommunityMembers(bookId, page, membersPerPage, token)
     // override suspend fun getRooms(token: String) = SocketHandler.getRooms(token)
 }

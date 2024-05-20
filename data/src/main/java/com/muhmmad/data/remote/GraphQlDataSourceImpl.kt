@@ -705,13 +705,13 @@ class GraphQlDataSourceImpl(
     }
 
     override suspend fun getCommunityMembers(
-        id: String,
+        bookId: String,
         page: Int,
         membersPerPage: Int,
         token: String
     ): NetworkResponse<CommunityMembers> = try {
         val response = checkResponse(
-            apolloClient.query(GetCommunityMembersQuery(id, membersPerPage, page))
+            apolloClient.query(GetCommunityMembersQuery(bookId, membersPerPage, page))
                 .addHttpHeader("Authorization", token).execute()
         )
 
@@ -748,9 +748,9 @@ class GraphQlDataSourceImpl(
                 .addHttpHeader("Authorization", token).execute()
         )
 
-        when(response){
+        when (response) {
             is Success -> Success(response.data?.getNotifications?.toNotificationsResponse()!!)
-            else->Error(response.message.toString())
+            else -> Error(response.message.toString())
         }
     } catch (ex: Exception) {
         Error(ex.message.toString())

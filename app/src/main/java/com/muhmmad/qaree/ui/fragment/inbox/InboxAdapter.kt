@@ -33,11 +33,16 @@ class InboxAdapter(private val onClick: (chat: Room) -> Unit) :
             val item = data[position]
             val ctx = root.context
 
-            ivBook.load(item.getImage()) {
-                crossfade(true)
-                placeholder(R.drawable.ic_logo)
-                transformations(CircleCropTransformation())
+            try {
+                ivBook.load(item.getImage()) {
+                    crossfade(true)
+                    placeholder(R.drawable.ic_logo)
+                    transformations(CircleCropTransformation())
+                }
+            } catch (ex: Exception) {
+                ex.printStackTrace()
             }
+
             tvName.text = item.getName()
             tvLastMessage.text = item.lastMessage.content
             tvLastMessageTime.text = getMessageDate(ctx, item.lastMessage.createdAt ?: "")

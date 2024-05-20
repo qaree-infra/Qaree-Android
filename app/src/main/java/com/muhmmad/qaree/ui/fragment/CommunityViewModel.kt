@@ -37,7 +37,6 @@ class CommunityViewModel @Inject constructor(
     val room = _room.asStateFlow()
 
     init {
-        Log.i(TAG, "INIT")
         getUserId()
         connectSocket()
     }
@@ -45,13 +44,11 @@ class CommunityViewModel @Inject constructor(
     fun setRoom(room: Room) = _room.update { room }
 
     private fun connectSocket() = viewModelScope.launch {
-        Log.i(TAG, "CONNECT")
         _state.update { it.copy(isLoading = true) }
         communityUseCase.connectSocket(authUseCase.getToken()).apply {
             communityUseCase.getSocket().apply {
                 mSocket = this
                 initSocket()
-                _state.update { it.copy(isLoading = false) }
             }
         }
     }
@@ -64,6 +61,7 @@ class CommunityViewModel @Inject constructor(
         mSocket?.on(EVENT_MESSAGE_LIST, chatListener)
         mSocket?.on(EVENT_SEND_MESSAGE, messageListener)
         mSocket?.connect()
+        _state.update { it.copy(isLoading = false) }
     }
 
     fun getRooms(keyword: String = "") = viewModelScope.launch {

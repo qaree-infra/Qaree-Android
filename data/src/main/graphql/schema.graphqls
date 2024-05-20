@@ -167,7 +167,7 @@ type BookInfo {
 
   categories: [CategroyType]
 
-  avgRate: Int
+  avgRate: Float
 
   price: Float
 
@@ -491,7 +491,7 @@ type Mutation {
 
   resendValidatingOTP("" email: String): ResendValidatingOTPType
 
-  signin("" email: String, "" password: String): SigninType
+  signin("" email: String, "" password: String, "" regestrationToken: String): SigninType
 
   forgetPassword("" email: String): ForgetPasswordType
 

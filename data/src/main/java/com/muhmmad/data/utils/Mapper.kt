@@ -111,7 +111,7 @@ fun GetOffersQuery.GetAllOffers.toOffersResponse(): OffersResponse = OffersRespo
             book = Book(
                 createdAt = it?.book?.createdAt ?: "",
                 language = it?.book?.language ?: "",
-                avgRating = it?.book?.avgRate ?: 0,
+                avgRating = it?.book?.avgRate?.toInt() ?: 0,
                 description = it?.book?.description ?: "",
                 price = it?.book?.price ?: 0.0,
                 name = it?.book?.name ?: "",
@@ -167,7 +167,7 @@ fun GetBooksQuery.Data.toBooksResponse(): BooksResponse =
     BooksResponse(
         getBooks?.books?.map {
             Book(
-                avgRating = it?.avgRate ?: 0,
+                avgRating = it?.avgRate?.toInt() ?: 0,
                 id = it?._id ?: "",
                 name = it?.name ?: "",
                 cover = Cover(path = it?.cover?.path ?: ""),
@@ -192,7 +192,7 @@ fun GetBestSellerBooksQuery.Data.toBookResponse(): BooksResponse = BooksResponse
     getBestSellerBooks?.books?.map {
         Book(
             price = it?.price ?: 0.0,
-            avgRating = it?.avgRate ?: 0,
+            avgRating = it?.avgRate?.toInt() ?: 0,
             id = it?._id ?: "",
             name = it?.name ?: "",
             cover = Cover(path = it?.cover?.path ?: ""),
@@ -243,7 +243,7 @@ fun GetShelfDetailsQuery.GetShelf.toShelfResponse(): ShelfResponse = ShelfRespon
             id = it?.book?._id ?: "",
             cover = Cover(path = it?.book?.cover?.path ?: ""),
             name = it?.book?.name ?: "",
-            avgRating = it?.book?.avgRate ?: 0,
+            avgRating = it?.book?.avgRate?.toInt() ?: 0,
             author = User(
                 _id = it?.book?.author?._id ?: "", name = it?.book?.author?.name ?: ""
             ), readingProgress = it?.readingProgress ?: 0, status = it?.status ?: ""
@@ -270,7 +270,7 @@ fun SearchQuery.Search.toBooksResponse(): BooksResponse = BooksResponse(
             id = it?._id ?: "",
             cover = Cover(path = it?.cover?.path ?: ""),
             name = it?.name ?: "",
-            avgRating = it?.avgRate ?: 0,
+            avgRating = it?.avgRate?.toInt() ?: 0,
             author = User(_id = it?.author?._id ?: "", name = it?.author?.name ?: "")
         )
     }!!

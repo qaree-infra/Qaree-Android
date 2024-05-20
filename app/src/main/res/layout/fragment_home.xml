@@ -127,7 +127,6 @@
                         app:layout_constraintStart_toEndOf="@id/progress_bar"
                         app:layout_constraintTop_toTopOf="@id/progress_bar"
                         tools:text="60%" />
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
 
@@ -228,9 +227,6 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_best_sellers"
                 tools:listitem="@layout/new_release_item" />
 
-
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </com.facebook.shimmer.ShimmerFrameLayout>
-
 </ScrollView>

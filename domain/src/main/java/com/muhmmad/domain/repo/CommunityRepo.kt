@@ -11,7 +11,7 @@ interface CommunityRepo {
     suspend fun disconnectSocket()
     suspend fun getSocket(): Socket
     suspend fun getCommunityMembers(
-        id: String,
+        bookId: String,
         page: Int,
         membersPerPage: Int,
         token: String

@@ -7,9 +7,9 @@ class CommunityUseCase(private val repo: CommunityRepo) {
     suspend fun connectSocket(token: String) = repo.connectSocket(token)
     suspend fun disconnectSocket() = repo.disconnectSocket()
     suspend fun getSocket() = repo.getSocket()
-    suspend fun getCommunityMembers(id: String, page: Int, membersPerPage: Int, token: String) =
+    suspend fun getCommunityMembers(bookId: String, page: Int, membersPerPage: Int, token: String) =
         repo.getCommunityMembers(
-            id, page,
+            bookId, page,
             membersPerPage, token
         )
 }
