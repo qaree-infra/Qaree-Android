@@ -29,7 +29,6 @@ class CommunityDetailsViewModel @Inject constructor(
     val communityMembers = _communityMembers.asStateFlow()
 
     fun getCommunityMembers(bookId: String) = viewModelScope.launch(Dispatchers.IO) {
-        Log.i(TAG, bookId.toString())
         _state.update { it.copy(isLoading = true) }
         communityUseCase.getCommunityMembers(
             bookId = bookId,
