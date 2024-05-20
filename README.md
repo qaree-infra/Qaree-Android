@@ -4,23 +4,6 @@ Welcome to Qaree, the ultimate e-book reading app that enhances your reading exp
 
 ## Features
 
-- **MVVM Architecture**: Ensures a clear separation of concerns, making the app more modular, testable, and maintainable.
-- **Clean Architecture**: Promotes a scalable and maintainable codebase by separating the app into layers.
-- **Multi-Module**: Modularized project structure to improve build times and maintainability.
-- **GraphQL**: Efficient data fetching and manipulation with a modern query language.
-- **Shimmer Animation**: Enhances user experience by providing a visual hint of loading content.
-- **DataStore**: Provides a robust solution for data storage.
-- **Dagger Hilt**: Dependency injection framework to manage dependencies efficiently.
-- **Coil**: Fast and lightweight image loading library for Android.
-- **Palette**: Extracts prominent colors from images to create dynamic UI themes.
-- **Retrofit**: Type-safe HTTP client for Android and Java.
-- **Parcelable**: Optimized serialization for passing complex data between activities.
-- **FCM (Firebase Cloud Messaging)**: Enables push notifications to engage users.
-- **Payment Integration**: Supports payments via PayPal and credit cards.
-- **UI Modes**: Light and Dark mode for a comfortable reading experience.
-- **Languages**: Supports English and Arabic for a broader audience.
-- **Paging3**: Efficiently loads paginated data for a smooth scrolling experience.
-- **Communication**: Enables one-to-one chats with readers and authors, and participation in book communities (such as simple chat groups).
 
 ## Screenshots
 
@@ -61,9 +44,26 @@ Here are some screenshots from the Qaree app:
 - **Flexibility**: Adapts well to changing requirements and complex UI interactions.
 
 
-### Libraries & Tools Used
+## Libraries & Tools Used
+- [Clean Architecture](https://developer.android.com/topic/architecture): A design principle that separates the app into layers to promote a scalable and maintainable codebase.
+- [Multi-Module](https://developer.android.com/topic/modularization/patterns): A project structure that modularizes the app into separate modules to improve build times and maintainability.
+- [View Binding](https://developer.android.com/topic/libraries/view-binding): A feature that allows you to more easily write code that interacts with views.
+- [Navigation](https://developer.android.com/guide/navigation): A component that helps in implementing navigation, from simple button clicks to more complex patterns, such as app bars and the navigation drawer.
+- [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel): Part of Android Architecture Components, it is designed to store and manage UI-related data in a lifecycle conscious way.
+- [Repository](https://developer.android.com/topic/architecture#fetch-data): A design pattern that mediates between different data sources, such as persistent models, web services, and caches.
+- [Kotlin Coroutines](https://kotlinlang.org/docs/coroutines-overview.html): A concurrency design pattern that you can use on Android to simplify code that executes asynchronously.
+- [Retrofit](https://square.github.io/retrofit/): A type-safe HTTP client for Android and Java.
+- [GraphQL](https://graphql.org/): A data query and manipulation language for APIs, and a runtime for executing those queries with your existing data.
+- [Shimmer Animation](https://facebook.github.io/shimmer-android/): An Android library that provides an easy way to add a shimmer effect to any view in your Android app.
+- [DataStore](https://developer.android.com/topic/libraries/architecture/datastore): A data storage solution that allows you to store key-value pairs or typed objects with protocol buffers.
+- [Dagger Hilt](https://dagger.dev/hilt/): A dependency injection library for Android that reduces the boilerplate of doing manual dependency injection in your project.
+- [Coil](https://coil-kt.github.io/coil/): An image loading library for Android backed by Kotlin Coroutines.
+- [FCM (Firebase Cloud Messaging)](https://firebase.google.com/docs/cloud-messaging): A cross-platform messaging solution that lets you reliably send messages at no cost.
+- [Payment Integration(Paypal)](https://developer.paypal.com/docs/business/checkout/): A feature that allows the app to accept payments via PayPal.
+- [Paging3](https://developer.android.com/topic/libraries/architecture/paging/v3-overview): A library that helps you load and display pages of data from larger datasets from local storage or over network in a RecyclerView.
+- [Socket-IO](https://socket.io/): A library for real-time web applications. It enables real-time, bidirectional and event-based communication between the browser and the server.
 
-
+Each of these tools and libraries contributes to the functionality, performance, and user experience of the Qaree app. They are chosen based on their efficiency, ease of use, and community support. Happy reading with Qaree! 😊
 
 ## Project Structure
 
