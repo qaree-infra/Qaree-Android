@@ -217,5 +217,8 @@
         <argument
             android:name="showBottomNavigation"
             android:defaultValue="false" />
+        <action
+            android:id="@+id/action_communityDetailsFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
 </navigation>
