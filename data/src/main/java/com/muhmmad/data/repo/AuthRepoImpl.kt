@@ -23,6 +23,12 @@ class AuthRepoImpl(
         token: String
     ): NetworkResponse<LoginResponse> = graphQlDataSource.login(email, pass, token)
 
+    override suspend fun loginWithGoogle(
+        socialToken: String,
+        firebaseToken: String
+    ): NetworkResponse<LoginResponse> =
+        graphQlDataSource.loginWithGoogle(socialToken, firebaseToken)
+
     override suspend fun register(
         name: String,
         email: String,

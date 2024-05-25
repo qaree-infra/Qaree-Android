@@ -48,6 +48,7 @@ import com.muhmmad.qaree.GetShelfDetailsQuery
 import com.muhmmad.qaree.GetTopAuthorsQuery
 import com.muhmmad.qaree.GetUserInfoQuery
 import com.muhmmad.qaree.JoinCommunityMutation
+import com.muhmmad.qaree.LoginWithGoogleMutation
 import com.muhmmad.qaree.RemoveBookFromShelfMutation
 import com.muhmmad.qaree.RemoveShelfMutation
 import com.muhmmad.qaree.ResendPasswordOTPMutation
@@ -63,6 +64,12 @@ import com.muhmmad.qaree.ValidatePasswordOTPMutation
 import com.muhmmad.qaree.VerifyAccountMutation
 
 fun SignInMutation.Signin.toLoginResponse(): LoginResponse = LoginResponse(
+    message = message ?: "",
+    token = access_token ?: "",
+    error = ""
+)
+
+fun LoginWithGoogleMutation.GoogleLogin.toLoginResponse(): LoginResponse = LoginResponse(
     message = message ?: "",
     token = access_token ?: "",
     error = ""

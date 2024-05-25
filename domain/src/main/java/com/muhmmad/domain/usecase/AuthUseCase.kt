@@ -5,7 +5,8 @@ import com.muhmmad.domain.repo.AuthRepo
 class AuthUseCase(private val repo: AuthRepo) {
     suspend fun setFirstTime(isFirstTime: Boolean) = repo.setFirstTime(isFirstTime)
     suspend fun isFirstTime() = repo.isFirstTime()
-    suspend fun login(email: String, pass: String,token:String) = repo.login(email, pass,token)
+    suspend fun login(email: String, pass: String, token: String) = repo.login(email, pass, token)
+    suspend fun loginWithGoogle(socialToken: String, firebaseToken: String)=repo.loginWithGoogle(socialToken,firebaseToken)
     suspend fun register(name: String, email: String, pass: String) =
         repo.register(name, email, pass)
 
