@@ -12,6 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import com.google.firebase.messaging.FirebaseMessaging
 import com.muhmmad.qaree.R
 import com.muhmmad.qaree.databinding.FragmentLoginBinding
 import com.muhmmad.qaree.ui.activity.auth.AuthActivity

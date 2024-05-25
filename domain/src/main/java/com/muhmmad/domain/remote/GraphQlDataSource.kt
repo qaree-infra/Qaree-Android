@@ -20,7 +20,7 @@ import com.muhmmad.domain.model.ShelfResponse
 import com.muhmmad.domain.model.User
 
 interface GraphQlDataSource {
-    suspend fun login(email: String, pass: String): NetworkResponse<LoginResponse>
+    suspend fun login(email: String, pass: String, token: String): NetworkResponse<LoginResponse>
     suspend fun register(name: String, email: String, pass: String): NetworkResponse<String>
     suspend fun verifyAccount(email: String, otp: String): NetworkResponse<BaseResponse>
     suspend fun resendVerifyOTP(email: String): NetworkResponse<BaseResponse>

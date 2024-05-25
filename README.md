@@ -25,11 +25,11 @@ Here are some screenshots from the Qaree app:
 <table>
   <tr>
     <td><img src="./images/home_screen.png" alt="Home Screen"></td>
-   <td> <img src="./images/book_details.png" alt="Book Details"></td>
- <td>  <img src="./images/reading_view.png" alt="Reading View"></td>
-<td>  <img src="./images/library.png" alt="Library Feature"></td>
- <td>  <img src="./images/inbox.png" alt="Chat Feature"></td>
- <td>   <img src="./images/chat.png" alt="Chat Feature"> </td>
+    <td><img src="./images/book_details.png" alt="Book Details"></td>
+    <td><img src="./images/reading_view.png" alt="Reading View"></td>
+    <td><img src="./images/library.png" alt="Library Feature"></td>
+    <td><img src="./images/inbox.png" alt="Chat Feature"></td>
+    <td><img src="./images/chat.png" alt="Chat Feature"> </td>
   </tr>
 </table>
 
@@ -38,11 +38,11 @@ Here are some screenshots from the Qaree app:
 <table>
   <tr>
     <td><img src="./images/home_screen.png" alt="Home Screen"></td>
-   <td> <img src="./images/book_details.png" alt="Book Details"></td>
- <td>  <img src="./images/reading_view.png" alt="Reading View"></td>
-<td>  <img src="./images/library.png" alt="Library Feature"></td>
- <td>  <img src="./images/inbox.png" alt="Chat Feature"></td>
- <td>   <img src="./images/chat.png" alt="Chat Feature"> </td>
+    <td><img src="./images/book_details.png" alt="Book Details"></td>
+    <td><img src="./images/reading_view.png" alt="Reading View"></td>
+    <td><img src="./images/library.png" alt="Library Feature"></td>
+    <td><img src="./images/inbox.png" alt="Chat Feature"></td>
+    <td><img src="./images/chat.png" alt="Chat Feature"></td>
   </tr>
 </table>
 

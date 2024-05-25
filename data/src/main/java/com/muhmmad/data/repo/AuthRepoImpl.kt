@@ -17,8 +17,11 @@ class AuthRepoImpl(
 
     override suspend fun isFirstTime(): Boolean = localDataSource.isFirstTime()
 
-    override suspend fun login(email: String, pass: String): NetworkResponse<LoginResponse> =
-        graphQlDataSource.login(email, pass)
+    override suspend fun login(
+        email: String,
+        pass: String,
+        token: String
+    ): NetworkResponse<LoginResponse> = graphQlDataSource.login(email, pass, token)
 
     override suspend fun register(
         name: String,
