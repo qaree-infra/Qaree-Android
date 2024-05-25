@@ -1,0 +1,6 @@
+mutation loginWithGoogle($socialToken:String!){
+    googleLogin(google_token:$socialToken){
+        message,
+        access_token
+    }
+}

@@ -2,6 +2,7 @@ package com.muhmmad.qaree.ui.fragment.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.messaging.FirebaseMessaging
 import com.muhmmad.domain.model.LoginResponse
 import com.muhmmad.domain.usecase.AuthUseCase
 import com.muhmmad.domain.usecase.UserUseCase
@@ -11,6 +12,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 @HiltViewModel
@@ -33,24 +35,26 @@ class LoginViewModel @Inject constructor(
         _password.update { pass }
     }
 
-    fun login() {
-        viewModelScope.launch(Dispatchers.IO) {
+    fun login() = viewModelScope.launch(Dispatchers.IO) {
+        _state.update {
+            it.copy(
+                loginResponse = null,
+                isLoading = true,
+                error = null
+            )
+        }
+
+        authUseCase.login(
+            _email.value,
+            _password.value,
+            FirebaseMessaging.getInstance().token.await()
+        ).apply {
             _state.update {
                 it.copy(
-                    loginResponse = null,
-                    isLoading = true,
-                    error = null
+                    loginResponse = this.data,
+                    isLoading = false,
+                    error = this.message
                 )
-            }
-
-            authUseCase.login(_email.value, _password.value).apply {
-                _state.update {
-                    it.copy(
-                        loginResponse = this.data,
-                        isLoading = false,
-                        error = this.message
-                    )
-                }
             }
         }
     }

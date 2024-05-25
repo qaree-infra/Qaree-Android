@@ -82,10 +82,14 @@ import com.muhmmad.qaree.VerifyAccountMutation
 class GraphQlDataSourceImpl(
     private val apolloClient: ApolloClient
 ) : GraphQlDataSource {
-    override suspend fun login(email: String, pass: String): NetworkResponse<LoginResponse> {
+    override suspend fun login(
+        email: String,
+        pass: String,
+        token: String
+    ): NetworkResponse<LoginResponse> {
         return try {
             val response = checkResponse(
-                apolloClient.mutation(SignInMutation(email, pass))
+                apolloClient.mutation(SignInMutation(email, pass, token))
                     .execute()
             )
 
