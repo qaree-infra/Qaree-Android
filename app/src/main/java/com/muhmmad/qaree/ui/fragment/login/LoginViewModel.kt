@@ -51,12 +51,27 @@ class LoginViewModel @Inject constructor(
         ).apply {
             _state.update {
                 it.copy(
-                    loginResponse = this.data,
+                    loginResponse = data,
                     isLoading = false,
-                    error = this.message
+                    error = message
                 )
             }
         }
+    }
+
+    fun loginWithGoogle(socialToken: String) = viewModelScope.launch {
+        _state.update {
+            it.copy(
+                isLoading = true
+            )
+        }
+
+        authUseCase.loginWithGoogle(socialToken, FirebaseMessaging.getInstance().token.await())
+            .apply {
+                _state.update {
+                    it.copy(loginResponse = data, isLoading = false, error = message)
+                }
+            }
     }
 
     fun getUserData() = viewModelScope.launch(Dispatchers.IO) {

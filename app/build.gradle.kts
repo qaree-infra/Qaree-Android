@@ -3,7 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
-   // id("dagger.hilt.android.plugin")
+    // id("dagger.hilt.android.plugin")
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
     id("com.google.firebase.firebase-perf")
@@ -38,6 +38,11 @@ android {
                 "paypalClientId",
                 "\"AcwxZmzj2-Kstpv2OU4ivSAQZlYA6ThecdxZlXOI6T0QL_W--ODJ6ad0YuKPcBU6VmP2MUlsdrjo15Ey\""
             )
+            it.buildConfigField(
+                "String",
+                "googleClientID",
+                "\"1059587907099-likhbfpqumps57uamd86q247uueootdn.apps.googleusercontent.com\""
+            )
         }
     }
     compileOptions {
@@ -58,9 +63,9 @@ dependencies {
     val nav_version = "2.7.7"
     val paging_version = "3.2.1"
     val hilt_version = "2.44"
-    implementation("androidx.core:core-ktx:1.13.0")
+    implementation("androidx.core:core-ktx:1.13.1")
     implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.11.0")
+    implementation("com.google.android.material:material:1.12.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
@@ -115,6 +120,8 @@ dependencies {
     //DataStore
     implementation("androidx.datastore:datastore:1.1.1")
     implementation("androidx.datastore:datastore-core:1.1.1")
+    //Login With Google
+    implementation("com.google.android.gms:play-services-auth:21.2.0")
 }
 
 kapt {

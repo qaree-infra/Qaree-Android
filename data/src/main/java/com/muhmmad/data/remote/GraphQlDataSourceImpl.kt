@@ -64,6 +64,7 @@ import com.muhmmad.qaree.GetShelfDetailsQuery
 import com.muhmmad.qaree.GetTopAuthorsQuery
 import com.muhmmad.qaree.GetUserInfoQuery
 import com.muhmmad.qaree.JoinCommunityMutation
+import com.muhmmad.qaree.LoginWithGoogleMutation
 import com.muhmmad.qaree.RemoveBookFromShelfMutation
 import com.muhmmad.qaree.RemoveShelfMutation
 import com.muhmmad.qaree.ResendPasswordOTPMutation
@@ -102,6 +103,20 @@ class GraphQlDataSourceImpl(
                 exception.localizedMessage?.toString()!!
             )
         }
+    }
+
+    override suspend fun loginWithGoogle(
+        socialToken: String,
+        firebaseToken: String
+    ): NetworkResponse<LoginResponse> = try {
+        val response = checkResponse(apolloClient.mutation(LoginWithGoogleMutation(socialToken)).execute())
+
+        when (response) {
+            is Success -> Success(response.data?.googleLogin?.toLoginResponse()!!)
+            else -> Error(response.message!!)
+        }
+    } catch (ex: Exception) {
+        Error(ex.message.toString())
     }
 
     override suspend fun register(

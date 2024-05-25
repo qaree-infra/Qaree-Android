@@ -237,4 +237,5 @@
     <string name="cards">Cards</string>
     <string name="the_app_can_not_show_notifications">The app can not show notifications.</string>
     <string name="you_have_not_any_notifications">You have not any notifications</string>
+    <string name="login_with_google_error">Login Failed</string>
 </resources>

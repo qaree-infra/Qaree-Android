@@ -7,17 +7,24 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import com.google.firebase.messaging.FirebaseMessaging
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
+import com.muhmmad.qaree.BuildConfig
 import com.muhmmad.qaree.R
 import com.muhmmad.qaree.databinding.FragmentLoginBinding
 import com.muhmmad.qaree.ui.activity.auth.AuthActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import com.google.android.gms.tasks.Task
 
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
@@ -56,7 +63,7 @@ class LoginFragment : Fragment() {
                 }
             }
             btnGoogle.setOnClickListener {
-
+                loginWithGoogle()
             }
             btnFacebook.setOnClickListener {
 
@@ -117,6 +124,30 @@ class LoginFragment : Fragment() {
             binding.layoutPassword.error = null
         }
         return true
+    }
+
+    private val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == AppCompatActivity.RESULT_OK) handleSignInResult(GoogleSignIn.getSignedInAccountFromIntent(result.data))
+            else activity.showError(binding.root, getString(R.string.login_with_google_error))
+        }
+
+    private fun loginWithGoogle() {
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(BuildConfig.googleClientID)
+            .requestEmail()
+            .requestProfile()
+            .requestServerAuthCode(BuildConfig.googleClientID).build()
+
+        val googleSignInClient = GoogleSignIn.getClient(activity, gso)
+        googleSignInClient.signOut()
+        launcher.launch(googleSignInClient.signInIntent)
+    }
+
+    private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) = try {
+        val account = completedTask.getResult(ApiException::class.java)
+        viewModel.loginWithGoogle(account.idToken!!)
+    } catch (e: Exception) {
+        activity.showError(binding.root, getString(R.string.login_with_google_error))
     }
 
     override fun onResume() {
