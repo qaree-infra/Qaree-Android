@@ -16,4 +16,5 @@ interface LocalDataSource {
     suspend fun getUserId(): String
     suspend fun changeMode(mode: AppMode)
     suspend fun getUiMode(): AppMode
+    suspend fun deleteUserData()
 }

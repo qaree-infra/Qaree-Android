@@ -6,7 +6,9 @@ class AuthUseCase(private val repo: AuthRepo) {
     suspend fun setFirstTime(isFirstTime: Boolean) = repo.setFirstTime(isFirstTime)
     suspend fun isFirstTime() = repo.isFirstTime()
     suspend fun login(email: String, pass: String, token: String) = repo.login(email, pass, token)
-    suspend fun loginWithGoogle(socialToken: String, firebaseToken: String)=repo.loginWithGoogle(socialToken,firebaseToken)
+    suspend fun loginWithGoogle(socialToken: String, firebaseToken: String) =
+        repo.loginWithGoogle(socialToken, firebaseToken)
+
     suspend fun register(name: String, email: String, pass: String) =
         repo.register(name, email, pass)
 
@@ -21,4 +23,6 @@ class AuthUseCase(private val repo: AuthRepo) {
     suspend fun getToken() = repo.getToken()
     suspend fun setToken(token: String) = repo.setToken(token)
     suspend fun logout() = repo.logout()
+    suspend fun deleteAccount(token: String) = repo.deleteAccount(token)
+    suspend fun deleteUserData() = repo.deleteUserData()
 }

@@ -28,4 +28,6 @@ interface AuthRepo {
     suspend fun getToken(): String
     suspend fun setToken(token: String)
     suspend fun logout()
+    suspend fun deleteAccount(token: String): NetworkResponse<BaseResponse>
+    suspend fun deleteUserData()
 }
