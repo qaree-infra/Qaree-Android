@@ -62,4 +62,8 @@ class AuthRepoImpl(
     override suspend fun setToken(token: String) = localDataSource.setToken(token)
 
     override suspend fun logout() = localDataSource.logout()
+    override suspend fun deleteAccount(token: String): NetworkResponse<BaseResponse> =
+        graphQlDataSource.deleteAccount(token)
+
+    override suspend fun deleteUserData() = localDataSource.deleteUserData()
 }

@@ -37,6 +37,7 @@ interface GraphQlDataSource {
 
     suspend fun resendPasswordOTP(email: String): NetworkResponse<BaseResponse>
     suspend fun resetPassword(pass: String, token: String): NetworkResponse<BaseResponse>
+    suspend fun deleteAccount(token: String): NetworkResponse<BaseResponse>
     suspend fun getOffers(): NetworkResponse<OffersResponse>
 
     suspend fun getLastActivity(token: String): NetworkResponse<ActivityResponse>

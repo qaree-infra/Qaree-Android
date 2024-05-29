@@ -9,7 +9,6 @@ import com.muhmmad.domain.model.UserData
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 
-
 class LocalDataSourceImpl(private val dataStore: DataStore<UserData>) : LocalDataSource {
     override suspend fun setFirstTime(isFirstTime: Boolean) {
         dataStore.updateData {
@@ -63,4 +62,14 @@ class LocalDataSourceImpl(private val dataStore: DataStore<UserData>) : LocalDat
     }
 
     override suspend fun getUiMode(): AppMode = dataStore.data.map { it.uiMode }.first()
+    override suspend fun deleteUserData() {
+        dataStore.updateData {
+            it.copy(
+                id = "",
+                name = "",
+                email = "",
+                token = "",
+            )
+        }
+    }
 }

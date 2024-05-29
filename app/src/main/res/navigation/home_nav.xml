@@ -139,6 +139,9 @@
         <action
             android:id="@+id/action_settingsFragment_to_changePasswordFragment"
             app:destination="@id/changePasswordFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_deleteAccountDialog"
+            app:destination="@id/deleteAccountDialog" />
     </fragment>
     <fragment
         android:id="@+id/editProfileFragment"
@@ -221,4 +224,9 @@
             android:id="@+id/action_communityDetailsFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
     </fragment>
+    <dialog
+        android:id="@+id/deleteAccountDialog"
+        android:name="com.muhmmad.qaree.ui.fragment.settings.DeleteAccountDialog"
+        android:label="delete_account_dialog"
+        tools:layout="@layout/delete_account_dialog" />
 </navigation>

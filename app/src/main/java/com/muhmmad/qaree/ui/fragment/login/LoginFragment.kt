@@ -2,6 +2,7 @@ package com.muhmmad.qaree.ui.fragment.login
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.util.Patterns.EMAIL_ADDRESS
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -126,9 +127,20 @@ class LoginFragment : Fragment() {
         return true
     }
 
-    private val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == AppCompatActivity.RESULT_OK) handleSignInResult(GoogleSignIn.getSignedInAccountFromIntent(result.data))
-            else activity.showError(binding.root, getString(R.string.login_with_google_error))
+    private val launcher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            Log.i(TAG, result.resultCode.toString())
+            if (result.resultCode == AppCompatActivity.RESULT_OK) {
+                handleSignInResult(
+                    GoogleSignIn.getSignedInAccountFromIntent(
+                        result.data
+                    )
+                )
+                Log.i(TAG, "OK")
+            } else {
+                activity.showError(binding.root, getString(R.string.login_with_google_error))
+                Log.i(TAG, "Launcher error")
+            }
         }
 
     private fun loginWithGoogle() {
@@ -145,6 +157,7 @@ class LoginFragment : Fragment() {
 
     private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) = try {
         val account = completedTask.getResult(ApiException::class.java)
+        Log.i(TAG, account.email.toString())
         viewModel.loginWithGoogle(account.idToken!!)
     } catch (e: Exception) {
         activity.showError(binding.root, getString(R.string.login_with_google_error))
@@ -156,3 +169,5 @@ class LoginFragment : Fragment() {
         binding.layoutPassword.editText?.setText(viewModel.password.value)
     }
 }
+
+private const val TAG = "LoginFragment"

@@ -238,4 +238,7 @@
     <string name="the_app_can_not_show_notifications">The app can not show notifications.</string>
     <string name="you_have_not_any_notifications">You have not any notifications</string>
     <string name="login_with_google_error">Login Failed</string>
+    <string name="delete_account_dialog">Delete Account?</string>
+    <string name="delete_account_details">The account details will be removed from our app and you will not be able to login again</string>
+    <string name="delete">Delete</string>
 </resources>
