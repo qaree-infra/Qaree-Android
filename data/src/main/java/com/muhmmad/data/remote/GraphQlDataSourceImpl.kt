@@ -47,6 +47,7 @@ import com.muhmmad.qaree.CompletePaymentOrderMutation
 import com.muhmmad.qaree.CreatePaymentOrderMutation
 import com.muhmmad.qaree.CreateShelfMutation
 import com.muhmmad.qaree.DeleteAccountMutation
+import com.muhmmad.qaree.DeleteChatMutation
 import com.muhmmad.qaree.FollowUserMutation
 import com.muhmmad.qaree.ForgetPasswordMutation
 import com.muhmmad.qaree.GetAuthorInfoQuery
@@ -690,4 +691,19 @@ class GraphQlDataSourceImpl(
     } catch (ex: Exception) {
         Error(ex.message.toString())
     }
+
+    override suspend fun deleteChat(roomId: String, token: String): NetworkResponse<BaseResponse> =
+        try {
+            val response = checkResponse(
+                apolloClient.mutation(DeleteChatMutation(roomId))
+                    .addHttpHeader("Authorization", token).execute()
+            )
+
+            when (response) {
+                is Success -> Success(response.data?.deleteChat?.toBaseResponse()!!)
+                else -> Error(response.message.toString())
+            }
+        } catch (ex: Exception) {
+            Error(ex.message.toString())
+        }
 }

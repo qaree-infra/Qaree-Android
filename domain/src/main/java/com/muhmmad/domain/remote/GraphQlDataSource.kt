@@ -104,4 +104,6 @@ interface GraphQlDataSource {
         page: Int,
         limit: Int
     ): NetworkResponse<NotificationsResponse>
+
+    suspend fun deleteChat(roomId: String, token: String): NetworkResponse<BaseResponse>
 }

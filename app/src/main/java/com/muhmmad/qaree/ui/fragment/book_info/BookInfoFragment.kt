@@ -164,6 +164,15 @@ class BookInfoFragment : Fragment() {
             }
         }
         lifecycleScope.launch {
+            viewModel.reviewsResponse.collectLatest {
+                it?.let{
+                    binding.bookInfoHeader.tvRatingNumber.text =
+                        getString(R.string.ratings, it.total.toString())
+                    adapter.setData(it.data)
+                }
+            }
+        }
+        lifecycleScope.launch {
             viewModel.state.collect {
                 if (it.isLoading) activity.showLoading(binding.root) else activity.dismissLoading(
                     binding.root
@@ -174,23 +183,7 @@ class BookInfoFragment : Fragment() {
                     it.error.toString()
                 )
 
-                if (it.reviewsResponse != null) {
-                    binding.bookInfoHeader.tvRatingNumber.text =
-                        getString(R.string.ratings, it.reviewsResponse.total.toString())
-                    adapter.setData(it.reviewsResponse.data)
-                }
-
                 if (it.makeReviewResponse != null) activity.showMessage(it.makeReviewResponse.message)
-
-                it.bookStatus?.apply {
-//                    if (status == null) {
-//
-//                    } else {
-//                        if (readingProgress == 0.0) binding.btnBuy.text =
-//                            getString(R.string.start_read)
-//                        else binding.btnBuy.text = getString(R.string.continue_reading)
-//                    }
-                }
 
                 it.addBookToShelfResponse?.apply {
                     activity.showMessage(message)
