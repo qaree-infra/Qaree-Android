@@ -35,13 +35,18 @@ class CommunityViewModel @Inject constructor(
     val message = MutableSharedFlow<Message?>()
     private val _room = MutableStateFlow<Room?>(null)
     val room = _room.asStateFlow()
+    var messagesPage: Int = 1
 
     init {
         getUserId()
         connectSocket()
     }
 
-    fun setRoom(room: Room) = _room.update { room }
+    fun setRoom(room: Room) {
+        if (_room.value == room) return
+        messagesPage = 1
+        _room.update { room }
+    }
 
     private fun connectSocket() = viewModelScope.launch {
         _state.update { it.copy(isLoading = true) }
@@ -69,8 +74,13 @@ class CommunityViewModel @Inject constructor(
         else mSocket?.emit(EVENT_GET_ROOMS, JSONObject())
     }
 
-    fun getMessages(roomId: String, type: MessageType) {
-        mSocket?.emit(EVENT_MESSAGE_LIST, JSONObject("{room:$roomId,type:${type.name}}"))
+    fun getMessages(roomId: String, type: MessageType = MessageType.UNREAD) {
+        Log.i(TAG, "Page is $messagesPage")
+        if (messagesPage == -1) return
+        mSocket?.emit(
+            EVENT_MESSAGE_LIST,
+            JSONObject("{room:$roomId,limit:20,page:$messagesPage,type:${type.name}}")
+        )
     }
 
     fun sendMessage(message: String) {
@@ -116,6 +126,13 @@ class CommunityViewModel @Inject constructor(
     private val chatListener: Emitter.Listener = Emitter.Listener {
         val response = it[0] as JSONObject
         val data = Gson().fromJson(response.get("messages").toString(), Chat::class.java)
+        Log.i(TAG, "total pages : ${data.numberOfPages}")
+        Log.i(TAG, "current page : ${data.currentPage}")
+        if (data.currentPage < data.numberOfPages) messagesPage = data.currentPage + 1
+        else messagesPage = -1
+
+        Log.i(TAG, "MesssagePages : $messagesPage")
+
         if (data.messages.isNotEmpty()) {
             _room.update {
                 it?.copy(
@@ -190,5 +207,5 @@ class CommunityViewModel @Inject constructor(
 
 private const val TAG = "InboxViewModel"
 private const val EVENT_GET_ROOMS = "get-rooms"
-private const val EVENT_MESSAGE_LIST = "message-list"
 private const val EVENT_SEND_MESSAGE = "message"
+private const val EVENT_MESSAGE_LIST = "message-list"

@@ -47,13 +47,25 @@
         app:layout_constraintTop_toTopOf="@id/iv_chat"
         tools:text="name" />
 
+
     <ImageView
-        android:id="@+id/iv_menu"
+        android:id="@+id/iv_delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_15sdp"
-        android:contentDescription="@string/menu"
-        android:src="@drawable/ic_menu"
+        android:contentDescription="@string/delete_chat"
+        android:src="@drawable/ic_bin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_leave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_15sdp"
+        android:contentDescription="@string/leave_group"
+        android:src="@drawable/ic_log_out"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

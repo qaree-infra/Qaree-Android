@@ -8,12 +8,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import coil.load
-import com.muhmmad.domain.model.Message
 import com.muhmmad.domain.model.Room
 import com.muhmmad.qaree.R
 import com.muhmmad.qaree.databinding.FragmentChatBinding
@@ -23,6 +23,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 private const val TAG = "ChatFragment"
+
 class ChatFragment : Fragment(), OnClickListener {
     private val binding: FragmentChatBinding by lazy {
         FragmentChatBinding.inflate(layoutInflater)
@@ -38,7 +39,8 @@ class ChatFragment : Fragment(), OnClickListener {
             //get userId from arguments or viewModel
             // if the user coming from ProfileFragment then userId will be from the arguments
             // else it will be from the viewModel
-            viewModel.userId.value.ifEmpty { arguments?.getString("userId") ?: "" }
+            viewModel.userId.value.ifEmpty { arguments?.getString("userId") ?: "" },
+            viewModel
         )
     }
     private val viewModel: CommunityViewModel by activityViewModels()
@@ -69,6 +71,8 @@ class ChatFragment : Fragment(), OnClickListener {
 
     private fun initViews(room: Room) {
         binding.apply {
+            ivLeave.isVisible = viewModel.room.value?.book?.name?.isNotEmpty() == true
+            ivDelete.isVisible = viewModel.room.value?.book?.name?.isEmpty() == true
             rvChat.adapter = adapter
             ivChat.load(room.getImage())
             tvChat.text = room.getName()
@@ -76,7 +80,8 @@ class ChatFragment : Fragment(), OnClickListener {
             ivSend.setOnClickListener(this@ChatFragment)
             ivChat.setOnClickListener(this@ChatFragment)
             tvChat.setOnClickListener(this@ChatFragment)
-            ivMenu.setOnClickListener(this@ChatFragment)
+            ivLeave.setOnClickListener(this@ChatFragment)
+            ivDelete.setOnClickListener(this@ChatFragment)
         }
     }
 
@@ -84,11 +89,8 @@ class ChatFragment : Fragment(), OnClickListener {
         lifecycleScope.launch {
             viewModel.message.collect {
                 it?.let { it1 ->
-                    val list = ArrayList<Message>()
-                    list.addAll(adapter.currentList.toList())
-                    list.add(it1)
-                    adapter.submitList(list)
-                    binding.rvChat.smoothScrollToPosition(adapter.currentList.size)
+                    adapter.addMessage(it1)
+                    binding.rvChat.smoothScrollToPosition(adapter.data.size)
                 }
                 binding.layoutMessage.editText?.text?.clear()
             }
@@ -104,7 +106,8 @@ class ChatFragment : Fragment(), OnClickListener {
                 )
 
                 it.chat?.apply {
-                    adapter.submitList(this.messages)
+                    if (viewModel.messagesPage == 1) adapter.setData(this.messages)
+                    else adapter.addData(this.messages)
                 }
             }
         }
@@ -119,7 +122,11 @@ class ChatFragment : Fragment(), OnClickListener {
     override fun onClick(v: View?) {
         when (v) {
             binding.ivBack -> nav.navigateUp()
-            binding.ivMenu -> {
+            binding.ivLeave -> {
+
+            }
+
+            binding.ivDelete -> {
 
             }
 
