@@ -180,7 +180,11 @@
         android:id="@+id/bookInfoDialog"
         android:name="com.muhmmad.qaree.ui.fragment.book_info.dialogs.BookInfoDialog"
         android:label="BookInfoDialog"
-        tools:layout="@layout/dialog_book_info" />
+        tools:layout="@layout/dialog_book_info" >
+        <action
+            android:id="@+id/action_bookInfoDialog_to_shelfsDialog"
+            app:destination="@id/shelfsDialog" />
+    </dialog>
     <dialog
         android:id="@+id/shelfsDialog"
         android:name="com.muhmmad.qaree.ui.fragment.book_info.dialogs.ShelfsDialog"
@@ -208,6 +212,12 @@
         <action
             android:id="@+id/action_chatFragment_to_communityDetailsFragment"
             app:destination="@id/communityDetailsFragment" />
+        <action
+            android:id="@+id/action_chatFragment_to_leaveGroupDialog"
+            app:destination="@id/leaveGroupDialog" />
+        <action
+            android:id="@+id/action_chatFragment_to_deleteChatDialog"
+            app:destination="@id/deleteChatDialog" />
     </fragment>
     <fragment
         android:id="@+id/communityDetailsFragment"
@@ -229,4 +239,14 @@
         android:name="com.muhmmad.qaree.ui.fragment.settings.DeleteAccountDialog"
         android:label="delete_account_dialog"
         tools:layout="@layout/delete_account_dialog" />
+    <dialog
+        android:id="@+id/leaveGroupDialog"
+        android:name="com.muhmmad.qaree.ui.fragment.chat.dialogs.LeaveGroupDialog"
+        android:label="LeaveGroupDialog"
+        tools:layout="@layout/leave_group_dialog" />
+    <dialog
+        android:id="@+id/deleteChatDialog"
+        android:name="com.muhmmad.qaree.ui.fragment.chat.dialogs.DeleteChatDialog"
+        android:label="delete_chat_dialog"
+        tools:layout="@layout/delete_chat_dialog" />
 </navigation>

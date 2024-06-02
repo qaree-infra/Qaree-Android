@@ -31,6 +31,7 @@ import com.muhmmad.qaree.CompletePaymentOrderMutation
 import com.muhmmad.qaree.CreatePaymentOrderMutation
 import com.muhmmad.qaree.CreateShelfMutation
 import com.muhmmad.qaree.DeleteAccountMutation
+import com.muhmmad.qaree.DeleteChatMutation
 import com.muhmmad.qaree.FollowUserMutation
 import com.muhmmad.qaree.ForgetPasswordMutation
 import com.muhmmad.qaree.GetAuthorInfoQuery
@@ -440,6 +441,11 @@ fun GetNotificationsQuery.GetNotifications.toNotificationsResponse(): Notificati
     )
 
 fun DeleteAccountMutation.DeleteAccount.toBaseResponse(): BaseResponse = BaseResponse(
+    message = message ?: "",
+    success = success ?: false
+)
+
+fun DeleteChatMutation.DeleteChat.toBaseResponse(): BaseResponse = BaseResponse(
     message = message ?: "",
     success = success ?: false
 )

@@ -109,6 +109,10 @@ class ChatFragment : Fragment(), OnClickListener {
                     if (viewModel.messagesPage == 1) adapter.setData(this.messages)
                     else adapter.addData(this.messages)
                 }
+
+                it.deleteChatResponse?.apply {
+                    nav.navigateUp()
+                }
             }
         }
     }
@@ -122,13 +126,8 @@ class ChatFragment : Fragment(), OnClickListener {
     override fun onClick(v: View?) {
         when (v) {
             binding.ivBack -> nav.navigateUp()
-            binding.ivLeave -> {
-
-            }
-
-            binding.ivDelete -> {
-
-            }
+            binding.ivLeave -> nav.navigate(R.id.action_chatFragment_to_leaveGroupDialog)
+            binding.ivDelete -> nav.navigate(R.id.action_chatFragment_to_deleteChatDialog)
 
             binding.ivSend -> {
                 val message = binding.layoutMessage.editText?.text.toString()

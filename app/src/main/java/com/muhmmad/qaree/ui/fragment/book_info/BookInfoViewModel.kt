@@ -29,7 +29,7 @@ class BookInfoViewModel @Inject constructor(
     private val communityUseCase: CommunityUseCase
 ) : ViewModel() {
     private val _state = MutableStateFlow(BookInfoState())
-    val state = _state.asStateFlow()
+    val state = _state.asSharedFlow()
 
     private val _bookState = MutableStateFlow(BookState.BUY)
     val bookState = _bookState.asStateFlow()
@@ -40,9 +40,15 @@ class BookInfoViewModel @Inject constructor(
     private val _paymentOrder: MutableStateFlow<PaymentOrder?> = MutableStateFlow(null)
     val paymentOrder = _paymentOrder.asSharedFlow()
 
+    private val _reviewsResponse = MutableStateFlow<ReviewsResponse?>(null)
+    val reviewsResponse = _reviewsResponse.asStateFlow()
+
+    private val _libraryResponse = MutableStateFlow<LibraryResponse?>(null)
+    val libraryResponse = _libraryResponse.asStateFlow()
+
 
     fun updateBook(book: Book?) {
-        if (book!=null) _book.update { book }
+        if (book != null) _book.update { book }
         getLibrary()
     }
 
@@ -53,7 +59,6 @@ class BookInfoViewModel @Inject constructor(
                 it.copy(
                     isLoading = false,
                     error = message,
-                    bookStatus = data
                 )
             }
 
@@ -76,9 +81,12 @@ class BookInfoViewModel @Inject constructor(
                 _state.update {
                     it.copy(
                         isLoading = false,
-                        reviewsResponse = data,
                         error = message
                     )
+                }
+
+                _reviewsResponse.update {
+                    data
                 }
             }
         }
@@ -113,9 +121,10 @@ class BookInfoViewModel @Inject constructor(
                     it.copy(
                         isLoading = false,
                         error = message,
-                        libraryResponse = data
                     )
                 }
+
+                _libraryResponse.update { data }
             }
         }
     }
@@ -163,15 +172,12 @@ class BookInfoViewModel @Inject constructor(
     }
 
     data class BookInfoState(
-        val addBookToShelfResponse: BaseResponse? = null,
-        val bookStatus: BookStatus? = null,
-        val makeReviewResponse: BaseResponse? = null,
-        val reviewsResponse: ReviewsResponse? = null,
-        val isLoading: Boolean = false,
         val error: String? = null,
-        val libraryResponse: LibraryResponse? = null,
+        val isLoading: Boolean = false,
+        val addBookToShelfResponse: BaseResponse? = null,
+        val makeReviewResponse: BaseResponse? = null,
         val joinCommunityResponse: BaseResponse? = null,
-        val completePaymentResponse: PaymentOrder? = null
+        val completePaymentResponse: PaymentOrder? = null,
     )
 
     enum class BookState {

@@ -44,7 +44,7 @@ class BookInfoDialog : DialogFragment() {
                 this@BookInfoDialog.dismiss()
             }
             tvShelf.setOnClickListener {
-                nav.navigate(R.id.shelfsDialog)
+                nav.navigate(R.id.action_bookInfoDialog_to_shelfsDialog)
             }
             tvSample.setOnClickListener {
                 val intent = Intent(context, ReadingViewActivity::class.java)

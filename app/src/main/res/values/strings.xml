@@ -243,4 +243,8 @@
     <string name="delete">Delete</string>
     <string name="leave_group">Leave Group</string>
     <string name="delete_chat">Delete Chat</string>
+    <string name="leave_group_dialog_title">Leave Group ?</string>
+    <string name="leave_group_dialog_description">This conversation will be removed from all your synced devices. This action cannot be undone.</string>
+    <string name="leave">Leave</string>
+    <string name="delete_chat_dialog_title">Delete Chat ?</string>
 </resources>
