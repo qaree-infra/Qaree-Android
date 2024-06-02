@@ -241,4 +241,6 @@
     <string name="delete_account_dialog">Delete Account?</string>
     <string name="delete_account_details">The account details will be removed from our app and you will not be able to login again</string>
     <string name="delete">Delete</string>
+    <string name="leave_group">Leave Group</string>
+    <string name="delete_chat">Delete Chat</string>
 </resources>
