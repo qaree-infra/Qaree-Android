@@ -145,10 +145,10 @@ class LoginFragment : Fragment() {
 
     private fun loginWithGoogle() {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(BuildConfig.googleClientID)
+            .requestIdToken(BuildConfig.googleWebClientID)
             .requestEmail()
             .requestProfile()
-            .requestServerAuthCode(BuildConfig.googleClientID).build()
+            .requestServerAuthCode(BuildConfig.googleWebClientID).build()
 
         val googleSignInClient = GoogleSignIn.getClient(activity, gso)
         googleSignInClient.signOut()
@@ -158,8 +158,10 @@ class LoginFragment : Fragment() {
     private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) = try {
         val account = completedTask.getResult(ApiException::class.java)
         Log.i(TAG, account.email.toString())
+        Log.i(TAG, account.idToken.toString())
         viewModel.loginWithGoogle(account.idToken!!)
     } catch (e: Exception) {
+        Log.e(TAG, e.message.toString())
         activity.showError(binding.root, getString(R.string.login_with_google_error))
     }
 
