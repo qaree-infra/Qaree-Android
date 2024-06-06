@@ -27,4 +27,7 @@ class UserUseCase(private val repo: UserRepo) {
     suspend fun getUiMode() = repo.getUiMode()
     suspend fun getNotifications(token: String, page: Int, limit: Int) =
         repo.getNotifications(token, page, limit)
+
+    suspend fun getPaymentCards() = repo.getPaymentCards()
+    suspend fun deletePaymentCard(id: Int) = repo.deletePaymentCard(id)
 }
