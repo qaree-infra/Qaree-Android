@@ -5,12 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.muhmmad.qaree.R
-import com.muhmmad.qaree.databinding.FragmentPaymentBinding
+import com.muhmmad.qaree.databinding.FragmentAddPaymentCardBinding
 
-class PaymentFragment : Fragment() {
-    private val binding: FragmentPaymentBinding by lazy {
-        FragmentPaymentBinding.inflate(layoutInflater)
+class AddPaymentCardFragment : Fragment() {
+    private val binding: FragmentAddPaymentCardBinding by lazy {
+        FragmentAddPaymentCardBinding.inflate(layoutInflater)
     }
 
     override fun onCreateView(

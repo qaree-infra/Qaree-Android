@@ -248,4 +248,8 @@
     <string name="leave">Leave</string>
     <string name="delete_chat_dialog_title">Delete Chat ?</string>
     <string name="sender_image">Sender image</string>
+    <string name="choose_card">Choose Card</string>
+    <string name="add_new_card">Add New Card</string>
+    <string name="confirm">Confirm</string>
+    <string name="card_image">Card Image</string>
 </resources>

@@ -4,6 +4,7 @@ import com.muhmmad.data.utils.checkResponse
 import com.muhmmad.domain.local.LocalDataSource
 import com.muhmmad.domain.model.AppMode
 import com.muhmmad.domain.model.BaseResponse
+import com.muhmmad.domain.model.Card
 import com.muhmmad.domain.model.NetworkResponse
 import com.muhmmad.domain.model.NotificationsResponse
 import com.muhmmad.domain.model.User
@@ -57,4 +58,7 @@ class UserRepoImpl(
         limit: Int
     ): NetworkResponse<NotificationsResponse> =
         graphQlDataSource.getNotifications(token, page, limit)
+
+    override suspend fun getPaymentCards(): List<Card> = localDataSource.getPaymentCards()
+    override suspend fun deletePaymentCard(id: Int) = localDataSource.deletePaymentCard(id)
 }

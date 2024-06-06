@@ -74,7 +74,7 @@ class SettingsFragment : Fragment() {
                 nav.navigate(R.id.action_settingsFragment_to_changePasswordFragment)
             }
             tvPayment.setOnClickListener {
-
+                nav.navigate(R.id.action_settingsFragment_to_editCardsBottomSheetDialogFragment)
             }
             tvDeleteAccount.setOnClickListener {
                 nav.navigate(R.id.action_settingsFragment_to_deleteAccountDialog)

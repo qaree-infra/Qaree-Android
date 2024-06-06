@@ -1,6 +1,7 @@
 package com.muhmmad.domain.local
 
 import com.muhmmad.domain.model.AppMode
+import com.muhmmad.domain.model.Card
 import com.muhmmad.domain.model.Language
 import com.muhmmad.domain.model.User
 
@@ -17,4 +18,6 @@ interface LocalDataSource {
     suspend fun changeMode(mode: AppMode)
     suspend fun getUiMode(): AppMode
     suspend fun deleteUserData()
+    suspend fun getPaymentCards(): List<Card>
+    suspend fun deletePaymentCard(id: Int)
 }

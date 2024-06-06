@@ -142,6 +142,9 @@
         <action
             android:id="@+id/action_settingsFragment_to_deleteAccountDialog"
             app:destination="@id/deleteAccountDialog" />
+        <action
+            android:id="@+id/action_settingsFragment_to_editCardsBottomSheetDialogFragment"
+            app:destination="@id/editCardsBottomSheetDialogFragment" />
     </fragment>
     <fragment
         android:id="@+id/editProfileFragment"
@@ -180,7 +183,7 @@
         android:id="@+id/bookInfoDialog"
         android:name="com.muhmmad.qaree.ui.fragment.book_info.dialogs.BookInfoDialog"
         android:label="BookInfoDialog"
-        tools:layout="@layout/dialog_book_info" >
+        tools:layout="@layout/dialog_book_info">
         <action
             android:id="@+id/action_bookInfoDialog_to_shelfsDialog"
             app:destination="@id/shelfsDialog" />
@@ -249,4 +252,18 @@
         android:name="com.muhmmad.qaree.ui.fragment.chat.dialogs.DeleteChatDialog"
         android:label="delete_chat_dialog"
         tools:layout="@layout/delete_chat_dialog" />
+    <dialog
+        android:id="@+id/editCardsBottomSheetDialogFragment"
+        android:name="com.muhmmad.qaree.ui.fragment.settings.EditCardsBottomSheetDialogFragment"
+        android:label="EditCardsBottomSheetDialogFragment"
+        tools:layout="@layout/edit_cards_bottom_sheet_dialog" >
+        <action
+            android:id="@+id/action_editCardsBottomSheetDialogFragment_to_addPaymentCardFragment"
+            app:destination="@id/addPaymentCardFragment" />
+    </dialog>
+    <fragment
+        android:id="@+id/addPaymentCardFragment"
+        android:name="com.muhmmad.qaree.ui.fragment.payment.AddPaymentCardFragment"
+        android:label="fragment_add_payment_card"
+        tools:layout="@layout/fragment_add_payment_card" />
 </navigation>

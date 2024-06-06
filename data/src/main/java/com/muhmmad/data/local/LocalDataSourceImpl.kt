@@ -3,6 +3,7 @@ package com.muhmmad.data.local
 import androidx.datastore.core.DataStore
 import com.muhmmad.domain.local.LocalDataSource
 import com.muhmmad.domain.model.AppMode
+import com.muhmmad.domain.model.Card
 import com.muhmmad.domain.model.Language
 import com.muhmmad.domain.model.User
 import com.muhmmad.domain.model.UserData
@@ -71,5 +72,10 @@ class LocalDataSourceImpl(private val dataStore: DataStore<UserData>) : LocalDat
                 token = "",
             )
         }
+    }
+
+    override suspend fun getPaymentCards(): List<Card> = emptyList()
+    override suspend fun deletePaymentCard(id: Int) {
+
     }
 }

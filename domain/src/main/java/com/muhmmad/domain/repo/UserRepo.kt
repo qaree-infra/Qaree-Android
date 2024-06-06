@@ -2,6 +2,7 @@ package com.muhmmad.domain.repo
 
 import com.muhmmad.domain.model.AppMode
 import com.muhmmad.domain.model.BaseResponse
+import com.muhmmad.domain.model.Card
 import com.muhmmad.domain.model.NetworkResponse
 import com.muhmmad.domain.model.NotificationsResponse
 import com.muhmmad.domain.model.User
@@ -30,4 +31,7 @@ interface UserRepo {
         page: Int,
         limit: Int
     ): NetworkResponse<NotificationsResponse>
+
+    suspend fun getPaymentCards(): List<Card>
+    suspend fun deletePaymentCard(id: Int)
 }
