@@ -1,5 +1,6 @@
 package com.muhmmad.qaree.ui.fragment.login
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.messaging.FirebaseMessaging
@@ -68,6 +69,8 @@ class LoginViewModel @Inject constructor(
 
         authUseCase.loginWithGoogle(socialToken, FirebaseMessaging.getInstance().token.await())
             .apply {
+                Log.i(TAG, data.toString())
+                Log.i(TAG, message.toString())
                 _state.update {
                     it.copy(loginResponse = data, isLoading = false, error = message)
                 }
@@ -100,3 +103,5 @@ class LoginViewModel @Inject constructor(
         val goHome: Boolean = false
     )
 }
+
+private const val TAG = "LoginViewModel"

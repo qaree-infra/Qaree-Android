@@ -1,24 +1,34 @@
 package com.muhmmad.qaree.ui.fragment.chat
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.muhmmad.domain.model.Message
+import com.muhmmad.qaree.R
+import com.muhmmad.qaree.databinding.ReceiverCommunityLayoutBinding
 import com.muhmmad.qaree.databinding.ReceiverLayoutBinding
+import com.muhmmad.qaree.databinding.SenderCommunityLayoutBinding
 import com.muhmmad.qaree.databinding.SenderLayoutBinding
 import com.muhmmad.qaree.ui.fragment.CommunityViewModel
 import com.muhmmad.qaree.utils.DiffUtilCallback
 
 class ChatAdapter(
     private val userId: String,
-    private val viewModel: CommunityViewModel
+    private val viewModel: CommunityViewModel,
+    private val isCommunity: Boolean
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     internal val data = ArrayList<Message>()
 
     class SenderViewHolder(val binding: SenderLayoutBinding) : RecyclerView.ViewHolder(binding.root)
     class ReceiverViewHolder(val binding: ReceiverLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root)
+
+    class SenderCommunityViewHolder(val binding: SenderCommunityLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root)
+
+    class ReceiverCommunityViewHolder(val binding: ReceiverCommunityLayoutBinding) :
         RecyclerView.ViewHolder(binding.root)
 
 //    class MessageDiffCallBack : DiffUtil.ItemCallback<Message>() {
@@ -30,33 +40,69 @@ class ChatAdapter(
 //    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
-        if (viewType == UserType.SENDER.ordinal) SenderViewHolder(
-            SenderLayoutBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
+        when (viewType) {
+            UserType.SENDER.ordinal -> SenderViewHolder(
+                SenderLayoutBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
             )
-        )
-        else ReceiverViewHolder(
-            ReceiverLayoutBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
+
+            UserType.SENDER_COMMUNITY.ordinal -> SenderCommunityViewHolder(
+                SenderCommunityLayoutBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
             )
-        )
+
+            UserType.RECEIVER_COMMUNITY.ordinal -> ReceiverCommunityViewHolder(
+                ReceiverCommunityLayoutBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            )
+
+            else -> ReceiverViewHolder(
+                ReceiverLayoutBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            )
+        }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val message = data[position]
-        Log.i(TAG, position.toString())
-        if (position == data.size - 6) {
-            Log.i(TAG, "DONE")
-            viewModel.getMessages(message.room)
-        }
-
+        if (position == data.size - 6) viewModel.getMessages(message.room)
         if (getItemViewType(position) == UserType.SENDER.ordinal) {
             holder as SenderViewHolder
             holder.binding.apply {
                 textView.text = message.content
+            }
+        } else if (getItemViewType(position) == UserType.SENDER_COMMUNITY.ordinal) {
+            holder as SenderCommunityViewHolder
+
+            holder.binding.apply {
+                textView.text = message.content
+                val image = message.sender?.avatar?.path ?: ""
+                if (image.isEmpty()) ivUser.load(R.drawable.ic_profile_avatar)
+                else {
+                    ivUser.load(image) {
+                        placeholder(R.drawable.ic_profile_avatar)
+                    }
+                }
+            }
+        } else if (getItemViewType(position) == UserType.RECEIVER_COMMUNITY.ordinal) {
+            holder as ReceiverCommunityViewHolder
+
+            holder.binding.apply {
+                textView.text = message.content
+                ivUser.load(message.sender?.avatar?.path ?: "") {
+                    placeholder(R.drawable.ic_profile_avatar)
+                }
             }
         } else {
             holder as ReceiverViewHolder
@@ -68,8 +114,13 @@ class ChatAdapter(
 
 
     override fun getItemViewType(position: Int): Int =
-        if (data[position].sender == null || data[position].sender._id != userId) UserType.SENDER.ordinal
-        else UserType.RECEIVER.ordinal
+        if (isCommunity) {
+            if (data[position].sender == null || data[position].sender._id != userId) UserType.SENDER_COMMUNITY.ordinal
+            else UserType.RECEIVER_COMMUNITY.ordinal
+        } else {
+            if (data[position].sender == null || data[position].sender._id != userId) UserType.SENDER.ordinal
+            else UserType.RECEIVER.ordinal
+        }
 
     override fun getItemCount(): Int = data.size
 
@@ -100,11 +151,10 @@ class ChatAdapter(
         diffResult.dispatchUpdatesTo(this)
     }
 
-
     enum class UserType {
         SENDER,
-        RECEIVER
+        RECEIVER,
+        SENDER_COMMUNITY,
+        RECEIVER_COMMUNITY
     }
 }
-
-private const val TAG = "ChatAdapter"

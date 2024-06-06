@@ -3,7 +3,6 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
-    // id("dagger.hilt.android.plugin")
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
     id("com.google.firebase.firebase-perf")
@@ -42,6 +41,11 @@ android {
                 "String",
                 "googleClientID",
                 "\"1059587907099-likhbfpqumps57uamd86q247uueootdn.apps.googleusercontent.com\""
+            )
+            it.buildConfigField(
+                "String",
+                "googleWebClientID",
+                "\"1059587907099-l555vs81f8dd0r2o17belt2bobbg15c0.apps.googleusercontent.com\""
             )
         }
     }

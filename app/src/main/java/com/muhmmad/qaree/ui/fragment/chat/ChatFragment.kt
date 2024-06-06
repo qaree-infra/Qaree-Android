@@ -40,7 +40,8 @@ class ChatFragment : Fragment(), OnClickListener {
             // if the user coming from ProfileFragment then userId will be from the arguments
             // else it will be from the viewModel
             viewModel.userId.value.ifEmpty { arguments?.getString("userId") ?: "" },
-            viewModel
+            viewModel,
+            viewModel.room.value?.book?.cover?.path?.isNotEmpty() ?: false
         )
     }
     private val viewModel: CommunityViewModel by activityViewModels()
@@ -128,12 +129,10 @@ class ChatFragment : Fragment(), OnClickListener {
             binding.ivBack -> nav.navigateUp()
             binding.ivLeave -> nav.navigate(R.id.action_chatFragment_to_leaveGroupDialog)
             binding.ivDelete -> nav.navigate(R.id.action_chatFragment_to_deleteChatDialog)
-
             binding.ivSend -> {
                 val message = binding.layoutMessage.editText?.text.toString()
                 if (checkValidation(message)) viewModel.sendMessage(message)
             }
-
             binding.ivChat, binding.tvChat -> {
                 if (viewModel.room.value?.book?.cover?.path.isNullOrEmpty()) {
                     val bundle = Bundle()
