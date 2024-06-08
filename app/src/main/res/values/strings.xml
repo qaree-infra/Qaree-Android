@@ -252,4 +252,23 @@
     <string name="add_new_card">Add New Card</string>
     <string name="confirm">Confirm</string>
     <string name="card_image">Card Image</string>
+    <string name="add_payment_card">Add Payment Card</string>
+    <string name="payment_card">Payment Card</string>
+    <string name="card_holder_name">Card Holder Name</string>
+    <string name="expiry_date">Expiry Date</string>
+    <string name="name_hint">John henry</string>
+    <string name="card_number_hint">**** **** **** 3947</string>
+    <string name="expiry_month_hint">05</string>
+    <string name="expiry_year_hint">2024</string>
+    <string name="cvv_instructions">3 or 4 digits usually found on the signature strip</string>
+    <string name="add_now">Add now</string>
+    <string name="cvv_hint">123</string>
+    <string name="enter_card_holder_name">Enter Card Holder Name</string>
+    <string name="enter_valid_card_holder_name">Enter Valid Card Holder Name</string>
+    <string name="enter_valid_card_number">Enter Valid Card Number</string>
+    <string name="your_card_is_expired">Your card is expired</string>
+    <string name="you_don_t_have_any_payment_card">You don\'t have any payment card</string>
+    <string name="enter_card_number">Enter Card Number</string>
+    <string name="enter_cvv">Enter CVV</string>
+    <string name="enter_valid_cvv">Enter Valid CVV</string>
 </resources>

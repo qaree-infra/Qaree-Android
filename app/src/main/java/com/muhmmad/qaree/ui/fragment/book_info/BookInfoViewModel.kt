@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.muhmmad.domain.model.BaseResponse
 import com.muhmmad.domain.model.Book
-import com.muhmmad.domain.model.BookStatus
 import com.muhmmad.domain.model.LibraryResponse
 import com.muhmmad.domain.model.PaymentOrder
 import com.muhmmad.domain.model.ReviewsResponse

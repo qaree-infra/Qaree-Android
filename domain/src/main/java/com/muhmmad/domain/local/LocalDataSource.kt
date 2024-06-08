@@ -19,5 +19,6 @@ interface LocalDataSource {
     suspend fun getUiMode(): AppMode
     suspend fun deleteUserData()
     suspend fun getPaymentCards(): List<Card>
-    suspend fun deletePaymentCard(id: Int)
+    suspend fun deletePaymentCard(card: Card)
+    suspend fun addPaymentCard(card: Card)
 }

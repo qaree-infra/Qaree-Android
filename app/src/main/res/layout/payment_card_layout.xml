@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/payment_card"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_payment_card"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_card_number"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:maxLines="1"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_20ssp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="**** **** **** 3947" />
+
+    <TextView
+        android:id="@+id/tv_card_holder_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:text="@string/card_holder_name"
+        android:textColor="@color/title_card_payment"
+        android:textSize="@dimen/_10ssp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@id/tv_expiry_date_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_card_number" />
+
+    <TextView
+        android:id="@+id/tv_card_holder_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxWidth="@dimen/_100sdp"
+        android:maxLines="1"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_13ssp"
+        app:layout_constraintEnd_toEndOf="@id/tv_card_holder_title"
+        app:layout_constraintStart_toStartOf="@id/tv_card_holder_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_card_holder_title"
+        tools:text="John Herny" />
+
+
+    <TextView
+        android:id="@+id/tv_expiry_date_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_50sdp"
+        android:text="@string/expiry_date"
+        android:textColor="@color/title_card_payment"
+        android:textSize="@dimen/_10ssp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/tv_card_holder_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_card_holder_title"
+        app:layout_constraintTop_toTopOf="@id/tv_card_holder_title" />
+
+
+    <TextView
+        android:id="@+id/tv_expiry_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_13ssp"
+        app:layout_constraintEnd_toEndOf="@id/tv_expiry_date_title"
+        app:layout_constraintStart_toStartOf="@id/tv_expiry_date_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_expiry_date_title"
+        tools:text="05/23" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

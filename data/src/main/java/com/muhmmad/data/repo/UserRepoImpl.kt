@@ -60,5 +60,6 @@ class UserRepoImpl(
         graphQlDataSource.getNotifications(token, page, limit)
 
     override suspend fun getPaymentCards(): List<Card> = localDataSource.getPaymentCards()
-    override suspend fun deletePaymentCard(id: Int) = localDataSource.deletePaymentCard(id)
+    override suspend fun deletePaymentCard(card: Card) = localDataSource.deletePaymentCard(card)
+    override suspend fun addPaymentCard(card: Card) = localDataSource.addPaymentCard(card)
 }

@@ -2,6 +2,7 @@ plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
     id("com.apollographql.apollo3").version("3.8.2")
+    id("kotlin-kapt")
 }
 
 android {
@@ -60,4 +61,8 @@ dependencies {
     implementation("androidx.datastore:datastore-core:1.1.1")
     //Serialization
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
+    //Room Database
+    implementation("androidx.room:room-runtime:2.6.1")
+    kapt("androidx.room:room-compiler:2.6.1")
+    implementation("androidx.room:room-ktx:2.6.1")
 }
