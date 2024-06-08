@@ -33,5 +33,6 @@ interface UserRepo {
     ): NetworkResponse<NotificationsResponse>
 
     suspend fun getPaymentCards(): List<Card>
-    suspend fun deletePaymentCard(id: Int)
+    suspend fun deletePaymentCard(card: Card)
+    suspend fun addPaymentCard(card: Card)
 }

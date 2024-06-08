@@ -2,10 +2,8 @@ package com.muhmmad.qaree.ui.fragment.settings
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
 import com.muhmmad.domain.model.Card
 import com.muhmmad.qaree.databinding.EditCardItemLayoutBinding
 import com.muhmmad.qaree.utils.DiffUtilCallback
@@ -27,11 +25,12 @@ class EditCardsAdapter(
         holder.binding.apply {
             val item = data[position]
             val ctx = root.context
-            ivCard.load(AppCompatResources.getDrawable(ctx, item.image))
+            //    ivCard.load(AppCompatResources.getDrawable(ctx, item.image))
             tvName.text = item.name
             tvNumber.text = item.number
             ivDelete.setOnClickListener {
-
+                onCardDelete(item)
+                updateDataWhenDelete(item)
             }
         }
     }
@@ -42,5 +41,10 @@ class EditCardsAdapter(
         data.clear()
         data.addAll(newData)
         diffResult.dispatchUpdatesTo(this)
+    }
+
+    private fun updateDataWhenDelete(item: Card) {
+        data.remove(item)
+        notifyDataSetChanged()
     }
 }

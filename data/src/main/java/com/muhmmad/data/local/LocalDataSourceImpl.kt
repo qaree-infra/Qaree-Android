@@ -10,7 +10,10 @@ import com.muhmmad.domain.model.UserData
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 
-class LocalDataSourceImpl(private val dataStore: DataStore<UserData>) : LocalDataSource {
+class LocalDataSourceImpl(
+    private val dataStore: DataStore<UserData>,
+    private val cardsDataBase: CardsDatabase
+) : LocalDataSource {
     override suspend fun setFirstTime(isFirstTime: Boolean) {
         dataStore.updateData {
             it.copy(isFirstTime = isFirstTime)
@@ -74,8 +77,9 @@ class LocalDataSourceImpl(private val dataStore: DataStore<UserData>) : LocalDat
         }
     }
 
-    override suspend fun getPaymentCards(): List<Card> = emptyList()
-    override suspend fun deletePaymentCard(id: Int) {
+    override suspend fun getPaymentCards(): List<Card> = cardsDataBase.cardsDao().getPaymentCards()
+    override suspend fun deletePaymentCard(card: Card) =
+        cardsDataBase.cardsDao().deletePaymentCard(card)
 
-    }
+    override suspend fun addPaymentCard(card: Card) = cardsDataBase.cardsDao().addPaymentCard(card)
 }

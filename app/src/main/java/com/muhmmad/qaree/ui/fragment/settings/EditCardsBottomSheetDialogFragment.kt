@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -37,10 +38,16 @@ class EditCardsBottomSheetDialogFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
+            viewModel.getCards()
             lifecycleScope.launch {
                 viewModel.cards.collectLatest {
-                    it?.let {
+                    if (it.isNullOrEmpty()) {
+                        tvNoCards.visibility = View.VISIBLE
+                        rvEditCards.visibility = View.GONE
+                    } else {
                         adapter.setData(it)
+                        tvNoCards.visibility = View.GONE
+                        rvEditCards.visibility = View.VISIBLE
                     }
                 }
             }
