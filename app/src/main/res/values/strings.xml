@@ -271,4 +271,5 @@
     <string name="enter_card_number">Enter Card Number</string>
     <string name="enter_cvv">Enter CVV</string>
     <string name="enter_valid_cvv">Enter Valid CVV</string>
+    <string name="choose_payment_card">Choose Payment Card</string>
 </resources>

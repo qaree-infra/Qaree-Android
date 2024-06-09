@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.muhmmad.domain.model.BaseResponse
 import com.muhmmad.domain.model.Book
+import com.muhmmad.domain.model.Card
 import com.muhmmad.domain.model.LibraryResponse
 import com.muhmmad.domain.model.PaymentOrder
 import com.muhmmad.domain.model.ReviewsResponse
@@ -11,6 +12,7 @@ import com.muhmmad.domain.usecase.AuthUseCase
 import com.muhmmad.domain.usecase.BookUseCase
 import com.muhmmad.domain.usecase.CommunityUseCase
 import com.muhmmad.domain.usecase.LibraryUseCase
+import com.muhmmad.domain.usecase.UserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -25,7 +27,8 @@ class BookInfoViewModel @Inject constructor(
     private val bookUseCase: BookUseCase,
     private val authUseCase: AuthUseCase,
     private val libraryUseCase: LibraryUseCase,
-    private val communityUseCase: CommunityUseCase
+    private val communityUseCase: CommunityUseCase,
+    private val userUseCase: UserUseCase,
 ) : ViewModel() {
     private val _state = MutableStateFlow(BookInfoState())
     val state = _state.asSharedFlow()
@@ -37,13 +40,19 @@ class BookInfoViewModel @Inject constructor(
     val book = _book.asStateFlow()
 
     private val _paymentOrder: MutableStateFlow<PaymentOrder?> = MutableStateFlow(null)
-    val paymentOrder = _paymentOrder.asSharedFlow()
+    val paymentOrder = _paymentOrder.asStateFlow()
 
     private val _reviewsResponse = MutableStateFlow<ReviewsResponse?>(null)
     val reviewsResponse = _reviewsResponse.asStateFlow()
 
     private val _libraryResponse = MutableStateFlow<LibraryResponse?>(null)
     val libraryResponse = _libraryResponse.asStateFlow()
+
+    private val _paymentCards = MutableStateFlow<List<Card>?>(null)
+    val paymentCards = _paymentCards.asStateFlow()
+
+    private val _paymentCard = MutableStateFlow<Card?>(null)
+    val paymentCard = _paymentCard.asStateFlow()
 
 
     fun updateBook(book: Book?) {
@@ -168,6 +177,21 @@ class BookInfoViewModel @Inject constructor(
                 )
             }
         }
+    }
+
+    fun getPaymentCards() = viewModelScope.launch {
+        userUseCase.getPaymentCards().apply {
+            _paymentCards.emit(this)
+        }
+    }
+
+    fun setPaymentCard(card: Card) = viewModelScope.launch {
+        _paymentCard.emit(card)
+    }
+
+    fun clearPaymentData()=viewModelScope.launch {
+        _paymentOrder.emit(null)
+        _paymentCard.emit(null)
     }
 
     data class BookInfoState(

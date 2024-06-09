@@ -11,6 +11,8 @@ data class Card(
     @ColumnInfo(name = "name") val name: String,
     @ColumnInfo(name = "number") val number: String,
     @ColumnInfo(name = "cvv") val cvv: String,
-    @ColumnInfo(name = "expire_date") val expireDate: String,
-    @ColumnInfo(name = "image") val image: Int
+    @ColumnInfo(name = "expire_month") val expireMonth: String,
+    @ColumnInfo(name = "expire_year") val expireYear: String,
+    @ColumnInfo(name = "image") val image: Int,
+    var isChecked: Boolean = false
 )
