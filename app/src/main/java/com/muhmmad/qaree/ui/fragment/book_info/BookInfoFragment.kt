@@ -16,7 +16,6 @@ import androidx.navigation.fragment.findNavController
 import coil.load
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.muhmmad.domain.model.Book
-import com.muhmmad.domain.model.Room
 import com.muhmmad.qaree.BuildConfig
 import com.muhmmad.qaree.R
 import com.muhmmad.qaree.databinding.DialogPaymentBinding
@@ -145,9 +144,16 @@ class BookInfoFragment : Fragment() {
 
     private fun checkState() {
         lifecycleScope.launch {
+            viewModel.paymentCard.collectLatest {
+                if (it != null) {
+                    cardsProcess(viewModel.paymentOrder.value?.id.toString(), it)
+                }
+            }
+        }
+        lifecycleScope.launch {
             viewModel.paymentOrder.collectLatest {
                 it?.let {
-                    if (paymentType == "Paypal") paypalProcess(it.id) else cardsProcess(it.id)
+                    if (paymentType == "Paypal") paypalProcess(it.id)
                 }
             }
         }
@@ -165,7 +171,7 @@ class BookInfoFragment : Fragment() {
         }
         lifecycleScope.launch {
             viewModel.reviewsResponse.collectLatest {
-                it?.let{
+                it?.let {
                     binding.bookInfoHeader.tvRatingNumber.text =
                         getString(R.string.ratings, it.total.toString())
                     adapter.setData(it.data)
@@ -264,7 +270,7 @@ class BookInfoFragment : Fragment() {
         payPalWebCheckoutClient.start(payPalWebCheckoutRequest)
     }
 
-    private fun cardsProcess(orderId: String) {
+    private fun cardsProcess(orderId: String, card: com.muhmmad.domain.model.Card) {
         val config = CoreConfig(
             BuildConfig.paypalClientId,
             environment = Environment.SANDBOX
@@ -272,10 +278,10 @@ class BookInfoFragment : Fragment() {
         val cardClient = CardClient(activity, config)
 
         val card = Card(
-            number = "4032036725116402",
-            expirationMonth = "11",
-            expirationYear = "2027",
-            securityCode = "867",
+            number = card.number,
+            expirationMonth = card.expireMonth,
+            expirationYear = card.expireYear,
+            securityCode = card.cvv,
             billingAddress = Address(
                 streetAddress = "123 Main St.",
                 extendedAddress = "Apt. 1A",
@@ -334,6 +340,11 @@ class BookInfoFragment : Fragment() {
             return false
         }
         return true
+    }
+
+    override fun onStop() {
+        super.onStop()
+        viewModel.clearPaymentData()
     }
 }
 

@@ -97,6 +97,9 @@
         <action
             android:id="@+id/action_bookInfoFragment_to_chatFragment"
             app:destination="@id/chatFragment" />
+        <action
+            android:id="@+id/action_bookInfoFragment_to_cardsBottomSheetDialogFragment"
+            app:destination="@id/cardsBottomSheetDialogFragment" />
     </fragment>
     <fragment
         android:id="@+id/categoryFragment"
@@ -266,4 +269,13 @@
         android:name="com.muhmmad.qaree.ui.fragment.add_payment_card.AddPaymentCardFragment"
         android:label="fragment_add_payment_card"
         tools:layout="@layout/fragment_add_payment_card" />
+    <dialog
+        android:id="@+id/cardsBottomSheetDialogFragment"
+        android:name="com.muhmmad.qaree.ui.fragment.book_info.dialogs.CardsBottomSheetDialogFragment"
+        android:label="cards_bottom_sheet_dialog"
+        tools:layout="@layout/cards_bottom_sheet_dialog" >
+        <action
+            android:id="@+id/action_cardsBottomSheetDialogFragment_to_addPaymentCardFragment"
+            app:destination="@id/addPaymentCardFragment" />
+    </dialog>
 </navigation>
