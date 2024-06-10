@@ -88,14 +88,15 @@ class AddPaymentCardFragment : Fragment() {
                 if (checkValidation(name, cardNumber, expireData, cvv)) {
                     viewModel.addPaymentCard(
                         Card(
-                            0,
-                            name,
-                            cardNumber,
-                            cvv,
-                            expireData.toString(),
-                            1
+                            name = name,
+                            number = cardNumber,
+                            cvv = cvv,
+                            expireMonth = expiryMonth,
+                            expireYear = expiryYear,
+                            image = 1
                         )
                     )
+                    findNavController().navigateUp()
                 }
             }
             ivBack.setOnClickListener {

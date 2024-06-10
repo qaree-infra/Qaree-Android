@@ -1,5 +1,6 @@
 package com.muhmmad.qaree.ui.fragment.book_info
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.muhmmad.domain.model.BaseResponse
@@ -150,6 +151,7 @@ class BookInfoViewModel @Inject constructor(
     fun createPaymentOrder() = viewModelScope.launch(Dispatchers.IO) {
         _state.update { it.copy(isLoading = true) }
         bookUseCase.createPaymentOrder(authUseCase.getToken(), _book.value.id).apply {
+            Log.i(TAG, message.toString())
             _state.update {
                 _paymentOrder.emit(data)
                 it.copy(isLoading = false, error = message)
@@ -189,7 +191,7 @@ class BookInfoViewModel @Inject constructor(
         _paymentCard.emit(card)
     }
 
-    fun clearPaymentData()=viewModelScope.launch {
+    fun clearPaymentData() = viewModelScope.launch {
         _paymentOrder.emit(null)
         _paymentCard.emit(null)
     }
@@ -209,3 +211,5 @@ class BookInfoViewModel @Inject constructor(
         CONTINUE_READING,
     }
 }
+
+private const val TAG = "BookInfoViewModel"

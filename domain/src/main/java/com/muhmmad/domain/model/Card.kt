@@ -7,7 +7,7 @@ import java.time.LocalDate
 
 @Entity
 data class Card(
-    @PrimaryKey val id: Int,
+    @PrimaryKey val id: Int=1,
     @ColumnInfo(name = "name") val name: String,
     @ColumnInfo(name = "number") val number: String,
     @ColumnInfo(name = "cvv") val cvv: String,

@@ -255,6 +255,9 @@ class BookInfoFragment : Fragment() {
             }
 
             override fun onPayPalWebFailure(error: PayPalSDKError) {
+                Log.e(TAG, error.message.toString())
+                Log.e(TAG, error.code.toString())
+                Log.e(TAG, error.errorDescription.toString())
                 activity.showError(binding.root, error.message.toString())
             }
 
@@ -305,6 +308,9 @@ class BookInfoFragment : Fragment() {
             }
 
             override fun onApproveOrderFailure(error: PayPalSDKError) {
+                Log.e(TAG, error.message.toString())
+                Log.e(TAG, error.code.toString())
+                Log.e(TAG, error.errorDescription.toString())
                 activity.showError(binding.root, error.message.toString())
             }
 
