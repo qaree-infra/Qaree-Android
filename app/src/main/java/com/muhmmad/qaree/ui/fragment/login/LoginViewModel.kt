@@ -67,8 +67,7 @@ class LoginViewModel @Inject constructor(
             )
         }
 
-        authUseCase.loginWithGoogle(socialToken, FirebaseMessaging.getInstance().token.await())
-            .apply {
+        authUseCase.loginWithGoogle(socialToken, FirebaseMessaging.getInstance().token.await()).apply {
                 Log.i(TAG, data.toString())
                 Log.i(TAG, message.toString())
                 _state.update {
