@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name" translatable="false">Qaree</string>
-    <string name="default_notification_channel_id">Qaree notification</string>
+    <string name="default_notification_channel_id" translatable="false">Qaree notification</string>
     <string name="skip">Skip</string>
     <string name="easy_search">Easy Search</string>
     <string name="read_anytime_any_where"><![CDATA[Read Anytime & Any Where]]></string>
@@ -237,4 +237,39 @@
     <string name="cards">Cards</string>
     <string name="the_app_can_not_show_notifications">The app can not show notifications.</string>
     <string name="you_have_not_any_notifications">You have not any notifications</string>
+    <string name="login_with_google_error">Login Failed</string>
+    <string name="delete_account_dialog">Delete Account?</string>
+    <string name="delete_account_details">The account details will be removed from our app and you will not be able to login again</string>
+    <string name="delete">Delete</string>
+    <string name="leave_group">Leave Group</string>
+    <string name="delete_chat">Delete Chat</string>
+    <string name="leave_group_dialog_title">Leave Group ?</string>
+    <string name="leave_group_dialog_description">This conversation will be removed from all your synced devices. This action cannot be undone.</string>
+    <string name="leave">Leave</string>
+    <string name="delete_chat_dialog_title">Delete Chat ?</string>
+    <string name="sender_image">Sender image</string>
+    <string name="choose_card">Choose Card</string>
+    <string name="add_new_card">Add New Card</string>
+    <string name="confirm">Confirm</string>
+    <string name="card_image">Card Image</string>
+    <string name="add_payment_card">Add Payment Card</string>
+    <string name="payment_card">Payment Card</string>
+    <string name="card_holder_name">Card Holder Name</string>
+    <string name="expiry_date">Expiry Date</string>
+    <string name="name_hint">John henry</string>
+    <string name="card_number_hint">**** **** **** 3947</string>
+    <string name="expiry_month_hint">05</string>
+    <string name="expiry_year_hint">2024</string>
+    <string name="cvv_instructions">3 or 4 digits usually found on the signature strip</string>
+    <string name="add_now">Add now</string>
+    <string name="cvv_hint">123</string>
+    <string name="enter_card_holder_name">Enter Card Holder Name</string>
+    <string name="enter_valid_card_holder_name">Enter Valid Card Holder Name</string>
+    <string name="enter_valid_card_number">Enter Valid Card Number</string>
+    <string name="your_card_is_expired">Your card is expired</string>
+    <string name="you_don_t_have_any_payment_card">You don\'t have any payment card</string>
+    <string name="enter_card_number">Enter Card Number</string>
+    <string name="enter_cvv">Enter CVV</string>
+    <string name="enter_valid_cvv">Enter Valid CVV</string>
+    <string name="choose_payment_card">Choose Payment Card</string>
 </resources>

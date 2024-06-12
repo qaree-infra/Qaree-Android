@@ -25,5 +25,7 @@ class CommunityRepoImpl(private val graphQlDataSource: GraphQlDataSource) : Comm
         token: String
     ): NetworkResponse<CommunityMembers> =
         graphQlDataSource.getCommunityMembers(bookId, page, membersPerPage, token)
+
+    override suspend fun deleteChat(roomId: String, token: String): NetworkResponse<BaseResponse> =graphQlDataSource.deleteChat(roomId, token)
     // override suspend fun getRooms(token: String) = SocketHandler.getRooms(token)
 }

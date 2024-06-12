@@ -2,21 +2,30 @@ package com.muhmmad.qaree.ui.fragment.login
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.util.Patterns.EMAIL_ADDRESS
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
+import com.muhmmad.qaree.BuildConfig
 import com.muhmmad.qaree.R
 import com.muhmmad.qaree.databinding.FragmentLoginBinding
 import com.muhmmad.qaree.ui.activity.auth.AuthActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import com.google.android.gms.tasks.Task
 
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
@@ -55,7 +64,7 @@ class LoginFragment : Fragment() {
                 }
             }
             btnGoogle.setOnClickListener {
-
+                loginWithGoogle()
             }
             btnFacebook.setOnClickListener {
 
@@ -118,9 +127,49 @@ class LoginFragment : Fragment() {
         return true
     }
 
+    private val launcher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            Log.i(TAG, result.resultCode.toString())
+            if (result.resultCode == AppCompatActivity.RESULT_OK) {
+                handleSignInResult(
+                    GoogleSignIn.getSignedInAccountFromIntent(
+                        result.data
+                    )
+                )
+                Log.i(TAG, "OK")
+            } else {
+                activity.showError(binding.root, getString(R.string.login_with_google_error))
+                Log.i(TAG, "Launcher error")
+            }
+        }
+
+    private fun loginWithGoogle() {
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(BuildConfig.googleWebClientID)
+            .requestEmail()
+            .requestProfile()
+            .requestServerAuthCode(BuildConfig.googleWebClientID).build()
+
+        val googleSignInClient = GoogleSignIn.getClient(activity, gso)
+        googleSignInClient.signOut()
+        launcher.launch(googleSignInClient.signInIntent)
+    }
+
+    private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) = try {
+        val account = completedTask.getResult(ApiException::class.java)
+        Log.i(TAG, account.email.toString())
+        Log.i(TAG, account.idToken.toString())
+        viewModel.loginWithGoogle(account.idToken!!)
+    } catch (e: Exception) {
+        Log.e(TAG, e.message.toString())
+        activity.showError(binding.root, getString(R.string.login_with_google_error))
+    }
+
     override fun onResume() {
         super.onResume()
         binding.layoutEmail.editText?.setText(viewModel.email.value)
         binding.layoutPassword.editText?.setText(viewModel.password.value)
     }
 }
+
+private const val TAG = "LoginFragment"

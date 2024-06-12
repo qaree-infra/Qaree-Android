@@ -16,4 +16,5 @@
     <color name="receiver_bg">#769AB8</color>
     <color name="sender_bg">@color/search_inbox_bg</color>
     <color name="community_bg">#F7F7FC</color>
+    <color name="title_card_payment">#999999</color>
 </resources>

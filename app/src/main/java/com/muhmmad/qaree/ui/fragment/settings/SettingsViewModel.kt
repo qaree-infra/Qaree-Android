@@ -3,6 +3,7 @@ package com.muhmmad.qaree.ui.fragment.settings
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.muhmmad.domain.model.AppMode
+import com.muhmmad.domain.model.BaseResponse
 import com.muhmmad.domain.usecase.AuthUseCase
 import com.muhmmad.domain.usecase.UserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -36,6 +37,25 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
+    fun deleteAccount() = viewModelScope.launch {
+        _state.update {
+            it.copy(
+                isLoading = true
+            )
+        }
+
+        authUseCase.deleteAccount(authUseCase.getToken()).apply {
+            if (data?.success == true) authUseCase.deleteUserData()
+            _state.update {
+                it.copy(
+                    isLoading = false,
+                    message = message,
+                    deleteAccount = data
+                )
+            }
+        }
+    }
+
     fun changeUiMode(mode: AppMode) = viewModelScope.launch {
         userUseCase.changeMode(mode)
     }
@@ -44,6 +64,7 @@ class SettingsViewModel @Inject constructor(
         val isLoading: Boolean = false,
         val error: String? = null,
         val message: String? = null,
-        val isLogout: Boolean = false
+        val isLogout: Boolean = false,
+        val deleteAccount: BaseResponse? = null
     )
 }

@@ -3,50 +3,106 @@ package com.muhmmad.qaree.ui.fragment.chat
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.muhmmad.domain.model.Message
+import com.muhmmad.qaree.R
+import com.muhmmad.qaree.databinding.ReceiverCommunityLayoutBinding
 import com.muhmmad.qaree.databinding.ReceiverLayoutBinding
+import com.muhmmad.qaree.databinding.SenderCommunityLayoutBinding
 import com.muhmmad.qaree.databinding.SenderLayoutBinding
+import com.muhmmad.qaree.ui.fragment.CommunityViewModel
+import com.muhmmad.qaree.utils.DiffUtilCallback
 
-class ChatAdapter(private val userId: String) :
-    ListAdapter<Message, RecyclerView.ViewHolder>(MessageDiffCallBack()) {
-    // private val data: ArrayList<Message> = ArrayList()
+class ChatAdapter(
+    private val userId: String,
+    private val viewModel: CommunityViewModel,
+    private val isCommunity: Boolean
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    internal val data = ArrayList<Message>()
 
     class SenderViewHolder(val binding: SenderLayoutBinding) : RecyclerView.ViewHolder(binding.root)
     class ReceiverViewHolder(val binding: ReceiverLayoutBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    class MessageDiffCallBack : DiffUtil.ItemCallback<Message>() {
-        override fun areItemsTheSame(oldItem: Message, newItem: Message): Boolean =
-            oldItem._id == newItem._id
+    class SenderCommunityViewHolder(val binding: SenderCommunityLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
-        override fun areContentsTheSame(oldItem: Message, newItem: Message): Boolean =
-            oldItem == newItem
-    }
+    class ReceiverCommunityViewHolder(val binding: ReceiverCommunityLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root)
+
+//    class MessageDiffCallBack : DiffUtil.ItemCallback<Message>() {
+//        override fun areItemsTheSame(oldItem: Message, newItem: Message): Boolean =
+//            oldItem._id == newItem._id
+//
+//        override fun areContentsTheSame(oldItem: Message, newItem: Message): Boolean =
+//            oldItem == newItem
+//    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
-        if (viewType == UserType.SENDER.ordinal) SenderViewHolder(
-            SenderLayoutBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
+        when (viewType) {
+            UserType.SENDER.ordinal -> SenderViewHolder(
+                SenderLayoutBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
             )
-        )
-        else ReceiverViewHolder(
-            ReceiverLayoutBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
+
+            UserType.SENDER_COMMUNITY.ordinal -> SenderCommunityViewHolder(
+                SenderCommunityLayoutBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
             )
-        )
+
+            UserType.RECEIVER_COMMUNITY.ordinal -> ReceiverCommunityViewHolder(
+                ReceiverCommunityLayoutBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            )
+
+            else -> ReceiverViewHolder(
+                ReceiverLayoutBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            )
+        }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val message = getItem(position)
+        val message = data[position]
+        if (position == data.size - 6) viewModel.getMessages(message.room)
         if (getItemViewType(position) == UserType.SENDER.ordinal) {
             holder as SenderViewHolder
             holder.binding.apply {
                 textView.text = message.content
+            }
+        } else if (getItemViewType(position) == UserType.SENDER_COMMUNITY.ordinal) {
+            holder as SenderCommunityViewHolder
+
+            holder.binding.apply {
+                textView.text = message.content
+                val image = message.sender?.avatar?.path ?: ""
+                if (image.isEmpty()) ivUser.load(R.drawable.ic_profile_avatar)
+                else {
+                    ivUser.load(image) {
+                        placeholder(R.drawable.ic_profile_avatar)
+                    }
+                }
+            }
+        } else if (getItemViewType(position) == UserType.RECEIVER_COMMUNITY.ordinal) {
+            holder as ReceiverCommunityViewHolder
+
+            holder.binding.apply {
+                textView.text = message.content
+                ivUser.load(message.sender?.avatar?.path ?: "") {
+                    placeholder(R.drawable.ic_profile_avatar)
+                }
             }
         } else {
             holder as ReceiverViewHolder
@@ -56,30 +112,49 @@ class ChatAdapter(private val userId: String) :
         }
     }
 
+
     override fun getItemViewType(position: Int): Int =
-        if (getItem(position).sender._id == userId) UserType.RECEIVER.ordinal
-        else UserType.SENDER.ordinal
+        if (isCommunity) {
+            if (data[position].sender == null || data[position].sender._id != userId) UserType.SENDER_COMMUNITY.ordinal
+            else UserType.RECEIVER_COMMUNITY.ordinal
+        } else {
+            if (data[position].sender == null || data[position].sender._id != userId) UserType.SENDER.ordinal
+            else UserType.RECEIVER.ordinal
+        }
 
-//    fun setData(newData: Chat) {
-//        val diffCallback = DiffUtilCallback(data, newData.messages)
-//        val diffResult = DiffUtil.calculateDiff(diffCallback)
-//        data.clear()
-//        data.addAll(newData.messages)
-//        diffResult.dispatchUpdatesTo(this)
-//    }
+    override fun getItemCount(): Int = data.size
 
-//    fun addMessage(message: Message) {
-//        val newData = data
-//        newData.add(message)
-//        val diffCallback = DiffUtilCallback(data, newData)
+    fun addMessage(message: Message) {
+        data.add(message)
+        notifyDataSetChanged()
+//        val diffCallback = DiffUtilCallback(data,data)
 //        val diffResult = DiffUtil.calculateDiff(diffCallback)
+//        //data.add(message)
 //        diffResult.dispatchUpdatesTo(this)
-//    }
+    }
+
+    fun addData(newList: List<Message>) {
+        data.addAll(newList)
+        notifyDataSetChanged()
+//        val diffCallback = DiffUtilCallback(data, data)
+//        val diffResult = DiffUtil.calculateDiff(diffCallback)
+////        data.clear()
+////        data.addAll(newList)
+//        diffResult.dispatchUpdatesTo(this)
+    }
+
+    fun setData(newList: List<Message>) {
+        val diffCallback = DiffUtilCallback(data, newList)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+        data.clear()
+        data.addAll(newList)
+        diffResult.dispatchUpdatesTo(this)
+    }
 
     enum class UserType {
         SENDER,
-        RECEIVER
+        RECEIVER,
+        SENDER_COMMUNITY,
+        RECEIVER_COMMUNITY
     }
 }
-
-private const val TAG = "ChatAdapter"

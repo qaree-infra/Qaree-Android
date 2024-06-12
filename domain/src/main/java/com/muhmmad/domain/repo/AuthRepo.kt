@@ -8,7 +8,12 @@ import com.muhmmad.domain.model.BaseResponse
 interface AuthRepo {
     suspend fun setFirstTime(isFirstTime: Boolean)
     suspend fun isFirstTime(): Boolean
-    suspend fun login(email: String, pass: String): NetworkResponse<LoginResponse>
+    suspend fun login(email: String, pass: String, token: String): NetworkResponse<LoginResponse>
+    suspend fun loginWithGoogle(
+        socialToken: String,
+        firebaseToken: String
+    ): NetworkResponse<LoginResponse>
+
     suspend fun register(name: String, email: String, pass: String): NetworkResponse<String>
     suspend fun verifyAccount(email: String, otp: String): NetworkResponse<BaseResponse>
     suspend fun resendVerifyOTP(email: String): NetworkResponse<BaseResponse>
@@ -23,4 +28,6 @@ interface AuthRepo {
     suspend fun getToken(): String
     suspend fun setToken(token: String)
     suspend fun logout()
+    suspend fun deleteAccount(token: String): NetworkResponse<BaseResponse>
+    suspend fun deleteUserData()
 }

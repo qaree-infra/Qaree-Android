@@ -43,10 +43,7 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-
                 <data android:scheme="com.muhmmad.qaree.payment" />
-                <data android:scheme="qaree" />
-                <data android:scheme="myapp" />
 
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />

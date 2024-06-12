@@ -46,6 +46,8 @@ import com.muhmmad.qaree.AddBookToShelfMutation
 import com.muhmmad.qaree.CompletePaymentOrderMutation
 import com.muhmmad.qaree.CreatePaymentOrderMutation
 import com.muhmmad.qaree.CreateShelfMutation
+import com.muhmmad.qaree.DeleteAccountMutation
+import com.muhmmad.qaree.DeleteChatMutation
 import com.muhmmad.qaree.FollowUserMutation
 import com.muhmmad.qaree.ForgetPasswordMutation
 import com.muhmmad.qaree.GetAuthorInfoQuery
@@ -64,6 +66,7 @@ import com.muhmmad.qaree.GetShelfDetailsQuery
 import com.muhmmad.qaree.GetTopAuthorsQuery
 import com.muhmmad.qaree.GetUserInfoQuery
 import com.muhmmad.qaree.JoinCommunityMutation
+import com.muhmmad.qaree.LoginWithGoogleMutation
 import com.muhmmad.qaree.RemoveBookFromShelfMutation
 import com.muhmmad.qaree.RemoveShelfMutation
 import com.muhmmad.qaree.ResendPasswordOTPMutation
@@ -82,10 +85,14 @@ import com.muhmmad.qaree.VerifyAccountMutation
 class GraphQlDataSourceImpl(
     private val apolloClient: ApolloClient
 ) : GraphQlDataSource {
-    override suspend fun login(email: String, pass: String): NetworkResponse<LoginResponse> {
-        return try {
+    override suspend fun login(
+        email: String,
+        pass: String,
+        token: String
+    ): NetworkResponse<LoginResponse> =
+        try {
             val response = checkResponse(
-                apolloClient.mutation(SignInMutation(email, pass))
+                apolloClient.mutation(SignInMutation(email, pass, token))
                     .execute()
             )
 
@@ -98,14 +105,28 @@ class GraphQlDataSourceImpl(
                 exception.localizedMessage?.toString()!!
             )
         }
+
+    override suspend fun loginWithGoogle(
+        socialToken: String,
+        firebaseToken: String
+    ): NetworkResponse<LoginResponse> = try {
+        val response =
+            checkResponse(apolloClient.mutation(LoginWithGoogleMutation(socialToken)).execute())
+
+        when (response) {
+            is Success -> Success(response.data?.googleLogin?.toLoginResponse()!!)
+            else -> Error(response.message!!)
+        }
+    } catch (ex: Exception) {
+        Error(ex.message.toString())
     }
 
     override suspend fun register(
         name: String,
         email: String,
         pass: String
-    ): NetworkResponse<String> {
-        return try {
+    ): NetworkResponse<String> =
+        try {
             val response =
                 checkResponse(apolloClient.mutation(SignUpMutation(name, email, pass)).execute())
 
@@ -119,13 +140,12 @@ class GraphQlDataSourceImpl(
                 ex.localizedMessage?.toString()!!
             )
         }
-    }
 
     override suspend fun verifyAccount(
         email: String,
         otp: String
-    ): NetworkResponse<BaseResponse> {
-        return try {
+    ): NetworkResponse<BaseResponse> =
+        try {
             val response = checkResponse(
                 apolloClient.mutation(VerifyAccountMutation(otp = otp, email = email)).execute()
             )
@@ -138,80 +158,69 @@ class GraphQlDataSourceImpl(
         } catch (ex: Exception) {
             Error(ex.localizedMessage?.toString()!!)
         }
+
+    override suspend fun resendVerifyOTP(email: String): NetworkResponse<BaseResponse> = try {
+        val response = checkResponse(
+            apolloClient.mutation(ResendVerificationOTPMutation(email = email)).execute()
+        )
+
+        when (response) {
+            is Success -> Success(response.data?.resendValidatingOTP?.toVerificationResponse()!!)
+            else -> Error(response.message.toString())
+        }
+    } catch (ex: Exception) {
+        Error(ex.localizedMessage?.toString()!!)
     }
 
-    override suspend fun resendVerifyOTP(email: String): NetworkResponse<BaseResponse> {
-        return try {
-            val response = checkResponse(
-                apolloClient.mutation(ResendVerificationOTPMutation(email = email)).execute()
-            )
+    override suspend fun forgotPassword(email: String): NetworkResponse<BaseResponse> = try {
+        val response = checkResponse(
+            apolloClient.mutation(ForgetPasswordMutation(email = email)).execute()
+        )
 
-            when (response) {
-                is Success -> Success(response.data?.resendValidatingOTP?.toVerificationResponse()!!)
-                else -> Error(
-                    response.message.toString()
-                )
-            }
-        } catch (ex: Exception) {
-            Error(ex.localizedMessage?.toString()!!)
+        when (response) {
+            is Success -> Success(response.data?.forgetPassword?.toVerificationResponse()!!)
+            else -> Error(response.message.toString())
         }
-    }
-
-    override suspend fun forgotPassword(email: String): NetworkResponse<BaseResponse> {
-        return try {
-            val response = checkResponse(
-                apolloClient.mutation(ForgetPasswordMutation(email = email)).execute()
-            )
-
-            when (response) {
-                is Success -> Success(response.data?.forgetPassword?.toVerificationResponse()!!)
-                else -> Error(response.message.toString())
-            }
-        } catch (ex: Exception) {
-            Error(ex.localizedMessage?.toString()!!)
-        }
+    } catch (ex: Exception) {
+        Error(ex.localizedMessage?.toString()!!)
     }
 
     override suspend fun validatePasswordOTP(
         email: String,
         otp: String
-    ): NetworkResponse<ValidatePasswordOTPResponse> {
+    ): NetworkResponse<ValidatePasswordOTPResponse> = try {
+        val response = checkResponse(
+            apolloClient.mutation(
+                ValidatePasswordOTPMutation(
+                    email = email,
+                    otp = otp
+                )
+            ).execute()
+        )
+
+        when (response) {
+            is Success -> Success(response.data?.validateResetPasswordOTP?.toValidateOTPResponse()!!)
+            else -> Error(response.message.toString())
+        }
+    } catch (ex: Exception) {
+        Error(ex.localizedMessage?.toString()!!)
+    }
+
+    override suspend fun resendPasswordOTP(email: String): NetworkResponse<BaseResponse> = try {
+        val response = checkResponse(
+            apolloClient.mutation(ResendPasswordOTPMutation(email)).execute()
+        )
+
+        when (response) {
+            is Success -> Success(response.data?.resendResetPasswordOTP?.toBaseResponse()!!)
+            else -> Error(response.message.toString())
+        }
+    } catch (ex: Exception) {
+        Error(ex.localizedMessage?.toString()!!)
+    }
+
+    override suspend fun resetPassword(pass: String, token: String): NetworkResponse<BaseResponse> =
         try {
-            val response = checkResponse(
-                apolloClient.mutation(
-                    ValidatePasswordOTPMutation(
-                        email = email,
-                        otp = otp
-                    )
-                ).execute()
-            )
-
-            return when (response) {
-                is Success -> Success(response.data?.validateResetPasswordOTP?.toValidateOTPResponse()!!)
-                else -> Error(response.message.toString())
-            }
-        } catch (ex: Exception) {
-            return Error(ex.localizedMessage?.toString()!!)
-        }
-    }
-
-    override suspend fun resendPasswordOTP(email: String): NetworkResponse<BaseResponse> {
-        return try {
-            val response = checkResponse(
-                apolloClient.mutation(ResendPasswordOTPMutation(email)).execute()
-            )
-
-            when (response) {
-                is Success -> Success(response.data?.resendResetPasswordOTP?.toBaseResponse()!!)
-                else -> Error(response.message.toString())
-            }
-        } catch (ex: Exception) {
-            Error(ex.localizedMessage?.toString()!!)
-        }
-    }
-
-    override suspend fun resetPassword(pass: String, token: String): NetworkResponse<BaseResponse> {
-        return try {
             val response = checkResponse(
                 apolloClient.mutation(ResetPasswordMutation(pass))
                     .addHttpHeader("Authorization", token).execute()
@@ -225,76 +234,76 @@ class GraphQlDataSourceImpl(
         } catch (ex: Exception) {
             Error(ex.localizedMessage?.toString()!!)
         }
-    }
 
-    override suspend fun getOffers(): NetworkResponse<OffersResponse> {
-        return try {
-            when (val response = checkResponse(apolloClient.query(GetOffersQuery()).execute())) {
-                is Success -> Success(response.data?.getAllOffers?.toOffersResponse()!!)
-                else -> Error(response.message.toString())
-            }
-        } catch (ex: Exception) {
-            Error(ex.localizedMessage?.toString()!!)
+    override suspend fun deleteAccount(token: String): NetworkResponse<BaseResponse> = try {
+        val response = checkResponse(
+            apolloClient.mutation(DeleteAccountMutation()).addHttpHeader("Authorization", token)
+                .execute()
+        )
+
+        when (response) {
+            is Success -> Success(response.data?.deleteAccount?.toBaseResponse()!!)
+            else -> Error(response.message.toString())
         }
+    } catch (ex: Exception) {
+        Error(ex.message.toString())
     }
 
-    override suspend fun getLastActivity(token: String): NetworkResponse<ActivityResponse> {
-        return try {
-            val response = checkResponse(
-                apolloClient.query(GetLastActivityQuery()).addHttpHeader("Authorization", token)
-                    .execute()
-            )
-
-            when (response) {
-                is Success -> Success(response.data?.getLastActivity?.toActivityResponse()!!)
-                else -> Error(response.message.toString())
-            }
-        } catch (ex: NullPointerException) {
-            ex.printStackTrace()
-            Error("")
-        } catch (ex: Exception) {
-            Error(ex.message.toString())
+    override suspend fun getOffers(): NetworkResponse<OffersResponse> = try {
+        when (val response = checkResponse(apolloClient.query(GetOffersQuery()).execute())) {
+            is Success -> Success(response.data?.getAllOffers?.toOffersResponse()!!)
+            else -> Error(response.message.toString())
         }
+    } catch (ex: Exception) {
+        Error(ex.localizedMessage?.toString()!!)
     }
 
-    override suspend fun getTopAuthors(): NetworkResponse<AuthorsResponse> {
-        return try {
-            val response = checkResponse(apolloClient.query(GetTopAuthorsQuery()).execute())
+    override suspend fun getLastActivity(token: String): NetworkResponse<ActivityResponse> = try {
+        val response = checkResponse(
+            apolloClient.query(GetLastActivityQuery()).addHttpHeader("Authorization", token)
+                .execute()
+        )
 
-            when (response) {
-                is Success -> Success(response.data?.getTopAuthors?.toAuthorsResponse()!!)
-                else -> Error(response.message.toString())
-            }
-        } catch (ex: Exception) {
-            Error(ex.message.toString())
+        when (response) {
+            is Success -> Success(response.data?.getLastActivity?.toActivityResponse()!!)
+            else -> Error(response.message.toString())
         }
+    } catch (ex: NullPointerException) {
+        Error("")
+    } catch (ex: Exception) {
+        Error(ex.message.toString())
     }
 
-    override suspend fun getNewReleaseBooks(): NetworkResponse<BooksResponse> {
-        return try {
-            when (val response = checkResponse(apolloClient.query(GetBooksQuery("")).execute())) {
-                is Success -> Success(response.data?.toBooksResponse()!!)
-                else -> Error(response.message.toString())
-            }
-        } catch (ex: Exception) {
-            Error(ex.message.toString())
+    override suspend fun getTopAuthors(): NetworkResponse<AuthorsResponse> = try {
+        when (val response = checkResponse(apolloClient.query(GetTopAuthorsQuery()).execute())) {
+            is Success -> Success(response.data?.getTopAuthors?.toAuthorsResponse()!!)
+            else -> Error(response.message.toString())
         }
+    } catch (ex: Exception) {
+        Error(ex.message.toString())
     }
 
-    override suspend fun getBestSellerBooks(): NetworkResponse<BooksResponse> {
-        return try {
-            val response = checkResponse(apolloClient.query(GetBestSellerBooksQuery()).execute())
-            when (response) {
-                is Success -> Success(response.data?.toBookResponse()!!)
-                else -> Error(response.message.toString())
-            }
-        } catch (ex: Exception) {
-            Error(ex.message.toString())
+    override suspend fun getNewReleaseBooks(): NetworkResponse<BooksResponse> = try {
+        when (val response = checkResponse(apolloClient.query(GetBooksQuery("")).execute())) {
+            is Success -> Success(response.data?.toBooksResponse()!!)
+            else -> Error(response.message.toString())
         }
+    } catch (ex: Exception) {
+        Error(ex.message.toString())
     }
 
-    override suspend fun getBooksByCategory(categoryId: String): NetworkResponse<BooksResponse> {
-        return try {
+    override suspend fun getBestSellerBooks(): NetworkResponse<BooksResponse> = try {
+        val response = checkResponse(apolloClient.query(GetBestSellerBooksQuery()).execute())
+        when (response) {
+            is Success -> Success(response.data?.toBookResponse()!!)
+            else -> Error(response.message.toString())
+        }
+    } catch (ex: Exception) {
+        Error(ex.message.toString())
+    }
+
+    override suspend fun getBooksByCategory(categoryId: String): NetworkResponse<BooksResponse> =
+        try {
             when (val response =
                 checkResponse(apolloClient.query(GetBooksQuery(categoryId)).execute())) {
                 is Success -> Success(response.data?.toBooksResponse()!!)
@@ -303,175 +312,121 @@ class GraphQlDataSourceImpl(
         } catch (ex: Exception) {
             Error(ex.message.toString())
         }
-    }
 
-    override suspend fun getCategories(): NetworkResponse<CategoriesResponse> {
-        return try {
-            val response = checkResponse(apolloClient.query(GetCategoriesQuery()).execute())
-
-            when (response) {
-                is Success -> Success(response.data?.getAllCategories?.toCategoriesResponse()!!)
-                else -> Error(response.message.toString())
-            }
-        } catch (ex: Exception) {
-            Error(ex.message.toString())
+    override suspend fun getCategories(): NetworkResponse<CategoriesResponse> = try {
+        when (val response = checkResponse(apolloClient.query(GetCategoriesQuery()).execute())) {
+            is Success -> Success(response.data?.getAllCategories?.toCategoriesResponse()!!)
+            else -> Error(response.message.toString())
         }
+    } catch (ex: Exception) {
+        Error(ex.message.toString())
     }
 
     override suspend fun getLibrary(
         userId: String?,
         token: String
-    ): NetworkResponse<LibraryResponse> {
-        return try {
-            val response = checkResponse(
-                apolloClient.query(GetLibraryQuery(userId ?: "", 1))
-                    .addHttpHeader("Authorization", token)
-                    .execute()
-            )
+    ): NetworkResponse<LibraryResponse> = try {
+        val response = checkResponse(
+            apolloClient.query(GetLibraryQuery(userId ?: "", 1))
+                .addHttpHeader("Authorization", token)
+                .execute()
+        )
 
-            when (response) {
-                is Success -> {
-                    Success(response.data?.getLibrary?.toLibraryResponse()!!)
-                }
-
-                else -> {
-                    Error(response.message.toString())
-                }
-            }
-
-        } catch (ex: Exception) {
-            Error(ex.message.toString())
+        when (response) {
+            is Success -> Success(response.data?.getLibrary?.toLibraryResponse()!!)
+            else -> Error(response.message.toString())
         }
+    } catch (ex: Exception) {
+        Error(ex.message.toString())
     }
 
     override suspend fun getShelfDetails(
         name: String,
         token: String
-    ): NetworkResponse<ShelfResponse> {
-        return try {
-            val response = checkResponse(
-                apolloClient.query(GetShelfDetailsQuery(name)).addHttpHeader("Authorization", token)
-                    .execute()
-            )
+    ): NetworkResponse<ShelfResponse> = try {
+        val response = checkResponse(
+            apolloClient.query(GetShelfDetailsQuery(name)).addHttpHeader("Authorization", token)
+                .execute()
+        )
 
-            when (response) {
-                is Success -> {
-                    Success(response.data?.getShelf?.toShelfResponse()!!)
-                }
-
-                else -> {
-                    Error(response.message.toString())
-                }
-            }
-        } catch (ex: Exception) {
-            Error(ex.message.toString())
+        when (response) {
+            is Success -> Success(response.data?.getShelf?.toShelfResponse()!!)
+            else -> Error(response.message.toString())
         }
+    } catch (ex: Exception) {
+        Error(ex.message.toString())
     }
 
     override suspend fun removeBookFromShelf(
         bookId: String,
         shelfId: String,
         token: String
-    ): NetworkResponse<BaseResponse> {
-        return try {
-            val response = checkResponse(
-                apolloClient.mutation(
-                    RemoveBookFromShelfMutation(
-                        bookId = bookId,
-                        shelfId = shelfId
-                    )
-                ).addHttpHeader("Authorization", token).execute()
-            )
+    ): NetworkResponse<BaseResponse> = try {
+        val response = checkResponse(
+            apolloClient.mutation(
+                RemoveBookFromShelfMutation(
+                    bookId = bookId,
+                    shelfId = shelfId
+                )
+            ).addHttpHeader("Authorization", token).execute()
+        )
 
-            when (response) {
-                is Success -> {
-                    Success(response.data?.removeBookFromShelf?.toBaseResponse()!!)
-                }
+        when (response) {
+            is Success -> Success(response.data?.removeBookFromShelf?.toBaseResponse()!!)
+            else -> Error(response.message.toString())
 
-                else -> {
-                    Error(response.message.toString())
-                }
-            }
-        } catch (ex: Exception) {
-            Error(ex.message.toString())
         }
+    } catch (ex: Exception) {
+        Error(ex.message.toString())
     }
 
-    override suspend fun createShelf(name: String, token: String): NetworkResponse<BaseResponse> {
-        return try {
+    override suspend fun createShelf(name: String, token: String): NetworkResponse<BaseResponse> =
+        try {
             val response = checkResponse(
                 apolloClient.mutation(CreateShelfMutation(name))
                     .addHttpHeader("Authorization", token).execute()
             )
 
             when (response) {
-                is Success -> {
-                    Success(response.data?.createShelf?.toBaseResponse()!!)
-                }
-
-                else -> {
-                    Error(response.message.toString())
-                }
+                is Success -> Success(response.data?.createShelf?.toBaseResponse()!!)
+                else -> Error(response.message.toString())
             }
 
         } catch (ex: Exception) {
             Error(ex.message.toString())
         }
-    }
 
-    override suspend fun removeShelf(id: String, token: String): NetworkResponse<BaseResponse> {
-        return try {
+    override suspend fun removeShelf(id: String, token: String): NetworkResponse<BaseResponse> =
+        try {
             val response = checkResponse(
                 apolloClient.mutation(RemoveShelfMutation(id)).addHttpHeader("Authorization", token)
                     .execute()
             )
 
             when (response) {
-                is Success -> {
-                    Success(response.data?.removeShelf?.toBaseResponse()!!)
-                }
-
-                else -> {
-                    Error(response.message.toString())
-                }
+                is Success -> Success(response.data?.removeShelf?.toBaseResponse()!!)
+                else -> Error(response.message.toString())
             }
         } catch (ex: Exception) {
             Error(ex.message.toString())
         }
+
+    override suspend fun search(name: String): NetworkResponse<BooksResponse> = try {
+        when (val response = checkResponse(apolloClient.query(SearchQuery(name)).execute())) {
+            is Success -> Success(response.data?.search?.toBooksResponse()!!)
+            else -> Error(response.message.toString())
+        }
+    } catch (ex: Exception) {
+        Error(ex.message.toString())
     }
 
-    override suspend fun search(name: String): NetworkResponse<BooksResponse> {
-        return try {
-            when (val response = checkResponse(apolloClient.query(SearchQuery(name)).execute())) {
-                is Success -> {
-                    Success(response.data?.search?.toBooksResponse()!!)
-                }
-
-                else -> {
-                    Error(response.message.toString())
-                }
-            }
-        } catch (ex: Exception) {
-            Error(ex.message.toString())
+    override suspend fun getBookReviews(id: String): NetworkResponse<ReviewsResponse> = try {
+        when (val response = checkResponse(apolloClient.query(GetBookReviewsQuery(id)).execute())) {
+            is Success -> Success(response.data?.getBookReviews?.toReviewsResponse()!!)
+            else -> Error(response.message.toString())
         }
-    }
-
-    override suspend fun getBookReviews(id: String): NetworkResponse<ReviewsResponse> {
-        return try {
-            val response = checkResponse(apolloClient.query(GetBookReviewsQuery(id)).execute())
-
-            when (response) {
-                is Success -> {
-                    Success(response.data?.getBookReviews?.toReviewsResponse()!!)
-                }
-
-                else -> {
-                    Error(response.message.toString())
-                }
-            }
-        } catch (ex: Exception) {
-            Error(ex.message.toString())
-        }
+    } catch (ex: Exception) {
+        Error(ex.message.toString())
     }
 
     override suspend fun makeReview(
@@ -479,8 +434,8 @@ class GraphQlDataSourceImpl(
         bookId: String,
         rate: Float,
         content: String
-    ): NetworkResponse<BaseResponse> {
-        return try {
+    ): NetworkResponse<BaseResponse> =
+        try {
             val response = checkResponse(
                 apolloClient.mutation(
                     ReviewBookMutation(
@@ -492,41 +447,31 @@ class GraphQlDataSourceImpl(
             )
 
             when (response) {
-                is Success -> {
-                    Success(response.data?.reviewBook?.toBaseResponse()!!)
-                }
-
-                else -> {
-                    Error(response.message.toString())
-                }
+                is Success -> Success(response.data?.reviewBook?.toBaseResponse()!!)
+                else -> Error(response.message.toString())
             }
         } catch (ex: Exception) {
             Error(ex.message.toString())
         }
-    }
 
-    override suspend fun getUserInfo(token: String): NetworkResponse<User> {
-        return try {
+
+    override suspend fun getUserInfo(token: String): NetworkResponse<User> =
+        try {
             val response = checkResponse(
                 apolloClient.query(GetUserInfoQuery()).addHttpHeader("Authorization", token)
                     .execute()
             )
             when (response) {
-                is Success -> {
-                    Success(response.data?.userInfo?.toUser()!!)
-                }
-
-                else -> {
-                    Error(response.message.toString())
-                }
+                is Success -> Success(response.data?.userInfo?.toUser()!!)
+                else -> Error(response.message.toString())
             }
         } catch (ex: Exception) {
             Error(ex.message.toString())
         }
-    }
 
-    override suspend fun updateUserName(token: String, name: String): NetworkResponse<User> {
-        return try {
+
+    override suspend fun updateUserName(token: String, name: String): NetworkResponse<User> =
+        try {
             val response = checkResponse(
                 apolloClient.mutation(UpdateUserNameMutation(name))
                     .addHttpHeader("Authorization", token).execute()
@@ -539,10 +484,9 @@ class GraphQlDataSourceImpl(
         } catch (ex: Exception) {
             Error(ex.message.toString())
         }
-    }
 
-    override suspend fun updateUserBio(token: String, bio: String): NetworkResponse<User> {
-        return try {
+    override suspend fun updateUserBio(token: String, bio: String): NetworkResponse<User> =
+        try {
             val response = checkResponse(
                 apolloClient.mutation(UpdateUserBioMutation(bio))
                     .addHttpHeader("Authorization", token).execute()
@@ -555,14 +499,13 @@ class GraphQlDataSourceImpl(
         } catch (ex: Exception) {
             Error(ex.message.toString())
         }
-    }
 
     override suspend fun updatePassword(
         token: String,
         oldPassword: String,
         newPassword: String
-    ): NetworkResponse<User> {
-        return try {
+    ): NetworkResponse<User> =
+        try {
             val response = checkResponse(
                 apolloClient.mutation(
                     UpdatePasswordMutation(
@@ -580,10 +523,9 @@ class GraphQlDataSourceImpl(
         } catch (ex: Exception) {
             Error(ex.message.toString())
         }
-    }
 
-    override suspend fun getBookStatus(token: String, bookId: String): NetworkResponse<BookStatus> {
-        return try {
+    override suspend fun getBookStatus(token: String, bookId: String): NetworkResponse<BookStatus> =
+        try {
             val response = checkResponse(
                 apolloClient.query(GetBookStatusQuery(bookId)).addHttpHeader("Authorization", token)
                     .execute()
@@ -596,10 +538,9 @@ class GraphQlDataSourceImpl(
         } catch (ex: Exception) {
             if (ex.message.toString() == "null") Success(BookStatus()) else Error(ex.message.toString())
         }
-    }
 
-    override suspend fun getBookContent(id: String): NetworkResponse<BookContent> {
-        return try {
+    override suspend fun getBookContent(id: String): NetworkResponse<BookContent> =
+        try {
             val response = checkResponse(apolloClient.query(GetBookContentQuery(id)).execute())
 
             when (response) {
@@ -609,14 +550,13 @@ class GraphQlDataSourceImpl(
         } catch (ex: Exception) {
             Error(ex.message.toString())
         }
-    }
 
     override suspend fun addBookToShelf(
         token: String,
         shelfId: String,
         bookId: String
-    ): NetworkResponse<BaseResponse> {
-        return try {
+    ): NetworkResponse<BaseResponse> =
+        try {
             val response = checkResponse(
                 apolloClient.mutation(AddBookToShelfMutation(shelfId, bookId))
                     .addHttpHeader("Authorization", token).execute()
@@ -629,13 +569,12 @@ class GraphQlDataSourceImpl(
         } catch (ex: Exception) {
             Error(ex.message.toString())
         }
-    }
 
     override suspend fun createPaymentOrder(
         token: String,
         bookId: String
-    ): NetworkResponse<PaymentOrder> {
-        return try {
+    ): NetworkResponse<PaymentOrder> =
+        try {
             val response = checkResponse(
                 apolloClient.mutation(CreatePaymentOrderMutation(bookId))
                     .addHttpHeader("Authorization", token).execute()
@@ -648,13 +587,12 @@ class GraphQlDataSourceImpl(
         } catch (ex: Exception) {
             Error(ex.message.toString())
         }
-    }
 
     override suspend fun joinCommunity(
         token: String,
         bookId: String
-    ): NetworkResponse<BaseResponse> {
-        return try {
+    ): NetworkResponse<BaseResponse> =
+        try {
             val response = checkResponse(
                 apolloClient.mutation(JoinCommunityMutation(bookId))
                     .addHttpHeader("Authorization", token).execute()
@@ -667,14 +605,13 @@ class GraphQlDataSourceImpl(
         } catch (ex: Exception) {
             Error(ex.message.toString())
         }
-    }
 
     override suspend fun completePaymentOrder(
         token: String,
         bookId: String,
         orderId: String
-    ): NetworkResponse<PaymentOrder> {
-        return try {
+    ): NetworkResponse<PaymentOrder> =
+        try {
             val response = checkResponse(
                 apolloClient.mutation(CompletePaymentOrderMutation(bookId, orderId))
                     .addHttpHeader("Authorization", token)
@@ -688,7 +625,6 @@ class GraphQlDataSourceImpl(
         } catch (ex: Exception) {
             Error(ex.message.toString())
         }
-    }
 
     override suspend fun getAuthorInfo(userId: String, token: String): NetworkResponse<User> = try {
         val response = checkResponse(
@@ -755,4 +691,19 @@ class GraphQlDataSourceImpl(
     } catch (ex: Exception) {
         Error(ex.message.toString())
     }
+
+    override suspend fun deleteChat(roomId: String, token: String): NetworkResponse<BaseResponse> =
+        try {
+            val response = checkResponse(
+                apolloClient.mutation(DeleteChatMutation(roomId))
+                    .addHttpHeader("Authorization", token).execute()
+            )
+
+            when (response) {
+                is Success -> Success(response.data?.deleteChat?.toBaseResponse()!!)
+                else -> Error(response.message.toString())
+            }
+        } catch (ex: Exception) {
+            Error(ex.message.toString())
+        }
 }

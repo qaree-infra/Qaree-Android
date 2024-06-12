@@ -3,14 +3,17 @@ package com.muhmmad.data.local
 import androidx.datastore.core.DataStore
 import com.muhmmad.domain.local.LocalDataSource
 import com.muhmmad.domain.model.AppMode
+import com.muhmmad.domain.model.Card
 import com.muhmmad.domain.model.Language
 import com.muhmmad.domain.model.User
 import com.muhmmad.domain.model.UserData
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 
-
-class LocalDataSourceImpl(private val dataStore: DataStore<UserData>) : LocalDataSource {
+class LocalDataSourceImpl(
+    private val dataStore: DataStore<UserData>,
+    private val cardsDataBase: CardsDatabase
+) : LocalDataSource {
     override suspend fun setFirstTime(isFirstTime: Boolean) {
         dataStore.updateData {
             it.copy(isFirstTime = isFirstTime)
@@ -63,4 +66,20 @@ class LocalDataSourceImpl(private val dataStore: DataStore<UserData>) : LocalDat
     }
 
     override suspend fun getUiMode(): AppMode = dataStore.data.map { it.uiMode }.first()
+    override suspend fun deleteUserData() {
+        dataStore.updateData {
+            it.copy(
+                id = "",
+                name = "",
+                email = "",
+                token = "",
+            )
+        }
+    }
+
+    override suspend fun getPaymentCards(): List<Card> = cardsDataBase.cardsDao().getPaymentCards()
+    override suspend fun deletePaymentCard(card: Card) =
+        cardsDataBase.cardsDao().deletePaymentCard(card)
+
+    override suspend fun addPaymentCard(card: Card) = cardsDataBase.cardsDao().addPaymentCard(card)
 }

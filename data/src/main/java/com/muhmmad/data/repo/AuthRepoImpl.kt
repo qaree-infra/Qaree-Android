@@ -17,8 +17,17 @@ class AuthRepoImpl(
 
     override suspend fun isFirstTime(): Boolean = localDataSource.isFirstTime()
 
-    override suspend fun login(email: String, pass: String): NetworkResponse<LoginResponse> =
-        graphQlDataSource.login(email, pass)
+    override suspend fun login(
+        email: String,
+        pass: String,
+        token: String
+    ): NetworkResponse<LoginResponse> = graphQlDataSource.login(email, pass, token)
+
+    override suspend fun loginWithGoogle(
+        socialToken: String,
+        firebaseToken: String
+    ): NetworkResponse<LoginResponse> =
+        graphQlDataSource.loginWithGoogle(socialToken, firebaseToken)
 
     override suspend fun register(
         name: String,
@@ -53,4 +62,8 @@ class AuthRepoImpl(
     override suspend fun setToken(token: String) = localDataSource.setToken(token)
 
     override suspend fun logout() = localDataSource.logout()
+    override suspend fun deleteAccount(token: String): NetworkResponse<BaseResponse> =
+        graphQlDataSource.deleteAccount(token)
+
+    override suspend fun deleteUserData() = localDataSource.deleteUserData()
 }

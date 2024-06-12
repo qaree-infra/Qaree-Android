@@ -38,9 +38,7 @@ class LibraryFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        return binding.root
-    }
+    ): View = binding.root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -69,7 +67,10 @@ class LibraryFragment : Fragment() {
                     adapter.setData(it.libraryResponse.data)
                 }
 
-                if (it.createShelfResponse != null) activity.showMessage(it.createShelfResponse.message)
+                if (it.createShelfResponse != null) {
+                    activity.showMessage(it.createShelfResponse.message)
+                    viewModel.getLibrary()
+                }
             }
         }
     }

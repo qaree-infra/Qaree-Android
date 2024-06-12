@@ -16,4 +16,5 @@ interface CommunityRepo {
         membersPerPage: Int,
         token: String
     ): NetworkResponse<CommunityMembers>
+    suspend fun deleteChat(roomId:String,token:String):NetworkResponse<BaseResponse>
 }

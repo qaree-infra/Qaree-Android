@@ -12,8 +12,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-private const val TAG = "ReadingViewActivity"
-
 @AndroidEntryPoint
 class ReadingViewActivity : BaseActivity() {
     private val binding: ActivityReadingViewBinding by lazy {
