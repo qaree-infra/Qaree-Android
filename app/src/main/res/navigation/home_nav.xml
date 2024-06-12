@@ -61,6 +61,9 @@
         <action
             android:id="@+id/action_searchFragment_to_categoryFragment"
             app:destination="@id/categoryFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_bookInfoFragment"
+            app:destination="@id/bookInfoFragment" />
     </fragment>
     <fragment
         android:id="@+id/notificationFragment"
@@ -109,6 +112,9 @@
         <argument
             android:name="ShowAppBar"
             android:defaultValue="false" />
+        <action
+            android:id="@+id/action_categoryFragment_to_bookInfoFragment"
+            app:destination="@id/bookInfoFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"

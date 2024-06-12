@@ -9,7 +9,8 @@ import com.muhmmad.domain.model.Book
 import com.muhmmad.qaree.databinding.SearchItemBinding
 import com.muhmmad.qaree.utils.DiffUtilCallback
 
-class SearchAdapter : RecyclerView.Adapter<SearchAdapter.ViewHolder>() {
+class SearchAdapter(private val onClick: (Book) -> Unit) :
+    RecyclerView.Adapter<SearchAdapter.ViewHolder>() {
     private val data = ArrayList<Book>()
 
     class ViewHolder(val binding: SearchItemBinding) : RecyclerView.ViewHolder(binding.root)
@@ -29,6 +30,8 @@ class SearchAdapter : RecyclerView.Adapter<SearchAdapter.ViewHolder>() {
             tvBookName.text = item.name
             tvWriter.text = item.author?.name
             ratingBar.rating = item.avgRating.toFloat()
+
+            root.setOnClickListener { onClick(item) }
         }
     }
 

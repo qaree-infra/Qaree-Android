@@ -35,7 +35,11 @@ class SearchFragment : Fragment() {
         }
     }
     private val searchAdapter: SearchAdapter by lazy {
-        SearchAdapter()
+        SearchAdapter {
+            val bundle = Bundle()
+            bundle.putParcelable("book", it)
+            nav.navigate(R.id.action_searchFragment_to_bookInfoFragment, bundle)
+        }
     }
     private val viewModel: SearchViewModel by viewModels()
 

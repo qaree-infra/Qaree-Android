@@ -55,6 +55,9 @@ class BookInfoViewModel @Inject constructor(
     private val _paymentCard = MutableStateFlow<Card?>(null)
     val paymentCard = _paymentCard.asStateFlow()
 
+    private val _completePaymentResponse = MutableStateFlow<PaymentOrder?>(null)
+    val completePaymentResponse = _completePaymentResponse.asSharedFlow()
+
 
     fun updateBook(book: Book?) {
         if (book != null) _book.update { book }
@@ -175,9 +178,10 @@ class BookInfoViewModel @Inject constructor(
                 it.copy(
                     isLoading = false,
                     error = message,
-                    completePaymentResponse = data
                 )
             }
+
+            data?.let { _completePaymentResponse.emit(it) }
         }
     }
 
@@ -202,7 +206,6 @@ class BookInfoViewModel @Inject constructor(
         val addBookToShelfResponse: BaseResponse? = null,
         val makeReviewResponse: BaseResponse? = null,
         val joinCommunityResponse: BaseResponse? = null,
-        val completePaymentResponse: PaymentOrder? = null,
     )
 
     enum class BookState {
