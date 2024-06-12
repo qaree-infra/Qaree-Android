@@ -24,6 +24,7 @@ class BookPagingSource(
         try {
             // Start refresh at page 1 if undefined.
             val id: String = params.key ?: chaptersList[position].id
+
             val response: NetworkResponse<BookChapter> = useCase.getChapter(token, bookId, id)
             LoadResult.Page(
                 data = listOf(response),

@@ -57,7 +57,7 @@ class ReadingViewViewModel @Inject constructor(
     private fun getChapter(
         token: String,
         bookId: String,
-        chaptersList: List<ContentItem>
+        chaptersList: List<ContentItem> = emptyList()
     ): Flow<PagingData<NetworkResponse<BookChapter>>> = Pager(
         // Configure how data is loaded by passing additional properties to
         // PagingConfig, such as prefetchDistance.

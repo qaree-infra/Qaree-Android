@@ -81,7 +81,6 @@ class BookInfoFragment : Fragment() {
                     null
                 }
 
-
             viewModel.updateBook(book)
 
             handleViews(book)
@@ -154,6 +153,7 @@ class BookInfoFragment : Fragment() {
             viewModel.paymentOrder.collectLatest {
                 it?.let {
                     if (paymentType == "Paypal") paypalProcess(it.id)
+                    else nav.navigate(R.id.action_bookInfoFragment_to_cardsBottomSheetDialogFragment)
                 }
             }
         }
@@ -195,10 +195,6 @@ class BookInfoFragment : Fragment() {
                     activity.showMessage(message)
                 }
 
-                it.completePaymentResponse?.apply {
-                    viewModel.getBookStatus()
-                }
-
                 it.joinCommunityResponse?.apply {
 //                    val bundle = Bundle()
 //                    val roomId = "${viewModel.userId.value}-${user?._id}"
@@ -214,6 +210,11 @@ class BookInfoFragment : Fragment() {
 //                    nav.navigate(R.id.action_bookInfoFragment_to_chatFragment, bundle)
                     activity.showMessage(message)
                 }
+            }
+        }
+        lifecycleScope.launch {
+            viewModel.completePaymentResponse.collectLatest {
+                viewModel.getBookStatus()
             }
         }
     }
@@ -298,7 +299,7 @@ class BookInfoFragment : Fragment() {
         val cardRequest = CardRequest(
             orderId = orderId,
             card = card,
-            returnUrl = "myapp://com.muhmmad.qaree.payment", // custom URL scheme needs to be configured in AndroidManifest.xml
+            returnUrl = "com.muhmmad.qaree.payment", // custom URL scheme needs to be configured in AndroidManifest.xml
             sca = SCA.SCA_ALWAYS // default value is SCA.SCA_WHEN_REQUIRED
         )
 

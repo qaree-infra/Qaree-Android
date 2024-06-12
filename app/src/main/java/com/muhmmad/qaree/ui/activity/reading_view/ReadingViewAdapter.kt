@@ -22,6 +22,7 @@ class ReadingViewAdapter :
                 Base64.encodeToString(path.toByteArray(), Base64.NO_PADDING)
             binding.webView.loadData(encodedHtml, "text/html", "base64")
             binding.webView.settings.javaScriptEnabled = true
+            binding.webView.settings.domStorageEnabled = true
             binding.webView.addJavascriptInterface(WebAppInterface(binding.root.context), "Android")
 //            binding.webView.loadData(
 //                "<input type=\"button\" value=\"Say hello\" onClick=\"showAndroidToast('Hello Android!')\" />\n" +

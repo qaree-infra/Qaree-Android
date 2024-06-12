@@ -113,6 +113,7 @@ dependencies {
     //Palette
     implementation("androidx.palette:palette-ktx:1.0.0")
     //Paypal
+    implementation("com.paypal.sdk:paypal-android-sdk:2.16.0")
     implementation("com.paypal.android:card-payments:1.3.0")
     implementation("com.paypal.android:paypal-web-payments:1.3.0")
     //Paging 3

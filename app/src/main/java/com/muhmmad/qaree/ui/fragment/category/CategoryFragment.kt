@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import com.muhmmad.qaree.R
 import com.muhmmad.qaree.databinding.FragmentCategoryBinding
 import com.muhmmad.qaree.ui.activity.home.HomeActivity
 import com.muhmmad.qaree.ui.fragment.home.adapters.BooksAdapter
@@ -27,8 +28,10 @@ class CategoryFragment : Fragment() {
         findNavController()
     }
     private val adapter: BooksAdapter by lazy {
-        BooksAdapter{
-
+        BooksAdapter {
+            val bundle = Bundle()
+            bundle.putParcelable("book", it)
+            nav.navigate(R.id.action_categoryFragment_to_bookInfoFragment, bundle)
         }
     }
     private val viewModel: CategoryViewModel by viewModels()
@@ -36,9 +39,7 @@ class CategoryFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        return binding.root
-    }
+    ): View = binding.root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
