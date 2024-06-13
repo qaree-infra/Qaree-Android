@@ -20,6 +20,7 @@ interface RetrofitDataSource {
         @Part image: MultipartBody.Part,
     ): Response<Any>
 
+
     @GET("read/{bookId}/{chapter}/json")
     suspend fun getBookChapter(
         @Header("Authorization") token: String,

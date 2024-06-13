@@ -1,6 +1,7 @@
 package com.muhmmad.domain.usecase
 
 import com.muhmmad.domain.model.AppMode
+import com.muhmmad.domain.model.Card
 import com.muhmmad.domain.model.User
 import com.muhmmad.domain.repo.UserRepo
 import okhttp3.MultipartBody
@@ -27,4 +28,8 @@ class UserUseCase(private val repo: UserRepo) {
     suspend fun getUiMode() = repo.getUiMode()
     suspend fun getNotifications(token: String, page: Int, limit: Int) =
         repo.getNotifications(token, page, limit)
+
+    suspend fun getPaymentCards() = repo.getPaymentCards()
+    suspend fun deletePaymentCard(card: Card) = repo.deletePaymentCard(card)
+    suspend fun addPaymentCard(card: Card) = repo.addPaymentCard(card)
 }

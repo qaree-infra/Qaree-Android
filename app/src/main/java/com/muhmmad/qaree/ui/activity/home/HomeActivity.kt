@@ -2,6 +2,7 @@ package com.muhmmad.qaree.ui.activity.home
 
 import android.Manifest
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -59,6 +60,11 @@ class HomeActivity : BaseActivity() {
 
             checkNotificationPermission()
         }
+    }
+
+    override fun onNewIntent(newIntent: Intent?) {
+        super.onNewIntent(newIntent)
+        intent = newIntent
     }
 
     private fun handleClicks() {

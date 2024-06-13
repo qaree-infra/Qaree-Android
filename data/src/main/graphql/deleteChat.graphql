@@ -1,0 +1,6 @@
+mutation deleteChat($roomId:String!){
+    deleteChat(room:$roomId){
+        success,
+        message
+    }
+}

@@ -16,7 +16,6 @@ import androidx.navigation.fragment.findNavController
 import coil.load
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.muhmmad.domain.model.Book
-import com.muhmmad.domain.model.Room
 import com.muhmmad.qaree.BuildConfig
 import com.muhmmad.qaree.R
 import com.muhmmad.qaree.databinding.DialogPaymentBinding
@@ -82,7 +81,6 @@ class BookInfoFragment : Fragment() {
                     null
                 }
 
-
             viewModel.updateBook(book)
 
             handleViews(book)
@@ -145,9 +143,17 @@ class BookInfoFragment : Fragment() {
 
     private fun checkState() {
         lifecycleScope.launch {
+            viewModel.paymentCard.collectLatest {
+                if (it != null) {
+                    cardsProcess(viewModel.paymentOrder.value?.id.toString(), it)
+                }
+            }
+        }
+        lifecycleScope.launch {
             viewModel.paymentOrder.collectLatest {
                 it?.let {
-                    if (paymentType == "Paypal") paypalProcess(it.id) else cardsProcess(it.id)
+                    if (paymentType == "Paypal") paypalProcess(it.id)
+                    else nav.navigate(R.id.action_bookInfoFragment_to_cardsBottomSheetDialogFragment)
                 }
             }
         }
@@ -164,6 +170,15 @@ class BookInfoFragment : Fragment() {
             }
         }
         lifecycleScope.launch {
+            viewModel.reviewsResponse.collectLatest {
+                it?.let {
+                    binding.bookInfoHeader.tvRatingNumber.text =
+                        getString(R.string.ratings, it.total.toString())
+                    adapter.setData(it.data)
+                }
+            }
+        }
+        lifecycleScope.launch {
             viewModel.state.collect {
                 if (it.isLoading) activity.showLoading(binding.root) else activity.dismissLoading(
                     binding.root
@@ -174,30 +189,10 @@ class BookInfoFragment : Fragment() {
                     it.error.toString()
                 )
 
-                if (it.reviewsResponse != null) {
-                    binding.bookInfoHeader.tvRatingNumber.text =
-                        getString(R.string.ratings, it.reviewsResponse.total.toString())
-                    adapter.setData(it.reviewsResponse.data)
-                }
-
                 if (it.makeReviewResponse != null) activity.showMessage(it.makeReviewResponse.message)
-
-                it.bookStatus?.apply {
-//                    if (status == null) {
-//
-//                    } else {
-//                        if (readingProgress == 0.0) binding.btnBuy.text =
-//                            getString(R.string.start_read)
-//                        else binding.btnBuy.text = getString(R.string.continue_reading)
-//                    }
-                }
 
                 it.addBookToShelfResponse?.apply {
                     activity.showMessage(message)
-                }
-
-                it.completePaymentResponse?.apply {
-                    viewModel.getBookStatus()
                 }
 
                 it.joinCommunityResponse?.apply {
@@ -215,6 +210,11 @@ class BookInfoFragment : Fragment() {
 //                    nav.navigate(R.id.action_bookInfoFragment_to_chatFragment, bundle)
                     activity.showMessage(message)
                 }
+            }
+        }
+        lifecycleScope.launch {
+            viewModel.completePaymentResponse.collectLatest {
+                viewModel.getBookStatus()
             }
         }
     }
@@ -256,6 +256,9 @@ class BookInfoFragment : Fragment() {
             }
 
             override fun onPayPalWebFailure(error: PayPalSDKError) {
+                Log.e(TAG, error.message.toString())
+                Log.e(TAG, error.code.toString())
+                Log.e(TAG, error.errorDescription.toString())
                 activity.showError(binding.root, error.message.toString())
             }
 
@@ -271,7 +274,7 @@ class BookInfoFragment : Fragment() {
         payPalWebCheckoutClient.start(payPalWebCheckoutRequest)
     }
 
-    private fun cardsProcess(orderId: String) {
+    private fun cardsProcess(orderId: String, card: com.muhmmad.domain.model.Card) {
         val config = CoreConfig(
             BuildConfig.paypalClientId,
             environment = Environment.SANDBOX
@@ -279,10 +282,10 @@ class BookInfoFragment : Fragment() {
         val cardClient = CardClient(activity, config)
 
         val card = Card(
-            number = "4032036725116402",
-            expirationMonth = "11",
-            expirationYear = "2027",
-            securityCode = "867",
+            number = card.number,
+            expirationMonth = card.expireMonth,
+            expirationYear = card.expireYear,
+            securityCode = card.cvv,
             billingAddress = Address(
                 streetAddress = "123 Main St.",
                 extendedAddress = "Apt. 1A",
@@ -296,7 +299,7 @@ class BookInfoFragment : Fragment() {
         val cardRequest = CardRequest(
             orderId = orderId,
             card = card,
-            returnUrl = "myapp://com.muhmmad.qaree.payment", // custom URL scheme needs to be configured in AndroidManifest.xml
+            returnUrl = "com.muhmmad.qaree.payment", // custom URL scheme needs to be configured in AndroidManifest.xml
             sca = SCA.SCA_ALWAYS // default value is SCA.SCA_WHEN_REQUIRED
         )
 
@@ -306,6 +309,9 @@ class BookInfoFragment : Fragment() {
             }
 
             override fun onApproveOrderFailure(error: PayPalSDKError) {
+                Log.e(TAG, error.message.toString())
+                Log.e(TAG, error.code.toString())
+                Log.e(TAG, error.errorDescription.toString())
                 activity.showError(binding.root, error.message.toString())
             }
 
@@ -341,6 +347,11 @@ class BookInfoFragment : Fragment() {
             return false
         }
         return true
+    }
+
+    override fun onStop() {
+        super.onStop()
+        viewModel.clearPaymentData()
     }
 }
 

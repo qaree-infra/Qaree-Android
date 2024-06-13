@@ -1,7 +1,9 @@
 package com.muhmmad.qaree.di
 
+import android.content.Context
 import androidx.datastore.core.DataStore
 import com.apollographql.apollo3.ApolloClient
+import com.muhmmad.data.local.DatabaseBuilder
 import com.muhmmad.data.local.LocalDataSourceImpl
 import com.muhmmad.data.remote.GraphQlDataSourceImpl
 import com.muhmmad.data.remote.RetrofitClient
@@ -14,6 +16,7 @@ import com.muhmmad.qaree.utils.Constants.Retrofit_BASEURL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
@@ -36,8 +39,11 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideLocalDataSource(dataStore: DataStore<UserData>): LocalDataSource =
-        LocalDataSourceImpl(dataStore)
+    fun provideLocalDataSource(
+        dataStore: DataStore<UserData>,
+        @ApplicationContext context: Context
+    ): LocalDataSource =
+        LocalDataSourceImpl(dataStore, DatabaseBuilder.getInstance(context))
 
     @Provides
     @Singleton

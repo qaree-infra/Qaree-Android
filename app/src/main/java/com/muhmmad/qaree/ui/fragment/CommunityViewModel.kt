@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
+import com.muhmmad.domain.model.BaseResponse
 import com.muhmmad.domain.model.Chat
 import com.muhmmad.domain.model.Message
 import com.muhmmad.domain.model.Room
@@ -15,6 +16,7 @@ import io.socket.client.Socket
 import io.socket.emitter.Emitter
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -28,20 +30,26 @@ class CommunityViewModel @Inject constructor(
     private val userUseCase: UserUseCase
 ) : ViewModel() {
     private val _state = MutableStateFlow(CommunityState())
-    val state = _state.asStateFlow()
+    val state = _state.asSharedFlow()
     private var mSocket: Socket? = null
 
     val userId = MutableStateFlow("")
     val message = MutableSharedFlow<Message?>()
     private val _room = MutableStateFlow<Room?>(null)
     val room = _room.asStateFlow()
+    var messagesPage: Int = 1
+    val rooms = MutableStateFlow<List<Room>?>(null)
 
     init {
         getUserId()
         connectSocket()
     }
 
-    fun setRoom(room: Room) = _room.update { room }
+    fun setRoom(room: Room) {
+        if (_room.value == room) return
+        messagesPage = 1
+        _room.update { room }
+    }
 
     private fun connectSocket() = viewModelScope.launch {
         _state.update { it.copy(isLoading = true) }
@@ -69,8 +77,13 @@ class CommunityViewModel @Inject constructor(
         else mSocket?.emit(EVENT_GET_ROOMS, JSONObject())
     }
 
-    fun getMessages(roomId: String, type: MessageType) {
-        mSocket?.emit(EVENT_MESSAGE_LIST, JSONObject("{room:$roomId,type:${type.name}}"))
+    fun getMessages(roomId: String, type: MessageType = MessageType.UNREAD) {
+        Log.i(TAG, "Page is $messagesPage")
+        if (messagesPage == -1) return
+        mSocket?.emit(
+            EVENT_MESSAGE_LIST,
+            JSONObject("{room:$roomId,limit:20,page:$messagesPage,type:${type.name}}")
+        )
     }
 
     fun sendMessage(message: String) {
@@ -82,6 +95,21 @@ class CommunityViewModel @Inject constructor(
             EVENT_SEND_MESSAGE,
             JSONObject("{content:\"$message\",to:$roomId}")
         )
+    }
+
+    fun deleteChat() = viewModelScope.launch {
+        _state.update {
+            it.copy(
+                isLoading = true
+            )
+        }
+        communityUseCase.deleteChat(room.value?.roomId.toString(), authUseCase.getToken()).apply {
+            _state.update {
+                it.copy(
+                    isLoading = false
+                )
+            }
+        }
     }
 
     private val onConnect: Emitter.Listener = Emitter.Listener {
@@ -105,10 +133,12 @@ class CommunityViewModel @Inject constructor(
         Log.i(TAG, response.toString())
         val data =
             Gson().fromJson(response.get("rooms").toString(), Array<Room>::class.java).asList()
+        rooms.update {
+            data
+        }
         _state.update {
             it.copy(
                 isLoading = false,
-                rooms = data,
             )
         }
     }
@@ -116,6 +146,13 @@ class CommunityViewModel @Inject constructor(
     private val chatListener: Emitter.Listener = Emitter.Listener {
         val response = it[0] as JSONObject
         val data = Gson().fromJson(response.get("messages").toString(), Chat::class.java)
+        Log.i(TAG, "total pages : ${data.numberOfPages}")
+        Log.i(TAG, "current page : ${data.currentPage}")
+        if (data.currentPage < data.numberOfPages) messagesPage = data.currentPage + 1
+        else messagesPage = -1
+
+        Log.i(TAG, "MesssagePages : $messagesPage")
+
         if (data.messages.isNotEmpty()) {
             _room.update {
                 it?.copy(
@@ -144,24 +181,22 @@ class CommunityViewModel @Inject constructor(
 
     private fun updateLastMessage(message: Message) {
         viewModelScope.launch {
-            if (_state.value.rooms == null) return@launch
+            if (rooms.value == null) return@launch
             try {
-                val rooms = ArrayList<Room>()
-                rooms.addAll(_state.value.rooms!!)
-                val room = rooms.first {
+                val r = ArrayList<Room>()
+                r.addAll(rooms.value!!)
+                val room = r.first {
                     it._id == message.room
                 }
 
                 room.lastMessage = message
 
-                val position = rooms.withIndex().first { it.value._id == room._id }.index
+                val position = r.withIndex().first { it.value._id == room._id }.index
 
-                rooms[position] = room
+                r[position] = room
 
-                _state.update {
-                    it.copy(
-                        rooms = rooms.toList()
-                    )
+                rooms.update {
+                    r.toList()
                 }
             } catch (exception: Exception) {
                 Log.e(TAG, exception.message.toString())
@@ -178,8 +213,8 @@ class CommunityViewModel @Inject constructor(
     data class CommunityState(
         val error: String? = null,
         val isLoading: Boolean = false,
-        val rooms: List<Room>? = null,
         val chat: Chat? = null,
+        val deleteChatResponse: BaseResponse? = null
     )
 
     enum class MessageType {
@@ -190,5 +225,5 @@ class CommunityViewModel @Inject constructor(
 
 private const val TAG = "InboxViewModel"
 private const val EVENT_GET_ROOMS = "get-rooms"
-private const val EVENT_MESSAGE_LIST = "message-list"
 private const val EVENT_SEND_MESSAGE = "message"
+private const val EVENT_MESSAGE_LIST = "message-list"

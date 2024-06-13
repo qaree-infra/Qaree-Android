@@ -39,8 +39,7 @@ class SettingsFragment : Fragment() {
     private val viewModel: SettingsViewModel by viewModels()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View = binding.root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -55,8 +54,7 @@ class SettingsFragment : Fragment() {
         binding.apply {
             val user =
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) arguments?.getParcelable(
-                    "user",
-                    User::class.java
+                    "user", User::class.java
                 ) ?: User(_id = "", name = "") else arguments?.getParcelable("user")
 
             when (AppCompatDelegate.getDefaultNightMode()) {
@@ -76,10 +74,10 @@ class SettingsFragment : Fragment() {
                 nav.navigate(R.id.action_settingsFragment_to_changePasswordFragment)
             }
             tvPayment.setOnClickListener {
-
+                nav.navigate(R.id.action_settingsFragment_to_editCardsBottomSheetDialogFragment)
             }
             tvDeleteAccount.setOnClickListener {
-
+                nav.navigate(R.id.action_settingsFragment_to_deleteAccountDialog)
             }
             switchMode.setOnCheckedChangeListener { buttonView, isChecked ->
                 if (isChecked) {

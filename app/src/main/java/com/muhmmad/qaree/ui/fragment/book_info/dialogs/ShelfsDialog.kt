@@ -11,6 +11,7 @@ import com.muhmmad.qaree.databinding.DialogShelfsBinding
 import com.muhmmad.qaree.ui.fragment.book_info.BookInfoViewModel
 import com.muhmmad.qaree.ui.fragment.book_info.adapters.ShelfsAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -37,16 +38,16 @@ class ShelfsDialog : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
-            rvShelfs.adapter=adapter
+            rvShelfs.adapter = adapter
             checkState()
         }
     }
 
     private fun checkState() {
         lifecycleScope.launch {
-            viewModel.state.collect {
-                it.libraryResponse?.apply {
-                    adapter.setData(data)
+            viewModel.libraryResponse.collectLatest {
+                it?.let {
+                    adapter.setData(it.data)
                 }
             }
         }

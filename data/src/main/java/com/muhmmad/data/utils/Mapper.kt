@@ -30,6 +30,8 @@ import com.muhmmad.qaree.AddBookToShelfMutation
 import com.muhmmad.qaree.CompletePaymentOrderMutation
 import com.muhmmad.qaree.CreatePaymentOrderMutation
 import com.muhmmad.qaree.CreateShelfMutation
+import com.muhmmad.qaree.DeleteAccountMutation
+import com.muhmmad.qaree.DeleteChatMutation
 import com.muhmmad.qaree.FollowUserMutation
 import com.muhmmad.qaree.ForgetPasswordMutation
 import com.muhmmad.qaree.GetAuthorInfoQuery
@@ -48,6 +50,7 @@ import com.muhmmad.qaree.GetShelfDetailsQuery
 import com.muhmmad.qaree.GetTopAuthorsQuery
 import com.muhmmad.qaree.GetUserInfoQuery
 import com.muhmmad.qaree.JoinCommunityMutation
+import com.muhmmad.qaree.LoginWithGoogleMutation
 import com.muhmmad.qaree.RemoveBookFromShelfMutation
 import com.muhmmad.qaree.RemoveShelfMutation
 import com.muhmmad.qaree.ResendPasswordOTPMutation
@@ -63,6 +66,12 @@ import com.muhmmad.qaree.ValidatePasswordOTPMutation
 import com.muhmmad.qaree.VerifyAccountMutation
 
 fun SignInMutation.Signin.toLoginResponse(): LoginResponse = LoginResponse(
+    message = message ?: "",
+    token = access_token ?: "",
+    error = ""
+)
+
+fun LoginWithGoogleMutation.GoogleLogin.toLoginResponse(): LoginResponse = LoginResponse(
     message = message ?: "",
     token = access_token ?: "",
     error = ""
@@ -430,3 +439,13 @@ fun GetNotificationsQuery.GetNotifications.toNotificationsResponse(): Notificati
             )
         }!!
     )
+
+fun DeleteAccountMutation.DeleteAccount.toBaseResponse(): BaseResponse = BaseResponse(
+    message = message ?: "",
+    success = success ?: false
+)
+
+fun DeleteChatMutation.DeleteChat.toBaseResponse(): BaseResponse = BaseResponse(
+    message = message ?: "",
+    success = success ?: false
+)

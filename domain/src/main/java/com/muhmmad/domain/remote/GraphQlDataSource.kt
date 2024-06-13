@@ -20,7 +20,12 @@ import com.muhmmad.domain.model.ShelfResponse
 import com.muhmmad.domain.model.User
 
 interface GraphQlDataSource {
-    suspend fun login(email: String, pass: String): NetworkResponse<LoginResponse>
+    suspend fun login(email: String, pass: String, token: String): NetworkResponse<LoginResponse>
+    suspend fun loginWithGoogle(
+        socialToken: String,
+        firebaseToken: String
+    ): NetworkResponse<LoginResponse>
+
     suspend fun register(name: String, email: String, pass: String): NetworkResponse<String>
     suspend fun verifyAccount(email: String, otp: String): NetworkResponse<BaseResponse>
     suspend fun resendVerifyOTP(email: String): NetworkResponse<BaseResponse>
@@ -32,6 +37,7 @@ interface GraphQlDataSource {
 
     suspend fun resendPasswordOTP(email: String): NetworkResponse<BaseResponse>
     suspend fun resetPassword(pass: String, token: String): NetworkResponse<BaseResponse>
+    suspend fun deleteAccount(token: String): NetworkResponse<BaseResponse>
     suspend fun getOffers(): NetworkResponse<OffersResponse>
 
     suspend fun getLastActivity(token: String): NetworkResponse<ActivityResponse>
@@ -98,4 +104,6 @@ interface GraphQlDataSource {
         page: Int,
         limit: Int
     ): NetworkResponse<NotificationsResponse>
+
+    suspend fun deleteChat(roomId: String, token: String): NetworkResponse<BaseResponse>
 }

@@ -143,8 +143,8 @@
         android:text="@string/sign_in"
         android:textColor="@color/white"
         android:textSize="@dimen/_14ssp"
-        app:cornerRadius="@dimen/_7sdp"
         app:backgroundTint="@color/primary_color"
+        app:cornerRadius="@dimen/_7sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/checkbox_remember" />

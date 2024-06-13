@@ -52,6 +52,13 @@ class InboxFragment : Fragment() {
 
     private fun checkState() {
         lifecycleScope.launch {
+            viewModel.rooms.collectLatest {
+                it?.let {
+                    adapter.setData(it)
+                }
+            }
+        }
+        lifecycleScope.launch {
             viewModel.state.collectLatest {
                 if (it.isLoading) activity.showLoading(binding.root)
                 else activity.dismissLoading(binding.root)
@@ -60,10 +67,6 @@ class InboxFragment : Fragment() {
                     binding.root,
                     it.error.toString()
                 )
-
-                it.rooms?.apply {
-                    adapter.setData(this)
-                }
             }
         }
     }
