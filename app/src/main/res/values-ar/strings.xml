@@ -1,35 +1,197 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="please_enter_the_e_mail">Please enter the E-mail</string>
-    <string name="e_mail_address_is_not_valid">E-mail address is not valid</string>
-    <string name="please_enter_the_password">Please enter the password</string>
-    <string name="the_password_is_not_valid">The password is not valid</string>
-    <string name="please_enter_your_name">Please enter your name</string>
-    <string name="please_enter_your_full_name">Please enter your full-name</string>
-    <string name="verify_code">Verify Code</string>
-    <string name="please_enter_the_code_we_just_sent_to_email">Please enter the code we just sent to email</string>
-    <string name="didn_t_receive_otp">Didn’t receive OTP?</string>
-    <string name="resend_code"><u>Resend code</u></string>
-    <string name="verify">Verify</string>
-    <string name="the_otp_is_not_valid">The otp is not valid</string>
-    <string name="the_password_is_not_matches_the_confirmation_password">The password is not matches the confirmation password</string>
-    <string name="home">Home</string>
-    <string name="library">Library</string>
-    <string name="chat">Chat</string>
-    <string name="best_sellers">Best Sellers</string>
-    <string name="more">More</string>
-    <string name="time_ago_prefix" formatted="true">منذ</string>
-    <string name="time_ago_suffix" formatted="true"></string>
-    <string name="time_ago_seconds" formatted="true"> اقل من دقيقة</string>
-    <string name="time_ago_minute" formatted="true">حوالى دقيقة</string>
+    <string name="skip">تخطى</string>
+    <string name="easy_search">البحث السهل</string>
+    <string name="read_anytime_any_where"><![CDATA[اقرأ في أي وقت وفي أي مكان]]></string>
+    <string name="read_anytime_and_any_where_using_your_mobile_to_buy_the_books">اقرأ في أي وقت وفي أي مكان باستخدام هاتفك المحمول لشراء الكتب</string>
+    <string name="search_on_easy_to_find_the_books_with_the_help_of_categories">ابحث بسهولة للعثور على الكتب بمساعدة الفئات</string>
+    <string name="all_the_books_that_you_purchased_will_store_in_the_my_books_it_can_access_by_any_device">جميع الكتب التي اشتريتها ستخزن في قسم "كتبي". يمكن الوصول إليها من أي جهاز</string>
+    <string name="personal_library">المكتبة الشخصية</string>
+    <string name="get_started">ابدأ الآن</string>
+    <string name="next">التالي</string>
+    <string name="sign_in">تسجيل الدخول</string>
+    <string name="e_mail">البريد الإلكتروني</string>
+    <string name="forgot_password">نسيت كلمة المرور؟</string>
+    <string name="password">كلمة المرور</string>
+    <string name="remember_me">تذكرني</string>
+    <string name="or">أو</string>
+    <string name="don_t_have_an_account">ليس لديك حساب؟</string>
+    <string name="sign_up">سجل</string>
+    <string name="google">جوجل</string>
+    <string name="facebook">فيسبوك</string>
+    <string name="email_hint">example@gmail.com</string>
+    <string name="password_hint">**********</string>
+    <string name="login_with_google">تسجيل الدخول بواسطة جوجل</string>
+    <string name="login_with_facebook">تسجيل الدخول بواسطة فيسبوك</string>
+    <string name="create_account">إنشاء حساب</string>
+    <string name="fill_your_information_below_or_register_with_your_social_account">أدخل معلوماتك أدناه أو قم بالتسجيل باستخدام حسابك الاجتماعي</string>
+    <string name="name">الاسم</string>
+    <string name="have_an_account">هل لديك حساب؟</string>
+    <string name="please_enter_the_e_mail">الرجاء إدخال البريد الإلكتروني</string>
+    <string name="e_mail_address_is_not_valid">عنوان البريد الإلكتروني غير صالح</string>
+    <string name="please_enter_the_password">الرجاء إدخال كلمة المرور</string>
+    <string name="the_password_is_not_valid">كلمة المرور غير صالحة</string>
+    <string name="please_enter_your_name">الرجاء إدخال اسمك</string>
+    <string name="please_enter_your_full_name">الرجاء إدخال اسمك الكامل</string>
+    <string name="verify_code">تحقق من الرمز</string>
+    <string name="please_enter_the_code_we_just_sent_to_email">الرجاء إدخال الرمز الذي أرسلناه للبريد الإلكتروني</string>
+    <string name="didn_t_receive_otp">لم تتلقى OTP؟</string>
+    <string name="resend_code"><u>إعادة إرسال الرمز</u></string>
+    <string name="verify">تحقق</string>
+    <string name="the_otp_is_not_valid">OTP غير صالح</string>
+    <string name="new_password">كلمة مرور جديدة</string>
+    <string name="confirm_password">تأكيد كلمة المرور</string>
+    <string name="creat_new_password">إنشاء كلمة مرور جديدة</string>
+    <string name="Creat_new_password">إنشاء كلمة مرور جديدة</string>
+    <string name="your_new_password_must_be_different_from_previosly_used_password">يجب أن تكون كلمة المرور الجديدة مختلفة عن كلمة المرور المستخدمة سابقا</string>
+    <string name="your_new_password_must_be_different_from_previously_used_password">يجب أن تكون كلمة المرور الجديدة مختلفة عن كلمة المرور المستخدمة سابقا</string>
+    <string name="Your_new_password_must_be_different_from_previously_used_password">يجب أن تكون كلمة المرور الجديدة مختلفة عن كلمة المرور المستخدمة سابقا</string>
+    <string name="create_new_password">إنشاء كلمة مرور جديدة</string>
+    <string name="forget_password">نسيت كلمة المرور</string>
+    <string name="request_changing_password">طلب تغيير كلمة المرور</string>
+    <string name="submit">إرسال</string>
+    <string name="special_offers">عروض خاصة</string>
+    <string name="top_authors">أفضل المؤلفين</string>
+    <string name="new_releases">الإصدارات الجديدة</string>
+    <string name="activities">الأنشطة</string>
+    <string name="item_name">اسم العنصر</string>
+    <string name="current_reading">القراءة الحالية</string>
+    <string name="want_to_read">أريد أن أقرأ</string>
+    <string name="adding">+</string>
+    <string name="finished_reading">انتهى القراءة</string>
+    <string name="the_password_is_not_matches_the_confirmation_password">كلمة المرور لا تتطابق مع كلمة المرور للتأكيد</string>
+    <string name="current_Reading">القراءة الحالية</string>
+    <string name="home">الرئيسية</string>
+    <string name="library">المكتبة</string>
+    <string name="chat">الدردشة</string>
+    <string name="offer_image">صورة العرض</string>
+    <string name="book_image">صورة الكتاب</string>
+    <string name="author_image">صورة المؤلف</string>
+    <string name="categories">الفئات</string>
+    <string name="category_image">صورة الفئة</string>
+    <string name="best_sellers">الأكثر مبيعا</string>
+    <string name="read">اقرأ</string>
+    <string name="book_info">معلومات الكتاب</string>
+    <string name="to_delete_this_book">لحذف هذا الكتاب</string>
+    <string name="book_name">اسم الكتاب</string>
+    <string name="enter_book_name">أدخل اسم الكتاب</string>
+    <string name="science">العلوم</string>
+    <string name="history">التاريخ</string>
+    <string name="offer_price">%s جنيه</string>
+    <string name="offer_percent">%s خصم</string>
+    <string name="reading_percent">%s %%</string>
+    <string name="add_shelf">أضف رف</string>
+    <string name="more">المزيد</string>
+    <string name="search">بحث</string>
+    <string name="browse_any_category">تصفح أي فئة</string>
+    <string name="shelf_books">كتب الرف</string>
+    <string name="enter_the_shelf_name">أدخل اسم الرف</string>
+    <string name="save">حفظ</string>
+    <string name="cancel">إلغاء</string>
+    <string name="books_number">%s كتب</string>
+    <string name="back_button">زر الرجوع</string>
+    <string name="category">الفئة</string>
+    <string name="to_return_to_the_previous_page">للعودة إلى الصفحة السابقة</string>
+    <string name="notifications">الإشعارات</string>
+    <string name="to_open_more_options">لفتح المزيد من الخيارات</string>
+    <string name="please_enter_shelf_name">الرجاء إدخال اسم الرف</string>
+    <string name="shelf_name_should_be_more_than_5_chars">يجب أن يكون اسم الرف أكثر من 5 أحرف</string>
+    <string name="Book_info">معلومات الكتاب</string>
+    <string name="the_book_cover">غلاف الكتاب</string>
+    <string name="buy">شراء</string>
+    <string name="to_go_to_book_community">للذهاب إلى مجتمع الكتاب</string>
+    <string name="leave_a_comment">اترك تعليق</string>
+    <string name="post">نشر</string>
+    <string name="reviews">المراجعات</string>
+    <string name="My_profile">ملفي الشخصي</string>
+    <string name="to_go_to_setting">للذهاب إلى الإعدادات</string>
+    <string name="my_name">اسمي</string>
+    <string name="reading_is_amazing_hobby">القراءة هواية رائعة</string>
+    <string name="settings">الإعدادات</string>
+    <string name="default_image">الصورة الافتراضية</string>
+    <string name="for_test">للتجربة</string>
+    <string name="account_settings">إعدادات الحساب</string>
+    <string name="edit_profile">تعديل الملف الشخصي</string>
+    <string name="change_password">تغيير كلمة المرور</string>
+    <string name="delete_account">حذف الحساب</string>
+    <string name="payment">الدفع</string>
+    <string name="personalization">التخصيص</string>
+    <string name="language">اللغة</string>
+    <string name="Notifications">الإشعارات</string>
+    <string name="More">المزيد</string>
+    <string name="privacy_policy">سياسة الخصوصية</string>
+    <string name="about_us">عنا</string>
+    <string name="log_out">تسجيل الخروج</string>
+    <string name="to_log_out">لتسجيل الخروج</string>
+    <string name="dark_mode">الوضع الداكن</string>
+    <string name="edit_my_photo">تعديل صورتي</string>
+    <string name="Name">الاسم</string>
+    <string name="Edit_profile">تعديل الملف الشخصي</string>
+    <string name="enter_your_name">أدخل اسمك</string>
+    <string name="bio">السيرة الذاتية</string>
+    <string name="what_do_you_want_to_write">ماذا تريد أن تكتب</string>
+    <string name="E_mail">البريد الإلكتروني</string>
+    <string name="example_gmail_com">example@gmail.com</string>
+    <string name="author_name">بواسطة %1$s</string>
+    <string name="year">السنة</string>
+    <string name="price">السعر</string>
+    <string name="description">الوصف</string>
+    <string name="ratings">(%1$s تقييمات)</string>
+    <string name="please_enter_your_comment">الرجاء إدخال تعليقك</string>
+    <string name="please_enter_valid_comment">الرجاء إدخال تعليق صالح</string>
+    <string name="please_enter_your_rate">الرجاء إدخال تقييمك</string>
+    <string name="user_image">صورة المستخدم</string>
+    <string name="to_follow_me">لمتابعتي</string>
+    <string name="follow">متابعة</string>
+    <string name="to_message_me">لإرسال رسالة لي</string>
+    <string name="message">الرسالة</string>
+    <string name="to_edit">للتعديل</string>
+    <string name="profile_photo">صورة الملف الشخصي</string>
+    <string name="camera">الكاميرا</string>
+    <string name="gallery">المعرض</string>
+    <string name="no_image_selected">لم يتم اختيار صورة</string>
+    <string name="please_enter_the_bio">الرجاء إدخال السيرة الذاتية</string>
+    <string name="th_bio_is_very_short">السيرة الذاتية قصيرة جدا</string>
+    <string name="enter_your_bio">أدخل سيرتك الذاتية</string>
+    <string name="update_password">تحديث كلمة المرور</string>
+    <string name="old_password">كلمة المرور القديمة</string>
+    <string name="please_enter_your_old_password">الرجاء إدخال كلمة المرور القديمة</string>
+    <string name="please_enter_your_new_password">الرجاء إدخال كلمة المرور الجديدة</string>
+    <string name="the_password_should_not_be_less_than_6_letters">يجب ألا تقل كلمة المرور عن 6 أحرف</string>
+    <string name="the_repeated_password_does_not_matches_the_password">كلمة المرور المكررة لا تتطابق مع كلمة المرور</string>
+    <string name="the_password_changed_successfully">تم تغيير كلمة المرور بنجاح</string>
+    <string name="start_read">ابدأ القراءة</string>
+    <string name="continue_reading">استمر في القراءة</string>
+    <string name="read_sample">قراءة عينة</string>
+    <string name="add_to_shelf">أضف إلى الرف</string>
+    <string name="add_to">أضف إلى ...</string>
+    <string name="community">المجتمع</string>
+    <string name="previous">السابق</string>
+    <string name="edt_search_inbox">بحث...</string>
+    <string name="time_ago_prefix"></string>
+    <string name="time_ago_suffix" formatted="true">مضى</string>
+    <string name="time_ago_seconds" formatted="true"> أقل من دقيقة</string>
+    <string name="time_ago_minute" formatted="true">حوالي دقيقة</string>
     <string name="time_ago_minutes" formatted="true">%d دقائق</string>
-    <string name="time_ago_hour" formatted="true">حوالى ساعة</string>
-    <string name="time_ago_hours" formatted="true"> حوالى %d ساعة</string>
-    <string name="time_ago_day" formatted="true"> يوم</string>
-    <string name="time_ago_days" formatted="true">%d ايام</string>
-    <string name="time_ago_month" formatted="true"> حوالى شهر </string>
-    <string name="time_ago_months" formatted="true">%d شهور</string>
-    <string name="time_ago_year" formatted="true"> حوالى سنة</string>
-    <string name="time_ago_years" formatted="true">%d سنين</string>
-    <string name="author">Author</string>
+    <string name="time_ago_hour" formatted="true">حوالي ساعة</string>
+    <string name="time_ago_hours" formatted="true">حوالي %d ساعات</string>
+    <string name="time_ago_day" formatted="true">يوم</string>
+    <string name="time_ago_days" formatted="true">%d أيام</string>
+    <string name="time_ago_month" formatted="true">حوالي شهر</string>
+    <string name="time_ago_months" formatted="true">%d أشهر</string>
+    <string name="time_ago_year" formatted="true">حوالي سنة</string>
+    <string name="time_ago_years" formatted="true">%d سنوات</string>
+    <string name="chat_image">صورة الدردشة</string>
+    <string name="menu">القائمة</string>
+    <string name="send_message">إرسال رسالة</string>
+    <string name="type_a_message">اكتب رسالة</string>
+    <string name="enter_the_message">أدخل الرسالة</string>
+    <string name="author">المؤلف</string>
+    <string name="community_image">صورة المجتمع</string>
+    <string name="members">%1$s أعضاء</string>
+    <string name="following">المتابعون</string>
+    <string name="paypal">باي بال</string>
+    <string name="cards">بطاقات</string>
+    <string name="the_app_can_not_show_notifications">لا يمكن للتطبيق عرض الإشعارات.</string>
+    <string name="you_have_not_any_notifications">ليس لديك أي إشعارات</string>
 </resources>
