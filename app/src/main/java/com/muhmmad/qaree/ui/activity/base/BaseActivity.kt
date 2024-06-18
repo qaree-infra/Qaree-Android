@@ -31,7 +31,7 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     private fun updateConfig(wrapper: ContextThemeWrapper) {
-        Locale.setDefault(currentLocale)
+        currentLocale?.let { Locale.setDefault(it) }
         val configuration = Configuration()
         configuration.setLocale(currentLocale)
         wrapper.applyOverrideConfiguration(configuration)
@@ -107,6 +107,6 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     companion object {
-        val currentLocale: Locale = Locale("en")
+        var currentLocale: Locale? = null
     }
 }

@@ -66,6 +66,14 @@ class LocalDataSourceImpl(
     }
 
     override suspend fun getUiMode(): AppMode = dataStore.data.map { it.uiMode }.first()
+    override suspend fun changeLanguage(lang: Language) {
+        dataStore.updateData {
+            it.copy(
+                language = lang
+            )
+        }
+    }
+
     override suspend fun deleteUserData() {
         dataStore.updateData {
             it.copy(

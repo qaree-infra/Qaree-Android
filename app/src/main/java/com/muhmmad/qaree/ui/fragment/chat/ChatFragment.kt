@@ -91,7 +91,7 @@ class ChatFragment : Fragment(), OnClickListener {
             viewModel.message.collect {
                 it?.let { it1 ->
                     adapter.addMessage(it1)
-                    binding.rvChat.smoothScrollToPosition(adapter.data.size)
+                    binding.rvChat.smoothScrollToPosition(adapter.getDataSize())
                 }
                 binding.layoutMessage.editText?.text?.clear()
             }
@@ -107,12 +107,13 @@ class ChatFragment : Fragment(), OnClickListener {
                 )
 
                 it.chat?.apply {
-                    if (viewModel.messagesPage == 1) adapter.setData(this.messages)
-                    else adapter.addData(this.messages)
+                    if (currentPage == 1) adapter.setData(this)
+                    else adapter.addData(this)
                 }
 
                 it.deleteChatResponse?.apply {
                     nav.navigateUp()
+                    viewModel.messagesPage = 1
                 }
             }
         }
@@ -126,13 +127,17 @@ class ChatFragment : Fragment(), OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            binding.ivBack -> nav.navigateUp()
+            binding.ivBack -> {
+                nav.navigateUp()
+            }
+
             binding.ivLeave -> nav.navigate(R.id.action_chatFragment_to_leaveGroupDialog)
             binding.ivDelete -> nav.navigate(R.id.action_chatFragment_to_deleteChatDialog)
             binding.ivSend -> {
                 val message = binding.layoutMessage.editText?.text.toString()
                 if (checkValidation(message)) viewModel.sendMessage(message)
             }
+
             binding.ivChat, binding.tvChat -> {
                 if (viewModel.room.value?.book?.cover?.path.isNullOrEmpty()) {
                     val bundle = Bundle()

@@ -3,6 +3,7 @@ package com.muhmmad.domain.repo
 import com.muhmmad.domain.model.AppMode
 import com.muhmmad.domain.model.BaseResponse
 import com.muhmmad.domain.model.Card
+import com.muhmmad.domain.model.Language
 import com.muhmmad.domain.model.NetworkResponse
 import com.muhmmad.domain.model.NotificationsResponse
 import com.muhmmad.domain.model.User
@@ -26,6 +27,8 @@ interface UserRepo {
     suspend fun followUser(token: String, userId: String): NetworkResponse<BaseResponse>
     suspend fun changeMode(mode: AppMode)
     suspend fun getUiMode(): AppMode
+    suspend fun getLanguage(): Language
+    suspend fun changeLanguage(lang: Language)
     suspend fun getNotifications(
         token: String,
         page: Int,

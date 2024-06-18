@@ -5,6 +5,7 @@ import com.muhmmad.domain.local.LocalDataSource
 import com.muhmmad.domain.model.AppMode
 import com.muhmmad.domain.model.BaseResponse
 import com.muhmmad.domain.model.Card
+import com.muhmmad.domain.model.Language
 import com.muhmmad.domain.model.NetworkResponse
 import com.muhmmad.domain.model.NotificationsResponse
 import com.muhmmad.domain.model.User
@@ -52,6 +53,10 @@ class UserRepoImpl(
 
     override suspend fun changeMode(mode: AppMode) = localDataSource.changeMode(mode)
     override suspend fun getUiMode(): AppMode = localDataSource.getUiMode()
+    override suspend fun getLanguage(): Language = localDataSource.getLanguage()
+
+    override suspend fun changeLanguage(lang: Language) = localDataSource.changeLanguage(lang)
+
     override suspend fun getNotifications(
         token: String,
         page: Int,

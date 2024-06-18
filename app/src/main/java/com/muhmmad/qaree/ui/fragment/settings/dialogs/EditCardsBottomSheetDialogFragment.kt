@@ -1,16 +1,17 @@
-package com.muhmmad.qaree.ui.fragment.settings
+package com.muhmmad.qaree.ui.fragment.settings.dialogs
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.muhmmad.qaree.R
 import com.muhmmad.qaree.databinding.EditCardsBottomSheetDialogBinding
+import com.muhmmad.qaree.ui.fragment.settings.EditCardsAdapter
+import com.muhmmad.qaree.ui.fragment.settings.EditPaymentCardsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
