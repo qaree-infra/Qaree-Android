@@ -248,7 +248,7 @@
     </fragment>
     <dialog
         android:id="@+id/deleteAccountDialog"
-        android:name="com.muhmmad.qaree.ui.fragment.settings.DeleteAccountDialog"
+        android:name="com.muhmmad.qaree.ui.fragment.settings.dialogs.DeleteAccountDialog"
         android:label="delete_account_dialog"
         tools:layout="@layout/delete_account_dialog" />
     <dialog
@@ -263,7 +263,7 @@
         tools:layout="@layout/delete_chat_dialog" />
     <dialog
         android:id="@+id/editCardsBottomSheetDialogFragment"
-        android:name="com.muhmmad.qaree.ui.fragment.settings.EditCardsBottomSheetDialogFragment"
+        android:name="com.muhmmad.qaree.ui.fragment.settings.dialogs.EditCardsBottomSheetDialogFragment"
         android:label="EditCardsBottomSheetDialogFragment"
         tools:layout="@layout/edit_cards_bottom_sheet_dialog" >
         <action

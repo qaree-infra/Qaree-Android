@@ -1,10 +1,12 @@
 package com.muhmmad.qaree.ui.fragment.chat
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.muhmmad.domain.model.Chat
 import com.muhmmad.domain.model.Message
 import com.muhmmad.qaree.R
 import com.muhmmad.qaree.databinding.ReceiverCommunityLayoutBinding
@@ -19,7 +21,8 @@ class ChatAdapter(
     private val viewModel: CommunityViewModel,
     private val isCommunity: Boolean
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    internal val data = ArrayList<Message>()
+    private val data = ArrayList<Message>()
+    private var chat: Chat? = null
 
     class SenderViewHolder(val binding: SenderLayoutBinding) : RecyclerView.ViewHolder(binding.root)
     class ReceiverViewHolder(val binding: ReceiverLayoutBinding) :
@@ -76,7 +79,13 @@ class ChatAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val message = data[position]
-        if (position == data.size - 6) viewModel.getMessages(message.room)
+        if (position == data.size - 6) {
+            if (chat?.currentPage!! < chat?.numberOfPages!!) {
+                var page = chat?.currentPage ?: 0
+                page++
+                viewModel.getMessages(message.room, page = page)
+            }
+        }
         if (getItemViewType(position) == UserType.SENDER.ordinal) {
             holder as SenderViewHolder
             holder.binding.apply {
@@ -115,10 +124,10 @@ class ChatAdapter(
 
     override fun getItemViewType(position: Int): Int =
         if (isCommunity) {
-            if (data[position].sender == null || data[position].sender._id != userId) UserType.SENDER_COMMUNITY.ordinal
+            if (data[position].sender == null || data[position].sender?._id != userId) UserType.SENDER_COMMUNITY.ordinal
             else UserType.RECEIVER_COMMUNITY.ordinal
         } else {
-            if (data[position].sender == null || data[position].sender._id != userId) UserType.SENDER.ordinal
+            if (data[position].sender == null || data[position].sender?._id != userId) UserType.SENDER.ordinal
             else UserType.RECEIVER.ordinal
         }
 
@@ -133,8 +142,10 @@ class ChatAdapter(
 //        diffResult.dispatchUpdatesTo(this)
     }
 
-    fun addData(newList: List<Message>) {
-        data.addAll(newList)
+    fun addData(chat: Chat) {
+        Log.i(TAG, "ADD Data")
+        this.chat = chat
+        data.addAll(chat.messages)
         notifyDataSetChanged()
 //        val diffCallback = DiffUtilCallback(data, data)
 //        val diffResult = DiffUtil.calculateDiff(diffCallback)
@@ -143,13 +154,17 @@ class ChatAdapter(
 //        diffResult.dispatchUpdatesTo(this)
     }
 
-    fun setData(newList: List<Message>) {
-        val diffCallback = DiffUtilCallback(data, newList)
+    fun setData(chat: Chat) {
+        Log.i(TAG, "set Data")
+        this.chat = chat
+        val diffCallback = DiffUtilCallback(data, chat.messages)
         val diffResult = DiffUtil.calculateDiff(diffCallback)
         data.clear()
-        data.addAll(newList)
+        data.addAll(chat.messages)
         diffResult.dispatchUpdatesTo(this)
     }
+
+    fun getDataSize(): Int = data.size
 
     enum class UserType {
         SENDER,
@@ -158,3 +173,5 @@ class ChatAdapter(
         RECEIVER_COMMUNITY
     }
 }
+
+private const val TAG = "ChatAdapter"

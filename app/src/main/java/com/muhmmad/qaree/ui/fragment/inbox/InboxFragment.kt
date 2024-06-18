@@ -29,6 +29,8 @@ class InboxFragment : Fragment() {
         InboxAdapter {
             val bundle = Bundle()
             bundle.putParcelable("chat", it)
+            viewModel.messagesPage = 1
+            viewModel.clearChat()
             findNavController().navigate(R.id.action_inboxFragment_to_chatFragment, bundle)
         }
     }
@@ -71,5 +73,3 @@ class InboxFragment : Fragment() {
         }
     }
 }
-
-private const val TAG = "InboxFragment"

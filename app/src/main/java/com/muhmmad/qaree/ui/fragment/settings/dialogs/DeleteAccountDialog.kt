@@ -1,4 +1,4 @@
-package com.muhmmad.qaree.ui.fragment.settings
+package com.muhmmad.qaree.ui.fragment.settings.dialogs
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.muhmmad.qaree.databinding.DeleteAccountDialogBinding
 import com.muhmmad.qaree.ui.activity.auth.AuthActivity
+import com.muhmmad.qaree.ui.fragment.settings.SettingsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

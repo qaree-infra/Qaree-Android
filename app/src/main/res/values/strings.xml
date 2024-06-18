@@ -230,4 +230,7 @@
     <string name="enter_cvv">Enter CVV</string>
     <string name="enter_valid_cvv">Enter Valid CVV</string>
     <string name="choose_payment_card">Choose Payment Card</string>
+    <string name="english">English</string>
+    <string name="arabic">Arabic</string>
+    <string name="choose_language">Choose Language</string>
 </resources>

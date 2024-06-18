@@ -77,12 +77,10 @@ class CommunityViewModel @Inject constructor(
         else mSocket?.emit(EVENT_GET_ROOMS, JSONObject())
     }
 
-    fun getMessages(roomId: String, type: MessageType = MessageType.UNREAD) {
-        Log.i(TAG, "Page is $messagesPage")
-        if (messagesPage == -1) return
+    fun getMessages(roomId: String, type: MessageType = MessageType.UNREAD, page: Int = 1) {
         mSocket?.emit(
             EVENT_MESSAGE_LIST,
-            JSONObject("{room:$roomId,limit:20,page:$messagesPage,type:${type.name}}")
+            JSONObject("{room:$roomId,limit:20,page:$page,type:${type.name}}")
         )
     }
 
@@ -176,6 +174,14 @@ class CommunityViewModel @Inject constructor(
             val data = Gson().fromJson(response.toString(), Message::class.java)
             //  updateLastMessage(data)
             message.emit(data)
+        }
+    }
+
+    fun clearChat() = viewModelScope.launch {
+        _state.update {
+            it.copy(
+                chat = null
+            )
         }
     }
 

@@ -5,7 +5,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     app:cardCornerRadius="@dimen/_15sdp"
-    tools:context=".ui.fragment.settings.DeleteAccountDialog">
+    tools:context=".ui.fragment.settings.dialogs.DeleteAccountDialog">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

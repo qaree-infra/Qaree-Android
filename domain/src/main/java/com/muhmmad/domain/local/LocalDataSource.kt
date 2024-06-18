@@ -17,6 +17,7 @@ interface LocalDataSource {
     suspend fun getUserId(): String
     suspend fun changeMode(mode: AppMode)
     suspend fun getUiMode(): AppMode
+    suspend fun changeLanguage(lang: Language)
     suspend fun deleteUserData()
     suspend fun getPaymentCards(): List<Card>
     suspend fun deletePaymentCard(card: Card)
