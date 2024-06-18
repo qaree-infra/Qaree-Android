@@ -1,0 +1,65 @@
+package com.muhmmad.qaree.view.dialog
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.muhmmad.qaree.R
+import com.muhmmad.qaree.databinding.EditCardsBottomSheetDialogBinding
+import com.muhmmad.qaree.view.adapters.EditCardsAdapter
+import com.muhmmad.qaree.viewModel.EditPaymentCardsViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+
+@AndroidEntryPoint
+class EditCardsBottomSheetDialogFragment : BottomSheetDialogFragment() {
+    private val binding: EditCardsBottomSheetDialogBinding by lazy {
+        EditCardsBottomSheetDialogBinding.inflate(layoutInflater)
+    }
+
+    private val adapter: EditCardsAdapter by lazy {
+        EditCardsAdapter {
+            viewModel.deleteCard(it)
+        }
+    }
+
+    private val viewModel: EditPaymentCardsViewModel by viewModels()
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View = binding.root
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.apply {
+            viewModel.getCards()
+            lifecycleScope.launch {
+                viewModel.cards.collectLatest {
+                    if (it.isNullOrEmpty()) {
+                        tvNoCards.visibility = View.VISIBLE
+                        rvEditCards.visibility = View.GONE
+                    } else {
+                        adapter.setData(it)
+                        tvNoCards.visibility = View.GONE
+                        rvEditCards.visibility = View.VISIBLE
+                    }
+                }
+            }
+
+            rvEditCards.adapter = adapter
+            llAddCard.setOnClickListener {
+                findNavController().navigate(R.id.action_editCardsBottomSheetDialogFragment_to_addPaymentCardFragment)
+            }
+            tvCancel.setOnClickListener {
+                this@EditCardsBottomSheetDialogFragment.dismiss()
+            }
+        }
+    }
+}

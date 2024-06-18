@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".ui.fragment.edit_profile.EditProfileFragment">
+    tools:context=".view.fragment.EditProfileFragment">
 
     <ImageView
         android:id="@+id/iv_back"

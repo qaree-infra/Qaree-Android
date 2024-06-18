@@ -12,7 +12,7 @@ import com.muhmmad.domain.model.UserData
 import com.muhmmad.domain.remote.GraphQlDataSource
 import com.muhmmad.domain.remote.RetrofitDataSource
 import com.muhmmad.qaree.utils.Constants.GRAPHQL_BASEURL
-import com.muhmmad.qaree.utils.Constants.Retrofit_BASEURL
+import com.muhmmad.qaree.utils.Constants.RETROFIT_BASEURL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -48,7 +48,6 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideRetrofitDataSource(): RetrofitDataSource = RetrofitClient.retrofitDataSource(
-        Retrofit_BASEURL
+        RETROFIT_BASEURL
     )
-
 }

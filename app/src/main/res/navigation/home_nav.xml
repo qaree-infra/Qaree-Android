@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.muhmmad.qaree.ui.fragment.home.HomeFragment"
+        android:name="com.muhmmad.qaree.view.fragment.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home">
         <argument
@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/libraryFragment"
-        android:name="com.muhmmad.qaree.ui.fragment.library.LibraryFragment"
+        android:name="com.muhmmad.qaree.view.fragment.LibraryFragment"
         android:label="fragment_library"
         tools:layout="@layout/fragment_library">
         <argument
@@ -40,7 +40,7 @@
     </fragment>
     <fragment
         android:id="@+id/inboxFragment"
-        android:name="com.muhmmad.qaree.ui.fragment.inbox.InboxFragment"
+        android:name="com.muhmmad.qaree.view.fragment.InboxFragment"
         android:label="fragment_inbox"
         tools:layout="@layout/fragment_inbox">
         <argument
@@ -52,7 +52,7 @@
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.muhmmad.qaree.ui.fragment.search.SearchFragment"
+        android:name="com.muhmmad.qaree.view.fragment.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search">
         <argument
@@ -67,7 +67,7 @@
     </fragment>
     <fragment
         android:id="@+id/notificationFragment"
-        android:name="com.muhmmad.qaree.ui.fragment.notification.NotificationsFragment"
+        android:name="com.muhmmad.qaree.view.fragment.NotificationsFragment"
         android:label="fragment_notification"
         tools:layout="@layout/fragment_notifications">
         <argument
@@ -76,7 +76,7 @@
     </fragment>
     <fragment
         android:id="@+id/shelfFragment"
-        android:name="com.muhmmad.qaree.ui.fragment.shelf.ShelfFragment"
+        android:name="com.muhmmad.qaree.view.fragment.ShelfFragment"
         android:label="fragment_shelf"
         tools:layout="@layout/fragment_shelf">
         <action
@@ -85,7 +85,7 @@
     </fragment>
     <fragment
         android:id="@+id/bookInfoFragment"
-        android:name="com.muhmmad.qaree.ui.fragment.book_info.BookInfoFragment"
+        android:name="com.muhmmad.qaree.view.fragment.BookInfoFragment"
         android:label="fragment_book_info"
         tools:layout="@layout/fragment_book_info">
         <argument
@@ -106,7 +106,7 @@
     </fragment>
     <fragment
         android:id="@+id/categoryFragment"
-        android:name="com.muhmmad.qaree.ui.fragment.category.CategoryFragment"
+        android:name="com.muhmmad.qaree.view.fragment.CategoryFragment"
         android:label="fragment_category"
         tools:layout="@layout/fragment_category">
         <argument
@@ -118,7 +118,7 @@
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.muhmmad.qaree.ui.fragment.profile.ProfileFragment"
+        android:name="com.muhmmad.qaree.view.fragment.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile">
         <argument
@@ -133,7 +133,7 @@
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.muhmmad.qaree.ui.fragment.settings.SettingsFragment"
+        android:name="com.muhmmad.qaree.view.fragment.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings">
         <argument
@@ -157,7 +157,7 @@
     </fragment>
     <fragment
         android:id="@+id/editProfileFragment"
-        android:name="com.muhmmad.qaree.ui.fragment.edit_profile.EditProfileFragment"
+        android:name="com.muhmmad.qaree.view.fragment.EditProfileFragment"
         android:label="fragment_edit_profile"
         tools:layout="@layout/fragment_edit_profile">
         <argument
@@ -175,22 +175,22 @@
     </fragment>
     <dialog
         android:id="@+id/editAvatarDialog"
-        android:name="com.muhmmad.qaree.ui.fragment.edit_profile.EditAvatarDialog"
+        android:name="com.muhmmad.qaree.view.dialog.EditAvatarDialog"
         android:label="EditAvatarDialog"
         tools:layout="@layout/dialog_edit_avatar" />
     <dialog
         android:id="@+id/editNameDialog"
-        android:name="com.muhmmad.qaree.ui.fragment.edit_profile.EditNameDialog"
+        android:name="com.muhmmad.qaree.view.dialog.EditNameDialog"
         android:label="EditNameDialog"
         tools:layout="@layout/dialog_edit_name" />
     <fragment
         android:id="@+id/changePasswordFragment"
-        android:name="com.muhmmad.qaree.ui.fragment.change_password.ChangePasswordFragment"
+        android:name="com.muhmmad.qaree.view.fragment.ChangePasswordFragment"
         android:label="fragment_change_password"
         tools:layout="@layout/fragment_change_password" />
     <dialog
         android:id="@+id/bookInfoDialog"
-        android:name="com.muhmmad.qaree.ui.fragment.book_info.dialogs.BookInfoDialog"
+        android:name="com.muhmmad.qaree.view.dialog.BookInfoDialog"
         android:label="BookInfoDialog"
         tools:layout="@layout/dialog_book_info">
         <action
@@ -199,17 +199,17 @@
     </dialog>
     <dialog
         android:id="@+id/shelfsDialog"
-        android:name="com.muhmmad.qaree.ui.fragment.book_info.dialogs.ShelfsDialog"
+        android:name="com.muhmmad.qaree.view.dialog.ShelfsDialog"
         android:label="dialog_shelfs"
         tools:layout="@layout/dialog_shelfs" />
     <activity
         android:id="@+id/reading_view"
-        android:name="com.muhmmad.qaree.ui.activity.reading_view.ReadingViewActivity"
+        android:name="com.muhmmad.qaree.view.activity.ReadingViewActivity"
         android:label="activity_reading_view"
         tools:layout="@layout/activity_reading_view" />
     <fragment
         android:id="@+id/chatFragment"
-        android:name="com.muhmmad.qaree.ui.fragment.chat.ChatFragment"
+        android:name="com.muhmmad.qaree.view.fragment.ChatFragment"
         android:label="fragment_chat"
         tools:layout="@layout/fragment_chat">
         <argument
@@ -233,7 +233,7 @@
     </fragment>
     <fragment
         android:id="@+id/communityDetailsFragment"
-        android:name="com.muhmmad.qaree.ui.fragment.community_details.CommunityDetailsFragment"
+        android:name="com.muhmmad.qaree.view.fragment.CommunityDetailsFragment"
         android:label="fragment_community_details"
         tools:layout="@layout/fragment_community_details">
         <argument
@@ -248,22 +248,22 @@
     </fragment>
     <dialog
         android:id="@+id/deleteAccountDialog"
-        android:name="com.muhmmad.qaree.ui.fragment.settings.dialogs.DeleteAccountDialog"
+        android:name="com.muhmmad.qaree.view.dialog.DeleteAccountDialog"
         android:label="delete_account_dialog"
         tools:layout="@layout/delete_account_dialog" />
     <dialog
         android:id="@+id/leaveGroupDialog"
-        android:name="com.muhmmad.qaree.ui.fragment.chat.dialogs.LeaveGroupDialog"
+        android:name="com.muhmmad.qaree.view.dialog.LeaveGroupDialog"
         android:label="LeaveGroupDialog"
         tools:layout="@layout/leave_group_dialog" />
     <dialog
         android:id="@+id/deleteChatDialog"
-        android:name="com.muhmmad.qaree.ui.fragment.chat.dialogs.DeleteChatDialog"
+        android:name="com.muhmmad.qaree.view.dialog.DeleteChatDialog"
         android:label="delete_chat_dialog"
         tools:layout="@layout/delete_chat_dialog" />
     <dialog
         android:id="@+id/editCardsBottomSheetDialogFragment"
-        android:name="com.muhmmad.qaree.ui.fragment.settings.dialogs.EditCardsBottomSheetDialogFragment"
+        android:name="com.muhmmad.qaree.view.dialog.EditCardsBottomSheetDialogFragment"
         android:label="EditCardsBottomSheetDialogFragment"
         tools:layout="@layout/edit_cards_bottom_sheet_dialog" >
         <action
@@ -272,12 +272,12 @@
     </dialog>
     <fragment
         android:id="@+id/addPaymentCardFragment"
-        android:name="com.muhmmad.qaree.ui.fragment.add_payment_card.AddPaymentCardFragment"
+        android:name="com.muhmmad.qaree.view.fragment.AddPaymentCardFragment"
         android:label="fragment_add_payment_card"
         tools:layout="@layout/fragment_add_payment_card" />
     <dialog
         android:id="@+id/cardsBottomSheetDialogFragment"
-        android:name="com.muhmmad.qaree.ui.fragment.book_info.dialogs.CardsBottomSheetDialogFragment"
+        android:name="com.muhmmad.qaree.view.fragment.CardsBottomSheetDialogFragment"
         android:label="cards_bottom_sheet_dialog"
         tools:layout="@layout/cards_bottom_sheet_dialog" >
         <action

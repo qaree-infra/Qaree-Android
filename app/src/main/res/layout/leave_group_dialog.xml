@@ -7,7 +7,7 @@
     android:background="@color/white"
     app:cardCornerRadius="@dimen/_20sdp"
     app:cardElevation="@dimen/_10sdp"
-    tools:context=".ui.fragment.chat.dialogs.LeaveGroupDialog">
+    tools:context=".view.dialog.LeaveGroupDialog">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

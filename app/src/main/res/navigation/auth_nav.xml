@@ -6,7 +6,7 @@
     app:startDestination="@id/loginFragment">
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.muhmmad.qaree.ui.fragment.login.LoginFragment"
+        android:name="com.muhmmad.qaree.view.fragment.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login">
         <argument
@@ -21,7 +21,7 @@
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.muhmmad.qaree.ui.fragment.register.RegisterFragment"
+        android:name="com.muhmmad.qaree.view.fragment.RegisterFragment"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register">
         <argument
@@ -36,7 +36,7 @@
     </fragment>
     <fragment
         android:id="@+id/verificationFragment"
-        android:name="com.muhmmad.qaree.ui.fragment.verification.VerificationFragment"
+        android:name="com.muhmmad.qaree.view.fragment.VerificationFragment"
         android:label="fragment_verification"
         tools:layout="@layout/fragment_verification">
         <argument
@@ -54,7 +54,7 @@
     </fragment>
     <fragment
         android:id="@+id/forgetPasswordFragment"
-        android:name="com.muhmmad.qaree.ui.fragment.forget_password.ForgetPasswordFragment"
+        android:name="com.muhmmad.qaree.view.fragment.ForgetPasswordFragment"
         android:label="fragment_forget_password"
         tools:layout="@layout/fragment_forget_password">
         <argument
@@ -66,7 +66,7 @@
     </fragment>
     <fragment
         android:id="@+id/newPasswordFragment"
-        android:name="com.muhmmad.qaree.ui.fragment.new_password.NewPasswordFragment"
+        android:name="com.muhmmad.qaree.view.fragment.NewPasswordFragment"
         android:label="fragment_new_password"
         tools:layout="@layout/fragment_new_password">
         <argument

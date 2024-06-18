@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".ui.fragment.register.RegisterFragment">
+    tools:context=".view.fragment.RegisterFragment">
 
     <TextView
         android:id="@+id/tv_create_account"

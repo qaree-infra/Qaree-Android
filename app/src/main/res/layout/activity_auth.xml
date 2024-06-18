@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".ui.activity.auth.AuthActivity">
+    tools:context=".view.activity.AuthActivity">
 
     <include
         android:id="@+id/app_bar"
