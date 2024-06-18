@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardElevation="@dimen/_10sdp"
-    tools:context=".ui.fragment.settings.dialogs.EditCardsBottomSheetDialogFragment">
+    tools:context=".view.dialog.EditCardsBottomSheetDialogFragment">
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardElevation="@dimen/_10sdp"
-    tools:context=".ui.fragment.settings.dialogs.ChangeLanguageBottomSheetDialogFragment">
+    tools:context=".view.dialog.ChangeLanguageBottomSheetDialogFragment">
 
     <LinearLayout
         android:layout_width="match_parent"

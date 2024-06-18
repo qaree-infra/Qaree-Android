@@ -3,7 +3,7 @@ package com.muhmmad.qaree
 import android.app.Application
 import android.content.res.Configuration
 import com.google.firebase.FirebaseApp
-import com.muhmmad.qaree.ui.activity.base.BaseActivity
+import com.muhmmad.qaree.view.activity.BaseActivity
 import dagger.hilt.android.HiltAndroidApp
 import java.util.Locale
 

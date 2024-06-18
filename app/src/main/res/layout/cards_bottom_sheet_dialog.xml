@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardElevation="@dimen/_10sdp"
-    tools:context=".ui.fragment.book_info.dialogs.CardsBottomSheetDialogFragment">
+    tools:context=".view.fragment.CardsBottomSheetDialogFragment">
 
     <LinearLayout
         android:layout_width="match_parent"

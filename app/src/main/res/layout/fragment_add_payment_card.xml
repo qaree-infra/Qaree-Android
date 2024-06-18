@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:scrollbars="none"
-    tools:context=".ui.fragment.add_payment_card.AddPaymentCardFragment">
+    tools:context=".view.fragment.AddPaymentCardFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

@@ -23,7 +23,7 @@
         android:localeConfig="@xml/locales_config"
         tools:targetApi="34">
         <activity
-            android:name=".ui.activity.on_boarding.OnBoardingActivity"
+            android:name=".view.activity.OnBoardingActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Splash">
@@ -34,11 +34,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activity.auth.AuthActivity"
+            android:name=".view.activity.AuthActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.activity.home.HomeActivity"
+            android:name=".view.activity.HomeActivity"
             android:exported="true"
             android:launchMode="singleTop"
             android:screenOrientation="portrait">
@@ -51,7 +51,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activity.reading_view.ReadingViewActivity"
+            android:name=".view.activity.ReadingViewActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 

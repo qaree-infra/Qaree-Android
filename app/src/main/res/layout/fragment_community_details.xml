@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/community_bg"
-    tools:context=".ui.fragment.community_details.CommunityDetailsFragment">
+    tools:context=".view.fragment.CommunityDetailsFragment">
 
     <ImageView
         android:id="@+id/iv_back"

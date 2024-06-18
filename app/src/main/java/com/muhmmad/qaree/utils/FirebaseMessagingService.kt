@@ -10,7 +10,7 @@ import androidx.core.app.NotificationCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.muhmmad.qaree.R
-import com.muhmmad.qaree.ui.activity.home.HomeActivity
+import com.muhmmad.qaree.view.activity.HomeActivity
 
 class FirebaseMessagingService : FirebaseMessagingService() {
     override fun onMessageReceived(message: RemoteMessage) {

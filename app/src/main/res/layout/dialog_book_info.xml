@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     app:cardCornerRadius="@dimen/_10sdp"
     app:cardElevation="@dimen/_10sdp"
-    tools:context=".ui.fragment.book_info.dialogs.BookInfoDialog">
+    tools:context=".view.dialog.BookInfoDialog">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
